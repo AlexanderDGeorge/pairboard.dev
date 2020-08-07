@@ -4,14 +4,15 @@ export const lightTheme: Theme = {
     black: "#000000",
     verydark: "#222222",
     dark: "#555555",
-    medium: "#777777",
-    accent: "#999999",
-    light: "#bbbbbb",
+    medium: "#888888",
+    accent: "#aaaaaa",
+    light: "#cccccc",
     verylight: "#dddddd",
     white: "#ffffff",
-    darkblue: "rgb(55, 89, 169)",
-    blue: "rgb(101, 132, 205)",
-    lightblue: "rgb(193, 205, 235)",
+    orange: "#FF890A",
+    yellow: "#FCBF49",
+    green: "#06D6A0",
+    blue: "#009FF5",
 };
 
 export const darkTheme: Theme = {
@@ -23,7 +24,8 @@ export const darkTheme: Theme = {
     light: "#555555",
     verylight: "#222222",
     white: "#000000",
-    darkblue: "rgb(193, 205, 235)",
-    blue: "rgb(101, 132, 205)",
-    lightblue: "rgb(55, 89, 169)",
+    orange: "#FF890A",
+    yellow: "#FCBF49",
+    green: "#06D6A0",
+    blue: "#009FF5",
 };

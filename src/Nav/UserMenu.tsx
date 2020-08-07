@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useUserContext } from "../State/UserContext";
-import { signOut } from "../firebase/auth";
-import DarkModeSelect from "../Components/DarkModeSelect";
+import DarkModeSelect from "./DarkModeSelect";
+import Score from "./Score";
+import Account from "./Account";
 
 export default function UserMenu() {
     const currentUser = useUserContext();
@@ -23,7 +24,8 @@ function UserMenuDropdown() {
     return (
         <UserMenuDropdownContainer>
             <DarkModeSelect />
-            <LogoutButton onClick={signOut}>Logout</LogoutButton>
+            <Score />
+            <Account />
         </UserMenuDropdownContainer>
     );
 }
@@ -45,21 +47,6 @@ const UserMenuDropdownContainer = styled.div`
     position: absolute;
     left: -110px;
     background-color: ${(props) => props.theme.verylight};
+    box-shadow: 0 2px 2px 2px ${(props) => props.theme.accent};
     color: ${(props) => props.theme.verydark};
-`;
-
-const LogoutButton = styled.div`
-    height: 35px;
-    width: 100%;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: ${(props) => props.theme.light};
-    color: ${(props) => props.theme.dark};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    &:hover {
-        color: ${(props) => props.theme.black};
-    }
 `;

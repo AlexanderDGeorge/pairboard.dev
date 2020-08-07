@@ -1,26 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useSpring, animated } from "react-spring";
 import { updateDarkModeSetting } from "../firebase/user";
 import { useUserContext } from "../State/UserContext";
 
 export default () => {
     const currentUser = useUserContext();
-    const [selected, setSelected] = useState();
 
     return (
         <>
             <H4>Dark Mode</H4>
             <DarkModeSelect>
-                <DarkModeOption onClick={() => updateDarkModeSetting("light")}>
+                <DarkModeOption
+                    style={
+                        currentUser?.darkMode === "light"
+                            ? { color: "black" }
+                            : {}
+                    }
+                    onClick={() => updateDarkModeSetting("light")}
+                >
                     light
                 </DarkModeOption>
                 <div className="div"></div>
-                <DarkModeOption onClick={() => updateDarkModeSetting("auto")}>
+                <DarkModeOption
+                    style={
+                        currentUser?.darkMode === "auto"
+                            ? { color: "black" }
+                            : {}
+                    }
+                    onClick={() => updateDarkModeSetting("auto")}
+                >
                     auto
                 </DarkModeOption>
                 <div className="div"></div>
-                <DarkModeOption onClick={() => updateDarkModeSetting("dark")}>
+                <DarkModeOption
+                    style={
+                        currentUser?.darkMode === "dark"
+                            ? { color: "black" }
+                            : {}
+                    }
+                    onClick={() => updateDarkModeSetting("dark")}
+                >
                     dark
                 </DarkModeOption>
             </DarkModeSelect>
@@ -35,6 +54,7 @@ const H4 = styled.h4`
 
 const DarkModeSelect = styled.div`
     height: 35px;
+    margin-bottom: 10px;
     border-radius: 5px;
     padding: 10px;
     background-color: ${(props) => props.theme.light};
@@ -52,7 +72,7 @@ const DarkModeOption = styled.div`
     height: 30px;
     width: 45px;
     border-radius: 10px;
-    color: ${(props) => props.theme.verydark};
+    color: ${(props) => props.theme.dark};
     display: flex;
     align-items: center;
     justify-content: center;

@@ -10,11 +10,9 @@ declare module "styled-components" {
         light: string;
         verylight: string;
         white: string;
-        darkblue?: string;
-        blue?: string;
-        lightblue?: string;
-        darkorange?: string;
-        orange?: string;
-        lightorange?: string;
+        orange: string;
+        yellow: string;
+        green: string;
+        blue: string;
     }
 }

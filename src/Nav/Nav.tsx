@@ -1,33 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import UserMenu from "./UserMenu";
-import { useHistory } from "react-router";
+import TopBar from "./Headers";
+import LinkBar from "./LinkBar";
+import SearchBar from "./SearchBar";
 
-export default function Nav() {
-    const history = useHistory();
-
+export default () => {
     return (
-        <NavContainer>
-            <h2 onClick={() => history.replace("/")}>{"<PairBoard.io/>"}</h2>
-            <UserMenu />
-        </NavContainer>
+        <Nav>
+            <TopBar />
+            <LinkBar />
+            <SearchBar />
+        </Nav>
     );
-}
+};
 
-const NavContainer = styled.div`
-    position: relative;
-    height: 100px;
+const Nav = styled.header`
     width: 100%;
-    padding: 0 5%;
-    background-color: ${(props) => props.theme.verydark};
-    color: ${(props) => props.theme.light};
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    > h2 {
-        cursor: pointer;
-        &:hover {
-            color: ${(props) => props.theme.white};
-        }
-    }
 `;
