@@ -17,6 +17,10 @@ export default function Routing() {
             </BrowserRouter>
         );
     } else {
-        return <LandingPage />;
+        return (
+            <BrowserRouter>
+                <LandingPage />
+            </BrowserRouter>
+        );
     }
 }

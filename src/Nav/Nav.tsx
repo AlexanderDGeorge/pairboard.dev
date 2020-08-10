@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import TopBar from "./Headers";
+import Header from "./Header";
 import LinkBar from "./LinkBar";
-import SearchBar from "./SearchBar";
+import SearchBar from "../Search/SearchBar";
 
 export default () => {
     return (
         <Nav>
-            <TopBar />
+            <Header />
             <LinkBar />
             <SearchBar />
         </Nav>

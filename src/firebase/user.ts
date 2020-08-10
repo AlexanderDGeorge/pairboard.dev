@@ -5,11 +5,13 @@ export interface User {
     photoURL: string;
     email: string;
     username?: string;
-    darkMode: string;
     status: string;
     score: number;
+    search?: string;
+    experience: string;
     sessions: Array<string>;
     friends: Array<string>;
+    darkMode: string;
 }
 
 export async function fetchUserDocument(uid: User["uid"]) {

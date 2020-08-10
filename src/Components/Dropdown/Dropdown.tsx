@@ -2,13 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 interface DropdownProps {
+    label: string;
     setValue: Function;
-    options: Array<string>;
+    options: Array<string | number>;
 }
 
 export default (props: DropdownProps) => {
     return (
         <Dropdown>
+            <h4>{props.label}</h4>
             <select
                 name="options"
                 id="options"
@@ -19,32 +21,33 @@ export default (props: DropdownProps) => {
                         {option}
                     </option>
                 ))}
-                {/* <option onClick={e => props.setValue(e.target.value)} value="JavaScript">JavaScript</option>
-                <option onClick={e => props.setValue(e.target.value)} value="Python">Python</option>
-                <option onClick={e => props.setValue(e.target.value)} value="Ruby">Ruby</option>
-                <option onClick={e => props.setValue(e.target.value)} value="C++">C++</option> */}
             </select>
         </Dropdown>
     );
 };
 
-const Dropdown = styled.form`
-    height: 60px;
-    width: 100px;
-    border: 1px dotted ${(props) => props.theme.accent};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    &:hover {
-        border: 1px solid ${(props) => props.theme.black};
-    }
-    > label {
-        font-weight: 300;
+const Dropdown = styled.div`
+    margin: 0 60px 30px 0;
+    > h4 {
+        margin-bottom: 10px;
+        font-weight: 100;
+        color: ${(props) => props.theme.verydark};
     }
     > select {
-        height: 100%;
-        width: 100%;
+        height: 60px;
+        width: 120px;
+        border: 1px solid ${(props) => props.theme.verydark};
         font-weight: 300;
+        background-color: ${(props) => props.theme.white};
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s linear;
+        &:hover {
+            transition: all 0.2s linear;
+            border: 1px solid ${(props) => props.theme.accent};
+        }
     }
 `;

@@ -21,11 +21,13 @@ export function useUserContext() {
                                     photoURL: data.photoURL,
                                     email: data.email,
                                     username: data.username,
+                                    experience: data.experience,
                                     darkMode: data.darkMode,
                                     status: data.status,
                                     score: data.score,
                                     sessions: data.sessions,
                                     friends: data.friends,
+                                    search: data.search,
                                 });
                             }
                         }

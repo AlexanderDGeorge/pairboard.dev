@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { signOut } from "../firebase/auth";
 
 export default () => {
     return (
         <LinkBar>
-            <Link to="/">Find a Pair</Link>
             <a href="https://github.com/AlexanderDGeorge/PairBoarding">
                 Github
             </a>
+            <button onClick={signOut}>Log Out</button>
         </LinkBar>
     );
 };
@@ -22,21 +23,24 @@ const LinkBar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    > a {
+    > a,
+    button {
         height: 100%;
         width: 200px;
         text-decoration: none;
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: transparent;
         color: ${(props) => props.theme.verydark};
         font-weight: 300;
-        border-bottom: 3px solid transparent;
-        transition: all 0.25s ease-out;
+        font-size: 1em;
+        outline: none;
+        cursor: pointer;
+        transition: color 0.2s ease-out;
         &:hover {
-            color: ${(props) => props.theme.black};
-            border-bottom: 3px solid ${(props) => props.theme.black};
-            transition: all 0.5s ease-in;
+            color: ${(props) => props.theme.accent};
+            transition: color 0.2s ease-in;
         }
     }
 `;

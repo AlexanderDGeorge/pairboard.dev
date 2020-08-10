@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 export default () => {
     return (
-        <TopBar>
+        <Header>
             <Link to="/">pairboard.io</Link>
-        </TopBar>
+        </Header>
     );
 };
 
-const TopBar = styled.div`
+const Header = styled.header`
     height: 80px;
     width: 100%;
     background-color: ${(props) => props.theme.verydark};
@@ -24,9 +24,10 @@ const TopBar = styled.div`
         font-size: 2em;
         font-weight: 100;
         color: ${(props) => props.theme.verylight};
-        transition: color 0.25s linear;
+        transition: all 0.25s linear;
         &:hover {
-            transition: color 0.25s linear;
+            transition: all 0.25s linear;
+            font-size: 2.01em;
             color: ${(props) => props.theme.white};
         }
     }
