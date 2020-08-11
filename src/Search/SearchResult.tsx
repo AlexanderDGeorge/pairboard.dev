@@ -42,17 +42,17 @@ export default (props: { result: Search }) => {
 
 const SearchResult = styled.div`
     height: 140px;
-    min-width: 300px;
-    width: 50%;
+    min-width: 50%;
+    width: 100%;
     border: 1px solid ${(props) => props.theme.accent};
     border-radius: 5px;
     display: flex;
-    transition: all 0.2s linear;
+    transition: box-shadow 0.2s linear;
     cursor: pointer;
     overflow: hidden;
     &:hover {
-        transition: all 0.2s linear;
-        box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
+        transition: box-shadow 0.2s linear;
+        box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
     }
     > img {
         height: 100%;

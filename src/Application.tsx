@@ -1,16 +1,24 @@
-import React from "react";
+import React, { createContext } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Routing from "./Routing";
 import { useThemeContext } from "./State/ThemeContext";
 import { GlobalStyle } from "./styled-components/globalStyle";
+import { useUserContext } from "./State/UserContext";
+import { User } from "./firebase/user";
+
+export const UserContext = createContext<User | undefined>(undefined);
 
 export default function Application() {
+    const currentUser = useUserContext();
+
     return (
         <ApplicationContainer>
-            <ThemeProvider theme={useThemeContext()}>
-                <GlobalStyle />
-                <Routing />
-            </ThemeProvider>
+            <UserContext.Provider value={currentUser}>
+                <ThemeProvider theme={useThemeContext(currentUser)}>
+                    <GlobalStyle />
+                    <Routing />
+                </ThemeProvider>
+            </UserContext.Provider>
         </ApplicationContainer>
     );
 }

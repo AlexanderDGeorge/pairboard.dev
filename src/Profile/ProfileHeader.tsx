@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { useUserContext } from "../State/UserContext";
-import DarkModeToggle from "./Components/DarkModeToggle";
+import { UserContext } from "../Application";
 
 export default () => {
-    const currentUser = useUserContext();
+    const currentUser = useContext(UserContext);
 
     return (
         <ProfileHeader>
@@ -17,7 +16,6 @@ export default () => {
                 </h3>
                 <h3>{currentUser?.bio}</h3>
                 <h3>{currentUser?.links}</h3>
-                <DarkModeToggle />
             </div>
         </ProfileHeader>
     );

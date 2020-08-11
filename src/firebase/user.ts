@@ -3,6 +3,7 @@ import { firestore, auth } from "./firebase";
 export interface User {
     uid: string;
     bio: string;
+    company: string;
     darkMode: string;
     email: string;
     experience: string;

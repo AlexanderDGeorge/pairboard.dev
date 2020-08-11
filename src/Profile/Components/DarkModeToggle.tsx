@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useSpring, animated } from "react-spring";
 import { updateDarkModeSetting } from "../../firebase/user";
-import { useUserContext } from "../../State/UserContext";
+import { UserContext } from "../../Application";
 
 const moveHover = (value: string) => {
     if (value === "Light") {
@@ -21,7 +21,7 @@ const moveHover = (value: string) => {
 };
 
 export default () => {
-    const currentUser = useUserContext();
+    const currentUser = useContext(UserContext);
     const [darkMode, setDarkMode] = useState(currentUser?.darkMode || "Auto");
     const [hover, setHover] = useSpring(() => moveHover(darkMode));
 
@@ -55,6 +55,7 @@ const DarkModeToggle = styled.div`
         font-weight: 100;
     }
     > h3 {
+        background-color: transparent;
         margin-bottom: 20px;
         font-weight: 100;
         cursor: pointer;
@@ -63,7 +64,7 @@ const DarkModeToggle = styled.div`
         height: 42px;
         width: 100%;
         position: absolute;
-        background-color: ${(props) => props.theme.orange};
+        background-color: ${(props) => props.theme.green};
         opacity: 0.3;
     }
 `;

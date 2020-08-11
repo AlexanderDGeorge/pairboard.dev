@@ -27,7 +27,7 @@ export default (props: DropdownProps) => {
 };
 
 const Dropdown = styled.div`
-    margin: 0 60px 30px 0;
+    margin: 0 2% 2% 0;
     > h4 {
         margin-bottom: 10px;
         font-weight: 100;

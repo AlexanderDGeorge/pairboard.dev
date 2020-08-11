@@ -126,7 +126,7 @@ const Search = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
+    box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
     > div {
         max-width: 80%;
         display: flex;

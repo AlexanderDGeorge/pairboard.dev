@@ -1,8 +1,7 @@
-import { useUserContext } from "./UserContext";
 import { lightTheme, darkTheme } from "../styled-components/theme";
+import { User } from "../firebase/user";
 
-export function useThemeContext() {
-    const currentUser = useUserContext();
+export function useThemeContext(currentUser?: User) {
     const hour = new Date().getHours();
 
     if (currentUser?.darkMode === "Auto") {

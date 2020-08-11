@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import LandingPage from "./Pages/Landing";
 import HomePage from "./Pages/Home";
 import Profile from "./Pages/Profile";
-import { useUserContext } from "./State/UserContext";
+import { UserContext } from "./Application";
 
 export default function Routing() {
-    const currentUser = useUserContext();
+    const currentUser = useContext(UserContext);
     console.log(currentUser);
 
     if (currentUser) {

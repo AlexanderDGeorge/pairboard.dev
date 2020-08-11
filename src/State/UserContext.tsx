@@ -19,10 +19,11 @@ export function useUserContext() {
                                 setCurrentUser({
                                     uid: snapshot.id,
                                     bio: data.bio,
-                                    friends: data.friends,
+                                    company: data.company,
                                     darkMode: data.darkMode,
                                     email: data.email,
                                     experience: data.experience,
+                                    friends: data.friends,
                                     links: data.links,
                                     photoURL: data.photoURL,
                                     score: data.score,
