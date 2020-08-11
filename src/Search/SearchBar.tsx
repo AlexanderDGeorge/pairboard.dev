@@ -79,18 +79,7 @@ export default () => {
                         <Dropdown
                             label="Score"
                             setValue={setScore}
-                            options={[
-                                0,
-                                100,
-                                200,
-                                300,
-                                400,
-                                500,
-                                600,
-                                700,
-                                800,
-                                900,
-                            ]}
+                            options={[0, 1, 2, 3, 4, 5]}
                         />
                         <Dropdown
                             label="Experience"
@@ -128,6 +117,7 @@ const Search = styled.div`
     justify-content: space-between;
     box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
     > div {
+        width: 100%;
         max-width: 80%;
         display: flex;
         flex-wrap: wrap;

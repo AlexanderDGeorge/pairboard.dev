@@ -42,8 +42,9 @@ export default (props: { result: Search }) => {
 
 const SearchResult = styled.div`
     height: 140px;
-    min-width: 50%;
-    width: 100%;
+    min-width: 350px;
+    width: calc(50% - 5px);
+    margin-bottom: 10px;
     border: 1px solid ${(props) => props.theme.accent};
     border-radius: 5px;
     display: flex;
@@ -58,6 +59,7 @@ const SearchResult = styled.div`
         height: 100%;
         width: auto;
         margin-right: 10px;
+        background-color: ${(props) => props.theme.verydark};
     }
 `;
 

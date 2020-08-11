@@ -49,4 +49,7 @@ const Results = styled.div`
     padding: 5%;
     display: flex;
     flex-wrap: wrap;
+    *:nth-of-type(odd) {
+        margin-right: 10px;
+    }
 `;

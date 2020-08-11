@@ -22,32 +22,30 @@ const Loading = styled.div`
 
 const load = keyframes`
     from {
-        transform: translateX(100px);
+        transform: translateX(0vw);
     }
 
     to {
-        transform: translateX(-50px);
+        transform: translateX(100vw);
     }
 `;
 
 const LoadingBar = styled.div`
-    position: absolute;
-    top: 200%;
-    /* left: 0; */
+    position: relative;
     height: 50px;
     min-width: 300px;
     width: 80%;
+    margin: 5%;
     border-radius: 50px;
     background-color: transparent;
     overflow: hidden;
+    background-image: ${(props) =>
+        `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue})`};
     > div {
-        height: 110vh;
-        width: 100vw;
+        height: 100%;
+        width: 3%;
         position: absolute;
-        top: -50vh;
-        animation: ${load} 3s linear 0s infinite alternate;
-        background-color: transparent;
-        background-image: ${(props) =>
-            `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue})`};
+        animation: ${load} 3s linear infinite;
+        background-color: rgba(250, 250, 250, 0.5);
     }
 `;
