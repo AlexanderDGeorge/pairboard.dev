@@ -16,14 +16,14 @@ export const lightTheme: Theme = {
 };
 
 export const darkTheme: Theme = {
-    black: "#000000",
-    verydark: "#222222",
-    dark: "#444444",
-    medium: "#555555",
-    accent: "#777777",
-    light: "#999999",
-    verylight: "#bbbbbb",
-    white: "#dddddd",
+    black: "#ffffff",
+    verydark: "#dddddd",
+    dark: "#cccccc",
+    medium: "#aaaaaa",
+    accent: "#888888",
+    light: "#555555",
+    verylight: "#222222",
+    white: "#000000",
     orange: "#FF890A",
     yellow: "#FCBF49",
     green: "#06D6A0",

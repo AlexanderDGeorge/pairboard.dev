@@ -7,7 +7,8 @@ export interface User {
     email: string;
     experience: string;
     friends: Array<string>;
-    links: Array<string>;
+    links?: Array<string>;
+    location?: string;
     photoURL: string;
     score: number;
     search?: string;
