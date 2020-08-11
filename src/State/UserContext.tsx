@@ -26,12 +26,13 @@ export function useUserContext() {
                                     email: data.email,
                                     experience: data.experience,
                                     friends: data.friends,
-                                    links: data.links,
+                                    location: data.location,
                                     photoURL: data.photoURL,
                                     score: data.score,
                                     search: data.search,
                                     sessions: data.sessions,
                                     status: data.status,
+                                    streak: data.streak,
                                     username: data.username,
                                 });
                             }

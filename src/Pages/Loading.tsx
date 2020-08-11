@@ -20,19 +20,20 @@ const Loading = styled.div`
     align-items: center;
 `;
 
-const rotate = keyframes`
+const load = keyframes`
     from {
-        transform: rotate(0deg);
+        transform: translateX(100px);
     }
 
     to {
-        transform: rotate(360deg);
+        transform: translateX(-50px);
     }
 `;
 
 const LoadingBar = styled.div`
     position: absolute;
     top: 200%;
+    /* left: 0; */
     height: 50px;
     min-width: 300px;
     width: 80%;
@@ -41,12 +42,12 @@ const LoadingBar = styled.div`
     overflow: hidden;
     > div {
         height: 110vh;
-        width: 110vh;
+        width: 100vw;
         position: absolute;
         top: -50vh;
-        animation: ${rotate} 3s linear infinite;
+        animation: ${load} 3s linear 0s infinite alternate;
         background-color: transparent;
         background-image: ${(props) =>
-            `linear-gradient(0deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue})`};
+            `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue})`};
     }
 `;

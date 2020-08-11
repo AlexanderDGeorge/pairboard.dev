@@ -8,13 +8,13 @@ export interface User {
     email: string;
     experience: string;
     friends: Array<string>;
-    links?: Array<string>;
     location?: string;
     photoURL: string;
     score: number;
     search?: string;
     sessions: Array<string>;
     status: string;
+    streak: number;
     username?: string;
 }
 
@@ -22,7 +22,6 @@ interface UpdateData {
     bio: string;
     company?: string;
     username: string;
-    links?: Array<string>;
     location?: string;
 }
 

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../Application";
+import { GoBriefcase, GoLocation } from "react-icons/go";
 
 export default () => {
     const currentUser = useContext(UserContext);
@@ -9,13 +10,21 @@ export default () => {
         <ProfileHeader>
             <img src={currentUser?.photoURL} alt="" />
             <div>
-                <h1>{currentUser?.username || "Username"}</h1>
+                <h1>{currentUser?.username || currentUser?.email}</h1>
                 <h3>
                     {currentUser?.experience} | {currentUser?.score}
                 </h3>
-                <h3>{currentUser?.company || "company"}</h3>
                 <h3>{currentUser?.bio}</h3>
-                <h3>{currentUser?.links}</h3>
+                {currentUser?.company ? (
+                    <h3>
+                        <GoBriefcase /> {currentUser?.company}
+                    </h3>
+                ) : null}
+                {currentUser?.location ? (
+                    <h3>
+                        <GoLocation /> {currentUser?.location}
+                    </h3>
+                ) : null}
             </div>
         </ProfileHeader>
     );
@@ -37,7 +46,12 @@ const ProfileHeader = styled.div`
         flex-direction: column;
         > h1,
         h3 {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
+            > svg {
+                margin-right: 10px;
+            }
         }
     }
 `;
