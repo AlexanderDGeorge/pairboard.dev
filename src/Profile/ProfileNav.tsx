@@ -6,7 +6,7 @@ export default () => {
     return (
         <ProfileNav>
             <Link to="/profile/stats">Stats</Link>
-            <Link to="/profile/stats">Settings</Link>
+            <Link to="/profile/settings">Settings</Link>
         </ProfileNav>
     );
 };

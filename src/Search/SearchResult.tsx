@@ -21,12 +21,12 @@ export default (props: { result: Search }) => {
             <SearchResult>
                 <img src={user.photoURL} alt="" />
                 <ResultInfo>
-                    <h3>{user.username || user.email}</h3>
+                    <h4>{user.username || user.email}</h4>
                     <p>
                         {user.experience} | {user.score}
                     </p>
                     <p>{difficulty}</p>
-                    <p style={{ fontWeight: 400 }}>{language}</p>
+                    <h4>{language}</h4>
                     <OrangeTag>{tag}</OrangeTag>
                 </ResultInfo>
             </SearchResult>
@@ -68,10 +68,6 @@ const ResultInfo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    > h3 {
-        font-size: 1.3em;
-        font-weight: 200;
-    }
     > p {
         font-weight: 100;
     }

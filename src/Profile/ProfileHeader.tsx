@@ -9,7 +9,14 @@ export default () => {
         <ProfileHeader>
             <img src={currentUser?.photoURL} alt="" />
             <div>
-                <h2>{currentUser?.username || currentUser?.email}</h2>
+                <h1>username</h1>
+                <h3>{currentUser?.username || currentUser?.email}</h3>
+                <h3>Bio</h3>
+                <h3>Github Link</h3>
+                <h3>Other Links</h3>
+                <h3>
+                    {currentUser?.experience} | {currentUser?.score}
+                </h3>
             </div>
         </ProfileHeader>
     );
@@ -29,5 +36,9 @@ const ProfileHeader = styled.div`
     > div {
         display: flex;
         flex-direction: column;
+        > h1,
+        h3 {
+            margin-bottom: 20px;
+        }
     }
 `;

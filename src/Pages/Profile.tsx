@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import ProfileHeader from "../Profile/ProfileHeader";
-import ProfileStats from "../Profile/ProfileStats";
-import ProfileNav from "../Profile/ProfileNav";
 import Nav from "../Nav/Nav";
+import ProfileNav from "../Profile/ProfileNav";
+import ProfileHeader from "../Profile/ProfileHeader";
+import ProfileRouter from "../Profile/ProfileRouter";
 
 export default () => {
     return (
@@ -11,7 +11,7 @@ export default () => {
             <Nav />
             <ProfileNav />
             <ProfileHeader />
-            <ProfileStats />
+            <ProfileRouter />
         </Profile>
     );
 };

@@ -9,7 +9,7 @@ export default () => {
             <a href="https://github.com/AlexanderDGeorge/PairBoarding">
                 Github
             </a>
-            <Link to={`/profile`}>Profile</Link>
+            <Link to={`/profile/stats`}>Profile</Link>
             <button onClick={signOut}>Log Out</button>
         </LinkBar>
     );
