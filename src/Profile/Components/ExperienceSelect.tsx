@@ -7,15 +7,15 @@ import { updateExperienceLevel } from "../../firebase/user";
 const moveHover = (value: string) => {
     switch (value) {
         case "Student":
-            return { top: 100 };
+            return { top: 92 };
         case "Entry":
-            return { top: 142 };
+            return { top: 134 };
         case "Junior":
-            return { top: 184 };
+            return { top: 176 };
         case "Senior":
-            return { top: 226 };
+            return { top: 208 };
         default:
-            return { top: 58 };
+            return { top: 50 };
     }
 };
 
@@ -38,7 +38,7 @@ export default () => {
 
     return (
         <ExperienceSelect>
-            <h1>Select Experience Level</h1>
+            <h2>Select Experience Level</h2>
             <Option value="Beginner" />
             <Option value="Student" />
             <Option value="Entry" />

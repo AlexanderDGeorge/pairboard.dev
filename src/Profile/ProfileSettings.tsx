@@ -27,11 +27,11 @@ export default () => {
             {changes ? (
                 <button onClick={handleUpdate}>Save Changes</button>
             ) : null}
-            <Column>
+            <Column style={{ marginRight: 5 }}>
                 <DarkModeToggle />
                 <ExperienceSelect />
             </Column>
-            <Column>
+            <Column style={{ marginLeft: 5 }}>
                 <BioEdit value={bio} setValue={setBio} />
                 <ChangeUsername value={username} setValue={setUsername} />
                 <AddCompany value={company} setValue={setCompany} />
@@ -70,10 +70,10 @@ const ProfileSettings = styled.form`
 
 const Column = styled.div`
     min-width: 300px;
-    width: 50%;
+    width: calc(50% - 5px);
     > * {
         margin-bottom: 2%;
-        > h1 {
+        > h2 {
             margin-bottom: 20px;
             font-weight: 100;
         }

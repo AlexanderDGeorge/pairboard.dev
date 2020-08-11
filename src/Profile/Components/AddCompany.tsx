@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default (props: { value: string; setValue: Function }) => {
     return (
         <AddCompany>
-            <h1>Where Do You Work?</h1>
+            <h2>Where Do You Work?</h2>
             <input
                 type="text"
                 value={props.value}

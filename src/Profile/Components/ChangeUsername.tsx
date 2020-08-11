@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default (props: { value: string; setValue: Function }) => {
     return (
         <ChangeUsername>
-            <h1>Change Username</h1>
+            <h2>Change Username</h2>
             <input
                 type="text"
                 onChange={(e) => props.setValue(e.target.value)}

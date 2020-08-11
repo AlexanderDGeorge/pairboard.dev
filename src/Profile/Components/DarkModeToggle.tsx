@@ -7,15 +7,15 @@ import { UserContext } from "../../Application";
 const moveHover = (value: string) => {
     if (value === "Light") {
         return {
-            top: 58,
+            top: 50,
         };
     } else if (value === "Auto") {
         return {
-            top: 100,
+            top: 92,
         };
     } else {
         return {
-            top: 142,
+            top: 134,
         };
     }
 };
@@ -37,7 +37,7 @@ export default () => {
 
     return (
         <DarkModeToggle>
-            <h1>Dark Mode</h1>
+            <h2>Dark Mode</h2>
             <Option value="Light" />
             <Option value="Auto" />
             <Option value="Dark" />

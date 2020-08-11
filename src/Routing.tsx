@@ -5,6 +5,7 @@ import LandingPage from "./Pages/Landing";
 import HomePage from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import Loading from "./Pages/Loading";
+import User from "./Pages/User";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
@@ -14,6 +15,7 @@ export default function Routing() {
         return (
             <BrowserRouter>
                 <Route path="/profile" component={Profile} />
+                <Route path="/user" component={User} />
                 <Route exact path="/" component={HomePage} />
             </BrowserRouter>
         );

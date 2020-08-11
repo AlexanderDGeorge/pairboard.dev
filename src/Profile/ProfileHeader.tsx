@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../Application";
 import { GoBriefcase, GoLocation } from "react-icons/go";
+import { User } from "../firebase/user";
 
-export default () => {
-    const currentUser = useContext(UserContext);
+export default (props: { user?: User }) => {
+    const currentUser = props.user || useContext(UserContext);
 
     return (
         <ProfileHeader>

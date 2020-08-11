@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { User } from "../firebase/user";
 import { firestore, auth } from "../firebase/firebase";
 
-export function useUserContext() {
+export default () => {
     const [currentUser, setCurrentUser] = useState<User | undefined | null>(
         undefined
     );
@@ -27,6 +27,7 @@ export function useUserContext() {
                                     experience: data.experience,
                                     friends: data.friends,
                                     location: data.location,
+                                    links: data.links,
                                     photoURL: data.photoURL,
                                     score: data.score,
                                     search: data.search,
@@ -47,4 +48,4 @@ export function useUserContext() {
         };
     }, []);
     return currentUser;
-}
+};

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { fetchUserDocument } from "../firebase/user";
 import { OrangeTag } from "./Components/Tags";
 import { Search } from "../firebase/search";
+import { Link } from "react-router-dom";
 
 export default (props: { result: Search }) => {
     const [user, setUser] = useState<any>(undefined);
@@ -21,7 +22,9 @@ export default (props: { result: Search }) => {
             <SearchResult>
                 <img src={user.photoURL} alt="" />
                 <ResultInfo>
-                    <h4>{user.username || user.email}</h4>
+                    <Link to={`user/${user.username}`}>
+                        {user.username || user.email}
+                    </Link>
                     <p>
                         {user.experience} | {user.score}
                     </p>
@@ -70,6 +73,12 @@ const ResultInfo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    > a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
     > p {
         font-weight: 100;
     }

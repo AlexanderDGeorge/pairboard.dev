@@ -8,6 +8,7 @@ export interface User {
     email: string;
     experience: string;
     friends: Array<string>;
+    links: Array<string>;
     location?: string;
     photoURL: string;
     score: number;
@@ -31,6 +32,20 @@ export async function fetchUserDocument(uid: User["uid"]) {
     try {
         const userDoc = await userRef(uid).get();
         return { ...userDoc.data() };
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+export async function fetchUserDocFromUsername(username: User["uid"]) {
+    try {
+        const userRef = firestore()
+            .collection("users")
+            .where("username", "==", username)
+            .limit(1);
+        const userCollection = await userRef.get();
+        const userDoc = userCollection.docs[0].data();
+        return { ...userDoc };
     } catch (error) {
         console.error(error.message);
     }
