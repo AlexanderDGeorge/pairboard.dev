@@ -1,17 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 
-export default () => {
-    const bio = useRef("");
-
+export default (props: { value: string; setValue: Function }) => {
     return (
         <BioEdit>
             <h1>Edit Bio</h1>
             <textarea
-                onChange={(e) => (bio.current = e.target.value)}
+                onChange={(e) => props.setValue(e.target.value)}
+                value={props.value}
                 cols={30}
                 rows={5}
                 maxLength={140}
+                placeholder="Insert Bio Here..."
             ></textarea>
         </BioEdit>
     );

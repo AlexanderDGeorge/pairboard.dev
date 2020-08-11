@@ -12,6 +12,7 @@ export default () => {
 };
 
 const ProfileNav = styled.div`
+    z-index: 1;
     height: 60px;
     width: 100%;
     padding: 0 5%;
@@ -20,6 +21,7 @@ const ProfileNav = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
     > a,
     button {
         height: 100%;
@@ -40,5 +42,4 @@ const ProfileNav = styled.div`
             transition: color 0.2s ease-in;
         }
     }
-    box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
 `;

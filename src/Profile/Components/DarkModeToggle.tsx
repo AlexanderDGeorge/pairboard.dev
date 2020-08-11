@@ -50,16 +50,6 @@ const DarkModeToggle = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    > h1 {
-        margin-bottom: 20px;
-        font-weight: 100;
-    }
-    > h3 {
-        background-color: transparent;
-        margin-bottom: 20px;
-        font-weight: 100;
-        cursor: pointer;
-    }
     > div {
         height: 42px;
         width: 100%;

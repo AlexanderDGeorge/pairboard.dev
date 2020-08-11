@@ -10,10 +10,10 @@ export default () => {
             <img src={currentUser?.photoURL} alt="" />
             <div>
                 <h1>{currentUser?.username || "Username"}</h1>
-                <h3>{currentUser?.email}</h3>
                 <h3>
                     {currentUser?.experience} | {currentUser?.score}
                 </h3>
+                <h3>{currentUser?.company || "company"}</h3>
                 <h3>{currentUser?.bio}</h3>
                 <h3>{currentUser?.links}</h3>
             </div>
@@ -26,8 +26,8 @@ const ProfileHeader = styled.div`
     padding: 5%;
     display: flex;
     > img {
-        height: 250px;
-        width: 250px;
+        height: 200px;
+        width: 200px;
         border-radius: 50%;
         margin-right: 10%;
         border: 1px solid ${(props) => props.theme.light};
