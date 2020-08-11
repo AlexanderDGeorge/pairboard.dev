@@ -1,21 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { signOut } from "../firebase/auth";
 
 export default () => {
     return (
-        <LinkBar>
-            <a href="https://github.com/AlexanderDGeorge/PairBoarding">
-                Github
-            </a>
-            <Link to={`/profile`}>Profile</Link>
-            <button onClick={signOut}>Log Out</button>
-        </LinkBar>
+        <ProfileNav>
+            <Link to="/profile/stats">Stats</Link>
+            <Link to="/profile/stats">Settings</Link>
+        </ProfileNav>
     );
 };
 
-const LinkBar = styled.div`
+const ProfileNav = styled.div`
     height: 60px;
     width: 100%;
     padding: 0 5%;
@@ -44,4 +40,5 @@ const LinkBar = styled.div`
             transition: color 0.2s ease-in;
         }
     }
+    box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
 `;

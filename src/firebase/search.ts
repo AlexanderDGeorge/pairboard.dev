@@ -1,14 +1,18 @@
 import { auth, firestore } from "./firebase";
 
-export interface Search extends SearchParams {
+export interface Search {
+    language: string;
+    difficulty: string;
+    tag: string;
     user: string;
 }
 
 export interface SearchParams {
     language: string;
     difficulty: string;
-    tag?: string;
+    tag: string;
     score: number;
+    experience: string;
 }
 
 export const createSearch = async (searchParams: SearchParams) => {

@@ -9,10 +9,10 @@ export default () => {
     const [difficulty, setDifficulty] = useState("Any");
     const [tag, setTag] = useState("Any");
     const [score, setScore] = useState(0);
-    const [experience, setExperience] = useState("Beginner");
+    const [experience, setExperience] = useState("Any");
 
     const handleSearch = async () => {
-        await createSearch({ language, difficulty, tag, score });
+        await createSearch({ language, difficulty, tag, score, experience });
     };
 
     return (
@@ -42,14 +42,7 @@ export default () => {
                 <Dropdown
                     label="Difficulty"
                     setValue={setDifficulty}
-                    options={[
-                        "Any",
-                        "Beginner",
-                        "Easy",
-                        "Medium",
-                        "Hard",
-                        "Expert",
-                    ]}
+                    options={["Any", "Easy", "Medium", "Hard"]}
                 />
                 <Dropdown
                     label="Tag"
@@ -57,28 +50,61 @@ export default () => {
                     options={[
                         "Any",
                         "Arrays",
-                        "Interviews",
-                        "Data Structures",
+                        "Artificial Intelligence",
                         "Binary Search",
+                        "Bit Manipulation",
+                        "Data Structures",
+                        "Dynamic Programming",
+                        "Geometry",
+                        "Graphs",
+                        "Hash Table",
+                        "Heaps",
+                        "Interviews",
+                        "Linked List",
+                        "Machine Learning",
+                        "Maps",
+                        "Math",
+                        "Pointers",
+                        "Queues",
+                        "Recursion",
+                        "Stacks",
+                        "Strings",
+                        "Trees",
+                        "Sorting",
+                        "Other",
                     ]}
                 />
-                <Dropdown
-                    label="Score"
-                    setValue={setScore}
-                    options={[0, 100, 200, 300, 400, 500, 600, 700, 800, 900]}
-                />
                 {open ? (
-                    <Dropdown
-                        label="Experience"
-                        setValue={setExperience}
-                        options={[
-                            "Beginner",
-                            "Student",
-                            "Entry",
-                            "Junior",
-                            "Senior",
-                        ]}
-                    />
+                    <>
+                        <Dropdown
+                            label="Score"
+                            setValue={setScore}
+                            options={[
+                                0,
+                                100,
+                                200,
+                                300,
+                                400,
+                                500,
+                                600,
+                                700,
+                                800,
+                                900,
+                            ]}
+                        />
+                        <Dropdown
+                            label="Experience"
+                            setValue={setExperience}
+                            options={[
+                                "Any",
+                                "Beginner",
+                                "Student",
+                                "Entry",
+                                "Junior",
+                                "Senior",
+                            ]}
+                        />
+                    </>
                 ) : null}
             </div>
             <button onClick={handleSearch}>Search</button>

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Search } from "../firebase/search";
 import { fetchUserDocument } from "../firebase/user";
 import { OrangeTag } from "../Components/Dropdown/Tags";
+import { Search } from "../firebase/search";
 
-export default (props: Search) => {
+export default (props: { result: Search }) => {
     const [user, setUser] = useState<any>(undefined);
+    const { language, difficulty, tag } = props.result;
 
     useEffect(() => {
         (async () => {
-            const userDoc = await fetchUserDocument(props.user);
+            const userDoc = await fetchUserDocument(props.result.user);
             console.log(userDoc);
             setUser(userDoc);
         })();
-    }, [props.user]);
+    }, [props.result.user]);
 
     if (user) {
         return (
@@ -21,10 +22,12 @@ export default (props: Search) => {
                 <img src={user.photoURL} alt="" />
                 <ResultInfo>
                     <h3>{user.username || user.email}</h3>
-                    <p style={{ fontWeight: 600 }}>{props.language}</p>
-                    <p>{props.difficulty}</p>
-                    <p>{props.score}</p>
-                    <OrangeTag>{props.tag}</OrangeTag>
+                    <p>
+                        {user.experience} | {user.score}
+                    </p>
+                    <p>{difficulty}</p>
+                    <p style={{ fontWeight: 400 }}>{language}</p>
+                    <OrangeTag>{tag}</OrangeTag>
                 </ResultInfo>
             </SearchResult>
         );
