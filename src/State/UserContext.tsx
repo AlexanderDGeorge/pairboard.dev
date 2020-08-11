@@ -3,7 +3,9 @@ import { User } from "../firebase/user";
 import { firestore, auth } from "../firebase/firebase";
 
 export function useUserContext() {
-    const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
+    const [currentUser, setCurrentUser] = useState<User | undefined | null>(
+        undefined
+    );
 
     useEffect(() => {
         let unsubscribe: Function;
@@ -35,6 +37,8 @@ export function useUserContext() {
                             }
                         }
                     });
+            } else {
+                setCurrentUser(null);
             }
         });
         return () => {

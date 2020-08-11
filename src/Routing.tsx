@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { UserContext } from "./Application";
 import LandingPage from "./Pages/Landing";
 import HomePage from "./Pages/Home";
 import Profile from "./Pages/Profile";
-import { UserContext } from "./Application";
+import Loading from "./Pages/Loading";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
@@ -16,10 +17,16 @@ export default function Routing() {
                 <Route exact path="/" component={HomePage} />
             </BrowserRouter>
         );
-    } else {
+    } else if (currentUser === null) {
         return (
             <BrowserRouter>
                 <LandingPage />
+            </BrowserRouter>
+        );
+    } else {
+        return (
+            <BrowserRouter>
+                <Loading />
             </BrowserRouter>
         );
     }

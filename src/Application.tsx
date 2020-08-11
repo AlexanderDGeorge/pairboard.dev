@@ -6,7 +6,7 @@ import { GlobalStyle } from "./styled-components/globalStyle";
 import { useUserContext } from "./State/UserContext";
 import { User } from "./firebase/user";
 
-export const UserContext = createContext<User | undefined>(undefined);
+export const UserContext = createContext<User | undefined | null>(undefined);
 
 export default function Application() {
     const currentUser = useUserContext();
