@@ -2,16 +2,18 @@ import { firestore, auth } from "./firebase";
 
 export interface User {
     uid: string;
-    photoURL: string;
+    bio: string;
+    darkMode: string;
     email: string;
-    username?: string;
-    status: string;
+    experience: string;
+    friends: Array<string>;
+    links: Array<string>;
+    photoURL: string;
     score: number;
     search?: string;
-    experience: string;
     sessions: Array<string>;
-    friends: Array<string>;
-    darkMode: string;
+    status: string;
+    username?: string;
 }
 
 export async function fetchUserDocument(uid: User["uid"]) {

@@ -18,16 +18,18 @@ export function useUserContext() {
                             if (data) {
                                 setCurrentUser({
                                     uid: snapshot.id,
-                                    photoURL: data.photoURL,
-                                    email: data.email,
-                                    username: data.username,
-                                    experience: data.experience,
-                                    darkMode: data.darkMode,
-                                    status: data.status,
-                                    score: data.score,
-                                    sessions: data.sessions,
+                                    bio: data.bio,
                                     friends: data.friends,
+                                    darkMode: data.darkMode,
+                                    email: data.email,
+                                    experience: data.experience,
+                                    links: data.links,
+                                    photoURL: data.photoURL,
+                                    score: data.score,
                                     search: data.search,
+                                    sessions: data.sessions,
+                                    status: data.status,
+                                    username: data.username,
                                 });
                             }
                         }

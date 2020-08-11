@@ -4,6 +4,7 @@ export async function handleAuth() {
     try {
         const { user } = await auth.signInWithPopup(githubProvider);
         if (user) {
+            console.log(user);
             createUserDocument(user);
         } else {
             // handle error
@@ -20,20 +21,25 @@ async function createUserDocument(user: firebase.User) {
         console.log("User document already exists");
     } else {
         console.log("Creating user document");
+        console.log(user);
         const { uid, photoURL, email } = user;
         userRef.set({
             uid,
-            photoURL,
-            email,
+            bio: "insert bio here...",
             darkMode: "auto",
-            status: "online",
-            score: 0,
-            sessions: [],
+            email,
+            experience: "Beginner",
             friends: [],
+            links: [],
+            photoURL,
+            score: 0,
+            search: "",
+            sessions: [],
+            status: "online",
         });
     }
 }
 
-export function signOut() {
-    auth.signOut();
+export async function signOut() {
+    await auth.signOut();
 }

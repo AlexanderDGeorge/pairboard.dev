@@ -9,14 +9,13 @@ export default () => {
         <ProfileHeader>
             <img src={currentUser?.photoURL} alt="" />
             <div>
-                <h1>username</h1>
-                <h3>{currentUser?.username || currentUser?.email}</h3>
-                <h3>Bio</h3>
-                <h3>Github Link</h3>
-                <h3>Other Links</h3>
+                <h1>{currentUser?.username}</h1>
+                <h3>{currentUser?.email}</h3>
                 <h3>
                     {currentUser?.experience} | {currentUser?.score}
                 </h3>
+                <h3>{currentUser?.bio}</h3>
+                <h3>{currentUser?.links}</h3>
             </div>
         </ProfileHeader>
     );
