@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Dropdown from "../Components/Dropdown/Dropdown";
+import Dropdown from "./Components/Dropdown";
 import { createSearch } from "../firebase/search";
 
 export default () => {

@@ -17,10 +17,11 @@ export interface User {
     username?: string;
 }
 
+const userRef = (uid: User["uid"]) => firestore().collection("users").doc(uid);
+
 export async function fetchUserDocument(uid: User["uid"]) {
-    const userRef = firestore().collection("users").doc(uid);
     try {
-        const userDoc = await userRef.get();
+        const userDoc = await userRef(uid).get();
         return { ...userDoc.data() };
     } catch (error) {
         console.error(error.message);

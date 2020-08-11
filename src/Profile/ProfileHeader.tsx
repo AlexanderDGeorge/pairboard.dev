@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useUserContext } from "../State/UserContext";
+import DarkModeToggle from "./Components/DarkModeToggle";
 
 export default () => {
     const currentUser = useUserContext();
@@ -9,13 +10,14 @@ export default () => {
         <ProfileHeader>
             <img src={currentUser?.photoURL} alt="" />
             <div>
-                <h1>{currentUser?.username}</h1>
+                <h1>{currentUser?.username || "Username"}</h1>
                 <h3>{currentUser?.email}</h3>
                 <h3>
                     {currentUser?.experience} | {currentUser?.score}
                 </h3>
                 <h3>{currentUser?.bio}</h3>
                 <h3>{currentUser?.links}</h3>
+                <DarkModeToggle />
             </div>
         </ProfileHeader>
     );

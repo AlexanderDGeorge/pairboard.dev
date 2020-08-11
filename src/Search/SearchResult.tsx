@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { fetchUserDocument } from "../firebase/user";
-import { OrangeTag } from "../Components/Dropdown/Tags";
+import { OrangeTag } from "./Components/Tags";
 import { Search } from "../firebase/search";
 
 export default (props: { result: Search }) => {
