@@ -69,9 +69,14 @@ const ProfileSettings = styled.form`
 `;
 
 const Column = styled.div`
-    min-width: 300px;
-    width: calc(50% - 5px);
+    @media screen and (max-width: 500px) {
+        width: 100%;
+    }
+    @media screen and (min-width: 501px) {
+        width: calc(50% - 5px);
+    }
     > * {
+        width: 100%;
         margin-bottom: 2%;
         > h2 {
             margin-bottom: 20px;

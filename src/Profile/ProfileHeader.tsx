@@ -36,6 +36,10 @@ const ProfileHeader = styled.div`
     padding: 5%;
     display: flex;
     > img {
+        @media screen and (max-width: 500px) {
+            height: 100px;
+            width: 100px;
+        }
         height: 200px;
         width: 200px;
         border-radius: 50%;

@@ -43,7 +43,7 @@ async function createUserDocument(user: firebase.User) {
 export async function signOut() {
     const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
     userRef.update({
-        search: undefined,
+        search: "",
     });
     await auth.signOut();
 }

@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import NestedNav from "./Components/NestedNav";
 
 export default () => {
     return (
         <ProfileNav>
             <Link to="/profile/stats">Stats</Link>
-            <Link to="/profile/settings">Settings</Link>
+            <NestedNav />
         </ProfileNav>
     );
 };
@@ -22,7 +23,8 @@ const ProfileNav = styled.div`
     align-items: center;
     justify-content: space-evenly;
     box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
-    > a,
+    a,
+    div,
     button {
         height: 100%;
         width: 200px;

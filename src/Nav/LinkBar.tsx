@@ -6,10 +6,12 @@ import { signOut } from "../firebase/auth";
 export default () => {
     return (
         <LinkBar>
-            <a href="https://github.com/AlexanderDGeorge/PairBoarding">
+            {/* <a href="https://github.com/AlexanderDGeorge/PairBoarding">
                 Github
-            </a>
-            <Link to={`/profile/stats`}>Profile</Link>
+            </a> */}
+            <Link to="/">Home</Link>
+            <Link to="/profile/stats">Profile</Link>
+            <Link to="/pairs">Pairs</Link>
             <button onClick={signOut}>Log Out</button>
         </LinkBar>
     );

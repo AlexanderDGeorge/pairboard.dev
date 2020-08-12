@@ -6,6 +6,7 @@ import HomePage from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import Loading from "./Pages/Loading";
 import User from "./Pages/User";
+import Pairs from "./Pages/Pairs";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
@@ -16,6 +17,7 @@ export default function Routing() {
             <BrowserRouter>
                 <Route path="/profile" component={Profile} />
                 <Route path="/user" component={User} />
+                <Route path="/pairs" component={Pairs} />
                 <Route exact path="/" component={HomePage} />
             </BrowserRouter>
         );
