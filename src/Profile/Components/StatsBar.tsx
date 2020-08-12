@@ -30,14 +30,18 @@ const StatsBar = styled.div`
     align-items: center;
     margin-bottom: 10px;
     > h3 {
-        min-width: 20%;
-        width: 20%;
-        max-width: 20%;
-        margin-right: 10px;
+        @media screen and (max-width: 500px) {
+            width: 100px;
+        }
+        width: 200px;
+        margin-right: 5%;
     }
     > div {
+        @media screen and (max-width: 500px) {
+            max-width: calc(95% - 140px);
+        }
         height: 50px;
-        max-width: 90%;
+        max-width: calc(95% - 240px);
         margin-right: 10px;
         background-color: transparent;
         background-image: ${(props) =>

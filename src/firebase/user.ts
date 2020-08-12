@@ -8,7 +8,7 @@ export interface User {
     email: string;
     experience: string;
     friends: Array<string>;
-    links: Array<string>;
+    links: UserLinks;
     location?: string;
     photoURL: string;
     score: number;
@@ -19,11 +19,19 @@ export interface User {
     username?: string;
 }
 
+interface UserLinks {
+    github?: string;
+    linkedin?: string;
+    portfolio?: string;
+    other?: string;
+}
+
 interface UpdateData {
     bio: string;
     company?: string;
     username: string;
     location?: string;
+    links?: UserLinks;
 }
 
 const userRef = (uid: User["uid"]) => firestore().collection("users").doc(uid);

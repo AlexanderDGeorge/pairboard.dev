@@ -9,6 +9,7 @@ export default (props: { user?: User }) => {
 
     return (
         <ProfileStats>
+            <h1>Stats</h1>
             <StatsBar value={currentUser?.score} max={5} label="Score" />
             <StatsBar
                 value={currentUser?.sessions.length}
@@ -27,4 +28,11 @@ export default (props: { user?: User }) => {
 const ProfileStats = styled.div`
     width: 100%;
     padding: 2% 5%;
+    > h1 {
+        width: 100%;
+        padding: 2%;
+        border-bottom: 1px solid ${(props) => props.theme.accent};
+        margin-bottom: 5%;
+        text-align: center;
+    }
 `;

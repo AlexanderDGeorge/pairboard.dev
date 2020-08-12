@@ -12,8 +12,6 @@ export default () => {
         setOpen(!open);
     };
 
-    console.log(openLink);
-
     function SubLink(props: { label: string }) {
         return (
             <StyledSubLink

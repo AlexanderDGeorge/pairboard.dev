@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { signOut } from "../firebase/auth";
+import { UserContext } from "../Application";
 
 export default () => {
+    const currentUser = useContext(UserContext);
+
     return (
         <LinkBar>
-            {/* <a href="https://github.com/AlexanderDGeorge/PairBoarding">
-                Github
-            </a> */}
             <Link to="/">Home</Link>
             <Link to="/profile/stats">Profile</Link>
             <Link to="/pairs">Pairs</Link>
-            <button onClick={signOut}>Log Out</button>
+            <button onClick={async () => await signOut(currentUser)}>
+                Log Out
+            </button>
         </LinkBar>
     );
 };

@@ -5,6 +5,7 @@ import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
 import ProfileHeader from "../Profile/ProfileHeader";
 import ProfileStats from "../Profile/ProfileStats";
+import Loading from "./Loading";
 
 export default () => {
     const pathname = useLocation().pathname.slice(6);
@@ -17,8 +18,6 @@ export default () => {
         })();
     }, [pathname]);
 
-    // setUser(await fetchUserDocFromUsername(pathname));
-
     console.log(user);
 
     if (user) {
@@ -30,7 +29,7 @@ export default () => {
             </StyledUser>
         );
     } else {
-        return null;
+        return <Loading />;
     }
 };
 

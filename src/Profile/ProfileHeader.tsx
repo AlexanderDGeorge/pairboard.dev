@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../Application";
-import { GoBriefcase, GoLocation } from "react-icons/go";
+import { FaBriefcase, FaCouch } from "react-icons/fa";
 import { User } from "../firebase/user";
 
 export default (props: { user?: User }) => {
@@ -18,15 +18,16 @@ export default (props: { user?: User }) => {
                 <h3>{currentUser?.bio}</h3>
                 {currentUser?.company ? (
                     <h3>
-                        <GoBriefcase /> {currentUser?.company}
+                        <FaBriefcase /> {currentUser?.company}
                     </h3>
                 ) : null}
                 {currentUser?.location ? (
                     <h3>
-                        <GoLocation /> {currentUser?.location}
+                        <FaCouch /> {currentUser?.location}
                     </h3>
                 ) : null}
             </div>
+            <div></div>
         </ProfileHeader>
     );
 };
@@ -42,11 +43,12 @@ const ProfileHeader = styled.div`
         }
         height: 200px;
         width: 200px;
-        border-radius: 50%;
-        margin-right: 10%;
+        border-radius: 5px;
+        margin-right: 5%;
         border: 1px solid ${(props) => props.theme.light};
     }
     > div {
+        width: 40%;
         display: flex;
         flex-direction: column;
         > h1,

@@ -1,4 +1,5 @@
 import { auth, firestore, githubProvider } from "./firebase";
+import { User } from "./user";
 
 export async function handleAuth() {
     try {
@@ -40,9 +41,14 @@ async function createUserDocument(user: firebase.User) {
     }
 }
 
-export async function signOut() {
-    const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
-    userRef.update({
+export async function signOut(user?: User | null) {
+    if (!user) return;
+    if (user.search) {
+        const searchRef = firestore().collection("searches").doc(user.search);
+        await searchRef.delete();
+    }
+    const userRef = firestore().collection("users").doc(user.uid);
+    await userRef.update({
         search: "",
     });
     await auth.signOut();

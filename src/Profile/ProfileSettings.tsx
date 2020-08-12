@@ -19,11 +19,17 @@ export default () => {
 
     function handleUpdate() {
         setChanges(false);
-        updateUserDoc({ company, username, bio, location });
+        updateUserDoc({
+            company,
+            username,
+            bio,
+            location,
+        });
     }
 
     return (
         <ProfileSettings onChange={() => setChanges(true)}>
+            <h1>Settings</h1>
             {changes ? (
                 <button onClick={handleUpdate}>Save Changes</button>
             ) : null}
@@ -47,6 +53,13 @@ const ProfileSettings = styled.form`
     padding: 2% 5%;
     display: flex;
     flex-wrap: wrap;
+    > h1 {
+        width: 100%;
+        padding: 2%;
+        border-bottom: 1px solid ${(props) => props.theme.accent};
+        margin-bottom: 5%;
+        text-align: center;
+    }
     > button {
         z-index: 1;
         position: absolute;
