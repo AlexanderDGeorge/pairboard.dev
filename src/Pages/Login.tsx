@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../Nav/Header";
 import LoginForm from "../Auth/LoginForm";
+import { handleAuth } from "../firebase/auth";
 
 export default () => {
     return (
@@ -10,7 +11,7 @@ export default () => {
             <Login>
                 <h1>Login</h1>
                 <LoginForm />
-                <button>Login with Github</button>
+                <button onClick={handleAuth}>Login with Github</button>
             </Login>
         </>
     );
@@ -26,5 +27,6 @@ const Login = styled.div`
         padding: 2%;
         font-size: 1em;
         outline: none;
+        cursor: pointer;
     }
 `;

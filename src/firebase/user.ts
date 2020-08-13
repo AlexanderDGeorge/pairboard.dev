@@ -11,12 +11,13 @@ export interface User {
     links: UserLinks;
     location?: string;
     photoURL: string;
+    ratingMatrix?: Array<string>;
     score: number;
     search?: string;
     sessions: Array<string>;
     status: string;
     streak: number;
-    username?: string;
+    username: string;
 }
 
 interface UserLinks {

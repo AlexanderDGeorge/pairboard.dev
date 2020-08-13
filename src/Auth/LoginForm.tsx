@@ -41,7 +41,6 @@ export default () => {
 const LoginForm = styled(Form)`
     min-height: 50%;
     min-width: 50%;
-    padding: 5% 0;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
