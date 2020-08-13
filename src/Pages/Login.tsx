@@ -4,18 +4,13 @@ import Header from "../Nav/Header";
 
 export default () => {
     return (
-        <Signup>
+        <Login>
             <Header />
-            <SignupForm></SignupForm>
-        </Signup>
+        </Login>
     );
 };
 
-const Signup = styled.div`
+const Login = styled.div`
     height: 100%;
     width: 100%;
-`;
-
-const SignupForm = styled.form`
-    display: flex;
 `;

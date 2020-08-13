@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
-export default (ref: any, action: Function) =>
+export default (ref, action) =>
     useEffect(() => {
-        const handleClickOutside = (event: Event) => {
+        const handleClickOutside = (event) => {
             if (ref.current && !ref.current.contains(event.target)) {
+                event.stopPropagation();
                 action(event);
             }
         };
