@@ -53,11 +53,11 @@ const MiddleDiv = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 15px -8px ${(props) => props.theme.black};
+        box-shadow: 0 4px 15px -4px ${(props) => props.theme.black};
         transition: all 0.5s linear;
         &:hover {
             transition: all 0.5s linear;
-            box-shadow: 0 4px 20px -4px ${(props) => props.theme.black};
+            box-shadow: 0 4px 20px 0px ${(props) => props.theme.black};
         }
     }
 `;

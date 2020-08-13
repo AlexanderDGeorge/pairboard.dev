@@ -35,6 +35,7 @@ const StatsBar = styled.div`
         }
         width: 200px;
         margin-right: 5%;
+        text-align: right;
     }
     > div {
         @media screen and (max-width: 500px) {

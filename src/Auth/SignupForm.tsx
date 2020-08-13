@@ -22,7 +22,12 @@ export default () => {
         >
             <SignupForm className="login-form">
                 <label htmlFor="username">Username</label>
-                <Field name="username" type="text" placeholder="Hackman" />
+                <Field
+                    name="username"
+                    type="text"
+                    placeholder="Hackman"
+                    autoFocus
+                />
                 <label htmlFor="name">Name</label>
                 <Field name="name" type="text" placeholder="Alexander George" />
                 <label htmlFor="email">Email</label>
@@ -46,9 +51,11 @@ const SignupForm = styled(Form)`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    background-color: transparent;
     > label {
         font-size: 1em;
         margin-top: 20px;
+        background-color: transparent;
     }
     > input {
         margin-top: 5px;

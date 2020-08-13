@@ -5,7 +5,6 @@ interface SignUpData {
     username: string;
     name: string;
     email: string;
-    experience: string;
     password: string;
 }
 

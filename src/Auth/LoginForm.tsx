@@ -46,13 +46,28 @@ const LoginForm = styled(Form)`
     justify-content: space-evenly;
     > label {
         font-size: 1em;
+        margin-top: 20px;
     }
-    > input,
-    button {
-        margin: 10px 0 5% 0;
+    > input {
+        margin-top: 5px;
         border: 1px solid ${(props) => props.theme.accent};
         padding: 2%;
         font-size: 1em;
         outline: none;
+    }
+    > button {
+        margin-top: 20px;
+        border: 1px solid ${(props) => props.theme.accent};
+        padding: 2%;
+        font-size: 1em;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.2s linear;
+        &:hover {
+            transition: all 0.5s linear;
+            border: 1px solid transparent;
+            color: ${(props) => props.theme.white};
+            background-color: ${(props) => props.theme.verydark};
+        }
     }
 `;
