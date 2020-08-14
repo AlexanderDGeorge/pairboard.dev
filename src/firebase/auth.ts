@@ -22,6 +22,10 @@ export async function handleAuth() {
     }
 }
 
+export async function login(email: User["email"], password: string) {
+    await auth.signInWithEmailAndPassword(email, password);
+}
+
 export async function signUp(signupData: SignUpData) {
     try {
         const { user } = await auth.createUserWithEmailAndPassword(
@@ -54,7 +58,7 @@ async function createUserDocument(
         userRef.set({
             uid,
             bio: "insert bio here...",
-            darkMode: "auto",
+            darkMode: "Auto",
             email,
             experience: "Beginner",
             friends: [],
@@ -71,13 +75,13 @@ async function createUserDocument(
 
 export async function signOut(user?: User | null) {
     if (!user) return;
-    if (user.search) {
-        const searchRef = firestore().collection("searches").doc(user.search);
-        await searchRef.delete();
-    }
-    const userRef = firestore().collection("users").doc(user.uid);
-    await userRef.update({
-        search: "",
-    });
+    // if (user.search) {
+    //     const searchRef = firestore().collection("searches").doc(user.search);
+    //     await searchRef.delete();
+    // }
+    // const userRef = firestore().collection("users").doc(user.uid);
+    // await userRef.update({
+    //     search: "",
+    // });
     await auth.signOut();
 }

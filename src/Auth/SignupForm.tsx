@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
+import { signUp } from "../firebase/auth";
 
-function loginUser(values: any) {
+async function signupUser(values: any) {
     console.log(values);
+    await signUp(values);
 }
 
 export default () => {
@@ -17,7 +19,7 @@ export default () => {
                 password: "",
             }}
             onSubmit={(values) => {
-                loginUser(values);
+                signupUser(values);
             }}
         >
             <SignupForm className="login-form">
@@ -30,6 +32,7 @@ export default () => {
                 />
                 <label htmlFor="name">Name</label>
                 <Field name="name" type="text" placeholder="Alexander George" />
+                <button>sign up with github</button>
                 <label htmlFor="email">Email</label>
                 <Field name="email" type="email" placeholder="alex@email.com" />
                 <label htmlFor="password">Password</label>
@@ -38,8 +41,7 @@ export default () => {
                     type="password"
                     placeholder="super secret password"
                 />
-                <button type="submit">Sign Up</button>
-                <button>Sign Up with Github</button>
+                <button type="submit">sign up</button>
             </SignupForm>
         </Formik>
     );

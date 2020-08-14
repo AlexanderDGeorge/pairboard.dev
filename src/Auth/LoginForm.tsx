@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
+import { login } from "../firebase/auth";
 
-function loginUser(values: any) {
+async function loginUser(values: any) {
     console.log(values);
+    await login(values.email, values.password);
 }
 
 export default () => {
@@ -56,7 +58,7 @@ const LoginForm = styled(Form)`
         outline: none;
     }
     > button {
-        margin-top: 20px;
+        margin-top: 30px;
         border: 1px solid ${(props) => props.theme.accent};
         padding: 2%;
         font-size: 1em;

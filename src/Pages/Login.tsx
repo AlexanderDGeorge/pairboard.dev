@@ -12,6 +12,7 @@ export default () => {
             <Login>
                 <h1>Login</h1>
                 <LoginForm />
+                <h2>OR</h2>
                 <button onClick={handleAuth}>Login with Github</button>
             </Login>
             <Footer />
@@ -38,5 +39,13 @@ const Login = styled.div`
             color: ${(props) => props.theme.white};
             background-color: ${(props) => props.theme.verydark};
         }
+    }
+    > h2 {
+        margin-top: 20px;
+        width: 100%;
+        color: ${(props) => props.theme.dark};
+        font-weight: 500;
+        font-size: 1.3em;
+        text-align: center;
     }
 `;
