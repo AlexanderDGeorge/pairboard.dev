@@ -48,14 +48,14 @@ const SearchResult = styled.div`
     min-width: 350px;
     width: calc(50% - 5px);
     margin-bottom: 10px;
-    border: 1px solid ${(props) => props.theme.accent};
-    border-radius: 5px;
+    border: 1px solid ${(props) => props.theme.verydark};
     display: flex;
-    transition: box-shadow 0.2s linear;
+    transition: all 0.2s linear;
     cursor: pointer;
     overflow: hidden;
     &:hover {
-        transition: box-shadow 0.2s linear;
+        transition: all 0.2s linear;
+        border: 1px solid ${(props) => props.theme.accent};
         box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
     }
     > img {

@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default () => {
-    return <Header to="/">pairboard.io</Header>;
+    return (
+        <Header to="/">
+            pairboard.io <sup>alpha</sup>
+        </Header>
+    );
 };
 
 const Header = styled(Link)`
@@ -16,13 +20,19 @@ const Header = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2em;
+    font-size: 2.4em;
     font-weight: 100;
     color: ${(props) => props.theme.verylight};
     transition: all 0.25s linear;
+    text-decoration: none;
     &:hover {
         transition: all 0.25s linear;
-        font-size: 2.01em;
+        font-size: 2.41em;
         color: ${(props) => props.theme.white};
+    }
+    > sup {
+        background-color: transparent;
+        color: ${(props) => props.theme.light};
+        font-size: 0.5em;
     }
 `;

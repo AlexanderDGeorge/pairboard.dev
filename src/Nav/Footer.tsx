@@ -14,11 +14,15 @@ export default () => {
             <div>
                 <h3>Support</h3>
             </div>
+            <section>
+                &copy; 2020 | Alexander George. All rights reserved.
+            </section>
         </Footer>
     );
 };
 
 const Footer = styled.footer`
+    position: relative;
     height: 200px;
     width: 100%;
     padding: 5%;
@@ -35,6 +39,12 @@ const Footer = styled.footer`
         min-width: 300px;
         display: flex;
         flex-direction: column;
+    }
+    > section {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: ${(props) => props.theme.accent};
     }
     h3 {
         margin-bottom: 15px;

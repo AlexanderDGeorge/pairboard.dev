@@ -1,41 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import SearchResult from "../Search/SearchResult";
-import { firestore } from "../firebase/firebase";
 import Nav from "../Nav/Nav";
 import SearchBar from "../Search/SearchBar";
+import { fetchPaginatedSection, Search } from "../firebase/search";
+import { SearchContext } from "../Application";
 
 export default () => {
-    const [results, setResults] = useState<any>(undefined);
+    const currentSearch = useContext(SearchContext);
+    const [searchResults, setSearchResults] = useState<any>([]);
+    const [currentPage, setCurrentPage] = useState<any>(undefined);
+    const limit = 4;
 
     useEffect(() => {
+        console.log(currentSearch);
         (async () => {
-            const snapshot = await firestore().collection("searches").get();
-            const data = snapshot.docs.map((doc) => doc.data());
-            setResults(data);
+            const fetchedPage = await fetchPaginatedSection(
+                limit,
+                currentSearch
+            );
+            setSearchResults(fetchedPage);
         })();
-    }, []);
+    }, [currentSearch]);
 
-    if (results) {
-        return (
-            <Home>
-                <Nav />
-                <SearchBar />
-                <Results>
-                    {results.map((result: any, i: number) => (
-                        <SearchResult result={result} key={i} />
-                    ))}
-                </Results>
-            </Home>
-        );
-    } else {
-        return (
-            <Home>
-                <Nav />
-                <SearchBar />
-            </Home>
-        );
-    }
+    useEffect(() => {
+        async function handleScroll(e: any) {
+            const position = e.target.scrollTop;
+            const height = e.target.scrollHeight - e.target.clientHeight;
+            console.log(position);
+            console.log(height);
+        }
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    });
+
+    console.log(searchResults);
+
+    return (
+        <Home>
+            <Nav />
+            <SearchBar />
+            <SearchResults>
+                {searchResults.map((searchResult: any, i: number) => (
+                    <SearchResult result={searchResult} key={i} />
+                ))}
+            </SearchResults>
+        </Home>
+    );
 };
 
 const Home = styled.div`
@@ -44,7 +57,7 @@ const Home = styled.div`
     background-color: ${(props) => props.theme.white};
 `;
 
-const Results = styled.div`
+const SearchResults = styled.div`
     width: 100%;
     padding: 5%;
     display: flex;

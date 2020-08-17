@@ -47,32 +47,7 @@ export default () => {
                 <Dropdown
                     label="Tag"
                     setValue={setTag}
-                    options={[
-                        "Any",
-                        "Arrays",
-                        "Artificial Intelligence",
-                        "Binary Search",
-                        "Bit Manipulation",
-                        "Data Structures",
-                        "Dynamic Programming",
-                        "Geometry",
-                        "Graphs",
-                        "Hash Table",
-                        "Heaps",
-                        "Interviews",
-                        "Linked List",
-                        "Machine Learning",
-                        "Maps",
-                        "Math",
-                        "Pointers",
-                        "Queues",
-                        "Recursion",
-                        "Stacks",
-                        "Strings",
-                        "Trees",
-                        "Sorting",
-                        "Other",
-                    ]}
+                    options={["Any", "Data Structures", "Interviews"]}
                 />
                 {open ? (
                     <>
