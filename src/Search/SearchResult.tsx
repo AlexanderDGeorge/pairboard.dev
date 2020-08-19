@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default (props: { result: Search }) => {
     const [user, setUser] = useState<any>(undefined);
-    const { language, difficulty, tags } = props.result;
+    const { language, difficulty } = props.result;
 
     useEffect(() => {
         (async () => {

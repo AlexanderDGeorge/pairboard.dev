@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { SearchParams } from "../firebase/search";
 
 interface SearchOptionProps {
     filter: string;
-    options: Array<string | number>;
+    options: Array<string>;
+    searchParams: SearchParams;
     setSearchParams: Function;
 }
 
 export default (props: SearchOptionProps) => {
-    const { filter, options, setSearchParams } = props;
+    const { filter, options, searchParams, setSearchParams } = props;
 
     function handleChange(e: any) {
         e.persist();
@@ -21,7 +23,12 @@ export default (props: SearchOptionProps) => {
     return (
         <SearchOption>
             <h4>{filter}</h4>
-            <select name="options" id="options" onChange={handleChange}>
+            <select
+                name="options"
+                id="options"
+                defaultValue={searchParams[filter]}
+                onChange={handleChange}
+            >
                 {options.map((option, i) => (
                     <option key={i} value={option}>
                         {option}

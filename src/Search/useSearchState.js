@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
     - User selects params and creates or updates a search document
     - User is presented with other search documents of the same type
     - When user selects a search document, active on both docs is set to false
+    - User is prompted with confirm to pair
     - A pair document is then created with both users
     - If successful, search documents are deleted
 

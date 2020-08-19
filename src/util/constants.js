@@ -20,7 +20,7 @@ export const DIFFICULTIES = ["Any", "Easy", "Medium", "Hard"];
 
 export const TAGS = [];
 
-export const SCORES = [0, 1, 2, 3, 4, 5];
+export const SCORES = ["0", "1", "2", "3", "4", "5"];
 
 export const EXPERIENCE = [
     "Any",
