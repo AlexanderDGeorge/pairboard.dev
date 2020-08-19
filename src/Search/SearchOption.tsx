@@ -1,35 +1,42 @@
 import React from "react";
 import styled from "styled-components";
 
-interface DropdownProps {
-    label: string;
-    setValue: Function;
+interface SearchOptionProps {
+    filter: string;
     options: Array<string | number>;
+    setSearchParams: Function;
 }
 
-export default (props: DropdownProps) => {
+export default (props: SearchOptionProps) => {
+    const { filter, options, setSearchParams } = props;
+
+    function handleChange(e: any) {
+        e.persist();
+        setSearchParams((searchParams: any) => ({
+            ...searchParams,
+            [filter]: e.target.value,
+        }));
+    }
+
     return (
-        <Dropdown>
-            <h4>{props.label}</h4>
-            <select
-                name="options"
-                id="options"
-                onChange={(e) => props.setValue(e.target.value)}
-            >
-                {props.options.map((option, i) => (
+        <SearchOption>
+            <h4>{filter}</h4>
+            <select name="options" id="options" onChange={handleChange}>
+                {options.map((option, i) => (
                     <option key={i} value={option}>
                         {option}
                     </option>
                 ))}
             </select>
-        </Dropdown>
+        </SearchOption>
     );
 };
 
-const Dropdown = styled.div`
-    margin: 0 2% 2% 0;
+const SearchOption = styled.div`
+    position: relative;
+    margin: 2% 0;
     > h4 {
-        margin-bottom: 10px;
+        position: absolute;
         font-weight: 100;
         color: ${(props) => props.theme.verydark};
     }

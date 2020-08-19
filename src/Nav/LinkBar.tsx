@@ -27,11 +27,10 @@ const LinkBar = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.light};
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     > a,
     button {
         height: 100%;
-        width: 200px;
         text-decoration: none;
         display: flex;
         align-items: center;

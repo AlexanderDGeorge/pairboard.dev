@@ -1,42 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchResult from "../Search/SearchResult";
 import Nav from "../Nav/Nav";
 import SearchBar from "../Search/SearchBar";
-import { fetchPaginatedSection, Search } from "../firebase/search";
-import { SearchContext } from "../Application";
 
 export default () => {
-    const currentSearch = useContext(SearchContext);
-    const [searchResults, setSearchResults] = useState<any>([]);
-    const [currentPage, setCurrentPage] = useState<any>(undefined);
-    const limit = 4;
-
-    useEffect(() => {
-        console.log(currentSearch);
-        (async () => {
-            const fetchedPage = await fetchPaginatedSection(
-                limit,
-                currentSearch
-            );
-            setSearchResults(fetchedPage);
-        })();
-    }, [currentSearch]);
-
-    useEffect(() => {
-        async function handleScroll(e: any) {
-            const position = e.target.scrollTop;
-            const height = e.target.scrollHeight - e.target.clientHeight;
-            console.log(position);
-            console.log(height);
-        }
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    });
-
-    console.log(searchResults);
+    const [searchResults] = useState<any>([]);
 
     return (
         <Home>

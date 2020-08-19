@@ -8,7 +8,7 @@ export interface Search extends SearchParams {
 export interface SearchParams {
     language: string;
     difficulty: string;
-    tag: string;
+    tags: Array<string>;
     score: number;
     experience: string;
 }
@@ -29,7 +29,7 @@ export const createSearch = async (searchParams: SearchParams) => {
 };
 
 const updateSearch = async (searchParams: SearchParams, searchId: string) => {
-    const { language, difficulty, tag, score, experience } = searchParams;
+    const { language, difficulty, tags, score, experience } = searchParams;
     const searchRef = firestore().collection("searches").doc(searchId);
     console.log("in updateSearch");
     searchRef.update({
@@ -37,7 +37,7 @@ const updateSearch = async (searchParams: SearchParams, searchId: string) => {
         createdAt: new Date(),
         language,
         difficulty,
-        tag,
+        tags,
         score,
         experience,
     });
@@ -56,13 +56,13 @@ export const fetchPaginatedSection = async (
     last?: number
 ) => {
     // how to unsub
-    const { language, difficulty, tag, score, experience } = searchParams;
+    const { language, difficulty, tags, score, experience } = searchParams;
     const searchesRef = firestore()
         .collection("searches")
         .where("active", "==", true)
         .where("language", "==", language)
         .where("difficulty", "==", difficulty)
-        .where("tag", "==", tag)
+        .where("tags", "==", tags)
         .where("score", "==", score)
         .where("experience", "==", experience)
         .orderBy("createdAt", "desc")

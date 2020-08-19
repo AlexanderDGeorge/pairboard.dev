@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { fetchUserDocument } from "../firebase/user";
-import { OrangeTag } from "./Components/Tags";
 import { Search } from "../firebase/search";
 import { Link } from "react-router-dom";
 
 export default (props: { result: Search }) => {
     const [user, setUser] = useState<any>(undefined);
-    const { language, difficulty, tag } = props.result;
+    const { language, difficulty, tags } = props.result;
 
     useEffect(() => {
         (async () => {
@@ -30,7 +29,6 @@ export default (props: { result: Search }) => {
                     </p>
                     <p>{difficulty}</p>
                     <h4>{language}</h4>
-                    <OrangeTag>{tag}</OrangeTag>
                 </ResultInfo>
             </SearchResult>
         );
