@@ -2,43 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import useSearch from "./useSearchState";
 import SearchOption from "./SearchOption";
-import { LANGUAGES, DIFFICULTIES, SCORES, EXPERIENCE } from "../util/constants";
-import { createSearchDocument } from "../firebase/search";
+import { LANGUAGES, DIFFICULTIES, TAGS } from "../util/constants";
 
 export default () => {
-    const [searchParams, setSearchParams] = useSearch();
-
-    const handleSearch = () => createSearchDocument(searchParams);
-
-    // work on passing persisting state (searchParams) to each option
+    const [searchParams] = useSearch();
 
     return (
         <SearchBar>
-            <SearchOption
-                filter="language"
-                options={LANGUAGES}
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-            />
-            <SearchOption
-                filter="difficulty"
-                options={DIFFICULTIES}
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-            />
-            <SearchOption
-                filter="score"
-                options={SCORES}
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-            />
-            <SearchOption
-                filter="experience"
-                options={EXPERIENCE}
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-            />
-            <SearchButton onClick={handleSearch}>Search</SearchButton>
+            <SearchOption filter="language" options={LANGUAGES} />
+            <SearchOption filter="difficulty" options={DIFFICULTIES} />
+            <SearchOption filter="tag" options={TAGS} />
+            <SearchOption filter="tag" options={TAGS} />
+            <SearchOption filter="tag" options={TAGS} />
+            <SearchButton>Search</SearchButton>
         </SearchBar>
     );
 };

@@ -20,7 +20,7 @@ const reducer = (state, action) => {
     }
 };
 
-export default (query) => {
+export default function (query) {
     const initialState = {
         status: query ? "loading" : "idle",
         data: undefined,
@@ -56,7 +56,7 @@ export default (query) => {
     }, [queryCached]);
 
     return state;
-};
+}
 
 function getDocData(doc) {
     return doc.exists === true ? { id: doc.id, ...doc.data() } : null;

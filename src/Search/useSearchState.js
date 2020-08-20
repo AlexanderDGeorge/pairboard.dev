@@ -25,15 +25,15 @@ function getSavedSearch() {
     return savedSearch ? savedSearch : initialSearch;
 }
 
-export default () => {
+export default function useSearchState() {
     const [searchParams, setSearchParams] = useState(() => {
         return getSavedSearch();
     });
 
     useEffect(() => {
-        console.log(searchParams);
+        // will this fire multiple times if useSearchState is called in multiple locations?
         localStorage.setItem("pairboardiosearch", JSON.stringify(searchParams));
     }, [searchParams]);
 
     return [searchParams, setSearchParams];
-};
+}

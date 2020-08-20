@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { SearchParams } from "../firebase/search";
+import useSearchState from "./useSearchState";
 
 interface SearchOptionProps {
     filter: string;
     options: Array<string>;
-    searchParams: SearchParams;
-    setSearchParams: Function;
 }
 
 export default (props: SearchOptionProps) => {
-    const { filter, options, searchParams, setSearchParams } = props;
+    const { filter, options } = props;
+    const [searchParams, setSearchParams] = useSearchState();
 
     function handleChange(e: any) {
         e.persist();

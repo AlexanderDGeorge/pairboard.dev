@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import SearchResult from "../Search/SearchResult";
 import Nav from "../Nav/Nav";
 import SearchBar from "../Search/SearchBar";
 
 export default () => {
-    const [searchResults] = useState<any>([]);
+    const searchResults: Array<any> = [];
+    const resultsRef = useRef(null);
 
     return (
         <Home>
             <Nav />
             <SearchBar />
-            <SearchResults>
+            <SearchResults ref={resultsRef}>
                 {searchResults.map((searchResult: any, i: number) => (
                     <SearchResult result={searchResult} key={i} />
                 ))}

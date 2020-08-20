@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
 
 export default (props: { result: Search }) => {
     const [user, setUser] = useState<any>(undefined);
-    const { language, difficulty } = props.result;
+    const { language } = props.result;
 
     useEffect(() => {
         (async () => {
-            const userDoc = await fetchUserDocument(props.result.user);
+            const userDoc = await fetchUserDocument(props.result.userId);
             console.log(userDoc);
             setUser(userDoc);
         })();
-    }, [props.result.user]);
+    }, [props.result.userId]);
 
     if (user) {
         return (
@@ -27,7 +27,6 @@ export default (props: { result: Search }) => {
                     <p>
                         {user.experience} | {user.score}
                     </p>
-                    <p>{difficulty}</p>
                     <h4>{language}</h4>
                 </ResultInfo>
             </SearchResult>
