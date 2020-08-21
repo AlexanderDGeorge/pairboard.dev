@@ -23,6 +23,7 @@ export default () => {
             <input
                 maxLength={140}
                 placeholder="add optional description"
+                value={searchParams?.description}
                 onChange={handleChange}
             />
         </BoardDescription>

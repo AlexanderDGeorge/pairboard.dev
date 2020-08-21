@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Search } from "../firebase/search";
+import Tags from "./Tags";
+import Difficulty from "./Difficulty";
 
 export default (props: { result: Search }) => {
     const {
@@ -11,7 +13,6 @@ export default (props: { result: Search }) => {
         userPhotoURL,
         username,
         userScore,
-        createdAt,
         description,
     } = props.result;
 
@@ -27,6 +28,8 @@ export default (props: { result: Search }) => {
             </UserInfo>
             <Language>{language}</Language>
             <Description>{description}</Description>
+            <Difficulty difficulty={difficulty} />
+            <Tags tags={tags} />
         </SearchResult>
     );
 };
@@ -70,6 +73,12 @@ const UserInfo = styled.div`
         width: auto;
         margin-right: 10px;
         border-radius: 50%;
+    }
+    > a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 `;
 

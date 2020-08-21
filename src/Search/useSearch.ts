@@ -7,7 +7,9 @@ import { SearchContext } from "../Application";
 
 export default function useSearch() {
     const [searchParams] = useContext(SearchContext);
-    const [searchResults, setSearchResults] = useState<Array<any>>([]);
+    const [searchResults, setSearchResults] = useState<Array<any> | undefined>(
+        undefined
+    );
 
     const triggerSearch = async () => {
         const searchDocs = await fetchSearchDocuments(searchParams);
