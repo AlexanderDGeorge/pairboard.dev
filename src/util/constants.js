@@ -16,19 +16,6 @@ export const LANGUAGES = [
     "Other",
 ];
 
-export const DIFFICULTIES = ["Any", "Easy", "Medium", "Hard"];
-
-export const FRAMEWORKS = [];
+export const DIFFICULTIES = ["Easy", "Medium", "Hard"];
 
 export const TAGS = [];
-
-export const SCORES = ["0", "1", "2", "3", "4", "5"];
-
-export const EXPERIENCE = [
-    "Any",
-    "Beginner",
-    "Student",
-    "Entry",
-    "Junior",
-    "Senior",
-];

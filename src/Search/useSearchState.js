@@ -14,10 +14,9 @@ import { useState, useEffect } from "react";
 
 const initialSearch = {
     language: "Any",
-    difficulty: "Any",
+    difficulty: "Easy",
+    description: "",
     tags: [],
-    score: 0,
-    experience: "Any",
 };
 
 function getSavedSearch() {

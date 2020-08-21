@@ -1,18 +1,26 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import SearchResult from "../Search/SearchResult";
 import Nav from "../Nav/Nav";
 import SearchBar from "../Search/SearchBar";
+import useSearch from "../Search/useSearch";
+import useSearchState from "../Search/useSearchState";
 
 export default () => {
-    const searchResults: Array<any> = [];
-    const resultsRef = useRef(null);
+    const [searchParams, setSearchParams] = useSearchState();
+    const { searchResults, triggerSearch } = useSearch(searchParams);
+
+    console.log(searchResults);
 
     return (
         <Home>
             <Nav />
-            <SearchBar />
-            <SearchResults ref={resultsRef}>
+            <SearchBar
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
+                triggerSearch={triggerSearch}
+            />
+            <SearchResults>
                 {searchResults.map((searchResult: any, i: number) => (
                     <SearchResult result={searchResult} key={i} />
                 ))}

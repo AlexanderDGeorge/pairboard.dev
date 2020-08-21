@@ -1,22 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import useSearchState from "./useSearchState";
+// import useSearchState from "./useSearchState";
 
 interface SearchOptionProps {
     filter: string;
     options: Array<string>;
+    searchParams: any;
+    setSearchParams: Function;
 }
 
 export default (props: SearchOptionProps) => {
-    const { filter, options } = props;
-    const [searchParams, setSearchParams] = useSearchState();
+    const { filter, options, searchParams, setSearchParams } = props;
 
     function handleChange(e: any) {
         e.persist();
-        setSearchParams((searchParams: any) => ({
+        setSearchParams({
             ...searchParams,
             [filter]: e.target.value,
-        }));
+        });
     }
 
     return (
