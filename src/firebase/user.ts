@@ -6,8 +6,7 @@ export interface User {
     company?: string;
     darkMode: string;
     email: string;
-    experience: string;
-    friends: Array<string>;
+    pairs: Array<string>;
     links: UserLinks;
     location?: string;
     photoURL: string;
@@ -65,17 +64,6 @@ export async function updateDarkModeSetting(darkMode: User["uid"]) {
     try {
         await userRef.update({
             darkMode,
-        });
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-
-export async function updateExperienceLevel(experience: User["experience"]) {
-    const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
-    try {
-        await userRef.update({
-            experience,
         });
     } catch (error) {
         console.error(error.message);

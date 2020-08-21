@@ -11,10 +11,9 @@ export default (props: { user?: User }) => {
         <ProfileHeader>
             <img src={currentUser?.photoURL} alt="" />
             <div>
-                <h1>{currentUser?.username || currentUser?.email}</h1>
-                <h3>
-                    {currentUser?.experience} | {currentUser?.score}
-                </h3>
+                <h1>
+                    {currentUser?.username} | {currentUser?.score}
+                </h1>
                 <h3>{currentUser?.bio}</h3>
                 {currentUser?.company ? (
                     <h3>

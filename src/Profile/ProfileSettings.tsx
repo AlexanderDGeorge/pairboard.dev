@@ -1,30 +1,24 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import DarkModeToggle from "./Components/DarkModeToggle";
-import BioEdit from "./Components/BioEdit";
-import ExperienceSelect from "./Components/ExperienceSelect";
-import ChangeUsername from "./Components/ChangeUsername";
-import AddCompany from "./Components/AddCompany";
 import { UserContext } from "../Application";
 import { updateUserDoc } from "../firebase/user";
-import AddLocation from "./Components/AddLocation";
+import InputField from "./Components/InputField";
 
 export default () => {
     const currentUser = useContext(UserContext);
     const [changes, setChanges] = useState(false);
-    const [company, setCompany] = useState(currentUser?.company || "");
-    const [username, setUsername] = useState(currentUser?.username || "");
-    const [location, setLocation] = useState(currentUser?.location || "");
-    const [bio, setBio] = useState(currentUser?.bio || "");
+    const [profileInfo, setProfileInfo] = useState({
+        company: currentUser?.company || "",
+        username: currentUser?.username || "",
+        location: currentUser?.location || "",
+        bio: currentUser?.bio || "",
+    });
 
     function handleUpdate() {
+        // [TODO]: handle empty username
         setChanges(false);
-        updateUserDoc({
-            company,
-            username,
-            bio,
-            location,
-        });
+        updateUserDoc(profileInfo);
     }
 
     return (
@@ -35,13 +29,28 @@ export default () => {
             ) : null}
             <Column style={{ marginRight: 5 }}>
                 <DarkModeToggle />
-                <ExperienceSelect />
             </Column>
             <Column style={{ marginLeft: 5 }}>
-                <BioEdit value={bio} setValue={setBio} />
-                <ChangeUsername value={username} setValue={setUsername} />
-                <AddCompany value={company} setValue={setCompany} />
-                <AddLocation value={location} setValue={setLocation} />
+                <InputField
+                    label="bio"
+                    profileInfo={profileInfo}
+                    setProfileInfo={setProfileInfo}
+                />
+                <InputField
+                    label="username"
+                    profileInfo={profileInfo}
+                    setProfileInfo={setProfileInfo}
+                />
+                <InputField
+                    label="company"
+                    profileInfo={profileInfo}
+                    setProfileInfo={setProfileInfo}
+                />
+                <InputField
+                    label="location"
+                    profileInfo={profileInfo}
+                    setProfileInfo={setProfileInfo}
+                />
             </Column>
         </ProfileSettings>
     );

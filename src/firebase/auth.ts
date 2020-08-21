@@ -57,11 +57,10 @@ async function createUserDocument(
         const { uid, email } = user;
         userRef.set({
             uid,
-            bio: "insert bio here...",
+            bio: "",
             darkMode: "Auto",
             email,
-            experience: "Beginner",
-            friends: [],
+            pairs: [],
             links: [],
             photoURL: user.photoURL || "",
             score: 0,
