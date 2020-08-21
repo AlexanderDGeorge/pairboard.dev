@@ -13,7 +13,7 @@ export interface User {
     photoURL: string;
     ratingMatrix?: Array<string>;
     score: number;
-    search?: string;
+    searchId?: string;
     sessions: Array<string>;
     status: string;
     streak: number;

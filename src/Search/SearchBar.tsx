@@ -1,85 +1,55 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import Dropdown from "./Components/Dropdown";
-import { createSearch } from "../firebase/search";
+import SearchOption from "./SearchOption";
+import BoardDescription from "./BoardDescription";
+import { LANGUAGES, DIFFICULTIES, TAGS } from "../util/constants";
+import { UserContext } from "../Application";
+import { createSearchDocument } from "../firebase/search";
 
-export default () => {
-    const [open, setOpen] = useState(false);
-    const [language, setLanguage] = useState("Any");
-    const [difficulty, setDifficulty] = useState("Any");
-    const [tag, setTag] = useState("Any");
-    const [score, setScore] = useState(0);
-    const [experience, setExperience] = useState("Any");
+interface SearchBarProps {
+    searchParams: any;
+    setSearchParams: Function;
+    triggerSearch: Function;
+}
 
-    const handleSearch = async () => {
-        await createSearch({ language, difficulty, tag, score, experience });
-    };
+export default (props: SearchBarProps) => {
+    const { searchParams, setSearchParams, triggerSearch } = props;
+    const currentUser = useContext(UserContext);
+
+    async function handleClick() {
+        if (currentUser) {
+            await createSearchDocument(searchParams, currentUser);
+            triggerSearch();
+        }
+    }
 
     return (
-        <Search>
-            <div>
-                <Dropdown
-                    label="Language"
-                    setValue={setLanguage}
-                    options={[
-                        "Any",
-                        "C",
-                        "C++",
-                        "C#",
-                        "HTML/CSS",
-                        "Java",
-                        "JavaScript",
-                        "Objective-C",
-                        "PHP",
-                        "Python",
-                        "Ruby",
-                        "SQL",
-                        "Swift",
-                        "TypeScript",
-                        "Other",
-                    ]}
-                />
-                <Dropdown
-                    label="Difficulty"
-                    setValue={setDifficulty}
-                    options={["Any", "Easy", "Medium", "Hard"]}
-                />
-                <Dropdown
-                    label="Tag"
-                    setValue={setTag}
-                    options={["Any", "Data Structures", "Interviews"]}
-                />
-                {open ? (
-                    <>
-                        <Dropdown
-                            label="Score"
-                            setValue={setScore}
-                            options={[0, 1, 2, 3, 4, 5]}
-                        />
-                        <Dropdown
-                            label="Experience"
-                            setValue={setExperience}
-                            options={[
-                                "Any",
-                                "Beginner",
-                                "Student",
-                                "Entry",
-                                "Junior",
-                                "Senior",
-                            ]}
-                        />
-                    </>
-                ) : null}
-            </div>
-            <button onClick={handleSearch}>Search</button>
-            <p onClick={() => setOpen(!open)}>
-                {open ? "Less Filters" : "More Filters"}
-            </p>
-        </Search>
+        <SearchBar>
+            <SearchOption
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
+                filter="language"
+                options={LANGUAGES}
+            />
+            <SearchOption
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
+                filter="difficulty"
+                options={DIFFICULTIES}
+            />
+            <SearchOption
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
+                filter="tag"
+                options={TAGS}
+            />
+            <BoardDescription setSearchParams={setSearchParams} />
+            <SearchButton onClick={handleClick}>Search</SearchButton>
+        </SearchBar>
     );
 };
 
-const Search = styled.div`
+const SearchBar = styled.div`
     position: relative;
     min-height: 140px;
     width: 100%;
@@ -91,45 +61,23 @@ const Search = styled.div`
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
-    > div {
-        width: 100%;
-        max-width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-    > button {
-        height: 60px;
-        width: 120px;
-        margin-top: 28px;
-        font-size: 1em;
-        font-weight: 600;
-        background-color: ${(props) => props.theme.verydark};
-        color: ${(props) => props.theme.verylight};
-        outline: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
+`;
+
+const SearchButton = styled.button`
+    height: 60px;
+    width: 120px;
+    font-size: 1em;
+    font-weight: 600;
+    background-color: ${(props) => props.theme.verydark};
+    color: ${(props) => props.theme.verylight};
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s linear;
+    &:hover {
         transition: color 0.2s linear;
-        &:hover {
-            transition: color 0.2s linear;
-            color: ${(props) => props.theme.white};
-        }
-    }
-    > p {
-        width: 120px;
-        position: absolute;
-        right: 5%;
-        bottom: 10px;
-        color: ${(props) => props.theme.accent};
-        font-size: 0.8em;
-        font-weight: 500;
-        cursor: pointer;
-        transition: color 0.2s linear;
-        &:hover {
-            transition: color 0.2s linear;
-            color: ${(props) => props.theme.black};
-        }
+        color: ${(props) => props.theme.white};
     }
 `;

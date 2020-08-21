@@ -30,7 +30,7 @@ export default () => {
                                     links: data.links,
                                     photoURL: data.photoURL,
                                     score: data.score,
-                                    search: data.search,
+                                    searchId: data.searchId,
                                     sessions: data.sessions,
                                     status: data.status,
                                     streak: data.streak,
