@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { SearchContext } from "../Application";
 
-export default (props: { setSearchParams: Function }) => {
+export default () => {
+    const [searchParams, setSearchParams] = useContext(SearchContext);
+
     function handleChange(e: any) {
         e.persist();
-        props.setSearchParams((searchParams: any) => ({
-            ...searchParams,
-            description: e.target.value,
-        }));
+        if (setSearchParams) {
+            setSearchParams({
+                ...searchParams,
+                description: e.target.value,
+            });
+        } else {
+            // [TODO]: Handle error
+        }
     }
 
     return (

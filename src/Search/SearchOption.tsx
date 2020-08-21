@@ -1,23 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-// import useSearchState from "./useSearchState";
+import { SearchContext } from "../Application";
 
 interface SearchOptionProps {
     filter: string;
     options: Array<string>;
-    searchParams: any;
-    setSearchParams: Function;
 }
 
 export default (props: SearchOptionProps) => {
-    const { filter, options, searchParams, setSearchParams } = props;
+    const { filter, options } = props;
+    const [searchParams, setSearchParams] = useContext(SearchContext);
 
     function handleChange(e: any) {
         e.persist();
-        setSearchParams({
-            ...searchParams,
-            [filter]: e.target.value,
-        });
+        if (setSearchParams) {
+            setSearchParams({
+                ...searchParams,
+                [filter]: e.target.value,
+            });
+        } else {
+            // [TODO]: handle error
+        }
     }
 
     return (
@@ -26,7 +29,7 @@ export default (props: SearchOptionProps) => {
             <select
                 name="options"
                 id="options"
-                defaultValue={searchParams[filter]}
+                defaultValue={searchParams ? searchParams[filter] : ""}
                 onChange={handleChange}
             >
                 {options.map((option, i) => (

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { NewSearchObject } from "../firebase/search";
 
 /*
     SEARCHING / MATCHMAKING
@@ -16,16 +17,18 @@ const initialSearch = {
     language: "Any",
     difficulty: "Easy",
     description: "",
-    tags: [],
+    tags: [""],
 };
 
 function getSavedSearch() {
-    const savedSearch = JSON.parse(localStorage.getItem("pairboardiosearch"));
+    const savedSearch = JSON.parse(
+        localStorage.getItem("pairboardiosearch") || ""
+    );
     return savedSearch ? savedSearch : initialSearch;
 }
 
-export default function useSearchState() {
-    const [searchParams, setSearchParams] = useState(() => {
+export default function useSearchState(): [NewSearchObject, Function] {
+    const [searchParams, setSearchParams] = useState<NewSearchObject>(() => {
         return getSavedSearch();
     });
 

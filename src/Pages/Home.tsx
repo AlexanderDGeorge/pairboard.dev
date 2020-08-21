@@ -4,22 +4,16 @@ import SearchResult from "../Search/SearchResult";
 import Nav from "../Nav/Nav";
 import SearchBar from "../Search/SearchBar";
 import useSearch from "../Search/useSearch";
-import useSearchState from "../Search/useSearchState";
 
 export default () => {
-    const [searchParams, setSearchParams] = useSearchState();
-    const { searchResults, triggerSearch } = useSearch(searchParams);
+    const { searchResults, triggerSearch } = useSearch();
 
     console.log(searchResults);
 
     return (
         <Home>
             <Nav />
-            <SearchBar
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-                triggerSearch={triggerSearch}
-            />
+            <SearchBar triggerSearch={triggerSearch} />
             <SearchResults>
                 {searchResults.map((searchResult: any, i: number) => (
                     <SearchResult result={searchResult} key={i} />

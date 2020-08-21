@@ -10,6 +10,7 @@ export interface Search extends NewSearchObject {
 }
 
 export interface NewSearchObject {
+    [index: string]: any;
     language: string;
     difficulty: string;
     tags: Array<string>;
@@ -17,9 +18,10 @@ export interface NewSearchObject {
 }
 
 export async function createSearchDocument(
-    newSearchObject: NewSearchObject,
-    currentUser: User
+    currentUser: User,
+    newSearchObject?: NewSearchObject
 ) {
+    if (!newSearchObject) return;
     if (currentUser.searchId) {
         updateSearchDocument(newSearchObject, currentUser);
     } else {
@@ -59,7 +61,8 @@ async function updateSearchDocument(
     });
 }
 
-export async function fetchSearchDocuments(searchParams: NewSearchObject) {
+export async function fetchSearchDocuments(searchParams?: NewSearchObject) {
+    if (!searchParams) return;
     const { language, difficulty } = searchParams;
     const searchesRef = firestore()
         .collection("searches")

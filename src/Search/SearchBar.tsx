@@ -3,47 +3,27 @@ import styled from "styled-components";
 import SearchOption from "./SearchOption";
 import BoardDescription from "./BoardDescription";
 import { LANGUAGES, DIFFICULTIES, TAGS } from "../util/constants";
-import { UserContext } from "../Application";
+import { UserContext, SearchContext } from "../Application";
 import { createSearchDocument } from "../firebase/search";
 
-interface SearchBarProps {
-    searchParams: any;
-    setSearchParams: Function;
-    triggerSearch: Function;
-}
-
-export default (props: SearchBarProps) => {
-    const { searchParams, setSearchParams, triggerSearch } = props;
+export default (props: { triggerSearch: Function }) => {
+    const { triggerSearch } = props;
+    const [searchParams] = useContext(SearchContext);
     const currentUser = useContext(UserContext);
 
     async function handleClick() {
         if (currentUser) {
-            await createSearchDocument(searchParams, currentUser);
+            await createSearchDocument(currentUser, searchParams);
             triggerSearch();
         }
     }
 
     return (
         <SearchBar>
-            <SearchOption
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-                filter="language"
-                options={LANGUAGES}
-            />
-            <SearchOption
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-                filter="difficulty"
-                options={DIFFICULTIES}
-            />
-            <SearchOption
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-                filter="tag"
-                options={TAGS}
-            />
-            <BoardDescription setSearchParams={setSearchParams} />
+            <SearchOption filter="language" options={LANGUAGES} />
+            <SearchOption filter="difficulty" options={DIFFICULTIES} />
+            <SearchOption filter="tag" options={TAGS} />
+            <BoardDescription />
             <SearchButton onClick={handleClick}>Search</SearchButton>
         </SearchBar>
     );
