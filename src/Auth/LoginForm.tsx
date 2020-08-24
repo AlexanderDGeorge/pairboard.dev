@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField, StyledButton } from "../styled-components/formStyles";
 import { login } from "../firebase/auth";
@@ -9,6 +9,8 @@ interface LogInValues {
 }
 
 export default () => {
+    const [isDisabled, setIsDisabled] = useState(true);
+
     function validate(values: LogInValues) {
         const errors: { [key: string]: string } = {};
         if (!values.email) {
@@ -39,8 +41,9 @@ export default () => {
             validate={validate}
             onSubmit={handleSubmit}
         >
-            {({ isSubmitting, errors }) => (
+            {(stuff) => (
                 <Form>
+                    <h1>Log In</h1>
                     <StyledField>
                         <label htmlFor="email">email</label>
                         <Field type="email" name="email" />
@@ -51,7 +54,11 @@ export default () => {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
-                    <StyledButton type="submit" disabled={isSubmitting}>
+                    <StyledButton
+                        style={isDisabled ? {} : { backgroundColor: "#222" }}
+                        type="submit"
+                        disabled={isDisabled}
+                    >
                         Log In
                     </StyledButton>
                 </Form>

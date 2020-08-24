@@ -1,15 +1,16 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField, StyledButton } from "../styled-components/formStyles";
-import {
-    signup,
-    SignUpValues,
-    checkForValidUsername,
-    checkForValidEmail,
-} from "../firebase/auth";
+import { checkForValidUsername, signupWithGithub } from "../firebase/auth";
+
+interface GithubSignUpValues {
+    username: string;
+    firstname: string;
+    lastname: string;
+}
 
 export default () => {
-    async function validate(values: SignUpValues) {
+    async function validate(values: GithubSignUpValues) {
         const errors: { [key: string]: string } = {};
         if (!values.username) {
             errors.username = "required";
@@ -26,29 +27,12 @@ export default () => {
         if (!values.lastname) {
             errors.lastname = "required";
         }
-
-        if (!values.email) {
-            errors.email = "required";
-        } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-            errors.email = "invalid email address";
-        } else if (!(await checkForValidEmail(values.email))) {
-            // expensive
-            errors.email = "email already in use";
-        }
-
-        if (!values.password) {
-            errors.password = "required";
-        } else if (values.password.length < 8) {
-            errors.password = "password must be a least eight characters";
-        }
-
         return errors;
     }
 
-    function handleSubmit(values: SignUpValues) {
-        signup(values);
+    function handleSubmit(values: GithubSignUpValues) {
+        const { username, firstname, lastname } = values;
+        signupWithGithub(username, firstname, lastname);
     }
 
     return (
@@ -57,8 +41,6 @@ export default () => {
                 username: "",
                 firstname: "",
                 lastname: "",
-                email: "",
-                password: "",
             }}
             validateOnChange={false}
             validateOnBlur={true}
@@ -67,7 +49,7 @@ export default () => {
         >
             {({ isSubmitting }) => (
                 <Form>
-                    <h1>Sign Up</h1>
+                    <h1>Sign Up with Github</h1>
                     <StyledField>
                         <label htmlFor="username">username</label>
                         <Field type="text" name="username" />
@@ -83,18 +65,8 @@ export default () => {
                         <Field type="text" name="lastname" />
                         <ErrorMessage name="lastname" component="p" />
                     </StyledField>
-                    <StyledField>
-                        <label htmlFor="email">email</label>
-                        <Field type="email" name="email" />
-                        <ErrorMessage name="email" component="p" />
-                    </StyledField>
-                    <StyledField>
-                        <label htmlFor="password">password</label>
-                        <Field type="password" name="password" />
-                        <ErrorMessage name="password" component="p" />
-                    </StyledField>
                     <StyledButton type="submit" disabled={isSubmitting}>
-                        Sign Up
+                        Sign Up with Github
                     </StyledButton>
                 </Form>
             )}

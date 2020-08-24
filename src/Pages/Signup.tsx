@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../Nav/Header";
 import SignupForm from "../Auth/SignupForm";
+import GithubSignupForm from "../Auth/GithubSignupForm";
 import Footer from "../Nav/Footer";
 
 export default () => {
@@ -9,8 +10,8 @@ export default () => {
         <>
             <Header />
             <Signup>
-                <h1>Sign Up</h1>
                 <SignupForm />
+                <GithubSignupForm />
             </Signup>
             <Footer />
         </>
@@ -18,10 +19,14 @@ export default () => {
 };
 
 const Signup = styled.div`
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     padding: 5%;
-    > h1 {
-        background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    > form {
+        min-width: 50%;
+        padding: 2%;
     }
 `;

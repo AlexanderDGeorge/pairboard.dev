@@ -4,8 +4,8 @@ export const StyledField = styled.div`
     position: relative;
     height: 60px;
     min-width: 240px;
-    width: 50%;
-    max-width: 480px;
+    width: 100%;
+    /* max-width: 480px; */
     margin: 20px 0;
     > label {
         position: absolute;
@@ -35,11 +35,13 @@ export const StyledField = styled.div`
 
 export const StyledButton = styled.button`
     height: 60px;
-    width: 120px;
+    min-width: 120px;
+    width: 100%;
+    max-width: 240px;
     padding: 10px;
     font-size: 1em;
     font-weight: 600;
-    background-color: ${(props) => props.theme.verydark};
+    background-color: ${(props) => props.theme.dark};
     color: ${(props) => props.theme.verylight};
     outline: none;
     display: flex;

@@ -1,19 +1,20 @@
 import { auth, firestore, githubProvider } from "./firebase";
 import { User } from "./user";
 
-interface SignUpData {
+export interface SignUpValues {
     username: string;
-    name: string;
+    firstname: string;
+    lastname: string;
     email: string;
     password: string;
 }
 
-export async function handleAuth() {
+export async function loginWithGithub() {
     try {
         const { user } = await auth.signInWithPopup(githubProvider);
+        // handle if no user doc (needs to signup)
         if (user) {
             console.log(user);
-            createUserDocument(user);
         } else {
             // handle error
         }
@@ -26,15 +27,33 @@ export async function login(email: User["email"], password: string) {
     await auth.signInWithEmailAndPassword(email, password);
 }
 
-export async function signUp(signupData: SignUpData) {
+export async function signupWithGithub(
+    username: string,
+    firstname: string,
+    lastname: string
+) {
+    try {
+        const { user } = await auth.signInWithPopup(githubProvider);
+        if (user) {
+            createUserDocument(user, username, firstname, lastname);
+        } else {
+            // handle error
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+export async function signup(signUpValues: SignUpValues) {
+    const { email, password, username, firstname, lastname } = signUpValues;
     try {
         const { user } = await auth.createUserWithEmailAndPassword(
-            signupData.email,
-            signupData.password
+            email,
+            password
         );
         if (user) {
             console.log(user);
-            createUserDocument(user, signupData);
+            createUserDocument(user, username, firstname, lastname);
         } else {
             // handle error
         }
@@ -45,7 +64,9 @@ export async function signUp(signupData: SignUpData) {
 
 async function createUserDocument(
     user: firebase.User,
-    signupData?: SignUpData
+    username: string,
+    firstname: string,
+    lastname: string
 ) {
     const userRef = firestore().collection("users").doc(user.uid);
     const userDoc = await userRef.get();
@@ -67,20 +88,33 @@ async function createUserDocument(
             sessions: [],
             status: "online",
             streak: 0,
-            username: signupData?.username || "",
+            username,
+            firstname,
+            lastname,
         });
     }
 }
 
 export async function signOut(user?: User | null) {
     if (!user) return;
-    // if (user.search) {
-    //     const searchRef = firestore().collection("searches").doc(user.search);
-    //     await searchRef.delete();
-    // }
-    // const userRef = firestore().collection("users").doc(user.uid);
-    // await userRef.update({
-    //     search: "",
-    // });
+    // delete user search on signout
     await auth.signOut();
+}
+
+export async function checkForValidUsername(username: string) {
+    if (!username) return;
+    const usersRef = await firestore()
+        .collection("users")
+        .where("username", "==", username)
+        .get();
+    return usersRef.empty;
+}
+
+export async function checkForValidEmail(email: string) {
+    if (!email) return;
+    const usersRef = await firestore()
+        .collection("users")
+        .where("email", "==", email)
+        .get();
+    return usersRef.empty;
 }
