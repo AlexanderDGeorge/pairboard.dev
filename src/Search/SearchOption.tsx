@@ -25,7 +25,7 @@ export default (props: SearchOptionProps) => {
 
     return (
         <SearchOption>
-            <h4>{filter}</h4>
+            <label>{filter}</label>
             <select
                 name="options"
                 id="options"
@@ -45,7 +45,7 @@ export default (props: SearchOptionProps) => {
 const SearchOption = styled.div`
     position: relative;
     margin: 2% 0;
-    > h4 {
+    > label {
         position: absolute;
         font-weight: 100;
         color: ${(props) => props.theme.verydark};

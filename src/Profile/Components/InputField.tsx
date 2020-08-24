@@ -20,7 +20,7 @@ export default (props: InputFieldProps) => {
 
     return (
         <InputField>
-            <h4>{label}</h4>
+            <label>{label}</label>
             <input
                 type="text"
                 value={profileInfo[label]}
@@ -33,11 +33,10 @@ export default (props: InputFieldProps) => {
 const InputField = styled.div`
     position: relative;
     margin: 2% 0;
-    > h4 {
+    > label {
         position: absolute;
         font-weight: 100;
         color: ${(props) => props.theme.verydark};
-        top: -5px;
     }
     > input {
         height: 60px;

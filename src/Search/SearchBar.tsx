@@ -46,6 +46,7 @@ const SearchBar = styled.div`
 const SearchButton = styled.button`
     height: 60px;
     width: 120px;
+    padding: 10px;
     font-size: 1em;
     font-weight: 600;
     background-color: ${(props) => props.theme.verydark};
