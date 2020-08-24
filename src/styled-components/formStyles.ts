@@ -1,35 +1,12 @@
-import React from "react";
 import styled from "styled-components";
 
-interface InputProps {
-    label: string;
-    error?: string;
-    checkForErrors: Function;
-}
-
-export default (props: InputProps & React.HTMLProps<HTMLInputElement>) => {
-    const { label, error, checkForErrors, type, placeholder } = props;
-
-    return (
-        <Input>
-            <label>{label}</label>
-            <input
-                type={type}
-                onBlur={() => checkForErrors(label)}
-                style={error ? { borderColor: "#FF890A" } : {}}
-                placeholder={placeholder}
-            />
-            {error ? <p>{error}</p> : null}
-        </Input>
-    );
-};
-
-const Input = styled.div`
+export const StyledField = styled.div`
     position: relative;
     height: 60px;
     min-width: 240px;
-    width: 100%;
+    width: 50%;
     max-width: 480px;
+    margin: 20px 0;
     > label {
         position: absolute;
         font-weight: 100;
@@ -53,5 +30,25 @@ const Input = styled.div`
         font-weight: 500;
         color: ${(props) => props.theme.orange};
         bottom: 0;
+    }
+`;
+
+export const StyledButton = styled.button`
+    height: 60px;
+    width: 120px;
+    padding: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    background-color: ${(props) => props.theme.verydark};
+    color: ${(props) => props.theme.verylight};
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s linear;
+    &:hover {
+        transition: color 0.2s linear;
+        color: ${(props) => props.theme.white};
     }
 `;

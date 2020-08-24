@@ -1,24 +1,61 @@
 import React from "react";
-import styled from "styled-components";
-import Input from "../Form/Input";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { StyledField, StyledButton } from "../styled-components/formStyles";
+import { login } from "../firebase/auth";
+
+interface LogInValues {
+    email: string;
+    password: string;
+}
 
 export default () => {
-    function check() {}
+    function validate(values: LogInValues) {
+        const errors: { [key: string]: string } = {};
+        if (!values.email) {
+            errors.email = "required";
+        } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+        ) {
+            errors.email = "invalid email address";
+        }
+        if (!values.password) {
+            errors.password = "required";
+        } else if (values.password.length < 8) {
+            errors.password = "password must be a least eight characters";
+        }
+        return errors;
+    }
+
+    async function handleSubmit(values: LogInValues) {
+        await login(values.email, values.password);
+    }
 
     return (
-        <LoginForm>
-            <Input label="email" error="super error" checkForErrors={check} />
-        </LoginForm>
+        <Formik
+            initialValues={{
+                email: "",
+                password: "",
+            }}
+            validate={validate}
+            onSubmit={handleSubmit}
+        >
+            {({ isSubmitting, errors }) => (
+                <Form>
+                    <StyledField>
+                        <label htmlFor="email">email</label>
+                        <Field type="email" name="email" />
+                        <ErrorMessage name="email" component="p" />
+                    </StyledField>
+                    <StyledField>
+                        <label htmlFor="password">password</label>
+                        <Field type="password" name="password" />
+                        <ErrorMessage name="password" component="p" />
+                    </StyledField>
+                    <StyledButton type="submit" disabled={isSubmitting}>
+                        Log In
+                    </StyledButton>
+                </Form>
+            )}
+        </Formik>
     );
 };
-
-const LoginForm = styled.form`
-    min-height: 50%;
-    min-width: 50%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    > input {
-        width: 50%;
-    }
-`;
