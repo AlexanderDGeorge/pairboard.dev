@@ -21,7 +21,7 @@ export async function createPostDocument(user: User, newPost: NewPost) {
         updatePostDocument(user, newPost);
     } else {
         const userRef = firestore().collection("users").doc(user.uid);
-        await firestore()
+        const postDoc = await firestore()
             .collection("posts")
             .add({
                 ...newPost,
@@ -29,12 +29,10 @@ export async function createPostDocument(user: User, newPost: NewPost) {
                 username: user.username,
                 userScore: user.score,
                 userPhotoURL: user.photoURL,
-            })
-            .then((data) =>
-                userRef.update({
-                    searchId: data.id,
-                })
-            );
+            });
+        userRef.update({
+            searchId: postDoc.id,
+        });
     }
 }
 
@@ -47,4 +45,12 @@ async function updatePostDocument(user: User, newPost: NewPost) {
         userScore: user.score,
         userPhotoURL: user.photoURL,
     });
+}
+
+export async function fetchPosts() {
+    const postsRef = await firestore()
+        .collection("posts")
+        .orderBy("createdAt", "desc")
+        .get();
+    return [...postsRef.docs.map((doc) => doc.data())];
 }

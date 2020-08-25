@@ -5,7 +5,7 @@ const defaultPost = {
     language: "Any",
     difficulty: "Easy",
     description: "",
-    tags: [""],
+    tags: [],
 };
 
 function getPostFromLocalStorage() {

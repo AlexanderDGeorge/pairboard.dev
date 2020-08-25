@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import LinkBar from "../Nav/LinkBar";
 import PostBar from "../PostBar/PostBar";
+import PostFeed from "../PostFeed/PostFeed";
 
 export default () => {
     return (
         <Home>
             <LinkBar />
             <PostBar />
+            <PostFeed />
         </Home>
     );
 };
