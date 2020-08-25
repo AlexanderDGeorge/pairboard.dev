@@ -63,12 +63,11 @@ async function updateSearchDocument(
 
 export async function fetchSearchDocuments(searchParams?: NewSearchObject) {
     if (!searchParams) return;
-    const { language, difficulty } = searchParams;
+    const { language } = searchParams;
     const searchesRef = firestore()
         .collection("searches")
         .where("active", "==", true)
         .where("language", "==", language)
-        .where("difficulty", "==", difficulty)
         .orderBy("createdAt", "asc")
         .limit(10);
     const searchesDoc = await searchesRef.get();

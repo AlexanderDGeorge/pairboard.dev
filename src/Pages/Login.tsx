@@ -1,19 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Nav/Header";
 import LoginForm from "../Auth/LoginForm";
 import GithubLoginForm from "../Auth/GithubLoginForm";
-import Footer from "../Nav/Footer";
 
 export default () => {
     return (
         <>
-            <Header />
             <Login>
                 <LoginForm />
                 <GithubLoginForm />
             </Login>
-            <Footer />
         </>
     );
 };

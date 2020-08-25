@@ -1,20 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Nav/Header";
 import SignupForm from "../Auth/SignupForm";
 import GithubSignupForm from "../Auth/GithubSignupForm";
-import Footer from "../Nav/Footer";
 
 export default () => {
     return (
-        <>
-            <Header />
-            <Signup>
-                <SignupForm />
-                <GithubSignupForm />
-            </Signup>
-            <Footer />
-        </>
+        <Signup>
+            <SignupForm />
+            <GithubSignupForm />
+        </Signup>
     );
 };
 

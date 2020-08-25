@@ -1,11 +1,9 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import Header from "../Nav/Header";
 
 export default () => {
     return (
         <Loading>
-            <Header />
             <LoadingBar>
                 <div></div>
             </LoadingBar>

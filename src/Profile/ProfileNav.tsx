@@ -1,16 +1,34 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import NestedNav from "./Components/NestedNav";
-
+import StyledLink from "../styled-components/linkStyle";
+import { signOut } from "../firebase/auth";
 export default () => {
     return (
         <ProfileNav>
-            <Link to="/profile/stats">Stats</Link>
-            <NestedNav />
+            <StyledLink to="/profile/stats">Stats</StyledLink>
+            <StyledLink to="/profile/settings">Settings</StyledLink>
+            <StyledButtonLink onClick={signOut}>Log Out</StyledButtonLink>
         </ProfileNav>
     );
 };
+
+const StyledButtonLink = styled.button`
+    height: 100%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: ${(props) => props.theme.verydark};
+    font-size: 1em;
+    outline: none;
+    cursor: pointer;
+    transition: color 0.2s ease-out;
+    &:hover {
+        color: ${(props) => props.theme.accent};
+        transition: color 0.2s ease-in;
+    }
+`;
 
 const ProfileNav = styled.div`
     z-index: 1;
@@ -21,27 +39,6 @@ const ProfileNav = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.light};
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
-    a,
-    div,
-    button {
-        height: 100%;
-        width: 200px;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        color: ${(props) => props.theme.verydark};
-        font-weight: 300;
-        font-size: 1em;
-        outline: none;
-        cursor: pointer;
-        transition: color 0.2s ease-out;
-        &:hover {
-            color: ${(props) => props.theme.accent};
-            transition: color 0.2s ease-in;
-        }
-    }
 `;

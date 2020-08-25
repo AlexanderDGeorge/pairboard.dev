@@ -1,20 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { signOut } from "../firebase/auth";
-import { UserContext } from "../Application";
+import StyledLink from "../styled-components/linkStyle";
 
 export default () => {
-    const currentUser = useContext(UserContext);
-
     return (
         <LinkBar>
-            <Link to="/">Home</Link>
-            <Link to="/profile/stats">Profile</Link>
-            <Link to="/pairs">Pairs</Link>
-            <button onClick={async () => await signOut(currentUser)}>
-                Log Out
-            </button>
+            <StyledLink to="/">Home</StyledLink>
+            <StyledLink to="/search">Search</StyledLink>
+            <StyledLink to="/pairs">Pairs</StyledLink>
+            <StyledLink to="/profile/stats">Profile</StyledLink>
         </LinkBar>
     );
 };
@@ -28,23 +22,4 @@ const LinkBar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    > a,
-    button {
-        height: 100%;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        color: ${(props) => props.theme.verydark};
-        font-weight: 300;
-        font-size: 1em;
-        outline: none;
-        cursor: pointer;
-        transition: color 0.2s ease-out;
-        &:hover {
-            color: ${(props) => props.theme.accent};
-            transition: color 0.2s ease-in;
-        }
-    }
 `;

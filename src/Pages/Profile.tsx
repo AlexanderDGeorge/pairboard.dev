@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import Nav from "../Nav/Nav";
 import ProfileNav from "../Profile/ProfileNav";
 import ProfileHeader from "../Profile/ProfileHeader";
 import ProfileRouter from "../Profile/ProfileRouter";
+import LinkBar from "../Nav/LinkBar";
 
 export default () => {
     return (
         <Profile>
-            <Nav />
+            <LinkBar />
             <ProfileNav />
             <ProfileHeader />
             <ProfileRouter />
@@ -17,6 +17,7 @@ export default () => {
 };
 
 const Profile = styled.div`
+    min-height: 100%;
     height: 100%;
     width: 100%;
 `;

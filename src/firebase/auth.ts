@@ -95,9 +95,7 @@ async function createUserDocument(
     }
 }
 
-export async function signOut(user?: User | null) {
-    if (!user) return;
-    // delete user search on signout
+export async function signOut() {
     await auth.signOut();
 }
 

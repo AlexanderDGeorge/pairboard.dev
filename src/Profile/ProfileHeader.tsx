@@ -13,6 +13,9 @@ export default (props: { user?: User }) => {
                 <h1>
                     {currentUser?.username} | {currentUser?.score}
                 </h1>
+                <h3>
+                    {currentUser?.firstname} {currentUser?.lastname}
+                </h3>
                 <h3>{currentUser?.bio}</h3>
             </div>
         </ProfileHeader>

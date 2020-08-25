@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Nav from "../Nav/Nav";
+import LinkBar from "../Nav/LinkBar";
 
 export default () => {
     return (
         <Pairs>
-            <Nav />
+            <LinkBar />
         </Pairs>
     );
 };
