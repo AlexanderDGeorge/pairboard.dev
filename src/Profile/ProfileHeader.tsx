@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../Application";
-import { FaBriefcase, FaCouch } from "react-icons/fa";
 import { User } from "../firebase/user";
 
 export default (props: { user?: User }) => {
@@ -15,18 +14,7 @@ export default (props: { user?: User }) => {
                     {currentUser?.username} | {currentUser?.score}
                 </h1>
                 <h3>{currentUser?.bio}</h3>
-                {currentUser?.company ? (
-                    <h3>
-                        <FaBriefcase /> {currentUser?.company}
-                    </h3>
-                ) : null}
-                {currentUser?.location ? (
-                    <h3>
-                        <FaCouch /> {currentUser?.location}
-                    </h3>
-                ) : null}
             </div>
-            <div></div>
         </ProfileHeader>
     );
 };

@@ -24,7 +24,7 @@ export default (props: { triggerSearch: Function }) => {
             <SearchOption filter="difficulty" options={DIFFICULTIES} />
             <SearchOption filter="tag" options={TAGS} />
             <BoardDescription />
-            <SearchButton onClick={handleClick}>Search</SearchButton>
+            <SearchButton onClick={handleClick}>Post</SearchButton>
         </SearchBar>
     );
 };

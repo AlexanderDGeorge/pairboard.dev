@@ -1,12 +1,15 @@
 import React from "react";
 import { StyledButton } from "../styled-components/formStyles";
 import styled from "styled-components";
+import { loginWithGithub } from "../firebase/auth";
 
 export default () => {
     return (
         <StyledForm>
             <h1>Log In with Github</h1>
-            <StyledButton>Log In with Github</StyledButton>
+            <StyledButton onClick={loginWithGithub}>
+                Log In with Github
+            </StyledButton>
         </StyledForm>
     );
 };

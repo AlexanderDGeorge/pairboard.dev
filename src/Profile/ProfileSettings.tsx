@@ -9,9 +9,7 @@ export default () => {
     const currentUser = useContext(UserContext);
     const [changes, setChanges] = useState(false);
     const [profileInfo, setProfileInfo] = useState({
-        company: currentUser?.company || "",
         username: currentUser?.username || "",
-        location: currentUser?.location || "",
         bio: currentUser?.bio || "",
     });
 
@@ -38,16 +36,6 @@ export default () => {
                 />
                 <InputField
                     label="username"
-                    profileInfo={profileInfo}
-                    setProfileInfo={setProfileInfo}
-                />
-                <InputField
-                    label="company"
-                    profileInfo={profileInfo}
-                    setProfileInfo={setProfileInfo}
-                />
-                <InputField
-                    label="location"
                     profileInfo={profileInfo}
                     setProfileInfo={setProfileInfo}
                 />

@@ -15,7 +15,7 @@ export default () => {
                 <Nav />
                 <SearchBar triggerSearch={triggerSearch} />
                 <EmptySearch>
-                    <h1>We'll show similar searches here!</h1>
+                    <h1>Once you post, similar posts will be shown here!</h1>
                 </EmptySearch>
             </Home>
         );

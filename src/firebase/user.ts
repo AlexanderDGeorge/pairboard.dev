@@ -3,35 +3,23 @@ import { firestore, auth } from "./firebase";
 export interface User {
     uid: string;
     bio: string;
-    company?: string;
     darkMode: string;
     email: string;
+    firstname: string;
+    lastname: string;
     pairs: Array<string>;
-    links: UserLinks;
-    location?: string;
     photoURL: string;
-    ratingMatrix?: Array<string>;
     score: number;
     searchId?: string;
-    sessions: Array<string>;
+    sessionId?: string;
     status: string;
     streak: number;
     username: string;
 }
 
-interface UserLinks {
-    github?: string;
-    linkedin?: string;
-    portfolio?: string;
-    other?: string;
-}
-
 interface UpdateData {
     bio: string;
-    company?: string;
     username: string;
-    location?: string;
-    links?: UserLinks;
 }
 
 const userRef = (uid: User["uid"]) => firestore().collection("users").doc(uid);

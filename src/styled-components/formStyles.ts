@@ -41,7 +41,7 @@ export const StyledButton = styled.button`
     padding: 10px;
     font-size: 1em;
     font-weight: 600;
-    background-color: ${(props) => props.theme.dark};
+    background-color: ${(props) => props.theme.verydark};
     color: ${(props) => props.theme.verylight};
     outline: none;
     display: flex;

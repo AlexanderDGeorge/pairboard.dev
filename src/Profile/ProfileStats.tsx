@@ -12,11 +12,6 @@ export default (props: { user?: User }) => {
             <h1>Stats</h1>
             <StatsBar value={currentUser?.score} max={5} label="Score" />
             <StatsBar
-                value={currentUser?.sessions.length}
-                max={100}
-                label="Completed PairBoards"
-            />
-            <StatsBar
                 value={currentUser?.streak}
                 max={100}
                 label="Pair Streak"

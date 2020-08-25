@@ -81,16 +81,16 @@ async function createUserDocument(
             bio: "",
             darkMode: "Auto",
             email,
+            firstname,
+            lastname,
             pairs: [],
-            links: [],
-            photoURL: user.photoURL || "",
+            photoURL:
+                user.photoURL ||
+                "https://blacklivesmatter.com/wp-content/uploads/2017/07/BLM-logo.png",
             score: 0,
-            sessions: [],
             status: "online",
             streak: 0,
             username,
-            firstname,
-            lastname,
         });
     }
 }
