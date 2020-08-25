@@ -6,7 +6,6 @@ export default () => {
     return (
         <LinkBar>
             <StyledLink to="/">Home</StyledLink>
-            <StyledLink to="/search">Search</StyledLink>
             <StyledLink to="/pairs">Pairs</StyledLink>
             <StyledLink to="/profile/stats">Profile</StyledLink>
         </LinkBar>

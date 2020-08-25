@@ -20,4 +20,5 @@ const Profile = styled.div`
     min-height: 100%;
     height: 100%;
     width: 100%;
+    background-color: ${(props) => props.theme.white};
 `;

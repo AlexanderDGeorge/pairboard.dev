@@ -11,7 +11,6 @@ import Loading from "./Pages/Loading";
 import User from "./Pages/User";
 import Pairs from "./Pages/Pairs";
 import Home from "./Pages/Home";
-import Search from "./Pages/Search";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
@@ -25,7 +24,6 @@ export default function Routing() {
                     <Route path="/profile" component={Profile} />
                     <Route path="/user" component={User} />
                     <Route path="/pairs" component={Pairs} />
-                    <Route path="/search" component={Search} />
                     <Route path="/" component={Home} />
                 </Switch>
                 <Footer />

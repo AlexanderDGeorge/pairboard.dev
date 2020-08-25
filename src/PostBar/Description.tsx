@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { SearchContext } from "../Application";
+import { NewPost } from "../firebase/post";
 
-export default () => {
-    const [searchParams, setSearchParams] = useContext(SearchContext);
+export default (props: { postParams: NewPost; setPostParams: Function }) => {
+    const { postParams, setPostParams } = props;
 
     function handleChange(e: any) {
         e.persist();
-        if (setSearchParams) {
-            setSearchParams({
-                ...searchParams,
+        if (setPostParams) {
+            setPostParams({
+                ...postParams,
                 description: e.target.value,
             });
         } else {
@@ -18,19 +18,19 @@ export default () => {
     }
 
     return (
-        <BoardDescription>
+        <PostDescription>
             <h4>description</h4>
             <input
                 maxLength={140}
                 placeholder="add optional description"
-                value={searchParams?.description}
+                value={postParams?.description}
                 onChange={handleChange}
             />
-        </BoardDescription>
+        </PostDescription>
     );
 };
 
-const BoardDescription = styled.div`
+const PostDescription = styled.div`
     position: relative;
     margin: 2% 0;
     > h4 {

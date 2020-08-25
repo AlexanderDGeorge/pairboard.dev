@@ -40,5 +40,5 @@ const ProfileNav = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 15px -8px ${(props) => props.theme.medium};
+    box-shadow: 0 20px 20px -20px ${(props) => props.theme.medium};
 `;

@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import LinkBar from "../Nav/LinkBar";
+import PostBar from "../PostBar/PostBar";
 
 export default () => {
     return (
         <Home>
             <LinkBar />
+            <PostBar />
         </Home>
     );
 };

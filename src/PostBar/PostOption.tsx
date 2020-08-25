@@ -1,21 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { SearchContext } from "../Application";
+import { NewPost } from "../firebase/post";
 
-interface SearchOptionProps {
+interface PostOptionProps {
     filter: string;
     options: Array<string>;
+    postParams: NewPost;
+    setPostParams: Function;
 }
 
-export default (props: SearchOptionProps) => {
-    const { filter, options } = props;
-    const [searchParams, setSearchParams] = useContext(SearchContext);
+export default (props: PostOptionProps) => {
+    const { filter, options, postParams, setPostParams } = props;
 
     function handleChange(e: any) {
         e.persist();
-        if (setSearchParams) {
-            setSearchParams({
-                ...searchParams,
+        if (setPostParams) {
+            setPostParams({
+                ...postParams,
                 [filter]: e.target.value,
             });
         } else {
@@ -24,12 +25,12 @@ export default (props: SearchOptionProps) => {
     }
 
     return (
-        <SearchOption>
+        <PostOption>
             <label>{filter}</label>
             <select
                 name="options"
                 id="options"
-                defaultValue={searchParams ? searchParams[filter] : ""}
+                defaultValue={postParams ? postParams[filter] : ""}
                 onChange={handleChange}
             >
                 {options.map((option, i) => (
@@ -38,11 +39,11 @@ export default (props: SearchOptionProps) => {
                     </option>
                 ))}
             </select>
-        </SearchOption>
+        </PostOption>
     );
 };
 
-const SearchOption = styled.div`
+const PostOption = styled.div`
     position: relative;
     margin: 2% 0;
     > label {

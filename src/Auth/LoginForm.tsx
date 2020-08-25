@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField, StyledButton } from "../styled-components/formStyles";
 import { login } from "../firebase/auth";
@@ -9,8 +9,6 @@ interface LogInValues {
 }
 
 export default () => {
-    const [isDisabled, setIsDisabled] = useState(true);
-
     function validate(values: LogInValues) {
         const errors: { [key: string]: string } = {};
         if (!values.email) {
@@ -41,28 +39,20 @@ export default () => {
             validate={validate}
             onSubmit={handleSubmit}
         >
-            {(stuff) => (
-                <Form>
-                    <h1>Log In</h1>
-                    <StyledField>
-                        <label htmlFor="email">email</label>
-                        <Field type="email" name="email" />
-                        <ErrorMessage name="email" component="p" />
-                    </StyledField>
-                    <StyledField>
-                        <label htmlFor="password">password</label>
-                        <Field type="password" name="password" />
-                        <ErrorMessage name="password" component="p" />
-                    </StyledField>
-                    <StyledButton
-                        style={isDisabled ? {} : { backgroundColor: "#222" }}
-                        type="submit"
-                        disabled={isDisabled}
-                    >
-                        Log In
-                    </StyledButton>
-                </Form>
-            )}
+            <Form>
+                <h1>Log In</h1>
+                <StyledField>
+                    <label htmlFor="email">email</label>
+                    <Field type="email" name="email" />
+                    <ErrorMessage name="email" component="p" />
+                </StyledField>
+                <StyledField>
+                    <label htmlFor="password">password</label>
+                    <Field type="password" name="password" />
+                    <ErrorMessage name="password" component="p" />
+                </StyledField>
+                <StyledButton type="submit">Log In</StyledButton>
+            </Form>
         </Formik>
     );
 };
