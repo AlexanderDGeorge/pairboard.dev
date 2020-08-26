@@ -9,12 +9,10 @@ import { createPostDocument } from "../firebase/post";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();
-    const currentUser = useContext(UserContext);
+    const currentUser = useContext(UserContext)!;
 
     async function handleClick() {
-        if (currentUser) {
-            await createPostDocument(currentUser, postParams);
-        }
+        await createPostDocument(currentUser, postParams);
     }
 
     return (

@@ -6,6 +6,8 @@ import PostItem from "./Post";
 export default () => {
     const [posts, setPosts] = useState<any>([]);
 
+    // [TODO]: paginate
+
     useEffect(() => {
         fetchPosts().then((postDocs) => setPosts(postDocs));
     }, []);

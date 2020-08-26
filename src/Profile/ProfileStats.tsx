@@ -5,17 +5,13 @@ import { UserContext } from "../Application";
 import { User } from "../firebase/user";
 
 export default (props: { user?: User }) => {
-    const currentUser = props.user || useContext(UserContext);
+    const { streak, score } = props.user || useContext(UserContext)!;
 
     return (
         <ProfileStats>
             <h1>Stats</h1>
-            <StatsBar value={currentUser?.score} max={5} label="Score" />
-            <StatsBar
-                value={currentUser?.streak}
-                max={100}
-                label="Pair Streak"
-            />
+            <StatsBar value={score} max={5} label="Score" />
+            <StatsBar value={streak} max={100} label="Pair Streak" />
         </ProfileStats>
     );
 };

@@ -6,11 +6,11 @@ import { updateUserDoc } from "../firebase/user";
 import InputField from "./Components/InputField";
 
 export default () => {
-    const currentUser = useContext(UserContext);
+    const { username, bio } = useContext(UserContext)!;
     const [changes, setChanges] = useState(false);
     const [profileInfo, setProfileInfo] = useState({
-        username: currentUser?.username || "",
-        bio: currentUser?.bio || "",
+        username,
+        bio,
     });
 
     function handleUpdate() {

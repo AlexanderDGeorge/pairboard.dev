@@ -21,8 +21,8 @@ const moveHover = (value: string) => {
 };
 
 export default () => {
-    const currentUser = useContext(UserContext);
-    const [darkMode, setDarkMode] = useState(currentUser?.darkMode || "Auto");
+    const currentUser = useContext(UserContext)!;
+    const [darkMode, setDarkMode] = useState(currentUser.darkMode || "Auto");
     const [hover, setHover] = useSpring(() => moveHover(darkMode));
 
     function Option(props: { value: string }) {

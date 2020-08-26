@@ -4,19 +4,20 @@ import { UserContext } from "../Application";
 import { User } from "../firebase/user";
 
 export default (props: { user?: User }) => {
-    const currentUser = props.user || useContext(UserContext);
+    const { photoURL, username, score, firstname, lastname, bio } =
+        props.user || useContext(UserContext)!;
 
     return (
         <ProfileHeader>
-            <img src={currentUser?.photoURL} alt="" />
+            <img src={photoURL} alt="" />
             <div>
                 <h1>
-                    {currentUser?.username} | {currentUser?.score}
+                    {username} | {score}
                 </h1>
                 <h3>
-                    {currentUser?.firstname} {currentUser?.lastname}
+                    {firstname} {lastname}
                 </h3>
-                <h3>{currentUser?.bio}</h3>
+                <h3>{bio}</h3>
             </div>
         </ProfileHeader>
     );

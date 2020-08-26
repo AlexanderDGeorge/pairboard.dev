@@ -2,10 +2,11 @@ import { firestore } from "./firebase";
 import { User } from "./user";
 
 export interface Post extends NewPost {
+    userId: User["uid"];
     username: User["username"];
     userScore: User["score"];
     userPhotoURL: User["photoURL"];
-    createdAt: string;
+    createdAt: Date;
 }
 
 export interface NewPost {
@@ -26,6 +27,7 @@ export async function createPostDocument(user: User, newPost: NewPost) {
             .add({
                 ...newPost,
                 createdAt: new Date(),
+                userId: user.uid,
                 username: user.username,
                 userScore: user.score,
                 userPhotoURL: user.photoURL,
@@ -41,6 +43,7 @@ async function updatePostDocument(user: User, newPost: NewPost) {
     await postRef.update({
         ...newPost,
         createdAt: new Date(),
+        userId: user.uid,
         username: user.username,
         userScore: user.score,
         userPhotoURL: user.photoURL,

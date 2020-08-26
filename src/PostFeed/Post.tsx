@@ -1,25 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Post } from "../firebase/post";
 import { Link } from "react-router-dom";
+import { UserContext } from "../Application";
 
 export default (props: { post: Post }) => {
     const {
+        userId,
         username,
         userScore,
         userPhotoURL,
-        createdAt,
         language,
         difficulty,
         tags,
         description,
     } = props.post;
 
+    const { uid } = useContext(UserContext)!;
+
+    function handleClick() {
+        if (uid === userId) return;
+        console.log("clicked");
+        // create a confirm and then loading modal
+    }
+
     return (
-        <StyledPost>
+        <StyledPost onClick={handleClick}>
             <PostHeader>
                 <img src={userPhotoURL} alt="" />
-                <Link to={`/user/${username}`}>
+                <Link
+                    to={uid === userId ? `/profile/stats` : `/user/${username}`}
+                >
                     {username} | {userScore}
                 </Link>
                 <h4>{language}</h4>
@@ -38,8 +49,10 @@ export default (props: { post: Post }) => {
 const StyledPost = styled.div`
     height: 200px;
     width: 300px;
+    margin-right: 10px;
     border: 1px solid ${(props) => props.theme.verydark};
     padding: 2%;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     transition: all linear 0.2s;
