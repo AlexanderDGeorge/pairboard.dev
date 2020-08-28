@@ -1,4 +1,4 @@
-import { firestore } from "./firebase";
+import { firestore, fieldValue } from "./firebase";
 import { User } from "./user";
 
 export interface Post extends NewPost {
@@ -18,7 +18,7 @@ export interface NewPost {
 }
 
 export async function createPostDocument(user: User, newPost: NewPost) {
-    if (user.searchId) {
+    if (user.postId) {
         updatePostDocument(user, newPost);
     } else {
         const userRef = firestore().collection("users").doc(user.uid);
@@ -33,13 +33,13 @@ export async function createPostDocument(user: User, newPost: NewPost) {
                 userPhotoURL: user.photoURL,
             });
         userRef.update({
-            searchId: postDoc.id,
+            postId: postDoc.id,
         });
     }
 }
 
 async function updatePostDocument(user: User, newPost: NewPost) {
-    const postRef = firestore().collection("posts").doc(user.searchId);
+    const postRef = firestore().collection("posts").doc(user.postId);
     await postRef.update({
         ...newPost,
         createdAt: new Date(),
@@ -50,7 +50,17 @@ async function updatePostDocument(user: User, newPost: NewPost) {
     });
 }
 
+export function deletePostDocument(user: User) {
+    const postRef = firestore().collection("posts").doc(user.postId);
+    const userRef = firestore().collection("users").doc(user.uid);
+    postRef.delete();
+    userRef.update({
+        postId: fieldValue.delete(),
+    });
+}
+
 export async function fetchPosts() {
+    // [TODO]: make this paginated and realtime
     const postsRef = await firestore()
         .collection("posts")
         .orderBy("createdAt", "desc")

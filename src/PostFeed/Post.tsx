@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Post } from "../firebase/post";
 import { UserContext, ModalContext } from "../Application";
-import { WaitingOnOwnerNotification } from "./PostNotifications";
+import { PingPostOwner } from "./PostModals";
 
 export default (props: { post: Post }) => {
     const {
@@ -20,13 +20,16 @@ export default (props: { post: Post }) => {
     const { uid } = useContext(UserContext)!;
     const { handleModal } = useContext(ModalContext)!;
 
-    async function handleClick() {
+    async function handleClick(e: any) {
+        e.stopPropagation();
         if (uid === userId) return;
         console.log("clicked");
-        handleModal(<WaitingOnOwnerNotification />);
+        handleModal(<PingPostOwner postOwnerId={userId} />);
         // await createRoom();
         // create a confirm and then loading modal
     }
+
+    // [TODO]: stop link propagation
 
     return (
         <StyledPost onClick={handleClick}>

@@ -1,7 +1,7 @@
 import { firestore } from "./firebase";
 import { User } from "./user";
 
-interface Ping {
+export interface Ping {
     ownerId: User["uid"];
     userId: User["uid"];
     username: User["username"];
@@ -9,4 +9,15 @@ interface Ping {
     userPhotoURL: User["photoURL"];
 }
 
-export async function pingPostOwner() {}
+export async function pingPostOwner(ping: Ping) {
+    const { ownerId, userId, username, userScore, userPhotoURL } = ping;
+    const ownerRef = firestore().collection("users").doc(ownerId);
+    ownerRef.update({
+        ping: {
+            userId,
+            username,
+            userScore,
+            userPhotoURL,
+        },
+    });
+}

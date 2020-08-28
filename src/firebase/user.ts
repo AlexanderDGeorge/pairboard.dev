@@ -1,4 +1,5 @@
 import { firestore, auth } from "./firebase";
+import { Ping } from "./ping";
 
 export interface User {
     uid: string;
@@ -9,8 +10,9 @@ export interface User {
     lastname: string;
     pairs: Array<string>;
     photoURL: string;
+    ping?: Ping;
+    postId?: string;
     score: number;
-    searchId?: string;
     sessionId?: string;
     status: string;
     streak: number;
