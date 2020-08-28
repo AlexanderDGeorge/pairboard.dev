@@ -1,35 +1,21 @@
-import React, { useRef, useContext } from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import useOnOutsideClick from "../util/useOnOutsideClick";
 import { ModalContext } from "../Application";
 
 export default () => {
-    const { modalOpen } = useContext(ModalContext)!;
+    const { modalOpen, modalContent } = useContext(ModalContext)!;
     const modalRoot = document.getElementById("modal-root");
 
     if (modalOpen && modalRoot) {
-        return ReactDOM.createPortal(<Modal />, modalRoot);
+        return ReactDOM.createPortal(
+            <StyledModal>{modalContent}</StyledModal>,
+            modalRoot
+        );
     } else {
         return null;
     }
 };
-
-function Modal() {
-    const { handleModal, closeOnOutside, modalContent } = useContext(
-        ModalContext
-    )!;
-    const modalRef = useRef(null);
-    useOnOutsideClick(modalRef, () => handleModal());
-
-    return (
-        <StyledModal>
-            <ModalContent ref={closeOnOutside ? modalRef : null}>
-                {modalContent}
-            </ModalContent>
-        </StyledModal>
-    );
-}
 
 const StyledModal = styled.div`
     position: absolute;
@@ -42,10 +28,4 @@ const StyledModal = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-`;
-
-const ModalContent = styled.div`
-    height: 300px;
-    width: 300px;
-    background-color: ${(props) => props.theme.white};
 `;

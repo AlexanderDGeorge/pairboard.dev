@@ -15,7 +15,7 @@ export const ModalContext = createContext<ModalInterface | undefined>(
 
 export default function Application() {
     const currentUser = useUserState();
-    const { handleModal, closeOnOutside, modalOpen, modalContent } = useModal();
+    const { handleModal, modalOpen, modalContent } = useModal();
 
     return (
         <ApplicationContainer>
@@ -24,7 +24,6 @@ export default function Application() {
                     <ModalContext.Provider
                         value={{
                             handleModal,
-                            closeOnOutside,
                             modalOpen,
                             modalContent,
                         }}

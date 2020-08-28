@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Post } from "../firebase/post";
 import { Link } from "react-router-dom";
+import { Post } from "../firebase/post";
 import { UserContext, ModalContext } from "../Application";
+import { WaitingOnOwnerNotification } from "./PostNotifications";
 
 export default (props: { post: Post }) => {
     const {
@@ -22,7 +23,7 @@ export default (props: { post: Post }) => {
     async function handleClick() {
         if (uid === userId) return;
         console.log("clicked");
-        handleModal(<div></div>);
+        handleModal(<WaitingOnOwnerNotification />);
         // await createRoom();
         // create a confirm and then loading modal
     }
