@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Post } from "../firebase/post";
 import { Link } from "react-router-dom";
-import { UserContext } from "../Application";
+import { UserContext, ModalContext } from "../Application";
 
 export default (props: { post: Post }) => {
     const {
@@ -17,10 +17,13 @@ export default (props: { post: Post }) => {
     } = props.post;
 
     const { uid } = useContext(UserContext)!;
+    const { handleModal } = useContext(ModalContext)!;
 
-    function handleClick() {
+    async function handleClick() {
         if (uid === userId) return;
         console.log("clicked");
+        handleModal(<div></div>);
+        // await createRoom();
         // create a confirm and then loading modal
     }
 
@@ -37,9 +40,9 @@ export default (props: { post: Post }) => {
             </PostHeader>
             <PostDescription>{description}</PostDescription>
             <PostInfo>
-                <p>{difficulty} | </p>
+                <p>{difficulty}</p>
                 {tags.map((tag, i: number) => (
-                    <p key={i}> {tag} | </p>
+                    <p key={i}>| {tag} </p>
                 ))}
             </PostInfo>
         </StyledPost>
@@ -51,7 +54,7 @@ const StyledPost = styled.div`
     width: 300px;
     margin-right: 10px;
     border: 1px solid ${(props) => props.theme.verydark};
-    padding: 2%;
+    padding: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: column;

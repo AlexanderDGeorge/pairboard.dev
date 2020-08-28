@@ -1,21 +1,29 @@
 import { useState } from "react";
-// import Modal from "./Modal";
 
-export interface IModalContext {
+export interface ModalInterface {
+    handleModal: Function;
     modalOpen: boolean;
-    setModalOpen: Function;
-    toggle: Function;
-    modalContent: JSX.Element | undefined;
-    setModalContent: Function;
+    modalContent: JSX.Element | JSX.Element[] | undefined;
+    closeOnOutside: boolean;
 }
 
-export default (open = false) => {
-    const [modalOpen, setModalOpen] = useState(open);
-    const [modalContent, setModalContent] = useState<JSX.Element | undefined>(
-        undefined
-    );
+export default () => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalContent, setModalContent] = useState<
+        JSX.Element | JSX.Element[] | undefined
+    >(undefined);
+    let closeOnOutside = true;
+    const handleModal = (content?: JSX.Element | JSX.Element[]) => {
+        if (content) {
+            setModalOpen(true);
+            setModalContent(content);
+        } else {
+            setModalOpen(false);
+            setModalContent(content);
+        }
+    };
 
-    const toggle = () => setModalOpen(!modalOpen);
+    console.log(modalOpen, modalContent);
 
-    return { modalOpen, setModalOpen, toggle, modalContent, setModalContent };
+    return { handleModal, closeOnOutside, modalOpen, modalContent };
 };

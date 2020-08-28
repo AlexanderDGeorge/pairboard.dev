@@ -5,20 +5,17 @@ import { GlobalStyle } from "./styled-components/globalStyle";
 import useUserState from "./util/useUserState";
 import useThemeState from "./util/useThemeState";
 import { User } from "./firebase/user";
-import useModal, { IModalContext } from "./Modal/useModal";
+import useModal, { ModalInterface } from "./Modal/useModal";
+import Modal from "./Modal/Modal";
 
 export const UserContext = createContext<User | undefined | null>(undefined);
-export const ModalContext = createContext<IModalContext | undefined>(undefined);
+export const ModalContext = createContext<ModalInterface | undefined>(
+    undefined
+);
 
 export default function Application() {
     const currentUser = useUserState();
-    const {
-        modalOpen,
-        setModalOpen,
-        toggle,
-        modalContent,
-        setModalContent,
-    } = useModal();
+    const { handleModal, closeOnOutside, modalOpen, modalContent } = useModal();
 
     return (
         <ApplicationContainer>
@@ -26,13 +23,13 @@ export default function Application() {
                 <ThemeProvider theme={useThemeState(currentUser)}>
                     <ModalContext.Provider
                         value={{
+                            handleModal,
+                            closeOnOutside,
                             modalOpen,
-                            setModalOpen,
-                            toggle,
                             modalContent,
-                            setModalContent,
                         }}
                     >
+                        <Modal />
                         <GlobalStyle />
                         <Routing />
                     </ModalContext.Provider>
