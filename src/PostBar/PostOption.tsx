@@ -12,7 +12,7 @@ interface PostOptionProps {
 export default (props: PostOptionProps) => {
     const { filter, options, postParams, setPostParams } = props;
 
-    function handleChange(e: any) {
+    function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         e.persist();
         if (setPostParams) {
             setPostParams({

@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, SyntheticEvent } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import { Post } from "../firebase/post";
 import { UserContext, ModalContext } from "../Application";
 import { PingPostOwner } from "./PostModals";
+import { pingPostOwner } from "../firebase/ping";
 
 export default (props: { post: Post }) => {
     const {
@@ -17,29 +18,37 @@ export default (props: { post: Post }) => {
         description,
     } = props.post;
 
-    const { uid } = useContext(UserContext)!;
+    const currentUser = useContext(UserContext)!;
     const { handleModal } = useContext(ModalContext)!;
+    const history = useHistory();
 
-    async function handleClick(e: any) {
+    async function handleClick(e: SyntheticEvent) {
         e.stopPropagation();
-        if (uid === userId) return;
-        console.log("clicked");
+        if (currentUser.uid === userId) return;
+        pingPostOwner({
+            ownerId: userId,
+            userId: currentUser.uid,
+            username: currentUser.username,
+            userScore: currentUser.score,
+            userPhotoURL: currentUser.photoURL,
+        });
         handleModal(<PingPostOwner postOwnerId={userId} />);
-        // await createRoom();
-        // create a confirm and then loading modal
     }
 
-    // [TODO]: stop link propagation
+    function handleLink(e: SyntheticEvent) {
+        e.stopPropagation();
+        currentUser.uid === userId
+            ? history.replace("/profile/stats")
+            : history.replace(`/user/${username}`);
+    }
 
     return (
         <StyledPost onClick={handleClick}>
             <PostHeader>
                 <img src={userPhotoURL} alt="" />
-                <Link
-                    to={uid === userId ? `/profile/stats` : `/user/${username}`}
-                >
+                <button onClick={handleLink}>
                     {username} | {userScore}
-                </Link>
+                </button>
                 <h4>{language}</h4>
             </PostHeader>
             <PostDescription>{description}</PostDescription>
@@ -81,9 +90,10 @@ const PostHeader = styled.div`
         width: auto;
         margin-right: 10px;
     }
-    > a {
+    > button {
         width: 200px;
         font-size: 1em;
+        text-align: left;
         text-decoration: none;
         &:hover {
             text-decoration: underline;

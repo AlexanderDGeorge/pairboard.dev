@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ModalContext, UserContext } from "../Application";
 import useLockBodyScroll from "../util/useLockBodyScroll";
 import { LoadingBar } from "../AnimatedComponents/Loaders";
-import { pingPostOwner } from "../firebase/ping";
+import { pingPostOwner, deletePing } from "../firebase/ping";
 import { User } from "../firebase/user";
 
 export const PingPostOwner = (props: { postOwnerId: User["uid"] }) => {
@@ -23,6 +23,7 @@ export const PingPostOwner = (props: { postOwnerId: User["uid"] }) => {
     }, [currentUser, props]);
 
     function handleCancel() {
+        deletePing(props.postOwnerId);
         handleModal();
     }
 

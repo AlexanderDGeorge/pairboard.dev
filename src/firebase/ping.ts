@@ -1,4 +1,4 @@
-import { firestore } from "./firebase";
+import { firestore, fieldValue } from "./firebase";
 import { User } from "./user";
 
 export interface Ping {
@@ -19,5 +19,12 @@ export async function pingPostOwner(ping: Ping) {
             userScore,
             userPhotoURL,
         },
+    });
+}
+
+export async function deletePing(userId: User["uid"]) {
+    const userRef = firestore().collection("users").doc(userId);
+    await userRef.update({
+        ping: fieldValue.delete(),
     });
 }

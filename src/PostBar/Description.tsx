@@ -5,7 +5,7 @@ import { NewPost } from "../firebase/post";
 export default (props: { postParams: NewPost; setPostParams: Function }) => {
     const { postParams, setPostParams } = props;
 
-    function handleChange(e: any) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         e.persist();
         if (setPostParams) {
             setPostParams({

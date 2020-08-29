@@ -10,7 +10,7 @@ interface InputFieldProps {
 export default (props: InputFieldProps) => {
     const { label, profileInfo, setProfileInfo } = props;
 
-    function handleChange(e: any) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         e.persist();
         setProfileInfo((profileInfo: any) => ({
             ...profileInfo,
