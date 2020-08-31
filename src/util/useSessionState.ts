@@ -14,41 +14,11 @@ const configuration: RTCConfiguration = {
     ],
     iceCandidatePoolSize: 10,
 };
-const peerConnection = new RTCPeerConnection(configuration);
 
-function setupPeerConnection(session: Session, currentUser: User) {
-    if (session.offerUser.uid === currentUser.uid) {
-        peerConnection.setLocalDescription({
-            type: "offer",
-            sdp: session.offer,
-        });
-        if (session.answer) {
-            peerConnection.setRemoteDescription({
-                type: "answer",
-                sdp: session.answer,
-            });
-        }
-    } else {
-        peerConnection.setLocalDescription({
-            type: "answer",
-            sdp: session.answer,
-        });
-        peerConnection.setRemoteDescription({
-            type: "offer",
-            sdp: session.offer,
-        });
-    }
-}
+export const peerConnection = new RTCPeerConnection(configuration);
 
 export default (currentUser?: User | null) => {
     const [session, setSession] = useState<Session | undefined>(undefined);
-
-    useEffect(() => {
-        if (session && currentUser) {
-            setupPeerConnection(session, currentUser);
-        }
-        // eslint-disable-next-line
-    }, [session]);
 
     useEffect(() => {
         let unsubscribe = () => {};
@@ -57,6 +27,7 @@ export default (currentUser?: User | null) => {
                 .collection("sessions")
                 .doc(currentUser.sessionId)
                 .onSnapshot((snapshot) => {
+                    console.log(snapshot);
                     if (snapshot.exists) {
                         const data = snapshot.data();
                         if (data) {

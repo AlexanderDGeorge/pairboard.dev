@@ -17,25 +17,19 @@ export const ModalContext = createContext<ModalInterface | undefined>(
 );
 
 export default function Application() {
-    const { handleModal, modalOpen, modalContent } = useModal();
+    // const { handleModal, modalOpen, modalContent } = useModal();
     const currentUser = useUserState();
 
     return (
         <ApplicationContainer>
             <ThemeProvider theme={useThemeState(currentUser)}>
-                <ModalContext.Provider
-                    value={{
-                        handleModal,
-                        modalOpen,
-                        modalContent,
-                    }}
-                >
+                <ModalContext.Provider value={useModal()}>
                     <UserContext.Provider value={currentUser}>
                         <SessionContext.Provider
                             value={useSessionState(currentUser)}
                         >
-                            <Modal />
                             <GlobalStyle />
+                            <Modal />
                             <Routing />
                         </SessionContext.Provider>
                     </UserContext.Provider>

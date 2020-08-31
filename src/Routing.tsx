@@ -20,7 +20,15 @@ export default function Routing() {
     console.log(currentUser);
     console.log(session);
 
-    if (currentUser && modalContext) {
+    if (session?.answer) {
+        return (
+            <BrowserRouter>
+                <Header />
+                Session
+                <Footer />
+            </BrowserRouter>
+        );
+    } else if (currentUser && modalContext) {
         return (
             <BrowserRouter>
                 <Header />

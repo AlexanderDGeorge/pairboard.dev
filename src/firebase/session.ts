@@ -1,26 +1,22 @@
 import { firestore, fieldValue } from "./firebase";
 import { Session, NewSession } from "../types/session_types";
 import { UserLite } from "../types/user_types";
+import { peerConnection } from "../util/useSessionState";
 
-const configuration: RTCConfiguration = {
-    iceServers: [
-        {
-            urls: [
-                "stun:stun1.l.google.com:19302",
-                "stun:stun2.l.google.com:19302",
-            ],
-        },
-    ],
-    iceCandidatePoolSize: 10,
+const createOffer = async () => {
+    const offer = await peerConnection.createOffer();
+    await peerConnection.setLocalDescription(offer);
+    return offer.sdp;
 };
 
-const peerConnection = new RTCPeerConnection(configuration);
-
-const createAnswer = async () => {
-    console.log("here");
-    const answer = (await peerConnection.createAnswer()).sdp;
-    console.log(answer);
-    return answer;
+const createAnswer = async (offer: string) => {
+    await peerConnection.setRemoteDescription({
+        type: "offer",
+        sdp: offer,
+    });
+    const answer = await peerConnection.createAnswer();
+    peerConnection.setLocalDescription(answer);
+    return answer.sdp;
 };
 
 export async function joinSession(user: UserLite, session: Session) {
@@ -28,7 +24,7 @@ export async function joinSession(user: UserLite, session: Session) {
         .collection("sessions")
         .doc(session.id)
         .update({
-            answer: await createAnswer(),
+            answer: await createAnswer(session.offer),
             answerUser: user,
         });
     firestore().collection("users").doc(user.uid).update({
@@ -42,7 +38,7 @@ export async function createNewSession(user: UserLite, newSession: NewSession) {
         ...newSession,
         id: sessionRef.id,
         createdAt: new Date(),
-        offer: (await peerConnection.createOffer()).sdp,
+        offer: await createOffer(),
         offerUser: user,
     });
     firestore().collection("users").doc(user.uid).update({
