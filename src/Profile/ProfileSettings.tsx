@@ -16,7 +16,7 @@ export default () => {
     function handleUpdate() {
         // [TODO]: handle empty username
         setChanges(false);
-        updateUserDoc(profileInfo);
+        updateUserDoc(profileInfo.bio, profileInfo.username);
     }
 
     return (

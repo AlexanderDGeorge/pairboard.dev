@@ -1,28 +1,5 @@
 import { firestore, auth } from "./firebase";
-import { Ping } from "./ping";
-
-export interface User {
-    uid: string;
-    bio: string;
-    darkMode: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-    pairs: Array<string>;
-    photoURL: string;
-    ping?: Ping;
-    postId?: string;
-    score: number;
-    sessionId?: string;
-    status: string;
-    streak: number;
-    username: string;
-}
-
-interface UpdateData {
-    bio: string;
-    username: string;
-}
+import { User } from "../types/user_types";
 
 const userRef = (uid: User["uid"]) => firestore().collection("users").doc(uid);
 
@@ -60,11 +37,15 @@ export async function updateDarkModeSetting(darkMode: User["uid"]) {
     }
 }
 
-export async function updateUserDoc(updateData: UpdateData) {
+export async function updateUserDoc(
+    bio: User["bio"],
+    username: User["username"]
+) {
     const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
     try {
         await userRef.update({
-            ...updateData,
+            bio,
+            username,
         });
     } catch (error) {
         console.error(error.message);

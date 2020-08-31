@@ -17,3 +17,7 @@ body,
     transition: color 0.2s linear;
     transition: background-color 1s ease-in;
 }
+
+button {
+    cursor: pointer;
+}

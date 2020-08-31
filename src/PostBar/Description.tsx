@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { NewPost } from "../firebase/post";
+import { NewSession } from "../types/session_types";
 
-export default (props: { postParams: NewPost; setPostParams: Function }) => {
+export default (props: { postParams: NewSession; setPostParams: Function }) => {
     const { postParams, setPostParams } = props;
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../Application";
-import { User } from "../firebase/user";
-
+import { User } from "../types/user_types";
 export default (props: { user?: User }) => {
     const { photoURL, username, score, firstname, lastname, bio } =
         props.user || useContext(UserContext)!;

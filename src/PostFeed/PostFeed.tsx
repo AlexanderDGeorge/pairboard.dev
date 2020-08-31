@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { fetchPosts, Post } from "../firebase/post";
 import PostItem from "./Post";
+import { fetchSessions } from "../firebase/session";
+import { Session } from "../types/session_types";
 
 export default () => {
     const [posts, setPosts] = useState<any>([]);
@@ -9,12 +10,12 @@ export default () => {
     // [TODO]: paginate
 
     useEffect(() => {
-        fetchPosts().then((postDocs) => setPosts(postDocs));
+        fetchSessions().then((sessionDocs) => setPosts(sessionDocs));
     }, []);
 
     return (
         <PostFeed>
-            {posts.map((post: Post, i: number) => (
+            {posts.map((post: Session, i: number) => (
                 <PostItem post={post} key={i} />
             ))}
         </PostFeed>

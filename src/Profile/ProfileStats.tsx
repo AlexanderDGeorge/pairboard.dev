@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import StatsBar from "./Components/StatsBar";
 import { UserContext } from "../Application";
-import { User } from "../firebase/user";
+import { User } from "../types/user_types";
 
 export default (props: { user?: User }) => {
     const { streak, score } = props.user || useContext(UserContext)!;

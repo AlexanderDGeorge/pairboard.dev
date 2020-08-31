@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NewPost } from "../firebase/post";
+import { NewSession } from "../types/session_types";
 
 const defaultPost = {
     language: "Any",
@@ -13,8 +13,8 @@ function getPostFromLocalStorage() {
     return localStoragePost ? JSON.parse(localStoragePost) : defaultPost;
 }
 
-export default function useSearchState(): [NewPost, Function] {
-    const [postParams, setPostParams] = useState<NewPost>(() => {
+export default function useSearchState(): [NewSession, Function] {
+    const [postParams, setPostParams] = useState<NewSession>(() => {
         return getPostFromLocalStorage();
     });
 

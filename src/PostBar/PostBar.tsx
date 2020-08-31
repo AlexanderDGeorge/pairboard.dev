@@ -5,14 +5,19 @@ import PostOption from "./PostOption";
 import Description from "./Description";
 import { LANGUAGES, DIFFICULTIES, TAGS } from "../util/constants";
 import { UserContext } from "../Application";
-import { createPostDocument } from "../firebase/post";
+import { createNewSession } from "../firebase/session";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();
-    const currentUser = useContext(UserContext)!;
+    const { uid, firstname, lastname, photoURL, score, username } = useContext(
+        UserContext
+    )!;
 
     async function handleClick() {
-        await createPostDocument(currentUser, postParams);
+        createNewSession(
+            { uid, firstname, lastname, photoURL, score, username },
+            postParams
+        );
     }
 
     return (

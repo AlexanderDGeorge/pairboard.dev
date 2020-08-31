@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { User } from "../firebase/user";
 import { firestore, auth } from "../firebase/firebase";
+import { User } from "../types/user_types";
 
 export default () => {
     const [currentUser, setCurrentUser] = useState<User | undefined | null>(
@@ -27,8 +27,6 @@ export default () => {
                                     lastname: data.lastname,
                                     pairs: data.pairs,
                                     photoURL: data.photoURL,
-                                    ping: data.ping,
-                                    postId: data.postId,
                                     score: data.score,
                                     sessionId: data.sessionId,
                                     status: data.status,

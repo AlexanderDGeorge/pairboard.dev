@@ -22,11 +22,10 @@ const load = keyframes`
 const StyledLoadingBar = styled.div`
     position: relative;
     height: 40px;
-    /* min-width: 300px; */
     width: 80%;
-    margin: 5%;
+    margin: 10px;
     border-radius: 50px;
-    box-shadow: 0 0 10px -2px;
+    box-shadow: 0 0 10px -2px ${(props) => props.theme.verydark};
     background-color: transparent;
     overflow: hidden;
     background-image: ${(props) =>

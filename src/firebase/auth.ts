@@ -1,5 +1,5 @@
 import { auth, firestore, githubProvider } from "./firebase";
-import { User } from "./user";
+import { User } from "../types/user_types";
 
 export interface SignUpValues {
     username: string;

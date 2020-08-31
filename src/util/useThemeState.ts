@@ -1,5 +1,5 @@
 import { lightTheme, darkTheme } from "../styled-components/theme";
-import { User } from "../firebase/user";
+import { User } from "../types/user_types";
 
 export default (currentUser?: User | null) => {
     const hour = new Date().getHours();

@@ -1,22 +1,11 @@
 import React, { useContext, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { Post } from "../firebase/post";
 import { UserContext, ModalContext } from "../Application";
-import { PingPostOwner } from "./PostModals";
-import { pingPostOwner } from "../firebase/ping";
+import { Session } from "../types/session_types";
 
-export default (props: { post: Post }) => {
-    const {
-        userId,
-        username,
-        userScore,
-        userPhotoURL,
-        language,
-        difficulty,
-        tags,
-        description,
-    } = props.post;
+export default (props: { post: Session }) => {
+    const { offerUser, language, difficulty, tags, description } = props.post;
 
     const currentUser = useContext(UserContext)!;
     const { handleModal } = useContext(ModalContext)!;
@@ -24,30 +13,22 @@ export default (props: { post: Post }) => {
 
     async function handleClick(e: SyntheticEvent) {
         e.stopPropagation();
-        if (currentUser.uid === userId) return;
-        pingPostOwner({
-            ownerId: userId,
-            userId: currentUser.uid,
-            username: currentUser.username,
-            userScore: currentUser.score,
-            userPhotoURL: currentUser.photoURL,
-        });
-        handleModal(<PingPostOwner postOwnerId={userId} />);
+        // if (currentUser.uid === userId) return;
     }
 
     function handleLink(e: SyntheticEvent) {
         e.stopPropagation();
-        currentUser.uid === userId
+        currentUser.uid === offerUser.uid
             ? history.replace("/profile/stats")
-            : history.replace(`/user/${username}`);
+            : history.replace(`/user/${offerUser.username}`);
     }
 
     return (
         <StyledPost onClick={handleClick}>
             <PostHeader>
-                <img src={userPhotoURL} alt="" />
+                <img src={offerUser.photoURL} alt="" />
                 <button onClick={handleLink}>
-                    {username} | {userScore}
+                    {offerUser.username} | {offerUser.score}
                 </button>
                 <h4>{language}</h4>
             </PostHeader>

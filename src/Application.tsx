@@ -1,39 +1,46 @@
 import React, { createContext } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import Routing from "./Routing";
 import { GlobalStyle } from "./styled-components/globalStyle";
+import Routing from "./Routing";
 import useUserState from "./util/useUserState";
+import useSessionState from "./util/useSessionState";
 import useThemeState from "./util/useThemeState";
-import { User } from "./firebase/user";
 import useModal, { ModalInterface } from "./Modal/useModal";
 import Modal from "./Modal/Modal";
+import { User } from "./types/user_types";
+import { Session } from "./types/session_types";
 
 export const UserContext = createContext<User | undefined | null>(undefined);
+export const SessionContext = createContext<Session | undefined>(undefined);
 export const ModalContext = createContext<ModalInterface | undefined>(
     undefined
 );
 
 export default function Application() {
-    const currentUser = useUserState();
     const { handleModal, modalOpen, modalContent } = useModal();
+    const currentUser = useUserState();
 
     return (
         <ApplicationContainer>
-            <UserContext.Provider value={currentUser}>
-                <ThemeProvider theme={useThemeState(currentUser)}>
-                    <ModalContext.Provider
-                        value={{
-                            handleModal,
-                            modalOpen,
-                            modalContent,
-                        }}
-                    >
-                        <Modal />
-                        <GlobalStyle />
-                        <Routing />
-                    </ModalContext.Provider>
-                </ThemeProvider>
-            </UserContext.Provider>
+            <ThemeProvider theme={useThemeState(currentUser)}>
+                <ModalContext.Provider
+                    value={{
+                        handleModal,
+                        modalOpen,
+                        modalContent,
+                    }}
+                >
+                    <UserContext.Provider value={currentUser}>
+                        <SessionContext.Provider
+                            value={useSessionState(currentUser)}
+                        >
+                            <Modal />
+                            <GlobalStyle />
+                            <Routing />
+                        </SessionContext.Provider>
+                    </UserContext.Provider>
+                </ModalContext.Provider>
+            </ThemeProvider>
         </ApplicationContainer>
     );
 }

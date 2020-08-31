@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { NewPost } from "../firebase/post";
+import { NewSession } from "../types/session_types";
 
 interface PostOptionProps {
     filter: string;
     options: Array<string>;
-    postParams: NewPost;
+    postParams: NewSession;
     setPostParams: Function;
 }
 

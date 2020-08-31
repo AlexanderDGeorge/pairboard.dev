@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { UserContext } from "./Application";
+import { UserContext, SessionContext, ModalContext } from "./Application";
 import Header from "./Nav/Header";
 import Footer from "./Nav/Footer";
 import LandingPage from "./Pages/Landing";
@@ -14,9 +14,13 @@ import Home from "./Pages/Home";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
-    console.log(currentUser);
+    const session = useContext(SessionContext);
+    const modalContext = useContext(ModalContext);
 
-    if (currentUser) {
+    console.log(currentUser);
+    console.log(session);
+
+    if (currentUser && modalContext) {
         return (
             <BrowserRouter>
                 <Header />
@@ -29,7 +33,7 @@ export default function Routing() {
                 <Footer />
             </BrowserRouter>
         );
-    } else if (currentUser === null) {
+    } else if (currentUser === null && modalContext) {
         return (
             <BrowserRouter>
                 <Header />
