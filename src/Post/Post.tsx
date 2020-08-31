@@ -1,24 +1,38 @@
 import React, { useContext, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { UserContext, ModalContext } from "../Application";
+import { UserContext } from "../Application";
 import { Session } from "../types/session_types";
+import { joinSession } from "../firebase/session";
 
 export default (props: { post: Session }) => {
     const { offerUser, language, difficulty, tags, description } = props.post;
 
-    const currentUser = useContext(UserContext)!;
-    const { handleModal } = useContext(ModalContext)!;
+    const { uid, username, photoURL, score, firstname, lastname } = useContext(
+        UserContext
+    )!;
     const history = useHistory();
 
     async function handleClick(e: SyntheticEvent) {
         e.stopPropagation();
-        // if (currentUser.uid === userId) return;
+        if (uid === offerUser.uid) return;
+        // [TODO]: add some kind of loading here
+        joinSession(
+            {
+                uid,
+                username,
+                photoURL,
+                score,
+                firstname,
+                lastname,
+            },
+            props.post
+        );
     }
 
     function handleLink(e: SyntheticEvent) {
         e.stopPropagation();
-        currentUser.uid === offerUser.uid
+        uid === offerUser.uid
             ? history.replace("/profile/stats")
             : history.replace(`/user/${offerUser.username}`);
     }

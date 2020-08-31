@@ -21,8 +21,9 @@ export default (props: { postParams: NewSession; setPostParams: Function }) => {
         <PostDescription>
             <h4>description</h4>
             <input
+                minLength={4}
                 maxLength={140}
-                placeholder="add optional description"
+                placeholder="halp"
                 value={postParams?.description}
                 onChange={handleChange}
             />

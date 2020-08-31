@@ -3,8 +3,52 @@ import { firestore } from "../firebase/firebase";
 import { Session } from "../types/session_types";
 import { User } from "../types/user_types";
 
+const configuration: RTCConfiguration = {
+    iceServers: [
+        {
+            urls: [
+                "stun:stun1.l.google.com:19302",
+                "stun:stun2.l.google.com:19302",
+            ],
+        },
+    ],
+    iceCandidatePoolSize: 10,
+};
+const peerConnection = new RTCPeerConnection(configuration);
+
+function setupPeerConnection(session: Session, currentUser: User) {
+    if (session.offerUser.uid === currentUser.uid) {
+        peerConnection.setLocalDescription({
+            type: "offer",
+            sdp: session.offer,
+        });
+        if (session.answer) {
+            peerConnection.setRemoteDescription({
+                type: "answer",
+                sdp: session.answer,
+            });
+        }
+    } else {
+        peerConnection.setLocalDescription({
+            type: "answer",
+            sdp: session.answer,
+        });
+        peerConnection.setRemoteDescription({
+            type: "offer",
+            sdp: session.offer,
+        });
+    }
+}
+
 export default (currentUser?: User | null) => {
     const [session, setSession] = useState<Session | undefined>(undefined);
+
+    useEffect(() => {
+        if (session && currentUser) {
+            setupPeerConnection(session, currentUser);
+        }
+        // eslint-disable-next-line
+    }, [session]);
 
     useEffect(() => {
         let unsubscribe = () => {};

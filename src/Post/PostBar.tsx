@@ -4,20 +4,28 @@ import usePostState from "./usePostState";
 import PostOption from "./PostOption";
 import Description from "./Description";
 import { LANGUAGES, DIFFICULTIES, TAGS } from "../util/constants";
-import { UserContext } from "../Application";
-import { createNewSession } from "../firebase/session";
+import { UserContext, SessionContext } from "../Application";
+import { createNewSession, updateSession } from "../firebase/session";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();
     const { uid, firstname, lastname, photoURL, score, username } = useContext(
         UserContext
     )!;
+    const session = useContext(SessionContext);
 
-    async function handleClick() {
-        createNewSession(
-            { uid, firstname, lastname, photoURL, score, username },
-            postParams
-        );
+    function handleClick() {
+        if (session) {
+            updateSession({
+                ...session,
+                ...postParams,
+            });
+        } else {
+            createNewSession(
+                { uid, firstname, lastname, photoURL, score, username },
+                postParams
+            );
+        }
     }
 
     return (

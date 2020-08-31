@@ -46,12 +46,6 @@ export default function Routing() {
             </BrowserRouter>
         );
     } else {
-        return (
-            <BrowserRouter>
-                <Header />
-                <Loading />
-                <Footer />
-            </BrowserRouter>
-        );
+        return <Loading />;
     }
 }

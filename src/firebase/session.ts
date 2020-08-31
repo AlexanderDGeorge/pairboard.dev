@@ -16,23 +16,37 @@ const configuration: RTCConfiguration = {
 
 const peerConnection = new RTCPeerConnection(configuration);
 
-const createOffer = async () => {
-    const { sdp } = await peerConnection.createOffer();
-    if (sdp) localStorage.setItem("sdpoffer", sdp);
-    return sdp;
+const createAnswer = async () => {
+    console.log("here");
+    const answer = (await peerConnection.createAnswer()).sdp;
+    console.log(answer);
+    return answer;
 };
 
-export async function createNewSession(user: UserLite, newSession: NewSession) {
-    const sessionDoc = await firestore()
+export async function joinSession(user: UserLite, session: Session) {
+    firestore()
         .collection("sessions")
-        .add({
-            ...newSession,
-            createdAt: new Date(),
-            offer: await createOffer(),
-            offerUser: user,
+        .doc(session.id)
+        .update({
+            answer: await createAnswer(),
+            answerUser: user,
         });
     firestore().collection("users").doc(user.uid).update({
-        sessionId: sessionDoc.id,
+        sessionId: session.id,
+    });
+}
+
+export async function createNewSession(user: UserLite, newSession: NewSession) {
+    const sessionRef = firestore().collection("sessions").doc();
+    await sessionRef.set({
+        ...newSession,
+        id: sessionRef.id,
+        createdAt: new Date(),
+        offer: (await peerConnection.createOffer()).sdp,
+        offerUser: user,
+    });
+    firestore().collection("users").doc(user.uid).update({
+        sessionId: sessionRef.id,
     });
 }
 
@@ -56,8 +70,6 @@ export function deleteSession(session: Session) {
         sessionId: fieldValue.delete(),
     });
     firestore().collection("sessions").doc(session.id).delete();
-    localStorage.removeItem("sdpoffer");
-    localStorage.removeItem("sdpanswer");
 }
 
 export async function fetchSessions() {

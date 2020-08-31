@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import LinkBar from "../Nav/LinkBar";
-import PostBar from "../PostBar/PostBar";
-import PostFeed from "../PostFeed/PostFeed";
+import PostBar from "../Post/PostBar";
+import PostFeed from "../Post/PostFeed";
 
 export default () => {
     return (
