@@ -33,9 +33,11 @@ export default (currentUser?: User | null) => {
                             setSession({
                                 id: snapshot.id,
                                 answer: data.answer,
+                                answerCandidate: data.answerCandidate,
                                 answerUser: data.answerUser,
                                 createdAt: data.createdAt,
                                 offer: data.offer,
+                                offerCandidate: data.offerCandidate,
                                 offerUser: data.offerUser,
                                 language: data.language,
                                 difficulty: data.difficulty,

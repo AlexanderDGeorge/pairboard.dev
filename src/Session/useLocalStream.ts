@@ -19,6 +19,8 @@ export default (ref: HTMLVideoElement | null) => {
                 video: true,
                 audio: true,
             });
+            setVideoOn(true);
+            setAudioOn(true);
         })();
     }, []);
 

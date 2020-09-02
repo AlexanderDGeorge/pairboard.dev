@@ -75,3 +75,23 @@ export async function fetchSessions() {
     const sessionsDoc = await sessionsRef.get();
     return [...sessionsDoc.docs.map((doc) => doc.data())];
 }
+
+export function addOfferCandidate(
+    sessionId: Session["id"],
+    offerCandidate?: string
+) {
+    if (!offerCandidate) return;
+    firestore().collection("sessions").doc(sessionId).update({
+        offerCandidate,
+    });
+}
+
+export function addAnswerCandidate(
+    sessionId: Session["id"],
+    answerCandidate?: string
+) {
+    if (!answerCandidate) return;
+    firestore().collection("sessions").doc(sessionId).update({
+        answerCandidate,
+    });
+}

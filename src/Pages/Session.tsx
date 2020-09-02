@@ -6,6 +6,7 @@ import { User } from "../types/user_types";
 import { peerConnection } from "../util/useSessionState";
 import LocalStream from "../Session/LocalStream";
 import RemoteStream from "../Session/RemoteStream";
+import useCandidateListener from "../Session/useCandidateListener";
 
 async function setupPeerConnection(session: Session, uid: User["uid"]) {
     if (uid === session.offerUser.uid) {
@@ -37,6 +38,8 @@ export default () => {
         setupPeerConnection(session, uid);
         // eslint-disable-next-line
     }, []);
+
+    useCandidateListener();
 
     console.log(peerConnection);
 
