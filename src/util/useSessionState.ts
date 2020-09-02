@@ -27,7 +27,6 @@ export default (currentUser?: User | null) => {
                 .collection("sessions")
                 .doc(currentUser.sessionId)
                 .onSnapshot((snapshot) => {
-                    console.log(snapshot);
                     if (snapshot.exists) {
                         const data = snapshot.data();
                         if (data) {

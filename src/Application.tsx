@@ -10,6 +10,12 @@ import Modal from "./Modal/Modal";
 import { User } from "./types/user_types";
 import { Session } from "./types/session_types";
 
+declare global {
+    interface Window {
+        [key: string]: any;
+    }
+}
+
 export const UserContext = createContext<User | undefined | null>(undefined);
 export const SessionContext = createContext<Session | undefined>(undefined);
 export const ModalContext = createContext<ModalInterface | undefined>(

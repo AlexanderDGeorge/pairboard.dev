@@ -11,6 +11,7 @@ import Loading from "./Pages/Loading";
 import User from "./Pages/User";
 import Pairs from "./Pages/Pairs";
 import Home from "./Pages/Home";
+import Session from "./Pages/Session";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
@@ -24,7 +25,7 @@ export default function Routing() {
         return (
             <BrowserRouter>
                 <Header />
-                Session
+                <Session />
                 <Footer />
             </BrowserRouter>
         );
