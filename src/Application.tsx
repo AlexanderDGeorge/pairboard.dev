@@ -31,7 +31,7 @@ export default function Application() {
                 <ModalContext.Provider value={useModal()}>
                     <UserContext.Provider value={currentUser}>
                         <SessionContext.Provider
-                            value={useSessionState(currentUser)}
+                            value={useSessionState(currentUser?.sessionId)}
                         >
                             <GlobalStyle />
                             <Modal />

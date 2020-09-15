@@ -21,7 +21,9 @@ export default () => {
                                 setCurrentUser({
                                     uid: snapshot.id,
                                     bio: data.bio,
+                                    candidates: data.candidates,
                                     darkMode: data.darkMode,
+                                    description: data.description,
                                     email: data.email,
                                     firstname: data.firstname,
                                     lastname: data.lastname,

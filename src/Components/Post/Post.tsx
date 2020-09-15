@@ -6,43 +6,30 @@ import { Session } from "../../types/session_types";
 import { joinSession } from "../../firebase/session";
 
 export default (props: { post: Session }) => {
-    const { offerUser, language, difficulty, tags, description } = props.post;
-
-    const { uid, username, photoURL, score, firstname, lastname } = useContext(
-        UserContext
-    )!;
+    const { author, language, difficulty, tags, description } = props.post;
+    const { uid } = useContext(UserContext)!;
     const history = useHistory();
 
     async function handleClick(e: SyntheticEvent) {
         e.stopPropagation();
-        if (uid === offerUser.uid) return;
+        if (uid === author.uid) return;
         // [TODO]: add some kind of loading here
-        joinSession(
-            {
-                uid,
-                username,
-                photoURL,
-                score,
-                firstname,
-                lastname,
-            },
-            props.post
-        );
+        joinSession(uid, props.post.id);
     }
 
     function handleLink(e: SyntheticEvent) {
         e.stopPropagation();
-        uid === offerUser.uid
+        uid === author.uid
             ? history.replace("/profile/stats")
-            : history.replace(`/user/${offerUser.username}`);
+            : history.replace(`/user/${author.username}`);
     }
 
     return (
         <StyledPost onClick={handleClick}>
             <PostHeader>
-                <img src={offerUser.photoURL} alt="" />
+                <img src={author.photoURL} alt="" />
                 <button onClick={handleLink}>
-                    {offerUser.username} | {offerUser.score}
+                    {author.username} | {author.score}
                 </button>
                 <h4>{language}</h4>
             </PostHeader>

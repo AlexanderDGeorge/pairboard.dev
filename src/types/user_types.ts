@@ -1,7 +1,9 @@
 export interface User {
     uid: string;
     bio: string;
+    candidates: Array<RTCIceCandidateInit>;
     darkMode: string;
+    description: RTCSessionDescriptionInit;
     email: string;
     firstname: string;
     lastname: string;

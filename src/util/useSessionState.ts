@@ -3,46 +3,28 @@ import { firestore } from "../firebase/firebase";
 import { Session } from "../types/session_types";
 import { User } from "../types/user_types";
 
-const configuration: RTCConfiguration = {
-    iceServers: [
-        {
-            urls: [
-                "stun:stun1.l.google.com:19302",
-                "stun:stun2.l.google.com:19302",
-            ],
-        },
-    ],
-    iceCandidatePoolSize: 10,
-};
-
-export const peerConnection = new RTCPeerConnection(configuration);
-
-export default (currentUser?: User | null) => {
+export default (sessionId?: User["sessionId"]) => {
     const [session, setSession] = useState<Session | undefined>(undefined);
 
     useEffect(() => {
         let unsubscribe = () => {};
-        if (currentUser?.sessionId) {
+        if (sessionId) {
             unsubscribe = firestore()
                 .collection("sessions")
-                .doc(currentUser.sessionId)
+                .doc(sessionId)
                 .onSnapshot((snapshot) => {
                     if (snapshot.exists) {
                         const data = snapshot.data();
                         if (data) {
                             setSession({
                                 id: snapshot.id,
-                                answer: data.answer,
-                                answerCandidate: data.answerCandidate,
-                                answerUser: data.answerUser,
+                                author: data.author,
                                 createdAt: data.createdAt,
-                                offer: data.offer,
-                                offerCandidate: data.offerCandidate,
-                                offerUser: data.offerUser,
                                 language: data.language,
                                 difficulty: data.difficulty,
                                 tags: data.tags,
                                 description: data.description,
+                                users: data.users,
                             });
                         }
                     }
@@ -53,7 +35,7 @@ export default (currentUser?: User | null) => {
         return () => {
             unsubscribe();
         };
-    }, [currentUser]);
+    }, [sessionId]);
 
     return session;
 };

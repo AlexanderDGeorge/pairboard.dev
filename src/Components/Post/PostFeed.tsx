@@ -10,7 +10,11 @@ export default () => {
     // [TODO]: paginate
 
     useEffect(() => {
-        fetchSessions().then((sessionDocs) => setPosts(sessionDocs));
+        // memory leak here
+        (async () => {
+            const sessionDocs = await fetchSessions();
+            setPosts(sessionDocs);
+        })();
     }, []);
 
     return (

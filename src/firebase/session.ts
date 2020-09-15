@@ -1,47 +1,17 @@
 import { firestore, fieldValue } from "./firebase";
 import { Session, NewSession } from "../types/session_types";
 import { UserLite } from "../types/user_types";
-import { peerConnection } from "../util/useSessionState";
 
-const createOffer = async () => {
-    const offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
-    return offer.sdp;
-};
-
-const createAnswer = async (offer: string) => {
-    await peerConnection.setRemoteDescription({
-        type: "offer",
-        sdp: offer,
-    });
-    const answer = await peerConnection.createAnswer();
-    peerConnection.setLocalDescription(answer);
-    return answer.sdp;
-};
-
-export async function joinSession(user: UserLite, session: Session) {
-    firestore()
-        .collection("sessions")
-        .doc(session.id)
-        .update({
-            answer: await createAnswer(session.offer),
-            answerUser: user,
-        });
-    firestore().collection("users").doc(user.uid).update({
-        sessionId: session.id,
-    });
-}
-
-export async function createNewSession(user: UserLite, newSession: NewSession) {
+export async function createSession(user: UserLite, newSession: NewSession) {
     const sessionRef = firestore().collection("sessions").doc();
     await sessionRef.set({
         ...newSession,
+        author: user,
         id: sessionRef.id,
         createdAt: new Date(),
-        offer: await createOffer(),
-        offerUser: user,
+        users: fieldValue.arrayUnion(user.uid),
     });
-    firestore().collection("users").doc(user.uid).update({
+    await firestore().collection("users").doc(user.uid).update({
         sessionId: sessionRef.id,
     });
 }
@@ -51,10 +21,76 @@ export async function updateSession(updatedSession: Session) {
         .collection("sessions")
         .doc(updatedSession.id)
         .update({
-            ...updateSession,
+            ...updatedSession,
             createdAt: new Date(),
         });
 }
+
+export async function joinSession(uid: UserLite["uid"], sessionId: string) {
+    const sessionRef = firestore().collection("sessions").doc(sessionId);
+    await sessionRef.update({
+        users: fieldValue.arrayUnion(uid),
+    });
+    await firestore().collection("users").doc(uid).update({
+        sessionId,
+    });
+}
+
+export async function updateUserDescription(
+    description: RTCSessionDescriptionInit,
+    uid: UserLite["uid"]
+) {
+    const userRef = firestore().collection("users").doc(uid);
+    await userRef.update({
+        description,
+    });
+}
+
+export async function updateUserCandidates(
+    candidates: Array<RTCIceCandidateInit>,
+    uid: UserLite["uid"]
+) {
+    const userRef = firestore().collection("users").doc(uid);
+    await userRef.update({
+        candidates,
+    });
+}
+
+export async function sendOffer(offer: string, sessionId: string) {
+    const sessionRef = firestore().collection("sessions").doc(sessionId);
+    await sessionRef.update({
+        offer,
+    });
+}
+
+export async function sendAnswer(answer: string, sessionId: string) {
+    const sessionRef = firestore().collection("sessions").doc(sessionId);
+    await sessionRef.update({
+        answer,
+    });
+}
+
+export async function sendOfferCandidates(
+    candidates: Array<RTCIceCandidateInit>,
+    sessionId: string
+) {
+    const sessionRef = firestore().collection("sessions").doc(sessionId);
+    await sessionRef.update({
+        offerCandidates: candidates,
+    });
+}
+
+export async function sendAnswerCandidates(
+    candidates: Array<RTCIceCandidateInit>,
+    sessionId: string
+) {
+    const sessionRef = firestore().collection("sessions").doc(sessionId);
+    await sessionRef.update({
+        answerCandidates: candidates,
+    });
+}
+
+////////////
 
 export function deleteSession(session: Session) {
     if (session.answerUser) {
@@ -74,24 +110,4 @@ export async function fetchSessions() {
         .orderBy("createdAt", "desc");
     const sessionsDoc = await sessionsRef.get();
     return [...sessionsDoc.docs.map((doc) => doc.data())];
-}
-
-export function addOfferCandidate(
-    sessionId: Session["id"],
-    offerCandidate?: string
-) {
-    if (!offerCandidate) return;
-    firestore().collection("sessions").doc(sessionId).update({
-        offerCandidate,
-    });
-}
-
-export function addAnswerCandidate(
-    sessionId: Session["id"],
-    answerCandidate?: string
-) {
-    if (!answerCandidate) return;
-    firestore().collection("sessions").doc(sessionId).update({
-        answerCandidate,
-    });
 }

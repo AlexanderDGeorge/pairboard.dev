@@ -5,14 +5,14 @@ import PostOption from "./PostOption";
 import Description from "./Description";
 import { LANGUAGES, DIFFICULTIES, TAGS } from "../../util/constants";
 import { UserContext, SessionContext } from "../../Application";
-import { createNewSession, updateSession } from "../../firebase/session";
+import { createSession, updateSession } from "../../firebase/session";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();
     const { uid, firstname, lastname, photoURL, score, username } = useContext(
         UserContext
     )!;
-    const session = useContext(SessionContext);
+    const session = useContext(SessionContext)!;
 
     function handleClick() {
         if (session) {
@@ -21,7 +21,7 @@ export default () => {
                 ...postParams,
             });
         } else {
-            createNewSession(
+            createSession(
                 { uid, firstname, lastname, photoURL, score, username },
                 postParams
             );

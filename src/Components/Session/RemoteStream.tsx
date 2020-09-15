@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import useRemoteStream from "./useRemoteStream";
+// import useRemoteStream from "./useRemoteStream";
 
 export default () => {
     const videoRef = useRef(null);
-    useRemoteStream(videoRef.current);
+    // useRemoteStream(videoRef.current);
 
     return (
         <StyledRemoteStream>

@@ -1,53 +1,37 @@
-import React, { useEffect, useContext } from "react";
+import React, { createContext, useContext } from "react";
 import styled from "styled-components";
-import { SessionContext, UserContext } from "../Application";
-import { Session } from "../types/session_types";
-import { User } from "../types/user_types";
-import { peerConnection } from "../util/useSessionState";
 import LocalStream from "../Components/Session/LocalStream";
 import RemoteStream from "../Components/Session/RemoteStream";
-import useCandidateListener from "../Components/Session/useCandidateListener";
+import { UserContext, SessionContext } from "../Application";
+import {
+    initiateConnection,
+    listenToConnectionEvents,
+    initiateStream,
+} from "../Components/Session/connection";
 
-async function setupPeerConnection(session: Session, uid: User["uid"]) {
-    if (uid === session.offerUser.uid) {
-        await peerConnection.setLocalDescription({
-            type: "offer",
-            sdp: session.offer,
-        });
-        await peerConnection.setRemoteDescription({
-            type: "answer",
-            sdp: session.answer,
-        });
-    } else {
-        await peerConnection.setRemoteDescription({
-            type: "offer",
-            sdp: session.offer,
-        });
-        await peerConnection.setLocalDescription({
-            type: "answer",
-            sdp: session.answer,
-        });
-    }
-}
+export const PeerConnectionContext = createContext<
+    RTCPeerConnection | undefined
+>(undefined);
 
 export default () => {
-    const session = useContext(SessionContext)!;
     const { uid } = useContext(UserContext)!;
+    const { author } = useContext(SessionContext)!;
 
-    useEffect(() => {
-        setupPeerConnection(session, uid);
-        // eslint-disable-next-line
-    }, []);
-
-    useCandidateListener();
+    const peerConnection = initiateConnection();
+    initiateStream();
+    listenToConnectionEvents(uid, peerConnection);
 
     console.log(peerConnection);
 
+    window.peerConnection = peerConnection;
+
     return (
-        <StyledSession>
-            <LocalStream />
-            <RemoteStream />
-        </StyledSession>
+        <PeerConnectionContext.Provider value={peerConnection}>
+            <StyledSession>
+                <LocalStream />
+                <RemoteStream />
+            </StyledSession>
+        </PeerConnectionContext.Provider>
     );
 };
 

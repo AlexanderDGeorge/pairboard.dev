@@ -1,15 +1,14 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import useLocalStream from "./useLocalStream";
+// import useLocalStream from "./useLocalStream";
 
 export default () => {
     const videoRef = useRef(null);
-    const { videoOn, toggleVideo } = useLocalStream(videoRef.current);
+    // useLocalStream(videoRef.current);
 
     return (
         <StyledLocalStream>
             <video autoPlay muted={true} ref={videoRef}></video>
-            <button onClick={toggleVideo}>{videoOn ? "off" : "on"}</button>
         </StyledLocalStream>
     );
 };
