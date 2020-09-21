@@ -7,14 +7,19 @@ import { joinSession } from "../../firebase/session";
 
 export default (props: { post: Session }) => {
     const { author, language, difficulty, tags, description } = props.post;
-    const { uid } = useContext(UserContext)!;
+    const { uid, firstname, lastname, photoURL, score, username } = useContext(
+        UserContext
+    )!;
     const history = useHistory();
 
     async function handleClick(e: SyntheticEvent) {
         e.stopPropagation();
         if (uid === author.uid) return;
         // [TODO]: add some kind of loading here
-        joinSession(uid, props.post.id);
+        joinSession(
+            { uid, firstname, lastname, photoURL, score, username },
+            props.post.id
+        );
     }
 
     function handleLink(e: SyntheticEvent) {

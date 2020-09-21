@@ -3,16 +3,16 @@ import styled from "styled-components";
 import TopDiv from "../Components/Landing/TopDiv";
 import MiddleDiv from "../Components/Landing/MiddleDiv";
 
-export default function LandingPage() {
+export default () => {
     return (
-        <LandingContainer>
+        <LandingPage>
             <MiddleDiv />
             <TopDiv />
-        </LandingContainer>
+        </LandingPage>
     );
-}
+};
 
-const LandingContainer = styled.div`
+const LandingPage = styled.div`
     min-height: 100%;
     height: 100%;
     width: 100%;

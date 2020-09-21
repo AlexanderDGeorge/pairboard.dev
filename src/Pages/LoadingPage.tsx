@@ -4,13 +4,13 @@ import { LoadingBar } from "../Components/AnimatedComponents/Loaders";
 
 export default () => {
     return (
-        <Loading>
+        <LoadingPage>
             <LoadingBar />
-        </Loading>
+        </LoadingPage>
     );
 };
 
-const Loading = styled.div`
+const LoadingPage = styled.div`
     position: relative;
     height: 100%;
     width: 100%;

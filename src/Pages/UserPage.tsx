@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
 import ProfileStats from "../Components/Profile/ProfileStats";
-import Loading from "./Loading";
+import Loading from "./LoadingPage";
 import LinkBar from "../Components/Nav/LinkBar";
 
 export default () => {

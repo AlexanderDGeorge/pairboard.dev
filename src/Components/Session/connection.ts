@@ -1,5 +1,8 @@
-import { User } from "../../types/user_types";
-import { updateUserCandidates } from "../../firebase/session";
+import { sendCandidates, sendDescription } from "../../firebase/session";
+import { Session } from "../../types/session_types";
+
+let makingOffer = false;
+let awaitingOffer = false;
 
 export function initiateConnection() {
     const configuration = {
@@ -38,15 +41,32 @@ export async function initiateStream(connection?: RTCPeerConnection) {
 }
 
 export function listenToConnectionEvents(
-    uid: User["uid"],
+    sessionId: Session["id"],
+    polite: boolean,
     connection?: RTCPeerConnection
 ) {
     if (!connection) return;
 
     const iceCandidates: Array<RTCIceCandidateInit> = [];
 
-    connection.onnegotiationneeded = () => {
+    connection.onnegotiationneeded = async () => {
         console.log("negotiation needed...");
+        try {
+            if (awaitingOffer) return;
+            makingOffer = true;
+            // @ts-ignore
+            await connection.setLocalDescription();
+            await sendDescription(
+                sessionId,
+                polite,
+                connection.localDescription?.toJSON()
+            );
+            awaitingOffer = true;
+        } catch (error) {
+            console.error(error.message);
+        } finally {
+            makingOffer = false;
+        }
     };
 
     connection.onicecandidate = async ({ candidate }) => {
@@ -54,29 +74,34 @@ export function listenToConnectionEvents(
             iceCandidates.push(candidate.toJSON());
         } else {
             console.log("submitting ice candidates...");
-            updateUserCandidates(iceCandidates, uid);
+            sendCandidates(sessionId, polite, iceCandidates);
         }
     };
 
     connection.ontrack = () => {
         console.log("in track listener");
     };
-
-    connection.onsignalingstatechange = (state) => {
-        console.log(state);
-    };
 }
 
-export function setConnectionDescriptions(
-    connection: RTCPeerConnection,
-    description: RTCSessionDescriptionInit,
+export async function setConnectionDescription(
+    id: Session["id"],
     polite: boolean,
-    makingOffer: boolean
+    connection: RTCPeerConnection,
+    description: RTCSessionDescriptionInit
 ) {
     const offerCollision =
         description.type === "offer" &&
         (makingOffer || connection.signalingState !== "stable");
     if (!polite && offerCollision) return;
+
+    await connection.setRemoteDescription(description);
+    if (description.type === "offer") {
+        // @ts-ignore
+        await connection.setLocalDescription();
+        sendDescription(id, connection.localDescription?.toJSON());
+    }
+
+    awaitingOffer = false;
 }
 
 export function setConnectionCandidates(

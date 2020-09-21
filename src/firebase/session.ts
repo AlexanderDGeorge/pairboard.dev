@@ -26,82 +26,52 @@ export async function updateSession(updatedSession: Session) {
         });
 }
 
-export async function joinSession(uid: UserLite["uid"], sessionId: string) {
+export async function joinSession(user: UserLite, sessionId: string) {
     const sessionRef = firestore().collection("sessions").doc(sessionId);
     await sessionRef.update({
-        users: fieldValue.arrayUnion(uid),
+        peer: user,
     });
-    await firestore().collection("users").doc(uid).update({
+    await firestore().collection("users").doc(user.uid).update({
         sessionId,
     });
 }
 
-export async function updateUserDescription(
-    description: RTCSessionDescriptionInit,
-    uid: UserLite["uid"]
+export async function sendCandidates(
+    sessionId: Session["id"],
+    polite: boolean,
+    iceCandidates?: Array<RTCIceCandidateInit>
 ) {
-    const userRef = firestore().collection("users").doc(uid);
-    await userRef.update({
-        description,
-    });
-}
+    if (!iceCandidates) return;
 
-export async function updateUserCandidates(
-    candidates: Array<RTCIceCandidateInit>,
-    uid: UserLite["uid"]
-) {
-    const userRef = firestore().collection("users").doc(uid);
-    await userRef.update({
-        candidates,
-    });
-}
-
-export async function sendOffer(offer: string, sessionId: string) {
     const sessionRef = firestore().collection("sessions").doc(sessionId);
-    await sessionRef.update({
-        offer,
-    });
-}
-
-export async function sendAnswer(answer: string, sessionId: string) {
-    const sessionRef = firestore().collection("sessions").doc(sessionId);
-    await sessionRef.update({
-        answer,
-    });
-}
-
-export async function sendOfferCandidates(
-    candidates: Array<RTCIceCandidateInit>,
-    sessionId: string
-) {
-    const sessionRef = firestore().collection("sessions").doc(sessionId);
-    await sessionRef.update({
-        offerCandidates: candidates,
-    });
-}
-
-export async function sendAnswerCandidates(
-    candidates: Array<RTCIceCandidateInit>,
-    sessionId: string
-) {
-    const sessionRef = firestore().collection("sessions").doc(sessionId);
-    await sessionRef.update({
-        answerCandidates: candidates,
-    });
-}
-
-////////////
-
-export function deleteSession(session: Session) {
-    if (session.answerUser) {
-        firestore().collection("users").doc(session.answerUser.uid).update({
-            sessionId: fieldValue.delete(),
+    if (polite) {
+        await sessionRef.update({
+            politeCandidates: iceCandidates,
+        });
+    } else {
+        await sessionRef.update({
+            impoliteCandidates: iceCandidates,
         });
     }
-    firestore().collection("users").doc(session.offerUser.uid).update({
-        sessionId: fieldValue.delete(),
-    });
-    firestore().collection("sessions").doc(session.id).delete();
+}
+
+export async function sendDescription(
+    sessionId: Session["id"],
+    polite: boolean,
+    description?: RTCSessionDescriptionInit
+) {
+    if (!description) return;
+
+    const sessionRef = firestore().collection("sessions").doc(sessionId);
+    if (polite) {
+        await sessionRef.update({
+            politeDescription: description,
+        });
+    } else {
+        await sessionRef.update({
+            impoliteDescription: description,
+        });
+    }
 }
 
 export async function fetchSessions() {
