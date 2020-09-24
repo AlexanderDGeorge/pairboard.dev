@@ -1,8 +1,8 @@
 import { firestore, fieldValue } from "./firebase";
-import { PostSchema, UserSchema } from "./schema";
+import { LightUserSchema, PostSchema, UserSchema } from "./schema";
 
 export async function createPost(
-    uid: UserSchema["uid"],
+    host: LightUserSchema,
     description: PostSchema["description"],
     difficulty: PostSchema["difficulty"],
     language: PostSchema["language"],
@@ -12,14 +12,14 @@ export async function createPost(
     const postRef = firestore().collection("posts").doc();
     await postRef.set({
         id: postRef.id,
-        hostId: uid,
+        host,
         description,
         difficulty,
         language,
         maxCapacity,
         tags,
     });
-    firestore().collection("users").doc(uid).update({
+    firestore().collection("users").doc(host.uid).update({
         postId: postRef.id,
     });
 }
@@ -40,4 +40,5 @@ export async function joinPost(
 
 export async function fetchPosts() {
     const postsRef = await firestore().collection("posts").get();
+    return postsRef.docs.map((post) => post.data());
 }

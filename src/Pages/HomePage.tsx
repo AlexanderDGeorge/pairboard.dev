@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-// import LinkBar from "../Components/Nav/LinkBar";
-// import PostBar from "../Components/Post/PostBar";
-// import PostFeed from "../Components/Post/PostFeed";
+import LinkBar from "../Components/Nav/LinkBar";
+import PostBar from "../Components/Post/PostBar";
+import PostFeed from "../Components/Post/PostFeed";
 
 export default () => {
     return (
         <Home>
-            {/* <LinkBar />
+            <LinkBar />
             <PostBar />
-            <PostFeed /> */}
+            <PostFeed />
         </Home>
     );
 };

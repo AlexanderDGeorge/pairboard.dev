@@ -1,9 +1,10 @@
 import { firestore, auth } from "./firebase";
-import { User } from "../types/user_types";
+import { UserSchema } from "./schema";
 
-const userRef = (uid: User["uid"]) => firestore().collection("users").doc(uid);
+const userRef = (uid: UserSchema["uid"]) =>
+    firestore().collection("users").doc(uid);
 
-export async function fetchUserDocument(uid: User["uid"]) {
+export async function fetchUserDocument(uid: UserSchema["uid"]) {
     try {
         const userDoc = await userRef(uid).get();
         return { ...userDoc.data() };
@@ -12,7 +13,7 @@ export async function fetchUserDocument(uid: User["uid"]) {
     }
 }
 
-export async function fetchUserDocFromUsername(username: User["uid"]) {
+export async function fetchUserDocFromUsername(username: UserSchema["uid"]) {
     try {
         const userRef = firestore()
             .collection("users")
@@ -26,7 +27,7 @@ export async function fetchUserDocFromUsername(username: User["uid"]) {
     }
 }
 
-export async function updateDarkModeSetting(darkMode: User["uid"]) {
+export async function updateDarkModeSetting(darkMode: UserSchema["uid"]) {
     const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
     try {
         await userRef.update({
@@ -38,13 +39,13 @@ export async function updateDarkModeSetting(darkMode: User["uid"]) {
 }
 
 export async function updateUserDoc(
-    bio: User["bio"],
-    username: User["username"]
+    blurb: UserSchema["blurb"],
+    username: UserSchema["username"]
 ) {
     const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
     try {
         await userRef.update({
-            bio,
+            blurb,
             username,
         });
     } catch (error) {

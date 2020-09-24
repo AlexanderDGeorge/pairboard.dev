@@ -19,9 +19,10 @@ export default () => {
 
     return (
         <PostFeed>
-            {posts.map((post: PostSchema, i: number) => (
-                <PostItem post={post} key={i} />
-            ))}
+            {posts.map((post: PostSchema, i: number) => {
+                console.log(post);
+                return <PostItem post={post} key={i} />;
+            })}
         </PostFeed>
     );
 };

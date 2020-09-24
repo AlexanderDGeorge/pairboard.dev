@@ -17,6 +17,7 @@ export default (uid: string | null) => {
                     uid: snapshot.id,
                     blurb: data.blurb,
                     email: data.email,
+                    darkMode: data.darkMode,
                     firstname: data.firstname,
                     lastname: data.lastname,
                     photoURL: data.photoURL,

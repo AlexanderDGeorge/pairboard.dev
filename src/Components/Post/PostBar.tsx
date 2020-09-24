@@ -9,15 +9,9 @@ import { createPost } from "../../firebase/post";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();
-    const {
-        uid,
-        firstname,
-        lastname,
-        photoURL,
-        score,
-        username,
-        sessionId,
-    } = useContext(UserContext)!;
+    const { uid, photoURL, score, username, sessionId } = useContext(
+        UserContext
+    )!;
 
     function handleClick() {
         const {
@@ -29,11 +23,11 @@ export default () => {
         } = postParams;
         if (!sessionId) {
             createPost(
-                uid,
+                { uid, photoURL, score, username },
                 description,
                 difficulty,
                 language,
-                maxCapacity,
+                2,
                 tags
             );
         }

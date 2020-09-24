@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
-import TestPage from "./Pages/TestPage";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Header from "./Components/Nav/Header";
+import HomePage from "./Pages/HomePage";
+import ProfilePage from "./Pages/ProfilePage";
 import { UserContext } from "./Root";
+import { GlobalStyle } from "./styled-components/globalStyle";
 
 declare global {
     interface Window {
@@ -15,6 +19,23 @@ export default () => {
         // [TODO]: add error
         return null;
     } else {
-        return <TestPage />;
+        return (
+            <>
+                <GlobalStyle />
+                <Router />
+            </>
+        );
     }
 };
+
+function Router() {
+    return (
+        <BrowserRouter>
+            <Header />
+            <Switch>
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/" component={HomePage} />
+            </Switch>
+        </BrowserRouter>
+    );
+}
