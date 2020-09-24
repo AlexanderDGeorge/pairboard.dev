@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/database";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCeGM0QHwCzs4IXcr4aBhRzwdmqlQJXX2Y",
@@ -19,5 +20,6 @@ firebase.analytics();
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore;
+export const database = firebase.database;
 export const fieldValue = firebase.firestore.FieldValue;
 export const githubProvider = new firebase.auth.GithubAuthProvider();

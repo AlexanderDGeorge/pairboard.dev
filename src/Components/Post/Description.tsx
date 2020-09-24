@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { NewSession } from "../../types/session_types";
 
-export default (props: { postParams: NewSession; setPostParams: Function }) => {
+export default (props: { postParams: any; setPostParams: Function }) => {
     const { postParams, setPostParams } = props;
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

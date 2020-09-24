@@ -4,26 +4,37 @@ import usePostState from "./usePostState";
 import PostOption from "./PostOption";
 import Description from "./Description";
 import { LANGUAGES, DIFFICULTIES, TAGS } from "../../util/constants";
-import { UserContext, SessionContext } from "../../Application";
-import { createSession, updateSession } from "../../firebase/session";
+import { UserContext } from "../../Root";
+import { createPost } from "../../firebase/post";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();
-    const { uid, firstname, lastname, photoURL, score, username } = useContext(
-        UserContext
-    )!;
-    const session = useContext(SessionContext)!;
+    const {
+        uid,
+        firstname,
+        lastname,
+        photoURL,
+        score,
+        username,
+        sessionId,
+    } = useContext(UserContext)!;
 
     function handleClick() {
-        if (session) {
-            updateSession({
-                ...session,
-                ...postParams,
-            });
-        } else {
-            createSession(
-                { uid, firstname, lastname, photoURL, score, username },
-                postParams
+        const {
+            description,
+            difficulty,
+            language,
+            maxCapacity,
+            tags,
+        } = postParams;
+        if (!sessionId) {
+            createPost(
+                uid,
+                description,
+                difficulty,
+                language,
+                maxCapacity,
+                tags
             );
         }
     }

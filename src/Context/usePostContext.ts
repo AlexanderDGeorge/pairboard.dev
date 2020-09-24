@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import { firestore } from "../firebase/firebase";
-import { SessionSchema } from "../firebase/schema";
+import { PostSchema } from "../firebase/schema";
 
-export default (sessionId: string) => {
-    const [session, setSession] = useState<SessionSchema | undefined>(
-        undefined
-    );
+export default (postId: PostSchema["id"]) => {
+    const [post, setPost] = useState<PostSchema | undefined>(undefined);
 
     useEffect(() => {
-        if (!sessionId) return;
+        if (!postId) return;
+
         const unsubscribe = firestore()
-            .collection("sessions")
-            .doc(sessionId)
+            .collection("posts")
+            .doc(postId)
             .onSnapshot((snapshot) => {
                 const data = snapshot?.data();
                 if (!data) return;
-                setSession({
+                setPost({
                     id: snapshot.id,
                     description: data.description,
                     difficulty: data.difficulty,
@@ -29,7 +28,7 @@ export default (sessionId: string) => {
         return () => {
             unsubscribe();
         };
-    });
+    }, [postId]);
 
-    return session;
+    return post;
 };

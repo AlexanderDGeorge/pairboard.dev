@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useSpring, animated } from "react-spring";
 import { updateDarkModeSetting } from "../../../firebase/user";
-import { UserContext } from "../../../Application";
+import { UserContext } from "../../../Root";
+import { UserSchema } from "../../../firebase/schema";
 
 const moveHover = (value: string) => {
     if (value === "Light") {
@@ -25,7 +26,7 @@ export default () => {
     const [darkMode, setDarkMode] = useState(currentUser.darkMode || "Auto");
     const [hover, setHover] = useSpring(() => moveHover(darkMode));
 
-    function Option(props: { value: string }) {
+    function Option(props: { value: UserSchema["darkMode"] }) {
         const updateDarkMode = () => {
             setHover(moveHover(props.value));
             setDarkMode(props.value);
@@ -38,9 +39,9 @@ export default () => {
     return (
         <DarkModeToggle>
             <h2>Dark Mode</h2>
-            <Option value="Light" />
-            <Option value="Auto" />
-            <Option value="Dark" />
+            <Option value="light" />
+            <Option value="auto" />
+            <Option value="dark" />
             <animated.div style={hover} />
         </DarkModeToggle>
     );

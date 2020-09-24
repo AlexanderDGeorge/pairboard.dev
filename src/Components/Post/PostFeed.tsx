@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { fetchPosts } from "../../firebase/post";
+import { PostSchema } from "../../firebase/schema";
 import PostItem from "./Post";
-import { fetchSessions } from "../../firebase/session";
-import { Session } from "../../types/session_types";
 
 export default () => {
     const [posts, setPosts] = useState<any>([]);
@@ -12,14 +12,14 @@ export default () => {
     useEffect(() => {
         // memory leak here
         (async () => {
-            const sessionDocs = await fetchSessions();
+            const sessionDocs = await fetchPosts();
             setPosts(sessionDocs);
         })();
     }, []);
 
     return (
         <PostFeed>
-            {posts.map((post: Session, i: number) => (
+            {posts.map((post: PostSchema, i: number) => (
                 <PostItem post={post} key={i} />
             ))}
         </PostFeed>

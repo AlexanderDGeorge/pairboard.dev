@@ -1,22 +1,22 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import DarkModeToggle from "./Components/DarkModeToggle";
-import { UserContext } from "../../Application";
+import { UserContext } from "../../Root";
 import { updateUserDoc } from "../../firebase/user";
 import InputField from "./Components/InputField";
 
 export default () => {
-    const { username, bio } = useContext(UserContext)!;
+    const { username, blurb } = useContext(UserContext)!;
     const [changes, setChanges] = useState(false);
     const [profileInfo, setProfileInfo] = useState({
         username,
-        bio,
+        blurb,
     });
 
     function handleUpdate() {
         // [TODO]: handle empty username
         setChanges(false);
-        updateUserDoc(profileInfo.bio, profileInfo.username);
+        updateUserDoc(profileInfo.blurb, profileInfo.username);
     }
 
     return (
@@ -30,7 +30,7 @@ export default () => {
             </Column>
             <Column style={{ marginLeft: 5 }}>
                 <InputField
-                    label="bio"
+                    label="blurb"
                     profileInfo={profileInfo}
                     setProfileInfo={setProfileInfo}
                 />

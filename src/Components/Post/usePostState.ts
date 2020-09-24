@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { NewSession } from "../../types/session_types";
+import { LightUserSchema } from "../../firebase/schema";
+
+interface NewPost {
+    description: string;
+    difficulty: "easy" | "medium" | "hard";
+    host: LightUserSchema;
+    language: string;
+    maxCapacity: number;
+    tags: Array<string>;
+}
 
 const defaultPost = {
     language: "Any",
@@ -13,8 +22,8 @@ function getPostFromLocalStorage() {
     return localStoragePost ? JSON.parse(localStoragePost) : defaultPost;
 }
 
-export default function useSearchState(): [NewSession, Function] {
-    const [postParams, setPostParams] = useState<NewSession>(() => {
+export default function useSearchState(): [NewPost, Function] {
+    const [postParams, setPostParams] = useState<NewPost>(() => {
         return getPostFromLocalStorage();
     });
 

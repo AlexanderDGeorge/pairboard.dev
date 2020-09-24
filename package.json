@@ -11,6 +11,7 @@
         "@types/react-router-dom": "^5.1.5",
         "@types/styled-components": "^5.1.2",
         "@types/webrtc": "0.0.26",
+        "express": "^4.17.1",
         "firebase": "^7.17.1",
         "firebase-admin": "^9.0.0",
         "firebase-tools": "^8.6.0",

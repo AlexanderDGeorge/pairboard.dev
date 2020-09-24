@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { NewSession } from "../../types/session_types";
 
 interface PostOptionProps {
     filter: string;
     options: Array<string>;
-    postParams: NewSession;
+    postParams: any;
     setPostParams: Function;
 }
 

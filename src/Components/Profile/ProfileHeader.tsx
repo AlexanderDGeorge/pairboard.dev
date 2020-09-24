@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { UserContext } from "../../Application";
-import { User } from "../../types/user_types";
-export default (props: { user?: User }) => {
-    const { photoURL, username, score, firstname, lastname, bio } =
+import { UserSchema } from "../../firebase/schema";
+import { UserContext } from "../../Root";
+
+export default (props: { user?: UserSchema }) => {
+    const { photoURL, username, score, firstname, lastname, blurb } =
         props.user || useContext(UserContext)!;
 
     return (
@@ -16,7 +17,7 @@ export default (props: { user?: User }) => {
                 <h3>
                     {firstname} {lastname}
                 </h3>
-                <h3>{bio}</h3>
+                <h3>{blurb}</h3>
             </div>
         </ProfileHeader>
     );

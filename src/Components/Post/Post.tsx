@@ -1,40 +1,35 @@
 import React, { useContext, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { UserContext } from "../../Application";
-import { Session } from "../../types/session_types";
-import { joinSession } from "../../firebase/session";
+import { UserContext } from "../../Root";
+import { joinPost } from "../../firebase/post";
+import { PostSchema } from "../../firebase/schema";
 
-export default (props: { post: Session }) => {
-    const { author, language, difficulty, tags, description } = props.post;
-    const { uid, firstname, lastname, photoURL, score, username } = useContext(
-        UserContext
-    )!;
+export default (props: { post: PostSchema }) => {
+    const { id, host, language, difficulty, tags, description } = props.post;
+    const { uid } = useContext(UserContext)!;
     const history = useHistory();
 
     async function handleClick(e: SyntheticEvent) {
         e.stopPropagation();
-        if (uid === author.uid) return;
+        if (uid === host.uid) return;
         // [TODO]: add some kind of loading here
-        joinSession(
-            { uid, firstname, lastname, photoURL, score, username },
-            props.post.id
-        );
+        joinPost(uid, id);
     }
 
     function handleLink(e: SyntheticEvent) {
         e.stopPropagation();
-        uid === author.uid
+        uid === host.uid
             ? history.replace("/profile/stats")
-            : history.replace(`/user/${author.username}`);
+            : history.replace(`/user/${host.username}`);
     }
 
     return (
         <StyledPost onClick={handleClick}>
             <PostHeader>
-                <img src={author.photoURL} alt="" />
+                <img src={host.photoURL} alt="" />
                 <button onClick={handleLink}>
-                    {author.username} | {author.score}
+                    {host.username} | {host.score}
                 </button>
                 <h4>{language}</h4>
             </PostHeader>
