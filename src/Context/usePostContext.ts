@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { firestore } from "../firebase/firebase";
 import { PostSchema } from "../firebase/schema";
 
-export default (postId: PostSchema["id"]) => {
+export default (postId?: PostSchema["id"]) => {
     const [post, setPost] = useState<PostSchema | undefined>(undefined);
 
     useEffect(() => {

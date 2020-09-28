@@ -8,8 +8,8 @@ export interface UserSchema {
     firstname: string;
     lastname: string;
     photoURL: string;
+    postId?: string;
     score: number;
-    sessionId?: string;
     status: string;
     username: string;
 }

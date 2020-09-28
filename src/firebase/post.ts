@@ -17,6 +17,7 @@ export async function createPost(
         difficulty,
         language,
         maxCapacity,
+        participants: [host.uid],
         tags,
     });
     firestore().collection("users").doc(host.uid).update({

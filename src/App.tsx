@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "./Components/Nav/Header";
 import HomePage from "./Pages/HomePage";
 import ProfilePage from "./Pages/ProfilePage";
+import RoomPage from "./Pages/RoomPage";
 import { UserContext } from "./Root";
 import { GlobalStyle } from "./styled-components/globalStyle";
 
@@ -18,24 +19,18 @@ export default () => {
     if (!user) {
         // [TODO]: add error
         return null;
+    } else if (user.postId) {
+        return <RoomPage />;
     } else {
         return (
-            <>
+            <BrowserRouter>
                 <GlobalStyle />
-                <Router />
-            </>
+                <Header />
+                <Switch>
+                    <Route path="/profile" component={ProfilePage} />
+                    <Route path="/" component={HomePage} />
+                </Switch>
+            </BrowserRouter>
         );
     }
 };
-
-function Router() {
-    return (
-        <BrowserRouter>
-            <Header />
-            <Switch>
-                <Route path="/profile" component={ProfilePage} />
-                <Route path="/" component={HomePage} />
-            </Switch>
-        </BrowserRouter>
-    );
-}

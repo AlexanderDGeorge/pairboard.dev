@@ -23,7 +23,7 @@ export default (uid: string | null) => {
                     photoURL: data.photoURL,
                     score: data.score,
                     status: data.status,
-                    sessionId: data.sessionId,
+                    postId: data.postId,
                     username: data.username,
                 });
             });
