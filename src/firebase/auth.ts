@@ -1,5 +1,5 @@
 import { auth, firestore, githubProvider } from "./firebase";
-import { User } from "../types/user_types";
+import { UserSchema } from "./schema";
 
 export interface SignUpValues {
     username: string;
@@ -23,7 +23,7 @@ export async function loginWithGithub() {
     }
 }
 
-export async function login(email: User["email"], password: string) {
+export async function login(email: UserSchema["email"], password: string) {
     await auth.signInWithEmailAndPassword(email, password);
 }
 
