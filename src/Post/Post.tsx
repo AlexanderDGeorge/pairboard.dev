@@ -1,9 +1,9 @@
 import React, { useContext, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { UserContext } from "../../Root";
-import { joinPost } from "../../firebase/post";
-import { PostSchema } from "../../firebase/schema";
+import { UserContext } from "../Root";
+import { joinPost } from "../firebase/post";
+import { PostSchema } from "../firebase/schema";
 
 export default (props: { post: PostSchema }) => {
     const { id, host, language, difficulty, tags, description } = props.post;

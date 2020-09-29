@@ -3,9 +3,9 @@ import styled from "styled-components";
 import usePostState from "./usePostState";
 import PostOption from "./PostOption";
 import Description from "./Description";
-import { LANGUAGES, DIFFICULTIES, TAGS } from "../../util/constants";
-import { UserContext } from "../../Root";
-import { createPost } from "../../firebase/post";
+import { LANGUAGES, DIFFICULTIES, TAGS } from "./constants";
+import { UserContext } from "../Root";
+import { createPost } from "../firebase/post";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();

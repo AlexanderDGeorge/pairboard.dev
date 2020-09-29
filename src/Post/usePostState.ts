@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LightUserSchema } from "../../firebase/schema";
+import { LightUserSchema } from "../firebase/schema";
 
 interface NewPost {
     description: string;
