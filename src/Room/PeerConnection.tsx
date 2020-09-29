@@ -73,6 +73,12 @@ export default (props: PeerConnectionProps) => {
 };
 
 const RemoteStream = styled.div`
-    min-height: 240px;
-    min-width: 320px;
+    height: 240px;
+    width: 320px;
+    border: 1px solid black;
+    box-sizing: content-box;
+    > video {
+        height: 100%;
+        width: 100%;
+    }
 `;

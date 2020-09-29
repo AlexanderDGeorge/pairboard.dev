@@ -23,9 +23,9 @@ export default () => {
     if (post) {
         return (
             <RoomPage>
-                <LocalStream localStream={localStream} />
                 <Controls post={post} localStream={localStream} />
                 <Participants>
+                    <LocalStream localStream={localStream} />
                     {post.participants.map((participantId, i) => {
                         if (uid === participantId) return null;
                         return (
@@ -47,7 +47,6 @@ export default () => {
 };
 
 const RoomPage = styled.div`
-    position: relative;
     height: 100%;
     width: 100%;
     display: flex;
@@ -56,7 +55,7 @@ const RoomPage = styled.div`
 
 const Participants = styled.div`
     height: 100%;
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: right;

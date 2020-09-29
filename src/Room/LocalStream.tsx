@@ -28,13 +28,10 @@ export default (props: { localStream?: MediaStream }) => {
 };
 
 const LocalStream = styled.div`
-    z-index: 1;
-    position: absolute;
-    top: 10px;
-    left: 10px;
     height: 240px;
     width: 320px;
-    box-shadow: 0 0 20px -5px;
+    border: 1px solid black;
+    box-sizing: content-box;
     > video {
         height: 100%;
         width: 100%;

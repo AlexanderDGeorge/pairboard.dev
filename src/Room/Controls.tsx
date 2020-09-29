@@ -45,7 +45,8 @@ export default (props: { post: PostSchema; localStream?: MediaStream }) => {
 const Controls = styled.div`
     height: 100%;
     min-width: 80px;
-    padding: 50% 10px 10px 10px;
+    width: 10%;
+    padding: 25% 10px 10px 10px;
     background-color: ${(props) => props.theme.verydark};
     border-right: 5px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>
