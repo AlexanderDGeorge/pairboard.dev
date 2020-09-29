@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
+import styled from "styled-components";
 import usePostContext from "../Context/usePostContext";
 import { initiateLocalStream } from "../firebase/room";
 import LocalStream from "../Room/LocalStream";
 import PeerConnection from "../Room/PeerConnection";
+import Controls from "../Room/Controls";
 import { UserContext } from "../Root";
 
 export default () => {
@@ -20,9 +22,12 @@ export default () => {
 
     if (post) {
         return (
-            <div>
-                {post.participants.map((participantId, i) => {
-                    if (uid !== participantId) {
+            <RoomPage>
+                <LocalStream localStream={localStream} />
+                <Controls post={post} localStream={localStream} />
+                <Participants>
+                    {post.participants.map((participantId, i) => {
+                        if (uid === participantId) return null;
                         return (
                             <PeerConnection
                                 key={i}
@@ -30,15 +35,29 @@ export default () => {
                                 recipientId={participantId}
                             />
                         );
-                    } else {
-                        return (
-                            <LocalStream key={i} localStream={localStream} />
-                        );
-                    }
-                })}
-            </div>
+                    })}
+                </Participants>
+            </RoomPage>
         );
     } else {
         return null;
+        // [TODO]: add error 'A room associated with this post could not be found
+        // redirecting...
     }
 };
+
+const RoomPage = styled.div`
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const Participants = styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+`;

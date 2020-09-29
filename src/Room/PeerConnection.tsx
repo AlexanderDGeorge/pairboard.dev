@@ -5,6 +5,7 @@ import React, {
     useRef,
     useState,
 } from "react";
+import styled from "styled-components";
 import { database } from "../firebase/firebase";
 import {
     addCandidate,
@@ -60,11 +61,18 @@ export default (props: PeerConnectionProps) => {
     console.log(remoteStreamRef.current?.srcObject);
 
     return (
-        <video
-            ref={remoteStreamRef}
-            src="remoteStream"
-            autoPlay
-            playsInline
-        ></video>
+        <RemoteStream>
+            <video
+                ref={remoteStreamRef}
+                src="remoteStream"
+                autoPlay
+                playsInline
+            ></video>
+        </RemoteStream>
     );
 };
+
+const RemoteStream = styled.div`
+    min-height: 240px;
+    min-width: 320px;
+`;

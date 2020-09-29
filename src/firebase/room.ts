@@ -1,5 +1,5 @@
-import { database } from "./firebase";
-import { UserSchema } from "./schema";
+import { database, fieldValue, firestore } from "./firebase";
+import { PostSchema, UserSchema } from "./schema";
 
 export async function sendSessionDescription(
     recipientId: UserSchema["uid"],
@@ -139,4 +139,19 @@ export async function addCandidate(
     iceCandidate: RTCIceCandidateInit
 ) {
     await connection.addIceCandidate(iceCandidate);
+}
+
+export async function leaveRoom(
+    uid: UserSchema["uid"],
+    postId: PostSchema["id"]
+) {
+    await firestore()
+        .collection("posts")
+        .doc(postId)
+        .update({
+            participants: fieldValue.arrayRemove(uid),
+        });
+    await firestore().collection("users").doc(uid).update({
+        postId: fieldValue.delete(),
+    });
 }

@@ -18,6 +18,7 @@ export default (props: { localStream?: MediaStream }) => {
                     ref={videoRef}
                     autoPlay
                     playsInline
+                    muted
                 ></video>
             </LocalStream>
         );
@@ -27,10 +28,13 @@ export default (props: { localStream?: MediaStream }) => {
 };
 
 const LocalStream = styled.div`
+    z-index: 1;
     position: absolute;
+    top: 10px;
+    left: 10px;
     height: 240px;
     width: 320px;
-    border: 1px;
+    box-shadow: 0 0 20px -5px;
     > video {
         height: 100%;
         width: 100%;
