@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { LoadingBar } from "../Components/AnimatedComponents/Loaders";
+import LoadingBar from "../Components/LoadingBar";
 import { firestore } from "../firebase/firebase";
 import { PostSchema } from "../firebase/schema";
 import useFirebaseQuery from "../util/useFirebaseQuery";

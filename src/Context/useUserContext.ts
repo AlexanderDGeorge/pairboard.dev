@@ -16,8 +16,10 @@ export default (uid: string | null) => {
                 setUser({
                     uid: snapshot.id,
                     blurb: data.blurb,
-                    email: data.email,
+                    connections: data.connections,
                     darkMode: data.darkMode,
+                    email: data.email,
+                    emailVerified: data.emailVerified,
                     firstname: data.firstname,
                     lastname: data.lastname,
                     photoURL: data.photoURL,

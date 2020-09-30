@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { LoadingBar } from "../Components/AnimatedComponents/Loaders";
+import LoadingBar from "../Components/LoadingBar";
 
 export default () => {
     return (

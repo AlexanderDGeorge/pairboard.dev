@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useHistory, Link } from "react-router-dom";
 import { UserSchema } from "../../firebase/schema";
 import { useSpring, animated } from "react-spring";
+import { signOut } from "../../firebase/auth";
 
 export default (props: { user: UserSchema }) => {
     const { username, firstname, lastname, photoURL } = props.user;
@@ -20,7 +21,7 @@ export default (props: { user: UserSchema }) => {
 
     return (
         <ProfileLink
-            onMouseEnter={() => setMenu({ height: 200, width: 200 })}
+            onMouseEnter={() => setMenu({ height: 160, width: 250 })}
             onMouseLeave={() => setMenu({ height: 60, width: 60 })}
         >
             <img src={photoURL} alt="" onClick={handleImgClick} />
@@ -29,25 +30,25 @@ export default (props: { user: UserSchema }) => {
                 <h5 onClick={handleImgClick}>
                     {firstname} {lastname}
                 </h5>
+                <Link to="/profile/edit">Edit Profile</Link>
                 <Link to="/profile/settings">Settings</Link>
-                <button>Logout</button>
+                <button onClick={signOut}>Logout</button>
             </animated.div>
         </ProfileLink>
     );
 };
 
 const ProfileLink = styled.div`
-    position: absolute;
-    right: 5%;
+    position: relative;
     height: 60px;
     width: 60px;
     background-color: ${(props) => props.theme.mid};
-    cursor: pointer;
     > img {
         z-index: 2;
         position: absolute;
         height: 100%;
         width: auto;
+        cursor: pointer;
     }
     > div {
         z-index: 1;
@@ -68,6 +69,8 @@ const ProfileLink = styled.div`
         > h4,
         h5 {
             height: 30px;
+            width: calc(100% - 60px);
+            cursor: pointer;
             &:hover {
                 text-decoration: underline;
             }
@@ -83,6 +86,7 @@ const ProfileLink = styled.div`
             align-items: center;
             justify-content: center;
             outline: none;
+            cursor: pointer;
             &:hover {
                 background-color: ${(props) => props.theme.light};
                 transition: background-color 0s;

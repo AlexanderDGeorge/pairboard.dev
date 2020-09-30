@@ -39,12 +39,12 @@ export default () => {
                 filter="difficulty"
                 options={DIFFICULTIES}
             />
-            <PostOption
+            {/* <PostOption
                 postParams={postParams}
                 setPostParams={setPostParams}
                 filter="tag"
                 options={TAGS}
-            />
+            /> */}
             <Description
                 postParams={postParams}
                 setPostParams={setPostParams}

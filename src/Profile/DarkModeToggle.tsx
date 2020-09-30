@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useSpring, animated } from "react-spring";
-import { updateDarkModeSetting } from "../../../firebase/user";
-import { UserContext } from "../../../Root";
-import { UserSchema } from "../../../firebase/schema";
+import { updateDarkModeSetting } from "../firebase/user";
+import { UserContext } from "../Root";
+import { UserSchema } from "../firebase/schema";
 
 const moveHover = (value: string) => {
     if (value === "Light") {

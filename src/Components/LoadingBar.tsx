@@ -1,13 +1,13 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-export function LoadingBar() {
+export default () => {
     return (
-        <StyledLoadingBar>
+        <LoadingBar>
             <div></div>
-        </StyledLoadingBar>
+        </LoadingBar>
     );
-}
+};
 
 const load = keyframes`
     from {
@@ -19,7 +19,7 @@ const load = keyframes`
     }
 `;
 
-const StyledLoadingBar = styled.div`
+const LoadingBar = styled.div`
     position: relative;
     height: 40px;
     width: 80%;

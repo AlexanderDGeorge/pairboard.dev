@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import ProfileNav from "../Components/Profile/ProfileNav";
-import ProfileHeader from "../Components/Profile/ProfileHeader";
-import ProfileRouter from "../Components/Profile/ProfileRouter";
+import { Switch, Route } from "react-router";
+import ProfileHeader from "../Profile/ProfileHeader";
 
 export default () => {
     return (
         <Profile>
-            <ProfileNav />
-            <ProfileHeader />
-            <ProfileRouter />
+            <Switch>
+                <Route path="/profile" component={ProfileHeader} />
+            </Switch>
         </Profile>
     );
 };

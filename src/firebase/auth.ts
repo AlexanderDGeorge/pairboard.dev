@@ -78,24 +78,26 @@ async function createUserDocument(
         const { uid, email } = user;
         userRef.set({
             uid,
-            bio: "",
+            blurb: "",
+            connections: [],
             darkMode: "Auto",
             email,
+            emailVerified: false,
             firstname,
             lastname,
-            pairs: [],
             photoURL:
                 user.photoURL ||
                 "https://blacklivesmatter.com/wp-content/uploads/2017/07/BLM-logo.png",
             score: 0,
             status: "online",
-            streak: 0,
             username,
         });
     }
 }
 
 export async function signOut() {
+    // [TODO]: handle cleanup
+    // cloud functions to handle users that don't explicity log out?
     await auth.signOut();
 }
 

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
-import ProfileHeader from "../Components/Profile/ProfileHeader";
-import ProfileStats from "../Components/Profile/ProfileStats";
 import Loading from "./LoadingPage";
 
 export default () => {
@@ -20,12 +18,7 @@ export default () => {
     console.log(user);
 
     if (user) {
-        return (
-            <StyledUser>
-                <ProfileHeader user={user} />
-                <ProfileStats user={user} />
-            </StyledUser>
-        );
+        return <StyledUser></StyledUser>;
     } else {
         return <Loading />;
     }

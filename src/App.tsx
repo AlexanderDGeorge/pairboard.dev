@@ -19,7 +19,7 @@ export default () => {
     if (!user) {
         // [TODO]: add error
         return null;
-    } else if (user.postId) {
+    } else if (user.status === "in room") {
         return <RoomPage />;
     } else {
         return (

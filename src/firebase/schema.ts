@@ -3,14 +3,16 @@ import { User as FirebaseUser } from "firebase";
 export interface UserSchema {
     uid: FirebaseUser["uid"];
     blurb: string;
-    email: string;
+    connections: Array<FirebaseUser["uid"]>;
     darkMode: "auto" | "light" | "dark";
+    email: string;
+    emailVerified: boolean;
     firstname: string;
     lastname: string;
     photoURL: string;
     postId?: string;
     score: number;
-    status: string;
+    status: "online" | "offline" | "in room";
     username: string;
 }
 
