@@ -5,7 +5,6 @@ import { fetchUserDocFromUsername } from "../firebase/user";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
 import ProfileStats from "../Components/Profile/ProfileStats";
 import Loading from "./LoadingPage";
-import LinkBar from "../Components/Nav/LinkBar";
 
 export default () => {
     const pathname = useLocation().pathname.slice(6);
@@ -23,7 +22,6 @@ export default () => {
     if (user) {
         return (
             <StyledUser>
-                <LinkBar />
                 <ProfileHeader user={user} />
                 <ProfileStats user={user} />
             </StyledUser>

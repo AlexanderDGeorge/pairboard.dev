@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import LinkBar from "../Components/Nav/LinkBar";
 import PostBar from "../Post/PostBar";
 import PostFeed from "../Post/PostFeed";
 
 export default () => {
     return (
         <Home>
-            <LinkBar />
             <PostBar />
             <PostFeed />
         </Home>

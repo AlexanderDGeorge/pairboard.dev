@@ -1,13 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import LinkBar from "../Components/Nav/LinkBar";
 
 export default () => {
-    return (
-        <Pairs>
-            <LinkBar />
-        </Pairs>
-    );
+    return <Pairs></Pairs>;
 };
 
 const Pairs = styled.div`

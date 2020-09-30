@@ -1,22 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { UserContext } from "../../Root";
+import ProfileLink from "./ProfileLink";
 
 export default () => {
+    const history = useHistory();
+    const user = useContext(UserContext);
+
+    function handleGoHome() {
+        const path = history.location.pathname;
+        if (path === "/") return;
+        history.replace("/");
+    }
+
     return (
-        <Header to="/">
-            pairboard.io <sup>alpha</sup>
+        <Header>
+            <HomeLink onClick={handleGoHome}>
+                pairboard.dev <sup>alpha</sup>
+            </HomeLink>
+            {user ? <ProfileLink user={user} /> : null}
         </Header>
     );
 };
 
-const Header = styled(Link)`
+const Header = styled.header`
     height: 80px;
     width: 100%;
+    padding: 0 5%;
     background-color: ${(props) => props.theme.verydark};
     border-bottom: 5px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>
         `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue}) 3`};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const HomeLink = styled.button`
+    height: 80px;
+    background-color: transparent;
+    align-self: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,6 +49,7 @@ const Header = styled(Link)`
     color: ${(props) => props.theme.verylight};
     transition: all 0.25s linear;
     text-decoration: none;
+    outline: none;
     &:hover {
         transition: all 0.25s linear;
         font-size: 2.41em;

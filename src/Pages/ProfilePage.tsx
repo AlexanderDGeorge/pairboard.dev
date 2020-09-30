@@ -3,12 +3,10 @@ import styled from "styled-components";
 import ProfileNav from "../Components/Profile/ProfileNav";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
 import ProfileRouter from "../Components/Profile/ProfileRouter";
-import LinkBar from "../Components/Nav/LinkBar";
 
 export default () => {
     return (
         <Profile>
-            <LinkBar />
             <ProfileNav />
             <ProfileHeader />
             <ProfileRouter />
