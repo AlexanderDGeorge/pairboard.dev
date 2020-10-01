@@ -8,8 +8,9 @@ import { StyledButton } from "../styled-components/formStyles";
 import { MdLocationOn, MdLink } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-export default (props: { username?: UserSchema["username"] }) => {
-    const user = useContext(UserContext)!;
+export default (props: { user: UserSchema }) => {
+    const { user } = props;
+    const { username } = useContext(UserContext)!;
     const score = useSpring({ number: user.score, from: { number: 0 } });
     const history = useHistory();
 
@@ -25,7 +26,7 @@ export default (props: { username?: UserSchema["username"] }) => {
                 </animated.span>
             </h2>
             <h4>{user.blurb}</h4>
-            {!props.username || props.username === user.username ? (
+            {user.username !== username ? (
                 <StyledButton onClick={() => history.replace("/profile/edit")}>
                     Edit Profile
                 </StyledButton>

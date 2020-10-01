@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Switch, Route } from "react-router";
-import ProfileMain from "../Profile/ProfileMain";
+import Profile from "../Profile/Profile";
+import { UserContext } from "../Root";
 
 export default () => {
+    const user = useContext(UserContext)!;
+
     return (
-        <Profile>
+        <ProfilePage>
             <Switch>
-                <Route path="/profile" component={ProfileMain} />
+                <Route
+                    path="/profile"
+                    component={() => <Profile user={user} />}
+                />
             </Switch>
-        </Profile>
+        </ProfilePage>
     );
 };
 
-const Profile = styled.div`
+const ProfilePage = styled.div`
     min-height: 100%;
     height: 100%;
     width: 100%;

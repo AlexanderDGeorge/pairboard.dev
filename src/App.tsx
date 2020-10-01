@@ -4,6 +4,7 @@ import Header from "./Components/Nav/Header";
 import HomePage from "./Pages/HomePage";
 import ProfilePage from "./Pages/ProfilePage";
 import RoomPage from "./Pages/RoomPage";
+import UserPage from "./Pages/UserPage";
 import { UserContext } from "./Root";
 import { GlobalStyle } from "./styled-components/globalStyle";
 
@@ -27,6 +28,7 @@ export default () => {
                 <GlobalStyle />
                 <Header />
                 <Switch>
+                    <Route path="/user/:username" component={UserPage} />
                     <Route path="/profile" component={ProfilePage} />
                     <Route path="/" component={HomePage} />
                 </Switch>

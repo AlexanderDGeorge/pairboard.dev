@@ -1,19 +1,12 @@
-import React, {
-    MutableRefObject,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { firestore } from "../firebase/firebase";
-import { PostSchema } from "../firebase/schema";
+import { PostSchema, UserSchema } from "../firebase/schema";
 import Post from "../Post/Post";
 import convertDocToPost from "../Post/convertDocToPost";
-import { UserContext } from "../Root";
 
-export default () => {
-    const { posts } = useContext(UserContext)!;
+export default (props: { user: UserSchema }) => {
+    const { posts } = props.user;
     const [userPosts, setUserPosts] = useState<Array<PostSchema>>([]);
     const lastRead: MutableRefObject<any> = useRef(null);
 

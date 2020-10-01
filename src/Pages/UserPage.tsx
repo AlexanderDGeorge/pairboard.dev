@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
 import Loading from "./LoadingPage";
+import Profile from "../Profile/Profile";
 
 export default () => {
     const pathname = useLocation().pathname.slice(6);
@@ -18,13 +19,21 @@ export default () => {
     console.log(user);
 
     if (user) {
-        return <StyledUser></StyledUser>;
+        return (
+            <UserPage>
+                <Profile user={user} />
+            </UserPage>
+        );
     } else {
         return <Loading />;
     }
 };
 
-const StyledUser = styled.div`
+const UserPage = styled.div`
+    min-height: 100%;
     height: 100%;
     width: 100%;
+    padding: 2% 5%;
+    display: flex;
+    background-color: ${(props) => props.theme.white};
 `;
