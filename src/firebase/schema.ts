@@ -8,9 +8,14 @@ export interface UserSchema {
     email: string;
     emailVerified: boolean;
     firstname: string;
+    githubURL?: string;
     lastname: string;
+    linkedInURL?: string;
+    location?: string;
     photoURL: string;
+    portfolioURL?: string;
     postId?: string;
+    posts: Array<PostSchema["id"]>;
     score: number;
     status: "online" | "offline" | "in room";
     username: string;
@@ -25,6 +30,8 @@ export interface LightUserSchema {
 
 export interface PostSchema {
     id: string;
+    active: boolean;
+    createdAt: Date;
     description: string;
     difficulty: "easy" | "medium" | "hard";
     host: LightUserSchema;

@@ -12,17 +12,23 @@ export async function createPost(
     const postRef = firestore().collection("posts").doc();
     await postRef.set({
         id: postRef.id,
-        host,
+        active: true,
+        createdAt: new Date(),
         description,
         difficulty,
+        host,
         language,
         maxCapacity,
         participants: [host.uid],
         tags,
     });
-    firestore().collection("users").doc(host.uid).update({
-        postId: postRef.id,
-    });
+    firestore()
+        .collection("users")
+        .doc(host.uid)
+        .update({
+            postId: postRef.id,
+            posts: fieldValue.arrayUnion(postRef.id),
+        });
 }
 
 export async function joinPost(

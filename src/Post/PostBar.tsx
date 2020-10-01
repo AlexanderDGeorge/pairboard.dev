@@ -3,7 +3,7 @@ import styled from "styled-components";
 import usePostState from "./usePostState";
 import PostOption from "./PostOption";
 import Description from "./Description";
-import { LANGUAGES, DIFFICULTIES, TAGS } from "./constants";
+import { LANGUAGES, DIFFICULTIES } from "./constants";
 import { UserContext } from "../Root";
 import { createPost } from "../firebase/post";
 

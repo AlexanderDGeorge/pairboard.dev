@@ -11,6 +11,7 @@ export default (props: { user: UserSchema }) => {
     const [menu, setMenu] = useSpring(() => ({
         height: 60,
         width: 60,
+        opacity: 1,
     }));
 
     function handleImgClick() {
@@ -21,8 +22,10 @@ export default (props: { user: UserSchema }) => {
 
     return (
         <ProfileLink
-            onMouseEnter={() => setMenu({ height: 160, width: 250 })}
-            onMouseLeave={() => setMenu({ height: 60, width: 60 })}
+            onMouseEnter={() =>
+                setMenu({ height: 160, width: 250, opacity: 1 })
+            }
+            onMouseLeave={() => setMenu({ height: 60, width: 60, opacity: 0 })}
         >
             <img src={photoURL} alt="" onClick={handleImgClick} />
             <animated.div style={menu}>
@@ -47,7 +50,8 @@ const ProfileLink = styled.div`
         z-index: 2;
         position: absolute;
         height: 100%;
-        width: auto;
+        width: 100%;
+        background-color: ${(props) => props.theme.accent};
         cursor: pointer;
     }
     > div {

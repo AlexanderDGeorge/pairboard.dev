@@ -1,61 +1,99 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { UserSchema } from "../firebase/schema";
 import { UserContext } from "../Root";
+import { StyledButton } from "../styled-components/formStyles";
+import { MdLocationOn, MdLink } from "react-icons/md";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default (props: { username?: UserSchema["username"] }) => {
     const user = useContext(UserContext)!;
     const score = useSpring({ number: user.score, from: { number: 0 } });
+    const history = useHistory();
 
     console.log(user);
 
     return (
         <ProfileHeader>
             <img src={user.photoURL} alt="" />
-            <div>
-                <h2>
-                    {user.username} |{" "}
-                    <animated.span>
-                        {score.number.interpolate((number) =>
-                            Math.floor(number)
-                        )}
-                    </animated.span>
-                </h2>
-                <h3>
-                    {user.firstname} {user.lastname}
-                </h3>
-                <h3>{user.connections.length} connections</h3>
-                <h3>connect</h3>
-            </div>
+            <h2>
+                {user.username} |
+                <animated.span>
+                    {score.number.interpolate((number) => Math.floor(number))}
+                </animated.span>
+            </h2>
+            <h4>{user.blurb}</h4>
+            {!props.username || props.username === user.username ? (
+                <StyledButton onClick={() => history.replace("/profile/edit")}>
+                    Edit Profile
+                </StyledButton>
+            ) : null}
+            <h4>
+                <MdLocationOn /> {user.location}
+            </h4>
+            <a href={`//${user.portfolioURL}`}>
+                <MdLink />
+                {user.portfolioURL}
+            </a>
+            <a href={`//${user.githubURL}`}>
+                <FaGithub />
+                {user.githubURL}
+            </a>
+            <a href={`//${user.linkedInURL}`}>
+                <FaLinkedin />
+                {user.linkedInURL}
+            </a>
         </ProfileHeader>
     );
 };
 
 const ProfileHeader = styled.div`
-    min-height: 400px;
-    width: 100%;
-    padding: 5%;
+    height: 100%;
+    width: 240px;
+    margin-right: 2%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    @media screen and (max-width: 600px) {
+        height: auto;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
     > img {
-        height: 200px;
-        width: 200px;
-        margin: 0 10px 10px 0;
+        height: auto;
+        width: 100%;
+        border: 1px solid ${(props) => props.theme.accent};
+        background-color: ${(props) => props.theme.accent};
         @media screen and (max-width: 600px) {
             height: 150px;
             width: 150px;
         }
     }
-    > div {
-        > * {
+    > h2,
+    h4 {
+        display: flex;
+        align-items: center;
+        /* @media screen and (max-width: 600px) {
+            width: 40%;
+        } */
+    }
+    > a {
+        display: flex;
+        align-items: center;
+        font-size: 1em;
+    }
+    svg {
+        height: auto;
+        min-width: 20px;
+        margin-right: 5px;
+    }
+    > * {
+        margin-bottom: 20px;
+        line-height: 1.4em;
+        @media screen and (max-width: 600px) {
             margin-bottom: 10px;
         }
-        > button {
-            font-size: 1.17em;
-        }
-    }
-    * {
-        background: transparent;
     }
 `;

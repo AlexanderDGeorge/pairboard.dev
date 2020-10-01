@@ -16,6 +16,8 @@ export default (postId?: PostSchema["id"]) => {
                 if (!data) return;
                 setPost({
                     id: snapshot.id,
+                    active: data.active,
+                    createdAt: data.createdAt,
                     description: data.description,
                     difficulty: data.difficulty,
                     host: data.host,
