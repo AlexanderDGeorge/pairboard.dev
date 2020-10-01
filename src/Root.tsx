@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { auth } from "./firebase/firebase";
 import App from "./App";
 import useUserContext from "./Context/useUserContext";
@@ -56,9 +56,11 @@ export default function Root() {
             <ThemeProvider theme={lightTheme}>
                 <BrowserRouter>
                     <GlobalStyle />
-                    <Route path="/login" component={LoginPage} />
-                    <Route path="/signup" component={SignupPage} />
-                    <Route path="/" component={LandingPage} />
+                    <Switch>
+                        <Route path="/login" component={LoginPage} />
+                        <Route path="/signup" component={SignupPage} />
+                        <Route path="/" component={LandingPage} />
+                    </Switch>
                 </BrowserRouter>
             </ThemeProvider>
         );

@@ -2,12 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import TopDiv from "../Components/Landing/TopDiv";
 import MiddleDiv from "../Components/Landing/MiddleDiv";
+import Footer from "../Components/Nav/Footer";
+import Header from "../Components/Nav/Header";
 
 export default () => {
     return (
         <LandingPage>
+            <Header />
             <MiddleDiv />
             <TopDiv />
+            <Footer />
         </LandingPage>
     );
 };

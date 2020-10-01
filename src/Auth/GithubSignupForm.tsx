@@ -35,6 +35,8 @@ export default () => {
         signupWithGithub(username, firstname, lastname);
     }
 
+    // [TODO]: validation runs excessively
+
     return (
         <Formik
             initialValues={{

@@ -2,13 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import SignupForm from "../Auth/SignupForm";
 import GithubSignupForm from "../Auth/GithubSignupForm";
+import Header from "../Components/Nav/Header";
+import Footer from "../Components/Nav/Footer";
 
 export default () => {
     return (
-        <Signup>
-            <SignupForm />
-            <GithubSignupForm />
-        </Signup>
+        <>
+            <Header />
+            <Signup>
+                <SignupForm />
+                <GithubSignupForm />
+            </Signup>
+            <Footer />
+        </>
     );
 };
 
@@ -21,6 +27,5 @@ const Signup = styled.div`
     justify-content: space-between;
     > form {
         min-width: 50%;
-        padding: 2%;
     }
 `;

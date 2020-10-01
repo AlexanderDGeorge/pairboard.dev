@@ -39,12 +39,6 @@ export default () => {
                 filter="difficulty"
                 options={DIFFICULTIES}
             />
-            {/* <PostOption
-                postParams={postParams}
-                setPostParams={setPostParams}
-                filter="tag"
-                options={TAGS}
-            /> */}
             <Description
                 postParams={postParams}
                 setPostParams={setPostParams}
@@ -56,21 +50,28 @@ export default () => {
 
 const PostBar = styled.div`
     position: relative;
-    min-height: 140px;
-    width: 100%;
-    border-bottom: 1px solid ${(props) => props.theme.verylight};
-    padding: 2% 5%;
+    height: 100%;
+    width: 30%;
+    border-right: 1px solid ${(props) => props.theme.verylight};
+    padding-right: 10px;
     background-color: ${(props) => props.theme.white};
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 20px 20px -20px ${(props) => props.theme.medium};
+    flex-direction: column;
+    @media screen and (max-width: 600px) {
+        height: auto;
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid ${(props) => props.theme.verylight};
+        padding-right: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 `;
 
 const PostButton = styled.button`
     height: 60px;
-    width: 120px;
+    width: 100%;
+    margin: 2% 0;
     padding: 10px;
     font-size: 1em;
     font-weight: 600;

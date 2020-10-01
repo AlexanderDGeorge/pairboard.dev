@@ -44,7 +44,8 @@ export default (props: PostOptionProps) => {
 
 const PostOption = styled.div`
     position: relative;
-    margin: 2% 0;
+    width: 100%;
+    margin-bottom: 10px;
     > label {
         position: absolute;
         font-weight: 100;
@@ -52,7 +53,7 @@ const PostOption = styled.div`
     }
     > select {
         height: 60px;
-        width: 120px;
+        width: 100%;
         border: 1px solid ${(props) => props.theme.verydark};
         font-weight: 300;
         background-color: ${(props) => props.theme.white};

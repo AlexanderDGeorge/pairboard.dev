@@ -88,6 +88,7 @@ async function createUserDocument(
             photoURL:
                 user.photoURL ||
                 "https://blacklivesmatter.com/wp-content/uploads/2017/07/BLM-logo.png",
+            posts: [],
             score: 0,
             status: "online",
             username,

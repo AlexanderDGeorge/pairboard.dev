@@ -6,7 +6,7 @@ import { joinPost } from "../firebase/post";
 import { PostSchema } from "../firebase/schema";
 
 export default (props: { post: PostSchema }) => {
-    const { id, host, language, difficulty, tags, description } = props.post;
+    const { id, host, language, difficulty, description } = props.post;
     const { uid } = useContext(UserContext)!;
     const history = useHistory();
 
@@ -25,79 +25,82 @@ export default (props: { post: PostSchema }) => {
     }
 
     return (
-        <StyledPost onClick={handleClick}>
-            <PostHeader>
-                <img src={host.photoURL} alt="" />
-                <button onClick={handleLink}>
-                    {host.username} | {host.score}
-                </button>
-                <h4>{language}</h4>
-            </PostHeader>
+        <Post onClick={handleClick}>
+            <HostPhoto src={host.photoURL} alt="" />
+            <Username>
+                <p>{host.username}</p>
+                <p>{host.score}</p>
+            </Username>
+            <PostLanguage>{language}</PostLanguage>
+            <PostDifficulty>{difficulty}</PostDifficulty>
             <PostDescription>{description}</PostDescription>
-            <PostInfo>
-                <p>{difficulty}</p>
-                {tags.map((tag, i: number) => (
-                    <p key={i}>| {tag} </p>
-                ))}
-            </PostInfo>
-        </StyledPost>
+        </Post>
     );
 };
 
-const StyledPost = styled.div`
-    height: 200px;
-    width: 300px;
-    margin-right: 10px;
+const Post = styled.div`
+    height: 100px;
+    width: 100%;
+    margin-bottom: 10px;
     border: 1px solid ${(props) => props.theme.verydark};
     padding: 10px;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 80px 20% 15% auto;
+    grid-template-rows: 50% 50%;
+    grid-template-areas:
+        "hostPhoto username language difficulty"
+        "hostPhoto username description description";
     transition: all linear 0.2s;
     &:hover {
         transition: all linear 0.2s;
         border: 1px solid ${(props) => props.theme.accent};
         box-shadow: 0 0 20px -8px ${(props) => props.theme.verydark};
     }
+    @media screen and (max-width: 600px) {
+        height: 200px;
+        grid-template-columns: 30% 30% auto;
+        grid-template-rows: 30% 70%;
+        grid-template-areas:
+            "hostPhoto language difficulty"
+            "username description description";
+    }
 `;
 
-const PostHeader = styled.div`
-    height: 50px;
-    width: 100%;
-    margin-bottom: 10px;
+const HostPhoto = styled.img`
+    height: 100%;
+    width: auto;
+    margin-right: 10px;
+    border: 1px solid ${(props) => props.theme.accent};
+    grid-area: hostPhoto;
+`;
+
+const Username = styled.button`
+    height: 100%;
+    margin-right: 10px;
+    grid-area: username;
     display: flex;
-    align-items: center;
-    > img {
-        height: 100%;
-        width: auto;
-        margin-right: 10px;
-    }
-    > button {
-        width: 200px;
-        font-size: 1em;
-        text-align: left;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    > h4 {
-        font-weight: 500;
+    flex-direction: column;
+    font-size: 1em;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
     }
 `;
 
-const PostDescription = styled.div`
-    height: 100px;
-    width: 100%;
-    margin-bottom: 10px;
+const PostLanguage = styled.h4`
+    margin-right: 10px;
+    grid-area: language;
+    font-weight: 500;
+`;
+
+const PostDifficulty = styled.h4`
+    margin-right: 10px;
+    grid-area: difficulty;
+    font-weight: 400;
+`;
+
+const PostDescription = styled.h4`
+    grid-area: description;
     color: ${(props) => props.theme.medium};
-`;
-
-const PostInfo = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    > p {
-        margin-right: 5px;
-    }
 `;

@@ -11,7 +11,7 @@
         "@types/react-router-dom": "^5.1.5",
         "@types/styled-components": "^5.1.2",
         "firebase": "^7.17.1",
-        "firebase-admin": "^9.0.0",
+        "firebase-admin": "^9.2.0",
         "firebase-tools": "^8.6.0",
         "formik": "^2.1.5",
         "react": "^16.13.1",

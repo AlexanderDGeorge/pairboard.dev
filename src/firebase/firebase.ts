@@ -5,14 +5,14 @@ import "firebase/firestore";
 import "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCeGM0QHwCzs4IXcr4aBhRzwdmqlQJXX2Y",
-    authDomain: "pairboardio.firebaseapp.com",
-    databaseURL: "https://pairboardio.firebaseio.com",
-    projectId: "pairboardio",
-    storageBucket: "pairboardio.appspot.com",
-    messagingSenderId: "908809037876",
-    appId: "1:908809037876:web:03af37b54aa5399dc74261",
-    measurementId: "G-8WXW8ZD9J7",
+    apiKey: "AIzaSyCbdNrcuBGDVF8-iL9UxCgsCFCbTGhoJS8",
+    authDomain: "pairboarddev.firebaseapp.com",
+    databaseURL: "https://pairboarddev.firebaseio.com",
+    projectId: "pairboarddev",
+    storageBucket: "pairboarddev.appspot.com",
+    messagingSenderId: "384687900425",
+    appId: "1:384687900425:web:7d09aa9aab471725f975d8",
+    measurementId: "G-D1V3YVRD2Q",
 };
 
 firebase.initializeApp(firebaseConfig);

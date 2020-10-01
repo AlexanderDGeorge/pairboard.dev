@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Footer from "./Components/Nav/Footer";
 import Header from "./Components/Nav/Header";
 import HomePage from "./Pages/HomePage";
 import ProfilePage from "./Pages/ProfilePage";
@@ -32,6 +33,7 @@ export default () => {
                     <Route path="/profile" component={ProfilePage} />
                     <Route path="/" component={HomePage} />
                 </Switch>
+                <Footer />
             </BrowserRouter>
         );
     }
