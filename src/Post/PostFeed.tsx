@@ -34,7 +34,7 @@ export default () => {
 
 const PostFeed = styled.div`
     min-height: 100%;
-    width: 70%;
+    width: 100%;
     padding-left: 10px;
     display: flex;
     flex-direction: column;

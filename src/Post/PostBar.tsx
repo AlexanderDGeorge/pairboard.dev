@@ -51,7 +51,7 @@ export default () => {
 const PostBar = styled.div`
     position: relative;
     height: 100%;
-    width: 30%;
+    min-width: 261px;
     border-right: 1px solid ${(props) => props.theme.verylight};
     padding-right: 10px;
     background-color: ${(props) => props.theme.white};

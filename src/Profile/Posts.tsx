@@ -1,12 +1,19 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, {
+    MutableRefObject,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import styled from "styled-components";
 import { firestore } from "../firebase/firebase";
 import { PostSchema, UserSchema } from "../firebase/schema";
 import Post from "../Post/Post";
 import convertDocToPost from "../Post/convertDocToPost";
+import { UserContext } from "../Root";
 
-export default (props: { user: UserSchema }) => {
-    const { posts } = props.user;
+export default (props: { user?: UserSchema }) => {
+    const { posts } = props.user || useContext(UserContext)!;
     const [userPosts, setUserPosts] = useState<Array<PostSchema>>([]);
     const lastRead: MutableRefObject<any> = useRef(null);
 
@@ -42,5 +49,5 @@ export default (props: { user: UserSchema }) => {
 
 const ProfilePosts = styled.div`
     height: 100%;
-    width: auto;
+    width: 100%;
 `;

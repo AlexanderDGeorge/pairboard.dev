@@ -26,7 +26,7 @@ export default (props: { user: UserSchema }) => {
                 </animated.span>
             </h2>
             <h4>{user.blurb}</h4>
-            {user.username !== username ? (
+            {user.username === username ? (
                 <StyledButton onClick={() => history.replace("/profile/edit")}>
                     Edit Profile
                 </StyledButton>
@@ -52,8 +52,10 @@ export default (props: { user: UserSchema }) => {
 
 const ProfileHeader = styled.div`
     height: 100%;
-    width: 240px;
-    margin-right: 2%;
+    /* width: 240px; */
+    margin-right: 10px;
+    border-right: 1px solid ${(props) => props.theme.verylight};
+    padding-right: 10px;
     display: flex;
     flex-direction: column;
     @media screen and (max-width: 600px) {
@@ -63,8 +65,8 @@ const ProfileHeader = styled.div`
         flex-wrap: wrap;
     }
     > img {
-        height: auto;
-        width: 100%;
+        height: 250px;
+        width: 250px;
         border: 1px solid ${(props) => props.theme.accent};
         background-color: ${(props) => props.theme.accent};
         @media screen and (max-width: 600px) {

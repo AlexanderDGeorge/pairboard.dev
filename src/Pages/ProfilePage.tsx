@@ -1,19 +1,20 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Switch, Route } from "react-router";
-import Profile from "../Profile/Profile";
+import Edit from "../Profile/Edit";
 import { UserContext } from "../Root";
+import Info from "../Profile/Info";
+import Posts from "../Profile/Posts";
 
 export default () => {
     const user = useContext(UserContext)!;
 
     return (
         <ProfilePage>
+            <Info user={user} />
             <Switch>
-                <Route
-                    path="/profile"
-                    component={() => <Profile user={user} />}
-                />
+                <Route path="/profile/edit" component={Edit} />
+                <Route path="/profile" component={Posts} />
             </Switch>
         </ProfilePage>
     );

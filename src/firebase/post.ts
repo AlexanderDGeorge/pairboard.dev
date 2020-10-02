@@ -13,7 +13,7 @@ export async function createPost(
     await postRef.set({
         id: postRef.id,
         active: true,
-        createdAt: new Date(),
+        createdAt: new Date().toString(),
         description,
         difficulty,
         host,
