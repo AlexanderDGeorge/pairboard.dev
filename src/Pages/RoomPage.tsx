@@ -5,7 +5,7 @@ import { initiateLocalStream } from "../firebase/room";
 import LocalStream from "../Room/LocalStream";
 import PeerConnection from "../Room/PeerConnection";
 import Controls from "../Room/Controls";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 
 export default () => {
     const { uid, postId } = useContext(UserContext)!;

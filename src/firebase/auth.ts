@@ -80,7 +80,7 @@ async function createUserDocument(
             uid,
             blurb: "",
             connections: [],
-            darkMode: "Auto",
+            darkMode: "auto",
             email,
             emailVerified: false,
             firstname,

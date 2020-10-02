@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Switch, Route } from "react-router";
 import Edit from "../Profile/Edit";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 import Info from "../Profile/Info";
 import Posts from "../Profile/Posts";
 import Settings from "../Profile/Settings";

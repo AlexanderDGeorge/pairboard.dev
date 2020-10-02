@@ -4,7 +4,7 @@ import { UserSchema } from "../firebase/schema";
 import Info from "./Info";
 import Posts from "./Posts";
 import Buttons from "./Buttons";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 
 export default (props: { user: UserSchema }) => {
     const user = useContext(UserContext)!;

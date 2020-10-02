@@ -14,7 +14,7 @@ import {
     resetRoomNotifications,
 } from "../firebase/room";
 import { UserSchema } from "../firebase/schema";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 
 interface PeerConnectionProps {
     localStream?: MediaStream;

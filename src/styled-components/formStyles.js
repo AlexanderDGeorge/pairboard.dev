@@ -12,7 +12,8 @@ export const StyledField = styled.div`
         font-weight: 100;
         color: ${(props) => props.theme.verydark};
     }
-    > input {
+    > input,
+    select {
         height: 100%;
         width: 100%;
         border: 1px solid ${(props) => props.theme.verydark};
@@ -48,9 +49,14 @@ export const StyledButton = styled.button`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: color 0.2s linear;
+    transition: all 0.5s linear;
     &:hover {
-        transition: color 0.2s linear;
+        transition: all 0.5s linear;
         color: ${(props) => props.theme.white};
+        background: ${(props) =>
+            `linear-gradient(140deg, ${props.theme.yellow}, ${props.theme.green})`};
+    }
+    &:disabled {
+        background-color: ${(props) => props.theme.verydark};
     }
 `;

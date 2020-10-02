@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { leaveRoom } from "../firebase/room";
 import { PostSchema } from "../firebase/schema";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 
 export default (props: { post: PostSchema; localStream?: MediaStream }) => {
     const { post, localStream } = props;

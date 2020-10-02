@@ -4,7 +4,7 @@ import usePostState from "./usePostState";
 import PostOption from "./PostOption";
 import Description from "./Description";
 import { LANGUAGES, DIFFICULTIES } from "./constants";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 import { createPost } from "../firebase/post";
 
 export default () => {

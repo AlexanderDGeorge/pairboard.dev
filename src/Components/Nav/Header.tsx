@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../../Root";
+import { UserContext } from "../../Application";
 import ProfileLink from "./ProfileLink";
 
 export default () => {

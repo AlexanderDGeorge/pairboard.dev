@@ -1,7 +1,7 @@
 import React, { useContext, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 import { joinPost } from "../firebase/post";
 import { PostSchema } from "../firebase/schema";
 import getDateToNow from "../util/getDateToNow";
@@ -20,12 +20,11 @@ export default (props: { post: PostSchema }) => {
     const history = useHistory();
 
     const dateToNow = getDateToNow(new Date(createdAt));
-    console.log(dateToNow);
 
     async function handleClick(e: SyntheticEvent) {
         e.stopPropagation();
         if (uid === host.uid) return;
-        // [TODO]: add some kind of loading here
+        // [TODO]: add some kind of loading here check if active
         joinPost(uid, id);
     }
 

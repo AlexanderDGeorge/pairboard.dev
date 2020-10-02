@@ -3,10 +3,11 @@ import { useHistory } from "react-router";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { UserSchema } from "../firebase/schema";
-import { UserContext } from "../Root";
+import { UserContext } from "../Application";
 import { StyledButton } from "../styled-components/formStyles";
 import { MdLocationOn, MdLink } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default (props: { user: UserSchema }) => {
     const { user } = props;
@@ -14,17 +15,15 @@ export default (props: { user: UserSchema }) => {
     const score = useSpring({ number: user.score, from: { number: 0 } });
     const history = useHistory();
 
-    console.log(user);
-
     return (
         <ProfileHeader>
             <img src={user.photoURL} alt="" />
-            <h2>
-                {user.username} |
+            <Link to={`/user/${user.username}`}>
+                {user.username} | {"  "}
                 <animated.span>
                     {score.number.interpolate((number) => Math.floor(number))}
                 </animated.span>
-            </h2>
+            </Link>
             <h4>{user.blurb}</h4>
             {user.username === username ? (
                 <StyledButton onClick={() => history.replace("/profile/edit")}>
@@ -74,13 +73,19 @@ const ProfileHeader = styled.div`
             width: 150px;
         }
     }
-    > h2,
-    h4 {
+    > h4 {
         display: flex;
         align-items: center;
         /* @media screen and (max-width: 600px) {
             width: 40%;
         } */
+    }
+    > a:first-of-type {
+        font-size: 1.3em;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
     }
     > a {
         display: flex;
