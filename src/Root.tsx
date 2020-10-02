@@ -15,12 +15,13 @@ import { lightTheme } from "./styled-components/theme";
 export const UserContext = createContext<UserSchema | undefined>(undefined);
 
 export default function Root() {
-    const [uid, setUid] = useState<string | null>("loading");
+    const [uid, setUid] = useState<UserSchema["uid"] | null>(null);
     const user = useUserContext(uid);
 
     useEffect(() => {
         try {
             auth.onAuthStateChanged((firebaseUser) => {
+                console.log(firebaseUser);
                 if (firebaseUser) {
                     setUid(firebaseUser.uid);
                 } else {
@@ -29,29 +30,10 @@ export default function Root() {
             });
         } catch (error) {
             console.error(error.message);
-            setUid("error");
         }
     }, []);
 
-    if (user) {
-        return (
-            <ThemeProvider theme={lightTheme}>
-                <UserContext.Provider value={user}>
-                    <GlobalStyle />
-                    <App />
-                </UserContext.Provider>
-            </ThemeProvider>
-        );
-    } else if (uid === "loading") {
-        return (
-            <ThemeProvider theme={lightTheme}>
-                <BrowserRouter>
-                    <GlobalStyle />
-                    <LoadingPage />
-                </BrowserRouter>
-            </ThemeProvider>
-        );
-    } else if (uid === null) {
+    if (uid === null) {
         return (
             <ThemeProvider theme={lightTheme}>
                 <BrowserRouter>
@@ -64,8 +46,23 @@ export default function Root() {
                 </BrowserRouter>
             </ThemeProvider>
         );
+    } else if (user) {
+        return (
+            <ThemeProvider theme={lightTheme}>
+                <UserContext.Provider value={user}>
+                    <GlobalStyle />
+                    <App />
+                </UserContext.Provider>
+            </ThemeProvider>
+        );
     } else {
-        // [TODO]: add errorPage
-        return null;
+        return (
+            <ThemeProvider theme={lightTheme}>
+                <BrowserRouter>
+                    <GlobalStyle />
+                    <LoadingPage />
+                </BrowserRouter>
+            </ThemeProvider>
+        );
     }
 }

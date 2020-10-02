@@ -5,6 +5,7 @@ import Edit from "../Profile/Edit";
 import { UserContext } from "../Root";
 import Info from "../Profile/Info";
 import Posts from "../Profile/Posts";
+import Settings from "../Profile/Settings";
 
 export default () => {
     const user = useContext(UserContext)!;
@@ -13,6 +14,7 @@ export default () => {
         <ProfilePage>
             <Info user={user} />
             <Switch>
+                <Route path="/profile/settings" component={Settings} />
                 <Route path="/profile/edit" component={Edit} />
                 <Route path="/profile" component={Posts} />
             </Switch>
