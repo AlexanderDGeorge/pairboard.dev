@@ -1,4 +1,4 @@
-import { PostSchema } from "../firebase/schema";
+import { PostSchema } from "../../firebase/schema";
 
 export default function convertDocToPost(
     doc: firebase.firestore.DocumentData

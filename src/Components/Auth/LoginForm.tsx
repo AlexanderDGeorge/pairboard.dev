@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { StyledField, StyledButton } from "../styled-components/formStyles";
-import { login } from "../firebase/auth";
+import { StyledField, StyledButton } from "../../styled-components/formStyles";
+import { login } from "../../firebase/auth";
 
 interface LogInValues {
     email: string;

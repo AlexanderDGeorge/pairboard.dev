@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import LoginForm from "../Auth/LoginForm";
-import GithubLoginForm from "../Auth/GithubLoginForm";
+import LoginForm from "../Components/Auth/LoginForm";
+import GithubLoginForm from "../Components/Auth/GithubLoginForm";
 import Footer from "../Components/Nav/Footer";
 import Header from "../Components/Nav/Header";
 

@@ -1,20 +1,23 @@
 import React, { useContext, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import { UserContext } from "../Application";
-import { joinPost } from "../firebase/post";
-import { PostSchema } from "../firebase/schema";
-import getDateToNow from "../util/getDateToNow";
+import { UserContext } from "../../Application";
+import { joinPost } from "../../firebase/post";
+import { PostSchema } from "../../firebase/schema";
+import getDateToNow from "../../util/getDateToNow";
 import PostExtras from "./PostExtras";
 
 export default (props: { post: PostSchema }) => {
     const {
         id,
-        host,
+        active,
         createdAt,
-        language,
-        difficulty,
         description,
+        difficulty,
+        host,
+        language,
+        maxCapacity,
+        participants,
     } = props.post;
     const { uid } = useContext(UserContext)!;
     const history = useHistory();
@@ -47,9 +50,12 @@ export default (props: { post: PostSchema }) => {
                     <Language>
                         {language} | {difficulty}
                     </Language>
-                    <DateToNow>{dateToNow}</DateToNow>
+                    {active ? <Active /> : <DateToNow>{dateToNow}</DateToNow>}
                 </div>
                 <PostDescription>{description}</PostDescription>
+                <Participants>
+                    {participants.length} / {maxCapacity}
+                </Participants>
             </PostInfo>
             <PostExtras />
         </Post>
@@ -61,7 +67,7 @@ const Post = styled.div`
     width: 100%;
     margin-bottom: 10px;
     border: 1px solid ${(props) => props.theme.verydark};
-    padding: 10px;
+    padding: 10px 10px 20px 10px;
     cursor: pointer;
     display: flex;
     transition: all linear 0.2s;
@@ -71,11 +77,14 @@ const Post = styled.div`
         box-shadow: 0 0 20px -8px ${(props) => props.theme.verydark};
     }
     @media screen and (max-width: 600px) {
+        min-height: 200px;
         display: grid;
         grid-template-columns: 50% 50%;
         grid-template-rows: 20px 20px auto;
-        grid-template-areas: "language username",
-            "difficulty date" "description";
+        grid-template-areas:
+            "language username"
+            "difficulty date"
+            "description description";
     }
 `;
 
@@ -89,6 +98,11 @@ const HostInfo = styled.div`
     font-weight: 200;
     &:hover {
         text-decoration: underline;
+    }
+    @media screen and (max-width: 600px) {
+        border-right: 0;
+        border-bottom: 1px solid ${(props) => props.theme.verylight};
+        margin-bottom: 10px;
     }
 `;
 
@@ -128,5 +142,21 @@ const Language = styled.h4`
 
 const DateToNow = styled.h6`
     grid-area: date;
+    font-weight: 100;
+`;
+
+const Active = styled.div`
+    grid-area: date;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: ${(props) => props.theme.green};
+`;
+
+const Participants = styled.div`
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    font-size: 0.8em;
     font-weight: 100;
 `;

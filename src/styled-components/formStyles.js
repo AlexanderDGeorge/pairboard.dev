@@ -32,6 +32,13 @@ export const StyledField = styled.div`
         color: ${(props) => props.theme.orange};
         bottom: 0;
     }
+    > svg {
+        position: absolute;
+        top: calc(50% - 10px);
+        right: 10px;
+        height: 20px;
+        width: 20px;
+    }
 `;
 
 export const StyledButton = styled.button`
@@ -42,7 +49,7 @@ export const StyledButton = styled.button`
     padding: 10px;
     font-size: 1em;
     font-weight: 600;
-    background-color: ${(props) => props.theme.verydark};
+    background-color: ${(props) => props.theme.blue};
     color: ${(props) => props.theme.verylight};
     outline: none;
     display: flex;
@@ -53,8 +60,6 @@ export const StyledButton = styled.button`
     &:hover {
         transition: all 0.5s linear;
         color: ${(props) => props.theme.white};
-        background: ${(props) =>
-            `linear-gradient(140deg, ${props.theme.yellow}, ${props.theme.green})`};
     }
     &:disabled {
         background-color: ${(props) => props.theme.verydark};

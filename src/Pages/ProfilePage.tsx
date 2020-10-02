@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Switch, Route } from "react-router";
-import Edit from "../Profile/Edit";
+import Edit from "../Components/Profile/Edit";
 import { UserContext } from "../Application";
-import Info from "../Profile/Info";
-import Posts from "../Profile/Posts";
-import Settings from "../Profile/Settings";
+import Info from "../Components/Profile/Info";
+import Posts from "../Components/Profile/Posts";
+import Settings from "../Components/Profile/Settings";
 
 export default () => {
     const user = useContext(UserContext)!;

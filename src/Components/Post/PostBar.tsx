@@ -4,8 +4,8 @@ import usePostState from "./usePostState";
 import PostOption from "./PostOption";
 import Description from "./Description";
 import { LANGUAGES, DIFFICULTIES } from "./constants";
-import { UserContext } from "../Application";
-import { createPost } from "../firebase/post";
+import { UserContext } from "../../Application";
+import { createPost } from "../../firebase/post";
 
 export default () => {
     const [postParams, setPostParams] = usePostState();
@@ -27,6 +27,7 @@ export default () => {
 
     return (
         <PostBar>
+            <h2>Create a Post</h2>
             <PostOption
                 postParams={postParams}
                 setPostParams={setPostParams}
@@ -66,6 +67,9 @@ const PostBar = styled.div`
         flex-direction: row;
         flex-wrap: wrap;
     }
+    > h2 {
+        margin-bottom: 10px;
+    }
 `;
 
 const PostButton = styled.button`
@@ -75,7 +79,7 @@ const PostButton = styled.button`
     padding: 10px;
     font-size: 1em;
     font-weight: 600;
-    background-color: ${(props) => props.theme.verydark};
+    background-color: ${(props) => props.theme.blue};
     color: ${(props) => props.theme.verylight};
     outline: none;
     display: flex;

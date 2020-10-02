@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { UserSchema } from "../firebase/schema";
-import { StyledButton } from "../styled-components/formStyles";
+import { UserSchema } from "../../firebase/schema";
+import { StyledButton } from "../../styled-components/formStyles";
 
 export default (props: { user: UserSchema }) => {
     return (

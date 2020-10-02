@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import LoadingBar from "../Components/Animated/LoadingBar";
-import { firestore } from "../firebase/firebase";
-import { PostSchema } from "../firebase/schema";
-import useFirebaseQuery from "../util/useFirebaseQuery";
+import LoadingBar from "../../Components/Animated/LoadingBar";
+import { firestore } from "../../firebase/firebase";
+import { PostSchema } from "../../firebase/schema";
+import useFirebaseQuery from "../../util/useFirebaseQuery";
 import PostItem from "./Post";
 
 export default () => {

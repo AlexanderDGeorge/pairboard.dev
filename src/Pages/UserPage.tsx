@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
 import Loading from "./LoadingPage";
-import Profile from "../Profile/Profile";
+import Profile from "../Components/Profile/Profile";
 
 export default () => {
     const pathname = useLocation().pathname.slice(6);

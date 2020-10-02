@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import usePostContext from "../Context/usePostContext";
 import { initiateLocalStream } from "../firebase/room";
-import LocalStream from "../Room/LocalStream";
-import PeerConnection from "../Room/PeerConnection";
-import Controls from "../Room/Controls";
+import LocalStream from "../Components/Room/LocalStream";
+import PeerConnection from "../Components/Room/PeerConnection";
+import Controls from "../Components/Room/Controls";
 import { UserContext } from "../Application";
 
 export default () => {

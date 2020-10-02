@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import PostBar from "../Post/PostBar";
-import PostFeed from "../Post/PostFeed";
+import PostBar from "../Components/Post/PostBar";
+import PostFeed from "../Components/Post/PostFeed";
 
 export default () => {
     return (
@@ -14,7 +14,6 @@ export default () => {
 
 const Home = styled.div`
     min-height: 100%;
-    height: 100%;
     width: 100%;
     padding: 2% 5%;
     display: flex;

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { UserContext } from "../Application";
-import { StyledField } from "../styled-components/formStyles";
+import { UserContext } from "../../Application";
+import { StyledField } from "../../styled-components/formStyles";
 import { MdVerifiedUser } from "react-icons/md";
 
 export default () => {

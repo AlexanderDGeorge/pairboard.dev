@@ -1,7 +1,7 @@
 import React from "react";
-import { StyledButton } from "../styled-components/formStyles";
+import { StyledButton } from "../../styled-components/formStyles";
 import styled from "styled-components";
-import { loginWithGithub } from "../firebase/auth";
+import { loginWithGithub } from "../../firebase/auth";
 
 export default () => {
     return (

@@ -6,7 +6,7 @@ import { useSpring, animated } from "react-spring";
 import { signOut } from "../../firebase/auth";
 
 export default (props: { user: UserSchema }) => {
-    const { username, firstname, lastname, photoURL } = props.user;
+    const { username, score, photoURL } = props.user;
     const history = useHistory();
     const [menu, setMenu] = useSpring(() => ({
         height: 60,
@@ -23,16 +23,15 @@ export default (props: { user: UserSchema }) => {
     return (
         <ProfileLink
             onMouseEnter={() =>
-                setMenu({ height: 160, width: 250, opacity: 1 })
+                setMenu({ height: 180, width: 250, opacity: 1 })
             }
             onMouseLeave={() => setMenu({ height: 60, width: 60, opacity: 0 })}
         >
             <img src={photoURL} alt="" onClick={handleImgClick} />
             <animated.div style={menu}>
                 <h4 onClick={handleImgClick}>{username}</h4>
-                <h5 onClick={handleImgClick}>
-                    {firstname} {lastname}
-                </h5>
+                <h5>{score}</h5>
+                <Link to="/messages">Messages</Link>
                 <Link to="/profile/edit">Edit Profile</Link>
                 <Link to="/profile/settings">Settings</Link>
                 <button onClick={signOut}>Logout</button>
@@ -70,14 +69,17 @@ const ProfileLink = styled.div`
         > * {
             background-color: transparent;
         }
-        > h4,
-        h5 {
+        > h4 {
             height: 30px;
             width: calc(100% - 60px);
             cursor: pointer;
             &:hover {
                 text-decoration: underline;
             }
+        }
+        > h5 {
+            height: 30px;
+            width: calc(100% - 60px);
         }
         > button,
         a {

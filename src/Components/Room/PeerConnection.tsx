@@ -6,15 +6,15 @@ import React, {
     useState,
 } from "react";
 import styled from "styled-components";
-import { database } from "../firebase/firebase";
+import { database } from "../../firebase/firebase";
 import {
     addCandidate,
     initiateConnection,
     listenToConnectionEvents,
     resetRoomNotifications,
-} from "../firebase/room";
-import { UserSchema } from "../firebase/schema";
-import { UserContext } from "../Application";
+} from "../../firebase/room";
+import { UserSchema } from "../../firebase/schema";
+import { UserContext } from "../../Application";
 
 interface PeerConnectionProps {
     localStream?: MediaStream;

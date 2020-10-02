@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
-import { UserSchema } from "../firebase/schema";
-import { UserContext } from "../Application";
-import { StyledButton } from "../styled-components/formStyles";
+import { UserSchema } from "../../firebase/schema";
+import { UserContext } from "../../Application";
+import { StyledButton } from "../../styled-components/formStyles";
 import { MdLocationOn, MdLink } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -17,13 +17,13 @@ export default (props: { user: UserSchema }) => {
 
     return (
         <ProfileHeader>
-            <img src={user.photoURL} alt="" />
             <Link to={`/user/${user.username}`}>
                 {user.username} | {"  "}
                 <animated.span>
                     {score.number.interpolate((number) => Math.floor(number))}
                 </animated.span>
             </Link>
+            <img src={user.photoURL} alt="" />
             <h4>{user.blurb}</h4>
             {user.username === username ? (
                 <StyledButton onClick={() => history.replace("/profile/edit")}>
@@ -81,7 +81,7 @@ const ProfileHeader = styled.div`
         } */
     }
     > a:first-of-type {
-        font-size: 1.3em;
+        font-size: 1.5em;
         text-decoration: none;
         &:hover {
             text-decoration: underline;

@@ -6,11 +6,11 @@ import React, {
     useState,
 } from "react";
 import styled from "styled-components";
-import { firestore } from "../firebase/firebase";
-import { PostSchema, UserSchema } from "../firebase/schema";
+import { firestore } from "../../firebase/firebase";
+import { PostSchema, UserSchema } from "../../firebase/schema";
 import Post from "../Post/Post";
 import convertDocToPost from "../Post/convertDocToPost";
-import { UserContext } from "../Application";
+import { UserContext } from "../../Application";
 
 export default (props: { user?: UserSchema }) => {
     const { posts } = props.user || useContext(UserContext)!;

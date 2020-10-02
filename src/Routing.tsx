@@ -11,6 +11,7 @@ import LoadingPage from "./Pages/LoadingPage";
 import UserPage from "./Pages/UserPage";
 import HomePage from "./Pages/HomePage";
 import RoomPage from "./Pages/RoomPage";
+import MessagesPage from "./Pages/MessagesPage";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
@@ -23,6 +24,7 @@ export default function Routing() {
             <BrowserRouter>
                 <Header />
                 <Switch>
+                    <Route path="/messages" component={MessagesPage} />
                     <Route path="/profile" component={ProfilePage} />
                     <Route path="/user" component={UserPage} />
                     <Route path="/" component={HomePage} />
