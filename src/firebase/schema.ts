@@ -31,6 +31,7 @@ export interface LightUserSchema {
 export interface PostSchema {
     id: string;
     active: boolean;
+    comments: Array<Comment>;
     createdAt: Date;
     description: string;
     difficulty: "easy" | "medium" | "hard";
@@ -39,6 +40,11 @@ export interface PostSchema {
     maxCapacity: number;
     participants: Array<UserSchema["uid"]>;
     tags: Array<string>;
+}
+
+interface Comment {
+    comment: string;
+    user: LightUserSchema;
 }
 
 export interface RoomSchema {

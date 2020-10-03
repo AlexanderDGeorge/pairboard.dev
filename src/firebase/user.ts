@@ -54,15 +54,13 @@ export async function updateUserDoc(
 }
 
 export async function searchForUsername(search: string) {
-    const endTerm = search.trim().substr(0, search.length).concat("~");
+    // const endTerm = search.trim().substr(0, search.length).concat("~");
     const usersRef = firestore()
         .collection("users")
         .orderBy("username")
         .startAt(search);
     // .endAt(endTerm);
-    console.log(endTerm);
     const usernames = await usersRef.get();
-    console.log(usernames);
     if (usernames.empty) {
         return [];
     } else {

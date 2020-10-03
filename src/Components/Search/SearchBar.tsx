@@ -13,7 +13,6 @@ export default () => {
         const result = await searchForUsername(e.target.value);
         setResults(result);
     }
-    console.log(results);
 
     return (
         <SearchBar>
@@ -22,15 +21,33 @@ export default () => {
                 <input type="text" value={search} onChange={handleInput} />
                 <MdSearch />
             </StyledField>
+            <SearchResults>
+                {results.map((result: any, i: number) => (
+                    <SearchResult key={i}>{result.username}</SearchResult>
+                ))}
+            </SearchResults>
         </SearchBar>
     );
 };
 
 const SearchBar = styled.div`
+    position: relative;
     height: 100px;
     width: 400px;
-    padding: 10px;
     svg {
         cursor: pointer;
     }
+`;
+
+const SearchResults = styled.div`
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+`;
+
+const SearchResult = styled.div`
+    height: 25px;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid ${(props) => props.theme.verylight};
 `;

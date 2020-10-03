@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import usePostState from "./usePostState";
 import PostOption from "./PostOption";
-import Description from "./Description";
+import Description from "./PostDescription";
 import { LANGUAGES, DIFFICULTIES } from "./constants";
 import { UserContext } from "../../Application";
 import { createPost } from "../../firebase/post";

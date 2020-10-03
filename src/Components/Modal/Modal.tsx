@@ -6,16 +6,13 @@ export default () => {
     const { modalOpen, modalContent } = useContext(ModalContext)!;
     const modalRoot = document.getElementById("modal-root");
     if (modalOpen && modalRoot) {
-        return ReactDOM.createPortal(
-            <StyledModal>{modalContent}</StyledModal>,
-            modalRoot
-        );
+        return ReactDOM.createPortal(<Modal>{modalContent}</Modal>, modalRoot);
     } else {
         return null;
     }
 };
 
-const StyledModal = styled.div`
+const Modal = styled.div`
     position: absolute;
     position: fixed;
     top: 0;

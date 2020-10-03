@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaCommentAlt, FaEllipsisH } from "react-icons/fa";
+import { ModalContext } from "../../Application";
 
 export default () => {
+    const { setModalContent } = useContext(ModalContext)!;
+
+    function handleOpenComments() {}
+
     return (
         <PostExtras>
-            <FaCommentAlt />
+            <FaCommentAlt onClick={handleOpenComments} />
             <FaEllipsisH />
         </PostExtras>
     );
