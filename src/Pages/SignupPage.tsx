@@ -2,18 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import SignupForm from "../Components/Auth/SignupForm";
 import GithubSignupForm from "../Components/Auth/GithubSignupForm";
-import Header from "../Components/Nav/Header";
-import Footer from "../Components/Nav/Footer";
 
 export default () => {
     return (
         <>
-            <Header />
             <Signup>
                 <SignupForm />
                 <GithubSignupForm />
             </Signup>
-            <Footer />
         </>
     );
 };

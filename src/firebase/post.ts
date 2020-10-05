@@ -33,15 +33,21 @@ export async function createPost(
 
 export async function joinPost(
     uid: UserSchema["uid"],
-    postId: PostSchema["id"]
+    postId: PostSchema["id"],
+    host: PostSchema["host"]
 ) {
     // [TODO]: if user has post it needs to be deleted
     const postRef = firestore().collection("posts").doc(postId);
     await postRef.update({
+        users: fieldValue.arrayUnion(uid),
         participants: fieldValue.arrayUnion(uid),
     });
-    firestore().collection("users").doc(uid).update({
+    await firestore().collection("users").doc(host.uid).update({
+        status: "in room",
+    });
+    await firestore().collection("users").doc(uid).update({
         postId: postRef.id,
+        status: "in room",
     });
 }
 

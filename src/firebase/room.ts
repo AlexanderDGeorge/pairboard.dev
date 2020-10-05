@@ -37,7 +37,7 @@ export async function resetRoomNotifications(
 export async function initiateLocalStream() {
     const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        audio: true,
+        // audio: true,
     });
     return stream;
 }
@@ -154,5 +154,6 @@ export async function leaveRoom(
         });
     await firestore().collection("users").doc(uid).update({
         postId: fieldValue.delete(),
+        status: "online",
     });
 }

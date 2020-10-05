@@ -1,33 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Application";
 import { StyledField } from "../../styled-components/formStyles";
 import { MdVerifiedUser } from "react-icons/md";
 
 export default () => {
-    const { email, emailVerified } = useContext(UserContext)!;
+    const user = useContext(UserContext)!;
+    const [email, setEmail] = useState(user.email);
 
     return (
         <Settings>
             <h2>Manage Your Settings</h2>
             <AdvancedEmailField>
                 <label htmlFor="">change email</label>
-                <input type="text" placeholder={email} />
-                <MdVerifiedUser />
+                <input
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {user.emailVerified ? <MdVerifiedUser /> : null}
             </AdvancedEmailField>
             <p>reset password</p>
             <p>verify email</p>
             <p>delete account</p>
             <p>connect github</p>
             <p>notifications</p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
         </Settings>
     );
 };

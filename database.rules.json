@@ -1,6 +1,8 @@
 {
-  "rules": {
-    ".read": false,
-    ".write": false
-  }
+    "rules": {
+        "roomNotifications": {
+            ".read": "true",
+            ".write": "true"
+        }
+    }
 }

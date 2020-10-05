@@ -63,5 +63,6 @@ export const StyledButton = styled.button`
     }
     &:disabled {
         background-color: ${(props) => props.theme.verydark};
+        color: ${(props) => props.theme.verylight};
     }
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import LoadingBar from "../../Components/Animated/LoadingBar";
 import { firestore } from "../../firebase/firebase";
@@ -7,28 +7,26 @@ import useFirebaseQuery from "../../util/useFirebaseQuery";
 import PostItem from "./Post";
 
 export default () => {
-    const [posts, setPosts] = useState<any>([]);
     const { status, data } = useFirebaseQuery(firestore().collection("posts"));
 
     // [TODO]: paginate
 
-    useEffect(() => {
-        setPosts(data);
-    }, [data]);
-
     if (status === "loading") {
         return <LoadingBar />;
-    } else if (posts) {
+    } else if (data?.length) {
         return (
             <PostFeed>
-                {posts.map((post: PostSchema, i: number) => {
-                    console.log(post);
-                    return <PostItem post={post} key={i} />;
-                })}
+                {data.map((post: PostSchema, i: number) => (
+                    <PostItem post={post} key={i} />
+                ))}
             </PostFeed>
         );
     } else {
-        return null;
+        return (
+            <PostFeed>
+                <h2>No posts found</h2>
+            </PostFeed>
+        );
     }
 };
 

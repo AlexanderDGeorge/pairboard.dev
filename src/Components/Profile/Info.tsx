@@ -17,13 +17,13 @@ export default (props: { user: UserSchema }) => {
 
     return (
         <ProfileHeader>
+            <img src={user.photoURL} alt="" />
             <Link to={`/user/${user.username}`}>
                 {user.username} | {"  "}
                 <animated.span>
                     {score.number.interpolate((number) => Math.floor(number))}
                 </animated.span>
             </Link>
-            <img src={user.photoURL} alt="" />
             <h4>{user.blurb}</h4>
             {user.username === username ? (
                 <StyledButton onClick={() => history.replace("/profile/edit")}>

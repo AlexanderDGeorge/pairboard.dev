@@ -40,6 +40,7 @@ export default () => {
             </RoomPage>
         );
     } else {
+        console.log("a room associated with this post could not be found");
         return null;
         // [TODO]: add error 'A room associated with this post could not be found
         // redirecting...

@@ -1,18 +1,31 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Application";
+import { updateUserProfile } from "../../firebase/user";
 import { StyledButton, StyledField } from "../../styled-components/formStyles";
 
 export default () => {
     const user = useContext(UserContext)!;
 
     const [blurb, setBlurb] = useState(user.blurb);
-    const [githubURL, setGithubURL] = useState(user.githubURL);
-    const [linkedInURL, setLinkedInURL] = useState(user.linkedInURL);
-    const [portfolioURL, setPortfolioURL] = useState(user.portfolioURL);
+    const [githubURL, setGithubURL] = useState(user.githubURL || "");
+    const [linkedInURL, setLinkedInURL] = useState(user.linkedInURL || "");
+    const [portfolioURL, setPortfolioURL] = useState(user.portfolioURL || "");
     const [username, setUsername] = useState(user.username);
-    const [location, setLocation] = useState(user.location);
+    const [location, setLocation] = useState(user.location || "");
     const [changes, setChanges] = useState(false);
+
+    async function handleSaveChanges() {
+        updateUserProfile(
+            user.uid,
+            blurb,
+            githubURL,
+            linkedInURL,
+            portfolioURL,
+            location,
+            username
+        );
+    }
 
     return (
         <Edit>
@@ -91,12 +104,14 @@ export default () => {
                     value={location}
                 />
             </StyledField>
-            {changes ? <StyledButton>Save Changes</StyledButton> : null}
+            <StyledButton disabled={!changes} onClick={handleSaveChanges}>
+                Save Changes
+            </StyledButton>
         </Edit>
     );
 };
 
-const Edit = styled.form`
+const Edit = styled.div`
     height: 100%;
     width: 100%;
 `;

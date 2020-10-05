@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaCommentAlt, FaEllipsisH } from "react-icons/fa";
 import { ModalContext } from "../../Application";
 
-export default () => {
+export default (props: { toggle: Function }) => {
     const { setModalContent } = useContext(ModalContext)!;
 
     function handleOpenComments() {}
@@ -11,7 +11,7 @@ export default () => {
     return (
         <PostExtras>
             <FaCommentAlt onClick={handleOpenComments} />
-            <FaEllipsisH />
+            <FaEllipsisH onClick={() => props.toggle()} />
         </PostExtras>
     );
 };

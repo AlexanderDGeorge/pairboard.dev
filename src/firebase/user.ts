@@ -38,19 +38,24 @@ export async function updateDarkModeSetting(darkMode: UserSchema["uid"]) {
     }
 }
 
-export async function updateUserDoc(
+export async function updateUserProfile(
+    uid: UserSchema["uid"],
     blurb: UserSchema["blurb"],
+    githubURL: UserSchema["githubURL"],
+    linkedInURL: UserSchema["linkedInURL"],
+    portfolioURL: UserSchema["portfolioURL"],
+    location: UserSchema["location"],
     username: UserSchema["username"]
 ) {
-    const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
-    try {
-        await userRef.update({
-            blurb,
-            username,
-        });
-    } catch (error) {
-        console.error(error.message);
-    }
+    const userRef = firestore().collection("users").doc(uid);
+    await userRef.update({
+        blurb,
+        githubURL,
+        linkedInURL,
+        portfolioURL,
+        location,
+        username,
+    });
 }
 
 export async function searchForUsername(search: string) {
