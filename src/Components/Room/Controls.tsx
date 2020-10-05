@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { leaveRoom } from "../../firebase/room";
 import { PostSchema } from "../../firebase/schema";
 import { UserContext } from "../../Application";
+import { closePost } from "../../firebase/post";
 
 export default (props: { post: PostSchema; localStream?: MediaStream }) => {
     const { post, localStream } = props;
@@ -11,11 +12,11 @@ export default (props: { post: PostSchema; localStream?: MediaStream }) => {
     const [video, setVideo] = useState(true);
 
     async function handleLeave() {
-        if (post.host.uid === uid && post.participants.length > 1) {
-            // have to close room or update host
-            // modal with option to set new host
+        if (post.participants.length > 1) {
+            await leaveRoom(uid, post.id);
         } else {
             await leaveRoom(uid, post.id);
+            closePost(post.id);
         }
     }
 

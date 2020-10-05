@@ -2,16 +2,26 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaCommentAlt, FaEllipsisH } from "react-icons/fa";
 import { ModalContext } from "../../Application";
+import PostComments from "./PostComments";
+import { PostSchema } from "../../firebase/schema";
 
-export default (props: { toggle: Function }) => {
+export default (props: { toggle: Function; post: PostSchema }) => {
     const { setModalContent } = useContext(ModalContext)!;
 
-    function handleOpenComments() {}
+    function handleOpenComments(e: React.MouseEvent) {
+        e.stopPropagation();
+        setModalContent(<PostComments post={props.post} />);
+    }
+
+    function handleOpenDetails(e: React.MouseEvent) {
+        e.stopPropagation();
+        props.toggle();
+    }
 
     return (
         <PostExtras>
             <FaCommentAlt onClick={handleOpenComments} />
-            <FaEllipsisH onClick={() => props.toggle()} />
+            <FaEllipsisH onClick={handleOpenDetails} />
         </PostExtras>
     );
 };

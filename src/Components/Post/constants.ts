@@ -1,3 +1,5 @@
+import { PostSchema } from "../../firebase/schema";
+
 export const LANGUAGES = [
     "Any",
     "C",
@@ -25,6 +27,10 @@ export const LANGUAGES = [
     "Other",
 ];
 
-export const DIFFICULTIES = ["Easy", "Medium", "Hard"];
+export const DIFFICULTIES: Array<PostSchema["difficulty"]> = [
+    "easy",
+    "medium",
+    "hard",
+];
 
 export const TAGS = [];

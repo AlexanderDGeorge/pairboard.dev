@@ -46,7 +46,7 @@ export default (props: { post: PostSchema }) => {
             ) : (
                 <PostDetails post={props.post} />
             )}
-            <PostExtras toggle={toggle} />
+            <PostExtras toggle={toggle} post={props.post} />
         </Post>
     );
 };

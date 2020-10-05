@@ -37,7 +37,7 @@ export async function resetRoomNotifications(
 export async function initiateLocalStream() {
     const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        // audio: true,
+        audio: true,
     });
     return stream;
 }

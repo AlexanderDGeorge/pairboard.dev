@@ -6,7 +6,8 @@ export const StyledField = styled.div`
     min-width: 240px;
     width: 100%;
     /* max-width: 480px; */
-    margin: 20px 0;
+    margin: 10px 0;
+    cursor: pointer;
     > label {
         position: absolute;
         font-weight: 100;
@@ -17,7 +18,22 @@ export const StyledField = styled.div`
         height: 100%;
         width: 100%;
         border: 1px solid ${(props) => props.theme.verydark};
-        padding: 20px;
+        padding: 10px;
+        resize: none;
+        font-size: 1em;
+        outline: none;
+        transition: border 0.2s linear;
+        &:hover {
+            transition: border 0.2s linear;
+            border: 1px solid ${(props) => props.theme.accent};
+        }
+    }
+    > textarea {
+        height: 100%;
+        width: 100%;
+        border: 1px solid ${(props) => props.theme.verydark};
+        padding: 20px 10px 10px 10px;
+        resize: none;
         font-size: 1em;
         outline: none;
         transition: border 0.2s linear;
@@ -45,7 +61,7 @@ export const StyledButton = styled.button`
     height: 60px;
     min-width: 120px;
     width: 100%;
-    max-width: 240px;
+    /* max-width: 240px; */
     padding: 10px;
     font-size: 1em;
     font-weight: 600;

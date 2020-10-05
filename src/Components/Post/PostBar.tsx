@@ -1,26 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import usePostState from "./usePostState";
-import PostOption from "./PostOption";
-import Description from "./PostDescription";
 import { LANGUAGES, DIFFICULTIES } from "./constants";
 import { UserContext } from "../../Application";
 import { createPost } from "../../firebase/post";
+import { StyledButton, StyledField } from "../../styled-components/formStyles";
+import { PostSchema } from "../../firebase/schema";
 
 export default () => {
-    const [postParams, setPostParams] = usePostState();
+    const [language, setLanguage] = useState("");
+    const [difficulty, setDifficulty] = useState<PostSchema["difficulty"]>(
+        "easy"
+    );
+    const [description, setDescription] = useState("");
+    const [maxCap, setMaxCap] = useState(2);
     const { uid, photoURL, score, username, postId } = useContext(UserContext)!;
 
     function handleClick() {
-        const { description, difficulty, language, tags } = postParams;
         if (!postId) {
             createPost(
                 { uid, photoURL, score, username },
                 description,
                 difficulty,
                 language,
-                2, //maxCapacity
-                tags
+                maxCap
             );
         }
     }
@@ -28,23 +30,45 @@ export default () => {
     return (
         <PostBar>
             <h2>Create a Post</h2>
-            <PostOption
-                postParams={postParams}
-                setPostParams={setPostParams}
-                filter="language"
-                options={LANGUAGES}
-            />
-            <PostOption
-                postParams={postParams}
-                setPostParams={setPostParams}
-                filter="difficulty"
-                options={DIFFICULTIES}
-            />
-            <Description
-                postParams={postParams}
-                setPostParams={setPostParams}
-            />
-            <PostButton onClick={handleClick}>Post</PostButton>
+            <StyledField>
+                <label htmlFor="language">language</label>
+                <select
+                    name="language"
+                    onChange={(e) => setLanguage(e.target.value)}
+                >
+                    {LANGUAGES.map((language, i) => (
+                        <option key={i} value={language}>
+                            {language}
+                        </option>
+                    ))}
+                </select>
+            </StyledField>
+            <StyledField>
+                <label htmlFor="difficulty">difficulty</label>
+                <select
+                    name="difficulty"
+                    // @ts-ignore
+                    onChange={(e) => setDifficulty(e.target.value)}
+                >
+                    {DIFFICULTIES.map((difficulty, i) => (
+                        <option key={i} value={difficulty}>
+                            {difficulty}
+                        </option>
+                    ))}
+                </select>
+            </StyledField>
+            <StyledField style={{ height: "auto" }}>
+                <label htmlFor="description">description</label>
+                <textarea
+                    minLength={10}
+                    required
+                    style={{ minHeight: 200 }}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    name="description"
+                ></textarea>
+            </StyledField>
+            <StyledButton onClick={handleClick}>Post</StyledButton>
         </PostBar>
     );
 };
@@ -69,26 +93,5 @@ const PostBar = styled.div`
     }
     > h2 {
         margin-bottom: 10px;
-    }
-`;
-
-const PostButton = styled.button`
-    height: 60px;
-    width: 100%;
-    margin: 2% 0;
-    padding: 10px;
-    font-size: 1em;
-    font-weight: 600;
-    background-color: ${(props) => props.theme.blue};
-    color: ${(props) => props.theme.verylight};
-    outline: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: color 0.2s linear;
-    &:hover {
-        transition: color 0.2s linear;
-        color: ${(props) => props.theme.white};
     }
 `;

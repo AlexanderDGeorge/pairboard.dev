@@ -6,8 +6,7 @@ export async function createPost(
     description: PostSchema["description"],
     difficulty: PostSchema["difficulty"],
     language: PostSchema["language"],
-    maxCapacity: PostSchema["maxCapacity"],
-    tags: PostSchema["tags"]
+    maxCapacity: PostSchema["maxCapacity"]
 ) {
     const postRef = firestore().collection("posts").doc();
     await postRef.set({
@@ -20,7 +19,6 @@ export async function createPost(
         language,
         maxCapacity,
         participants: [host.uid],
-        tags,
     });
     firestore()
         .collection("users")
@@ -54,4 +52,11 @@ export async function joinPost(
 export async function fetchPosts() {
     const postsRef = await firestore().collection("posts").get();
     return postsRef.docs.map((post) => post.data());
+}
+
+export async function closePost(postId: PostSchema["id"]) {
+    const postRef = firestore().collection("posts").doc(postId);
+    await postRef.update({
+        active: false,
+    });
 }
