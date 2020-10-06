@@ -74,7 +74,7 @@ function Comment(props: { comment: SingleCommentSchema }) {
     const { username, content, createdAt } = props.comment;
     return (
         <StyledComment>
-            <UserLink to={`/users/${username}`}>{username}</UserLink>
+            <UserLink to={`/user/${username}`}>{username}</UserLink>
             <span>{content}</span>
             <p>{getDateDescription(new Date(createdAt))}</p>
         </StyledComment>
