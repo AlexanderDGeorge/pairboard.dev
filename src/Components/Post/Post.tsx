@@ -7,6 +7,7 @@ import { PostSchema } from "../../firebase/schema";
 import PostFront from "./PostFront";
 import PostDetails from "./PostDetails";
 import PostExtras from "./PostExtras";
+import { Link } from "react-router-dom";
 
 export default (props: { post: PostSchema }) => {
     const { id, active, host } = props.post;
@@ -23,12 +24,12 @@ export default (props: { post: PostSchema }) => {
         // [TODO]: add some kind of loading here check if active
     }
 
-    function handleLink(e: SyntheticEvent) {
-        e.stopPropagation();
-        uid === host.uid
-            ? history.replace("/profile")
-            : history.replace(`/user/${host.username}`);
-    }
+    // function handleLink(e: SyntheticEvent) {
+    //     e.stopPropagation();
+    //     uid === host.uid
+    //         ? history.replace("/profile")
+    //         : history.replace(`/user/${host.username}`);
+    // }
 
     const toggle = () => {
         setFront((front) => !front);
@@ -36,7 +37,7 @@ export default (props: { post: PostSchema }) => {
 
     return (
         <Post onClick={handleClick}>
-            <HostInfo onClick={handleLink}>
+            <HostInfo to={`/user/${host.username}`}>
                 <HostPhoto src={host.photoURL} alt="" />
                 <p>{host.username}</p>
                 <p style={{ textDecoration: "none" }}>{host.score}</p>
@@ -77,7 +78,7 @@ const Post = styled.div`
     }
 `;
 
-const HostInfo = styled.div`
+const HostInfo = styled(Link)`
     border-right: 1px solid ${(props) => props.theme.verylight};
     padding-right: 10px;
     display: flex;
@@ -85,6 +86,7 @@ const HostInfo = styled.div`
     cursor: pointer;
     font-size: 0.75em;
     font-weight: 200;
+    text-decoration: none;
     &:hover {
         text-decoration: underline;
     }

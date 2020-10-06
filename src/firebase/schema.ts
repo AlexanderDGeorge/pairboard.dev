@@ -31,7 +31,7 @@ export interface LightUserSchema {
 export interface PostSchema {
     id: string;
     active: boolean;
-    commentsId?: Comment["id"];
+    commentsId: CommentSchema["id"];
     createdAt: Date;
     description: string;
     difficulty: "easy" | "medium" | "hard";
@@ -42,12 +42,15 @@ export interface PostSchema {
     tags: string[];
 }
 
-interface Comment {
+export interface CommentSchema {
     id: string;
-    content: string;
-    createdAt: Date;
-    userPhotoURL: UserSchema["photoURL"];
+    comments: SingleCommentSchema[];
+}
+
+export interface SingleCommentSchema {
     username: UserSchema["username"];
+    content: string;
+    createdAt: string;
 }
 
 export interface RoomSchema {

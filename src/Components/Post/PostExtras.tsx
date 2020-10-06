@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaCommentAlt, FaEllipsisH } from "react-icons/fa";
 import { ModalContext } from "../../Application";
-import PostComments, { EmptyComments } from "./PostComments";
+import PostComments from "./PostComments";
 import { PostSchema } from "../../firebase/schema";
 
 export default (props: { toggle: Function; post: PostSchema }) => {
@@ -10,11 +10,7 @@ export default (props: { toggle: Function; post: PostSchema }) => {
 
     function handleOpenComments(e: React.MouseEvent) {
         e.stopPropagation();
-        if (props.post.commentsId) {
-            handleModal(<PostComments commentsId={props.post.commentsId} />);
-        } else {
-            handleModal(<EmptyComments />);
-        }
+        handleModal(<PostComments commentsId={props.post.commentsId} />);
     }
 
     function handleOpenDetails(e: React.MouseEvent) {

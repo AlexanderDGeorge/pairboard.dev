@@ -12,6 +12,7 @@ import UserPage from "./Pages/UserPage";
 import HomePage from "./Pages/HomePage";
 import RoomPage from "./Pages/RoomPage";
 import MessagesPage from "./Pages/MessagesPage";
+import Modal from "./Components/Modal/Modal";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
@@ -23,6 +24,7 @@ export default function Routing() {
         return (
             <BrowserRouter>
                 <Header />
+                <Modal />
                 <Switch>
                     <Route path="/messages" component={MessagesPage} />
                     <Route path="/profile" component={ProfilePage} />
@@ -36,6 +38,7 @@ export default function Routing() {
         return (
             <BrowserRouter>
                 <Header />
+                <Modal />
                 <Switch>
                     <Route path="/signup" component={SignupPage} />
                     <Route path="/login" component={LoginPage} />
@@ -48,6 +51,7 @@ export default function Routing() {
         return (
             <BrowserRouter>
                 <Header />
+                <Modal />
                 <LoadingPage />
                 <Footer />
             </BrowserRouter>

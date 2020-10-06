@@ -1,5 +1,10 @@
 import { firestore, fieldValue } from "./firebase";
-import { LightUserSchema, PostSchema, UserSchema } from "./schema";
+import {
+    CommentSchema,
+    LightUserSchema,
+    PostSchema,
+    UserSchema,
+} from "./schema";
 
 export async function createPost(
     host: LightUserSchema,
@@ -8,10 +13,17 @@ export async function createPost(
     language: PostSchema["language"],
     maxCapacity: PostSchema["maxCapacity"]
 ) {
+    // [TODO]: could refactor to only create commentsDoc on first comment
+
+    const commentsRef = firestore().collection("postComments").doc();
+    commentsRef.set({
+        id: commentsRef.id,
+    });
     const postRef = firestore().collection("posts").doc();
     await postRef.set({
         id: postRef.id,
         active: true,
+        commentsId: commentsRef.id,
         createdAt: new Date().toString(),
         description,
         difficulty,
@@ -58,5 +70,20 @@ export async function closePost(postId: PostSchema["id"]) {
     const postRef = firestore().collection("posts").doc(postId);
     await postRef.update({
         active: false,
+    });
+}
+
+export async function addComment(
+    commentId: CommentSchema["id"],
+    username: UserSchema["username"],
+    content: string
+) {
+    const commentRef = firestore().collection("postComments").doc(commentId);
+    await commentRef.update({
+        comments: fieldValue.arrayUnion({
+            username,
+            content,
+            createdAt: new Date().toString(),
+        }),
     });
 }

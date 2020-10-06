@@ -2,10 +2,13 @@ import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { ModalContext } from "../../Application";
+import useLockBodyScroll from "../../util/useLockBodyScroll";
 
 export default () => {
     const { modalOpen, modalContent } = useContext(ModalContext)!;
     const modalRoot = document.getElementById("modal-root");
+
+    useLockBodyScroll();
 
     if (modalOpen && modalRoot) {
         return ReactDOM.createPortal(<Modal>{modalContent}</Modal>, modalRoot);
@@ -25,6 +28,7 @@ const Modal = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `;
 
 // const ModalContent = styled.div`

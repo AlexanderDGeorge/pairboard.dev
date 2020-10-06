@@ -6,7 +6,7 @@ export default function convertDocToPost(
     const post = {
         id: doc.id,
         active: doc.active,
-        comments: doc.comments,
+        commentsId: doc.commentsId,
         createdAt: doc.createdAt,
         description: doc.description,
         difficulty: doc.difficulty,
