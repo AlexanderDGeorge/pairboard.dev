@@ -1,19 +1,14 @@
-import React, { useContext } from "react";
-import { useHistory } from "react-router";
+import React from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { UserSchema } from "../../firebase/schema";
-import { UserContext } from "../../Application";
-import { StyledButton } from "../../styled-components/formStyles";
 import { MdLocationOn, MdLink } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default (props: { user: UserSchema }) => {
     const { user } = props;
-    const { username } = useContext(UserContext)!;
     const score = useSpring({ number: user.score, from: { number: 0 } });
-    const history = useHistory();
 
     return (
         <ProfileHeader>
@@ -25,11 +20,6 @@ export default (props: { user: UserSchema }) => {
                 </animated.span>
             </Link>
             <h4>{user.blurb}</h4>
-            {user.username === username ? (
-                <StyledButton onClick={() => history.replace("/profile/edit")}>
-                    Edit Profile
-                </StyledButton>
-            ) : null}
             <h4>
                 <MdLocationOn /> {user.location}
             </h4>

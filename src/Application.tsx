@@ -6,6 +6,7 @@ import useThemeContext from "./Context/useThemeContext";
 import { GlobalStyle } from "./styled-components/globalStyle";
 import { ThemeProvider } from "styled-components";
 import Routing from "./Routing";
+import Modal from "./Components/Modal/Modal";
 
 declare global {
     interface Window {
@@ -27,6 +28,7 @@ export default function Application() {
                 <ThemeProvider theme={useThemeContext(currentUser)}>
                     <ModalContext.Provider value={useModal()}>
                         <GlobalStyle />
+                        <Modal />
                         <Routing />
                     </ModalContext.Provider>
                 </ThemeProvider>

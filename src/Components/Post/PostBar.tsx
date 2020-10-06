@@ -7,12 +7,12 @@ import { StyledButton, StyledField } from "../../styled-components/formStyles";
 import { PostSchema } from "../../firebase/schema";
 
 export default () => {
-    const [language, setLanguage] = useState("");
+    const [language, setLanguage] = useState("any");
     const [difficulty, setDifficulty] = useState<PostSchema["difficulty"]>(
         "easy"
     );
     const [description, setDescription] = useState("");
-    const [maxCap, setMaxCap] = useState(2);
+    const [maxCap] = useState(2);
     const { uid, photoURL, score, username, postId } = useContext(UserContext)!;
 
     function handleClick() {
@@ -66,9 +66,15 @@ export default () => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     name="description"
+                    placeholder="write a descriptive description"
                 ></textarea>
             </StyledField>
-            <StyledButton onClick={handleClick}>Post</StyledButton>
+            <StyledButton
+                disabled={description.length ? false : true}
+                onClick={handleClick}
+            >
+                Post
+            </StyledButton>
         </PostBar>
     );
 };

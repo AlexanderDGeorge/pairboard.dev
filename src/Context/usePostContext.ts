@@ -17,7 +17,7 @@ export default (postId?: PostSchema["id"]) => {
                 setPost({
                     id: snapshot.id,
                     active: data.active,
-                    comments: data.comments,
+                    commentsId: data.commentsId,
                     createdAt: data.createdAt,
                     description: data.description,
                     difficulty: data.difficulty,

@@ -6,7 +6,7 @@ export default () => {
         <Footer>
             <div>
                 <h3>External Links</h3>
-                <a href="https://github.com/AlexanderDGeorge/pairboard.io">
+                <a href="https://github.com/AlexanderDGeorge/pairboard.dev">
                     Github
                 </a>
                 <a href="https://alexandergeorge.dev/">Portfolio</a>

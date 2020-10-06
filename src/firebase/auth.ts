@@ -99,6 +99,7 @@ async function createUserDocument(
 export function signOut() {
     // [TODO]: handle cleanup
     // cloud functions to handle users that don't explicity log out?
+
     auth.signOut();
 }
 

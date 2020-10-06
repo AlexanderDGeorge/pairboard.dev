@@ -6,7 +6,11 @@ import { MdVerifiedUser } from "react-icons/md";
 
 export default () => {
     const user = useContext(UserContext)!;
+    // [TODO]: need to reauth before touching settings
+
     const [email, setEmail] = useState(user.email);
+
+    // const [changes, setChanges] = useState(false);
 
     return (
         <Settings>

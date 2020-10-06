@@ -2,15 +2,19 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaCommentAlt, FaEllipsisH } from "react-icons/fa";
 import { ModalContext } from "../../Application";
-import PostComments from "./PostComments";
+import PostComments, { EmptyComments } from "./PostComments";
 import { PostSchema } from "../../firebase/schema";
 
 export default (props: { toggle: Function; post: PostSchema }) => {
-    const { setModalContent } = useContext(ModalContext)!;
+    const { handleModal } = useContext(ModalContext)!;
 
     function handleOpenComments(e: React.MouseEvent) {
         e.stopPropagation();
-        setModalContent(<PostComments post={props.post} />);
+        if (props.post.commentsId) {
+            handleModal(<PostComments commentsId={props.post.commentsId} />);
+        } else {
+            handleModal(<EmptyComments />);
+        }
     }
 
     function handleOpenDetails(e: React.MouseEvent) {

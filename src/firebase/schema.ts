@@ -3,7 +3,7 @@ import { User as FirebaseUser } from "firebase";
 export interface UserSchema {
     uid: FirebaseUser["uid"];
     blurb: string;
-    connections: Array<FirebaseUser["uid"]>;
+    connections: FirebaseUser["uid"][];
     darkMode: "auto" | "light" | "dark";
     email: string;
     emailVerified: boolean;
@@ -15,7 +15,7 @@ export interface UserSchema {
     photoURL: string;
     portfolioURL?: string;
     postId?: string;
-    posts: Array<PostSchema["id"]>;
+    posts: PostSchema["id"][];
     score: number;
     status: "online" | "offline" | "in room";
     username: string;
@@ -31,32 +31,35 @@ export interface LightUserSchema {
 export interface PostSchema {
     id: string;
     active: boolean;
-    comments: Array<Comment>;
+    commentsId?: Comment["id"];
     createdAt: Date;
     description: string;
     difficulty: "easy" | "medium" | "hard";
     host: LightUserSchema;
     language: string;
     maxCapacity: number;
-    participants: Array<UserSchema["uid"]>;
-    tags: Array<string>;
+    participants: UserSchema["uid"][];
+    tags: string[];
 }
 
 interface Comment {
-    comment: string;
-    user: LightUserSchema;
+    id: string;
+    content: string;
+    createdAt: Date;
+    userPhotoURL: UserSchema["photoURL"];
+    username: UserSchema["username"];
 }
 
 export interface RoomSchema {
     id: string;
-    candidates: Array<Candidate>;
-    offers: Array<Offer>;
+    candidates: Candidate[];
+    offers: Offer[];
 }
 
 interface Candidate {
     to: UserSchema["uid"];
     from: UserSchema["uid"];
-    candidates: Array<RTCIceCandidateInit>;
+    candidates: RTCIceCandidateInit[];
 }
 
 interface Offer {
