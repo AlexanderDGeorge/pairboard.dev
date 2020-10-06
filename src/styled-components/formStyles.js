@@ -76,9 +76,22 @@ export const StyledButton = styled.button`
     &:hover {
         transition: all 0.5s linear;
         color: ${(props) => props.theme.white};
+        > svg {
+            transition: all 0.5s linear;
+            fill: ${(props) => props.theme.white};
+        }
     }
     &:disabled {
         background-color: ${(props) => props.theme.verydark};
         color: ${(props) => props.theme.verylight};
+        fill: ${(props) => props.theme.verylight};
+    }
+    > svg {
+        transition: all 0.5s linear;
+        background: transparent;
+        height: 30px;
+        width: auto;
+        margin-right: 10px;
+        fill: ${(props) => props.theme.verylight};
     }
 `;

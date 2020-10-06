@@ -20,8 +20,6 @@ export default () => {
         }
         if (!values.password) {
             errors.password = "required";
-        } else if (values.password.length < 8) {
-            errors.password = "password must be a least eight characters";
         }
         return errors;
     }
@@ -39,20 +37,23 @@ export default () => {
             validate={validate}
             onSubmit={handleSubmit}
         >
-            <Form>
-                <h1>Log In</h1>
-                <StyledField>
-                    <label htmlFor="email">email</label>
-                    <Field type="email" name="email" />
-                    <ErrorMessage name="email" component="p" />
-                </StyledField>
-                <StyledField>
-                    <label htmlFor="password">password</label>
-                    <Field type="password" name="password" />
-                    <ErrorMessage name="password" component="p" />
-                </StyledField>
-                <StyledButton type="submit">Log In</StyledButton>
-            </Form>
+            {({ isValid }) => (
+                <Form>
+                    <StyledField>
+                        <label htmlFor="email">email</label>
+                        <Field type="email" name="email" />
+                        <ErrorMessage name="email" component="p" />
+                    </StyledField>
+                    <StyledField>
+                        <label htmlFor="password">password</label>
+                        <Field type="password" name="password" />
+                        <ErrorMessage name="password" component="p" />
+                    </StyledField>
+                    <StyledButton disabled={!isValid} type="submit">
+                        Log in
+                    </StyledButton>
+                </Form>
+            )}
         </Formik>
     );
 };
