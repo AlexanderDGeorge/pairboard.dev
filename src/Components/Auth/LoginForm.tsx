@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField, StyledButton } from "../../styled-components/formStyles";
 import { login } from "../../firebase/auth";
+import styled from "styled-components";
+import { MdError } from "react-icons/md";
+import LoadingBar from "../Animated/LoadingBar";
 
 interface LogInValues {
     email: string;
@@ -9,7 +12,11 @@ interface LogInValues {
 }
 
 export default () => {
+    const [topError, setTopError] = useState<string | undefined>(undefined);
+    const [loading, setLoading] = useState(false);
+
     function validate(values: LogInValues) {
+        setTopError(undefined);
         const errors: { [key: string]: string } = {};
         if (!values.email) {
             errors.email = "required";
@@ -25,7 +32,12 @@ export default () => {
     }
 
     async function handleSubmit(values: LogInValues) {
-        await login(values.email, values.password);
+        setLoading(true);
+        const result = await login(values.email, values.password);
+        if (result) {
+            setTopError("incorrect email and/or password");
+            setLoading(false);
+        }
     }
 
     return (
@@ -34,14 +46,21 @@ export default () => {
                 email: "",
                 password: "",
             }}
+            validateOnChange={false}
+            validateOnBlur={true}
             validate={validate}
             onSubmit={handleSubmit}
         >
             {({ isValid }) => (
                 <Form>
+                    <TopError
+                        style={topError ? { opacity: 1 } : { opacity: 0 }}
+                    >
+                        <MdError /> {topError}
+                    </TopError>
                     <StyledField>
                         <label htmlFor="email">email</label>
-                        <Field type="email" name="email" />
+                        <Field type="email" name="email" autoFocus />
                         <ErrorMessage name="email" component="p" />
                     </StyledField>
                     <StyledField>
@@ -49,11 +68,26 @@ export default () => {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
-                    <StyledButton disabled={!isValid} type="submit">
-                        Log in
+                    <StyledButton disabled={!isValid || loading} type="submit">
+                        {loading ? <LoadingBar /> : "Log in"}
                     </StyledButton>
                 </Form>
             )}
         </Formik>
     );
 };
+
+const TopError = styled.div`
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.red};
+    > svg {
+        height: 100%;
+        width: auto;
+        margin-right: 10px;
+        background: transparent;
+        fill: ${(props) => props.theme.red};
+    }
+`;

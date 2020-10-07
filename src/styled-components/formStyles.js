@@ -65,7 +65,8 @@ export const StyledButton = styled.button`
     padding: 10px;
     font-size: 1em;
     font-weight: 600;
-    background-color: ${(props) => props.theme.blue};
+    background: ${(props) =>
+        `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`};
     color: ${(props) => props.theme.verylight};
     outline: none;
     display: flex;
@@ -76,13 +77,15 @@ export const StyledButton = styled.button`
     &:hover {
         transition: all 0.5s linear;
         color: ${(props) => props.theme.white};
+        box-shadow: 0 0 20px -5px ${(props) => props.theme.dark};
         > svg {
             transition: all 0.5s linear;
             fill: ${(props) => props.theme.white};
         }
     }
     &:disabled {
-        background-color: ${(props) => props.theme.verydark};
+        background: ${(props) => props.theme.verydark};
+        box-shadow: 0;
         color: ${(props) => props.theme.verylight};
         fill: ${(props) => props.theme.verylight};
     }

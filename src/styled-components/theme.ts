@@ -14,6 +14,7 @@ export const lightTheme: Theme = {
     green: "#06D6A0",
     blue: "#009FF5",
     purple: "#825CFF",
+    red: "#DD0000",
 };
 
 export const darkTheme: Theme = {
@@ -30,4 +31,5 @@ export const darkTheme: Theme = {
     green: "#06D6A0",
     blue: "#009FF5",
     purple: "#825CFF",
+    red: "#DD0000",
 };

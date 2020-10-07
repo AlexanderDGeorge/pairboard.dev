@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField, StyledButton } from "../..//styled-components/formStyles";
-import {
-    signup,
-    SignUpValues,
-    checkForValidUsername,
-    checkForValidEmail,
-} from "../../firebase/auth";
+import { signup, SignUpValues } from "../../firebase/auth";
+import styled from "styled-components";
+import { MdError } from "react-icons/md";
+import LoadingBar from "../Animated/LoadingBar";
 
-export default () => {
+export default (props: { topError?: string; setTopError: Function }) => {
+    const { topError, setTopError } = props;
+    const [loading, setLoading] = useState(false);
+
     async function validate(values: SignUpValues) {
+        setTopError(undefined);
         const errors: { [key: string]: string } = {};
         if (!values.username) {
             errors.username = "required";
         } else if (values.username.length < 4) {
             errors.username = "username must be a least four characters";
-        } else if (!(await checkForValidUsername(values.username))) {
-            errors.username = "username already in use";
         }
 
         if (!values.firstname) {
@@ -33,9 +33,6 @@ export default () => {
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
             errors.email = "invalid email address";
-        } else if (!(await checkForValidEmail(values.email))) {
-            // expensive
-            errors.email = "email already in use";
         }
 
         if (!values.password) {
@@ -47,8 +44,13 @@ export default () => {
         return errors;
     }
 
-    function handleSubmit(values: SignUpValues) {
-        signup(values);
+    async function handleSubmit(values: SignUpValues) {
+        setLoading(true);
+        const result = await signup(values);
+        if (result) {
+            setTopError("there was an error creating your account");
+            setLoading(false);
+        }
     }
 
     return (
@@ -65,9 +67,14 @@ export default () => {
             validate={validate}
             onSubmit={handleSubmit}
         >
-            {({ isSubmitting }) => (
+            {({ isValid }) => (
                 <Form>
-                    <h1>Sign Up</h1>
+                    <TopError
+                        style={topError ? { opacity: 1 } : { opacity: 0 }}
+                    >
+                        <MdError />
+                        {topError}
+                    </TopError>
                     <StyledField>
                         <label htmlFor="username">username</label>
                         <Field type="text" name="username" />
@@ -93,11 +100,26 @@ export default () => {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
-                    <StyledButton type="submit" disabled={isSubmitting}>
-                        Sign Up
+                    <StyledButton type="submit" disabled={!isValid || loading}>
+                        {loading ? <LoadingBar /> : "Sign Up"}
                     </StyledButton>
                 </Form>
             )}
         </Formik>
     );
 };
+
+const TopError = styled.div`
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.red};
+    > svg {
+        height: 100%;
+        width: auto;
+        margin-right: 10px;
+        background: transparent;
+        fill: ${(props) => props.theme.red};
+    }
+`;

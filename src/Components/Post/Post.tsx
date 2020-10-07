@@ -1,6 +1,5 @@
 import React, { useContext, SyntheticEvent, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
 import { UserContext } from "../../Application";
 import { joinPost } from "../../firebase/post";
 import { PostSchema } from "../../firebase/schema";
@@ -12,7 +11,6 @@ import { Link } from "react-router-dom";
 export default (props: { post: PostSchema }) => {
     const { id, active, host } = props.post;
     const { uid } = useContext(UserContext)!;
-    const history = useHistory();
     const [front, setFront] = useState(true);
 
     async function handleClick(e: SyntheticEvent) {

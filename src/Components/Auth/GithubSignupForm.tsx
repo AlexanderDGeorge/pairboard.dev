@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField, StyledButton } from "../../styled-components/formStyles";
 import { checkForValidUsername, signupWithGithub } from "../../firebase/auth";
@@ -9,7 +9,10 @@ interface GithubSignUpValues {
     lastname: string;
 }
 
-export default () => {
+export default (props: { setTopError: Function }) => {
+    const { setTopError } = props;
+    const [loading, setLoading] = useState(false);
+
     async function validate(values: GithubSignUpValues) {
         const errors: { [key: string]: string } = {};
         if (!values.username) {
@@ -30,9 +33,14 @@ export default () => {
         return errors;
     }
 
-    function handleSubmit(values: GithubSignUpValues) {
+    async function handleSubmit(values: GithubSignUpValues) {
+        setLoading(true);
         const { username, firstname, lastname } = values;
-        signupWithGithub(username, firstname, lastname);
+        const result = await signupWithGithub(username, firstname, lastname);
+        if (result) {
+            setTopError("there was an error creating your account");
+            setLoading(false);
+        }
     }
 
     // [TODO]: validation runs excessively
@@ -49,9 +57,8 @@ export default () => {
             validate={validate}
             onSubmit={handleSubmit}
         >
-            {({ isSubmitting }) => (
+            {({ isValid }) => (
                 <Form>
-                    <h1>Sign Up with Github</h1>
                     <StyledField>
                         <label htmlFor="username">username</label>
                         <Field type="text" name="username" />
@@ -67,7 +74,7 @@ export default () => {
                         <Field type="text" name="lastname" />
                         <ErrorMessage name="lastname" component="p" />
                     </StyledField>
-                    <StyledButton type="submit" disabled={isSubmitting}>
+                    <StyledButton type="submit" disabled={!isValid || loading}>
                         Sign Up with Github
                     </StyledButton>
                 </Form>

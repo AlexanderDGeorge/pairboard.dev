@@ -21,7 +21,8 @@ const load = keyframes`
 
 const LoadingBar = styled.div`
     position: relative;
-    height: 40px;
+    height: 40%;
+    max-height: 40px;
     width: 80%;
     margin: 10px;
     border-radius: 50px;

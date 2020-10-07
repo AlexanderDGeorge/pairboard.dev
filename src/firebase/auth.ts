@@ -12,7 +12,7 @@ export interface SignUpValues {
 export async function loginWithGithub() {
     try {
         const { user } = await auth.signInWithPopup(githubProvider);
-        // handle if no user doc (needs to signup)
+        // [TODO]: handle if no user doc (needs to signup)
         if (user) {
             console.log(user);
         } else {
@@ -24,7 +24,12 @@ export async function loginWithGithub() {
 }
 
 export async function login(email: UserSchema["email"], password: string) {
-    await auth.signInWithEmailAndPassword(email, password);
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+        console.error(error.message);
+        return error;
+    }
 }
 
 export async function signupWithGithub(
@@ -37,16 +42,23 @@ export async function signupWithGithub(
         if (user) {
             createUserDocument(user, username, firstname, lastname);
         } else {
-            // handle error
+            return "there was an error creating your account";
         }
     } catch (error) {
         console.error(error.message);
+        return "there was an error creating your account";
     }
 }
 
 export async function signup(signUpValues: SignUpValues) {
     const { email, password, username, firstname, lastname } = signUpValues;
     try {
+        if (!(await checkForValidUsername(username))) {
+            return { type: "username", message: "username already in use" };
+        }
+        if (!(await checkForValidEmail(email))) {
+            return "email already in use";
+        }
         const { user } = await auth.createUserWithEmailAndPassword(
             email,
             password
@@ -54,11 +66,10 @@ export async function signup(signUpValues: SignUpValues) {
         if (user) {
             console.log(user);
             createUserDocument(user, username, firstname, lastname);
-        } else {
-            // handle error
         }
     } catch (error) {
         console.error(error.message);
+        return error;
     }
 }
 
