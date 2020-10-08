@@ -73,13 +73,13 @@ export const StyledButton = styled.button`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.5s linear;
+    transition: all 0.5s ease-out;
     &:hover {
-        transition: all 0.5s linear;
+        transition: all 0.5s ease-out;
         color: ${(props) => props.theme.white};
-        box-shadow: 0 0 20px -5px ${(props) => props.theme.dark};
+        box-shadow: 0 0 20px -8px ${(props) => props.theme.dark};
         > svg {
-            transition: all 0.5s linear;
+            transition: all 0.5s ease-out;
             fill: ${(props) => props.theme.white};
         }
     }
@@ -90,7 +90,7 @@ export const StyledButton = styled.button`
         fill: ${(props) => props.theme.verylight};
     }
     > svg {
-        transition: all 0.5s linear;
+        transition: all 0.5s ease-out;
         background: transparent;
         height: 30px;
         width: auto;

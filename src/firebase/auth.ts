@@ -85,7 +85,6 @@ async function createUserDocument(
         console.log("User document already exists");
     } else {
         console.log("Creating user document");
-        console.log(user);
         const { uid, email } = user;
         userRef.set({
             uid,

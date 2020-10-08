@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import convertDocToPost from "../Components/Post/convertDocToPost";
 import { firestore } from "../firebase/firebase";
 import { PostSchema } from "../firebase/schema";
 
@@ -14,19 +15,20 @@ export default (postId?: PostSchema["id"]) => {
             .onSnapshot((snapshot) => {
                 const data = snapshot?.data();
                 if (!data) return;
-                setPost({
-                    id: snapshot.id,
-                    active: data.active,
-                    commentsId: data.commentsId,
-                    createdAt: data.createdAt,
-                    description: data.description,
-                    difficulty: data.difficulty,
-                    host: data.host,
-                    language: data.language,
-                    maxCapacity: data.maxCapacity,
-                    participants: data.participants,
-                    tags: data.tags,
-                });
+                setPost(
+                    convertDocToPost(data)
+                    // id: snapshot.id,
+                    // active: data.active,
+                    // commentsId: data.commentsId,
+                    // createdAt: data.createdAt,
+                    // description: data.description,
+                    // difficulty: data.difficulty,
+                    // host: data.host,
+                    // language: data.language,
+                    // maxCapacity: data.maxCapacity,
+                    // participants: data.participants,
+                    // tags: data.tags,
+                );
             });
         return () => {
             unsubscribe();

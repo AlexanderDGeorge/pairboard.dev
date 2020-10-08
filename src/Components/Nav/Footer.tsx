@@ -45,6 +45,7 @@ const Footer = styled.footer`
         bottom: 10px;
         right: 10px;
         color: ${(props) => props.theme.accent};
+        font-size: 0.8em;
     }
     h3 {
         margin-bottom: 15px;

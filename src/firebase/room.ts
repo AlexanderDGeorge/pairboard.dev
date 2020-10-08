@@ -56,6 +56,7 @@ export async function initiateConnection(localStream: MediaStream) {
     };
     const connection = new RTCPeerConnection(configuration);
     localStream.getTracks().forEach((track) => {
+        console.log(track);
         connection.addTrack(track, localStream);
     });
     return connection;

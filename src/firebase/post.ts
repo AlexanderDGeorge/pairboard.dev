@@ -48,17 +48,21 @@ export async function joinPost(
 ) {
     // [TODO]: if user has post it needs to be deleted
     const postRef = firestore().collection("posts").doc(postId);
+    console.log("here1");
     await postRef.update({
         users: fieldValue.arrayUnion(uid),
         participants: fieldValue.arrayUnion(uid),
     });
+    console.log("here2");
     await firestore().collection("users").doc(host.uid).update({
         status: "in room",
     });
+    console.log("here3");
     await firestore().collection("users").doc(uid).update({
         postId: postRef.id,
         status: "in room",
     });
+    console.log("here4");
 }
 
 export async function fetchPosts() {
@@ -86,4 +90,18 @@ export async function addComment(
             createdAt: new Date().toString(),
         }),
     });
+}
+
+export async function deletePost(post: PostSchema) {
+    firestore().collection("postComments").doc(post.commentsId).delete();
+    post.users.forEach((uid: string) => {
+        // [TODO]: refactor this is expensive
+        firestore()
+            .collection("users")
+            .doc(uid)
+            .update({
+                posts: fieldValue.arrayRemove(post.id),
+            });
+    });
+    await firestore().collection("posts").doc(post.id).delete();
 }

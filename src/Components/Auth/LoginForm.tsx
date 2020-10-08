@@ -60,7 +60,7 @@ export default () => {
                     </TopError>
                     <StyledField>
                         <label htmlFor="email">email</label>
-                        <Field type="email" name="email" autoFocus />
+                        <Field type="email" name="email" />
                         <ErrorMessage name="email" component="p" />
                     </StyledField>
                     <StyledField>

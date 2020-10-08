@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { FaCommentAlt, FaEllipsisH } from "react-icons/fa";
 import { ModalContext } from "../../Application";
 import PostComments from "./PostComments";
+import PostOptions from "./PostOptions";
 import { PostSchema } from "../../firebase/schema";
 
-export default (props: { toggle: Function; post: PostSchema }) => {
+export default (props: { post: PostSchema }) => {
     const { handleModal } = useContext(ModalContext)!;
 
     function handleOpenComments(e: React.MouseEvent) {
@@ -13,15 +14,15 @@ export default (props: { toggle: Function; post: PostSchema }) => {
         handleModal(<PostComments commentsId={props.post.commentsId} />);
     }
 
-    function handleOpenDetails(e: React.MouseEvent) {
+    function handleOpenOptions(e: React.MouseEvent) {
         e.stopPropagation();
-        props.toggle();
+        handleModal(<PostOptions post={props.post} />);
     }
 
     return (
         <PostExtras>
             <FaCommentAlt onClick={handleOpenComments} />
-            <FaEllipsisH onClick={handleOpenDetails} />
+            <FaEllipsisH onClick={handleOpenOptions} />
         </PostExtras>
     );
 };

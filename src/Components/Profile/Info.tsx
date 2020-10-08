@@ -40,18 +40,17 @@ export default (props: { user: UserSchema }) => {
 };
 
 const ProfileHeader = styled.div`
-    height: 100%;
-    /* width: 240px; */
+    min-width: 300px;
+    width: 300px;
     margin-right: 10px;
     border-right: 1px solid ${(props) => props.theme.verylight};
     padding-right: 10px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     @media screen and (max-width: 600px) {
-        height: auto;
         width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
+        border-right: 0;
     }
     > img {
         height: 250px;

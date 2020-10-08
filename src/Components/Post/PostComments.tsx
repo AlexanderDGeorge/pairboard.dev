@@ -23,19 +23,13 @@ export default (props: { commentsId: PostSchema["commentsId"] }) => {
         firestore().collection("postComments").doc(props.commentsId)
     );
 
-    console.log(status, data);
-
     useOnOutsideClick(commentsRef, () => handleModal());
 
     if (status === "loading") {
         return (
-            <PostComments
-                ref={commentsRef}
-                style={{ alignItems: "center", justifyContent: "center" }}
-            >
-                <h2>Comments</h2>
+            <Loading ref={commentsRef}>
                 <LoadingBar />
-            </PostComments>
+            </Loading>
         );
     } else {
         return (
@@ -52,10 +46,19 @@ export default (props: { commentsId: PostSchema["commentsId"] }) => {
     }
 };
 
+const Loading = styled.div`
+    height: 200px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 const PostComments = styled.div`
     min-height: 200px;
     max-height: 80%;
-    width: 80%;
+    width: 90%;
+    max-width: 800px;
     border: 1px solid ${(props) => props.theme.verydark};
     padding: 10px;
     display: flex;
@@ -110,15 +113,16 @@ function CreateComment(props: { commentsId: CommentSchema["id"] }) {
 }
 
 const StyledComment = styled.div`
-    height: 30px;
+    min-height: 30px;
     width: 100%;
     border-bottom: 1px solid ${(props) => props.theme.verylight};
     padding: 5px;
     display: flex;
+    justify-content: space-between;
     > input,
     span {
         height: 100%;
-        width: 100%;
+        width: 70%;
         outline: none;
     }
     > button {
@@ -137,11 +141,13 @@ const StyledComment = styled.div`
 
 const UserLink = styled(Link)`
     height: 100%;
-    width: 100px;
+    min-width: 100px;
+    width: 20%;
     margin-right: 10px;
     display: flex;
     align-items: center;
     overflow: hidden;
+    font-weight: 500;
     text-decoration: none;
     &:hover {
         text-decoration: underline;

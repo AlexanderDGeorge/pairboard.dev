@@ -30,10 +30,10 @@ export default () => {
 };
 
 const UserPage = styled.div`
-    min-height: 100%;
-    height: 100%;
     width: 100%;
     padding: 2% 5%;
     display: flex;
-    background-color: ${(props) => props.theme.white};
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `;

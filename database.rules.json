@@ -2,7 +2,9 @@
     "rules": {
         "roomNotifications": {
             ".read": "true",
-            ".write": "true"
+            ".update": "true",
+            ".write": "true",
+            ".delete": "true"
         }
     }
 }

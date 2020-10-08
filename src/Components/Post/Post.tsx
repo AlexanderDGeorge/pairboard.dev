@@ -1,51 +1,55 @@
-import React, { useContext, SyntheticEvent, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Application";
 import { joinPost } from "../../firebase/post";
 import { PostSchema } from "../../firebase/schema";
-import PostFront from "./PostFront";
-import PostDetails from "./PostDetails";
 import PostExtras from "./PostExtras";
 import { Link } from "react-router-dom";
+import getDateToNow from "../../util/getDateToNow";
 
 export default (props: { post: PostSchema }) => {
-    const { id, active, host } = props.post;
+    const {
+        id,
+        active,
+        createdAt,
+        description,
+        difficulty,
+        participants,
+        maxCapacity,
+        language,
+        host,
+    } = props.post;
     const { uid } = useContext(UserContext)!;
-    const [front, setFront] = useState(true);
+    const dateToNow = getDateToNow(new Date(createdAt));
 
-    async function handleClick(e: SyntheticEvent) {
+    async function handleJoin(e: React.SyntheticEvent) {
         e.stopPropagation();
-        if (uid === host.uid) return;
         if (active) {
             joinPost(uid, id, host);
         }
         // [TODO]: add some kind of loading here check if active
     }
 
-    // function handleLink(e: SyntheticEvent) {
-    //     e.stopPropagation();
-    //     uid === host.uid
-    //         ? history.replace("/profile")
-    //         : history.replace(`/user/${host.username}`);
-    // }
-
-    const toggle = () => {
-        setFront((front) => !front);
-    };
-
     return (
-        <Post onClick={handleClick}>
+        <Post onClick={handleJoin}>
             <HostInfo to={`/user/${host.username}`}>
                 <HostPhoto src={host.photoURL} alt="" />
                 <p>{host.username}</p>
                 <p style={{ textDecoration: "none" }}>{host.score}</p>
             </HostInfo>
-            {front ? (
-                <PostFront post={props.post} />
-            ) : (
-                <PostDetails post={props.post} />
-            )}
-            <PostExtras toggle={toggle} post={props.post} />
+            <PostInfo>
+                <div>
+                    <Language>
+                        {language} | {difficulty}
+                    </Language>
+                    {active ? <Active /> : <DateToNow>{dateToNow}</DateToNow>}
+                </div>
+                <PostDescription>{description}</PostDescription>
+                <Participants>
+                    {participants.length} / {maxCapacity}
+                </Participants>
+            </PostInfo>
+            <PostExtras post={props.post} />
         </Post>
     );
 };
@@ -104,4 +108,48 @@ const HostPhoto = styled.img`
         width: 0;
         border: 0;
     }
+`;
+
+const PostInfo = styled.div`
+    height: 100%;
+    width: 100%;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    > div {
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+`;
+
+const PostDescription = styled.p`
+    grid-area: description;
+`;
+
+const Language = styled.h4`
+    grid-area: language;
+    font-weight: 500;
+`;
+
+const DateToNow = styled.h6`
+    grid-area: date;
+    font-weight: 100;
+`;
+
+const Active = styled.div`
+    grid-area: date;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: ${(props) => props.theme.green};
+`;
+
+const Participants = styled.div`
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    font-size: 0.8em;
+    font-weight: 100;
 `;
