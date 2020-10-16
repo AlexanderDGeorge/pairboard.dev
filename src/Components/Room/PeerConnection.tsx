@@ -8,11 +8,10 @@ import React, {
 import styled from "styled-components";
 import { database } from "../../firebase/firebase";
 import {
-    addCandidate,
     initiateConnection,
     listenToConnectionEvents,
-    resetRoomNotifications,
-} from "../../firebase/room";
+} from "./WebRTCFunctions";
+import { addCandidate, resetRoomNotifications } from "../../firebase/room";
 import { UserSchema } from "../../firebase/schema";
 import { UserContext } from "../../Application";
 
@@ -54,7 +53,7 @@ export default (props: PeerConnectionProps) => {
             .ref(`/roomNotifications/${uid}/${recipientId}/iceCandidate`)
             .on("value", async (snapshot) => {
                 if (!snapshot.exists()) return;
-                console.log(snapshot.val());
+                console.log("candidate received");
                 await addCandidate(connection, snapshot.val());
             });
     }, [uid, recipientId, connection, localStream]);

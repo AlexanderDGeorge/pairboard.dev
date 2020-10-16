@@ -35,6 +35,7 @@ export async function resetRoomNotifications(
 }
 
 export async function initiateLocalStream() {
+    // @ts-ignore
     const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
@@ -54,12 +55,11 @@ export async function initiateConnection(localStream: MediaStream) {
         ],
         iceCandidatePoolSize: 10,
     };
-    const connection = new RTCPeerConnection(configuration);
+    const localConnection = new RTCPeerConnection(configuration);
     localStream.getTracks().forEach((track) => {
-        console.log(track);
-        connection.addTrack(track, localStream);
+        localConnection.addTrack(track, localStream);
     });
-    return connection;
+    return localConnection;
 }
 
 export async function listenToConnectionEvents(
@@ -74,7 +74,7 @@ export async function listenToConnectionEvents(
             .ref(`/roomNotifications/${senderId}/${recipientId}`)
             .child("sessionDescription")
             .on("value", (snapshot) => {
-                console.log(snapshot.val());
+                console.log("offer found");
                 handleSessionDescription(
                     connection,
                     recipientId,
@@ -95,13 +95,12 @@ export async function listenToConnectionEvents(
     };
 
     connection.ontrack = async (trackEvent) => {
-        console.log(trackEvent);
-        // if (remoteStreamRef.srcObject !== trackEvent.streams[0]) {
-        //     remoteStreamRef.srcObject = trackEvent.streams[0];
-        // }
-        if (trackEvent.track.kind === "video") {
-            remoteStreamRef.srcObject = new MediaStream([trackEvent.track]);
+        let stream = new MediaStream();
+        if (remoteStreamRef.srcObject instanceof MediaStream) {
+            stream = remoteStreamRef.srcObject;
         }
+        stream.addTrack(trackEvent.track);
+        remoteStreamRef.srcObject = stream;
     };
 }
 
@@ -126,7 +125,7 @@ export async function handleSessionDescription(
         );
         return;
     }
-    console.log("here");
+    console.log(connection);
     // @ts-ignore
     await connection.setLocalDescription();
     await sendSessionDescription(
@@ -153,8 +152,9 @@ export async function leaveRoom(
         .update({
             participants: fieldValue.arrayRemove(uid),
         });
-    await firestore().collection("users").doc(uid).update({
+    firestore().collection("users").doc(uid).update({
         postId: fieldValue.delete(),
         status: "online",
     });
+    await database().ref(`roomNotifications/${uid}`).remove();
 }

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import usePostContext from "../Context/usePostContext";
-import { initiateLocalStream } from "../firebase/room";
+import { initiateLocalStream } from "../Components/Room/WebRTCFunctions";
 import LocalStream from "../Components/Room/LocalStream";
 import PeerConnection from "../Components/Room/PeerConnection";
 import Controls from "../Components/Room/Controls";
 import { UserContext } from "../Application";
+import LoadingBar from "../Components/Animated/LoadingBar";
 
 export default () => {
     const { uid, postId } = useContext(UserContext)!;
@@ -40,10 +41,9 @@ export default () => {
             </RoomPage>
         );
     } else {
-        console.log("a room associated with this post could not be found");
-        return null;
         // [TODO]: add error 'A room associated with this post could not be found
         // redirecting...
+        return <LoadingBar />;
     }
 };
 

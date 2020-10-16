@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 	match /users/{userId} {
-      	allow update: if request.auth != null && request.resource.data.status == 'online';
+      	allow update: if request.auth != null;
       	allow delete: if request.auth != null && request.auth.uid == userId;
       	allow read;
         allow create;

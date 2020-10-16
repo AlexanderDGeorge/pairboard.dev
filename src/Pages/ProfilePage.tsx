@@ -23,6 +23,7 @@ export default () => {
 };
 
 const ProfilePage = styled.div`
+    min-height: 100%;
     width: 100%;
     padding: 2% 5%;
     display: flex;
