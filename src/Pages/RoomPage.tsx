@@ -27,13 +27,13 @@ export default () => {
                 <Controls post={post} localStream={localStream} />
                 <Participants>
                     <LocalStream localStream={localStream} />
-                    {post.participants.map((participantId, i) => {
-                        if (uid === participantId) return null;
+                    {post.participants.map((peerId, i) => {
+                        if (uid === peerId) return null;
                         return (
                             <PeerConnection
                                 key={i}
                                 localStream={localStream}
-                                recipientId={participantId}
+                                peerId={peerId}
                             />
                         );
                     })}

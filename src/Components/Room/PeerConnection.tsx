@@ -6,22 +6,25 @@ import React, {
     useState,
 } from "react";
 import styled from "styled-components";
-import { database } from "../../firebase/firebase";
 import {
     initiateConnection,
     listenToConnectionEvents,
 } from "./WebRTCFunctions";
-import { addCandidate, resetRoomNotifications } from "../../firebase/room";
+import {
+    listenForCandidates,
+    listenForSignaling,
+    resetRoomNotifications,
+} from "../../firebase/room";
 import { UserSchema } from "../../firebase/schema";
 import { UserContext } from "../../Application";
 
 interface PeerConnectionProps {
     localStream?: MediaStream;
-    recipientId: UserSchema["uid"];
+    peerId: UserSchema["uid"];
 }
 
 export default (props: PeerConnectionProps) => {
-    const { localStream, recipientId } = props;
+    const { localStream, peerId } = props;
     const { uid } = useContext(UserContext)!;
     const remoteStreamRef: MutableRefObject<HTMLVideoElement | null> = useRef(
         null
@@ -34,30 +37,24 @@ export default (props: PeerConnectionProps) => {
 
     useEffect(() => {
         (async () => {
-            await resetRoomNotifications(recipientId, uid);
+            await resetRoomNotifications(peerId, uid);
             if (!remoteStreamRef.current || !localStream) return;
             const localConnection = await initiateConnection(localStream);
             setConnection(localConnection);
             listenToConnectionEvents(
                 localConnection,
-                recipientId,
+                peerId,
                 uid,
                 remoteStreamRef.current
             );
         })();
-    }, [uid, recipientId, localStream]);
+    }, [uid, peerId, localStream]);
 
     useEffect(() => {
         if (!connection || !localStream) return;
-        database()
-            .ref(`/roomNotifications/${uid}/${recipientId}/iceCandidate`)
-            .on("value", async (snapshot) => {
-                if (!snapshot.exists()) return;
-                console.log("candidate received");
-                await addCandidate(connection, snapshot.val());
-            });
-    }, [uid, recipientId, connection, localStream]);
-    console.log(remoteStreamRef.current?.srcObject);
+        listenForSignaling(connection, uid, peerId);
+        listenForCandidates(connection, uid, peerId);
+    }, [uid, peerId, connection, localStream]);
 
     return (
         <RemoteStream>

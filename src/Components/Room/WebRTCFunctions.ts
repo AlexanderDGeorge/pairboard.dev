@@ -1,4 +1,4 @@
-import { PostSchema, UserSchema } from "../../firebase/schema";
+import { UserSchema } from "../../firebase/schema";
 import { sendICECandidate, sendSessionDescription } from "../../firebase/room";
 
 export async function initiateLocalStream() {
@@ -40,24 +40,22 @@ export async function initiateConnection(localStream: MediaStream) {
 
 export async function listenToConnectionEvents(
     connection: RTCPeerConnection,
-    recipientId: UserSchema["uid"],
-    senderId: UserSchema["uid"],
+    peerId: UserSchema["uid"],
+    uid: UserSchema["uid"],
     remoteStreamRef: HTMLVideoElement
 ) {
     connection.onnegotiationneeded = async () => {
         console.log("negotiation needed");
-        const offer = await connection.createOffer();
-        // may be a problem here
-        sendSessionDescription(recipientId, senderId, offer);
+        if (peerId < uid) {
+            const offer = await connection.createOffer();
+            connection.setLocalDescription(offer);
+            sendSessionDescription(peerId, uid, offer);
+        }
     };
 
     connection.onicecandidate = async (iceEvent) => {
         if (iceEvent.candidate) {
-            sendICECandidate(
-                recipientId,
-                senderId,
-                iceEvent.candidate.toJSON()
-            );
+            sendICECandidate(peerId, uid, iceEvent.candidate.toJSON());
         }
     };
 

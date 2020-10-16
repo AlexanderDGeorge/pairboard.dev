@@ -32,6 +32,8 @@ export default (props: { post: PostSchema; localStream?: MediaStream }) => {
         setVideo(!video);
     }
 
+    function shareScreen() {}
+
     return (
         <Controls>
             <Button onClick={handleLeave}>Leave Room</Button>

@@ -2,144 +2,30 @@ import { database, fieldValue, firestore } from "./firebase";
 import { PostSchema, UserSchema } from "./schema";
 
 export async function sendSessionDescription(
-    recipientId: UserSchema["uid"],
-    senderId: UserSchema["uid"],
+    peerId: UserSchema["uid"],
+    uid: UserSchema["uid"],
     sessionDescription: RTCSessionDescriptionInit
 ) {
-    await database()
-        .ref(`/roomNotifications/${recipientId}/${senderId}`)
-        .update({
-            sessionDescription,
-        });
+    await database().ref(`/roomNotifications/${peerId}/${uid}`).update({
+        sessionDescription,
+    });
 }
 
 export async function sendICECandidate(
-    recipientId: UserSchema["uid"],
-    senderId: UserSchema["uid"],
+    peerId: UserSchema["uid"],
+    uid: UserSchema["uid"],
     iceCandidate: RTCIceCandidateInit
 ) {
-    await database()
-        .ref(`/roomNotifications/${recipientId}/${senderId}`)
-        .update({
-            iceCandidate,
-        });
+    await database().ref(`/roomNotifications/${peerId}/${uid}`).update({
+        iceCandidate,
+    });
 }
 
 export async function resetRoomNotifications(
-    recipientId: UserSchema["uid"],
-    senderId: UserSchema["uid"]
+    peerId: UserSchema["uid"],
+    uid: UserSchema["uid"]
 ) {
-    await database()
-        .ref(`/roomNotifications/${recipientId}/${senderId}`)
-        .remove();
-}
-
-export async function initiateLocalStream() {
-    // @ts-ignore
-    const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true,
-    });
-    return stream;
-}
-
-export async function initiateConnection(localStream: MediaStream) {
-    const configuration: RTCConfiguration = {
-        iceServers: [
-            {
-                urls: [
-                    "stun:stun1.l.google.com:19302",
-                    "stun:stun2.l.google.com:19302",
-                ],
-            },
-        ],
-        iceCandidatePoolSize: 10,
-    };
-    const localConnection = new RTCPeerConnection(configuration);
-    localStream.getTracks().forEach((track) => {
-        localConnection.addTrack(track, localStream);
-    });
-    return localConnection;
-}
-
-export async function listenToConnectionEvents(
-    connection: RTCPeerConnection,
-    recipientId: UserSchema["uid"],
-    senderId: UserSchema["uid"],
-    remoteStreamRef: HTMLVideoElement
-) {
-    connection.onnegotiationneeded = async () => {
-        console.log("negotiation needed");
-        database()
-            .ref(`/roomNotifications/${senderId}/${recipientId}`)
-            .child("sessionDescription")
-            .on("value", (snapshot) => {
-                console.log("offer found");
-                handleSessionDescription(
-                    connection,
-                    recipientId,
-                    senderId,
-                    snapshot.val()
-                );
-            });
-    };
-
-    connection.onicecandidate = async (iceEvent) => {
-        if (iceEvent.candidate) {
-            sendICECandidate(
-                recipientId,
-                senderId,
-                iceEvent.candidate.toJSON()
-            );
-        }
-    };
-
-    connection.ontrack = async (trackEvent) => {
-        let stream = new MediaStream();
-        if (remoteStreamRef.srcObject instanceof MediaStream) {
-            stream = remoteStreamRef.srcObject;
-        }
-        stream.addTrack(trackEvent.track);
-        remoteStreamRef.srcObject = stream;
-    };
-}
-
-export async function handleSessionDescription(
-    connection: RTCPeerConnection,
-    recipientId: UserSchema["uid"],
-    senderId: UserSchema["uid"],
-    offer?: RTCSessionDescriptionInit
-) {
-    // [TODO]: functions needs refactoring
-
-    if (offer) {
-        console.log("offer", offer);
-        await connection.setRemoteDescription(offer);
-        console.log(connection);
-        const answer = await connection.createAnswer();
-        await connection.setLocalDescription(answer);
-        await sendSessionDescription(
-            recipientId,
-            senderId,
-            connection.localDescription?.toJSON()
-        );
-        return;
-    }
-    console.log(connection);
-    // @ts-ignore
-    await connection.setLocalDescription();
-    await sendSessionDescription(
-        recipientId,
-        senderId,
-        connection.localDescription?.toJSON()
-    );
-}
-
-export async function addCandidate(
-    connection: RTCPeerConnection,
-    iceCandidate: RTCIceCandidateInit
-) {
-    await connection.addIceCandidate(iceCandidate);
+    await database().ref(`/roomNotifications/${peerId}/${uid}`).remove();
 }
 
 export async function leaveRoom(
@@ -157,4 +43,43 @@ export async function leaveRoom(
         status: "online",
     });
     await database().ref(`roomNotifications/${uid}`).remove();
+}
+
+export function listenForCandidates(
+    connection: RTCPeerConnection,
+    uid: UserSchema["uid"],
+    peerId: UserSchema["uid"]
+) {
+    database()
+        .ref(`/roomNotifications/${uid}/${peerId}/iceCandidate`)
+        .on("value", async (snapshot) => {
+            if (!snapshot.exists()) return;
+            console.log(snapshot.val());
+            connection.addIceCandidate(snapshot.val());
+        });
+}
+
+export function listenForSignaling(
+    connection: RTCPeerConnection,
+    uid: UserSchema["uid"],
+    peerId: UserSchema["uid"]
+) {
+    database()
+        .ref(`/roomNotifications/${uid}/${peerId}/sessionDescription`)
+        .on("value", async (snapshot) => {
+            if (!snapshot.exists()) return;
+            console.log(snapshot.val());
+            // if (snapshot.val().type === 'offer' && peerId > uid)
+            if (peerId > uid) {
+                await connection.setRemoteDescription(snapshot.val());
+                const answer = await connection.createAnswer();
+                await connection.setLocalDescription(answer);
+                console.log(answer);
+                sendSessionDescription(peerId, uid, answer);
+            } else {
+                if (snapshot.val().type === "answer") {
+                    await connection.setRemoteDescription(snapshot.val());
+                }
+            }
+        });
 }
