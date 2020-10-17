@@ -11,6 +11,7 @@ import LoadingBar from "../Components/Animated/LoadingBar";
 export default () => {
     const { uid, postId } = useContext(UserContext)!;
     const post = usePostContext(postId);
+    const [connections, setConnections] = useState<RTCPeerConnection[]>([]);
     const [localStream, setLocalStream] = useState<MediaStream | undefined>(
         undefined
     );
@@ -21,10 +22,23 @@ export default () => {
         })();
     }, []);
 
+    const addConnection = (peerConnection: RTCPeerConnection) => {
+        setConnections((prevConnections) => [
+            ...prevConnections,
+            peerConnection,
+        ]);
+    };
+
+    console.log(connections);
+
     if (post) {
         return (
             <RoomPage>
-                <Controls post={post} localStream={localStream} />
+                <Controls
+                    post={post}
+                    localStream={localStream}
+                    connections={connections}
+                />
                 <Participants>
                     <LocalStream localStream={localStream} />
                     {post.participants.map((peerId, i) => {
@@ -34,6 +48,7 @@ export default () => {
                                 key={i}
                                 localStream={localStream}
                                 peerId={peerId}
+                                addConnection={addConnection}
                             />
                         );
                     })}

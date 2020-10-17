@@ -21,10 +21,11 @@ import { UserContext } from "../../Application";
 interface PeerConnectionProps {
     localStream?: MediaStream;
     peerId: UserSchema["uid"];
+    addConnection: Function;
 }
 
 export default (props: PeerConnectionProps) => {
-    const { localStream, peerId } = props;
+    const { localStream, peerId, addConnection } = props;
     const { uid } = useContext(UserContext)!;
     const remoteStreamRef: MutableRefObject<HTMLVideoElement | null> = useRef(
         null
@@ -55,6 +56,11 @@ export default (props: PeerConnectionProps) => {
         listenForSignaling(connection, uid, peerId);
         listenForCandidates(connection, uid, peerId);
     }, [uid, peerId, connection, localStream]);
+
+    useEffect(() => {
+        if (!connection) return;
+        addConnection(connection);
+    }, [connection]);
 
     return (
         <RemoteStream>
