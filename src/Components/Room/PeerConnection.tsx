@@ -60,6 +60,7 @@ export default (props: PeerConnectionProps) => {
     useEffect(() => {
         if (!connection) return;
         addConnection(connection);
+        // eslint-disable-next-line
     }, [connection]);
 
     return (

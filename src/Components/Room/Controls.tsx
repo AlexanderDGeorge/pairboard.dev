@@ -1,40 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
-import { leaveRoom } from "../../firebase/room";
-import { PostSchema } from "../../firebase/schema";
-import { UserContext } from "../../Application";
-import { closePost } from "../../firebase/post";
 import { initiateScreenShare } from "./WebRTCFunctions";
 
 export default (props: {
-    post: PostSchema;
+    muted: boolean;
+    toggleAudio: Function;
+    handleLeave: Function;
     localStream?: MediaStream;
     connections: RTCPeerConnection[];
 }) => {
-    const { post, localStream, connections } = props;
-    const { uid } = useContext(UserContext)!;
-    const [audio, setAudio] = useState(true);
+    const { muted, toggleAudio, handleLeave, localStream, connections } = props;
     const [video, setVideo] = useState(true);
-    // const [screen, setScreen] = useState<MediaStream | undefined>(undefined);
+    const [controls, setControls] = useSpring(() => ({
+        left: 0,
+    }));
 
     useEffect(() => {
-        if (!localStream) return;
-    }, [localStream]);
-
-    async function handleLeave() {
-        if (post.participants.length > 1) {
-            await leaveRoom(uid, post.id);
-        } else {
-            await leaveRoom(uid, post.id);
-            closePost(post.id);
-        }
-    }
-
-    function toggleAudio() {
-        if (!localStream) return;
-        localStream.getAudioTracks()[0].enabled = !audio;
-        setAudio(!audio);
-    }
+        setTimeout(() => {
+            setControls({ left: -180 });
+        }, 1500);
+        // eslint-disable-next-line
+    }, []);
 
     function toggleVideo() {
         if (!localStream) return;
@@ -51,13 +38,18 @@ export default (props: {
                 .find((sender) => sender.track?.kind === "video")
                 ?.replaceTrack(screenShare.getTracks()[0]);
         });
-        console.log(connections);
     }
 
     return (
-        <Controls>
-            <Button onClick={handleLeave}>Leave Room</Button>
-            <Button onClick={toggleAudio}>{audio ? "Mute" : "Unmute"}</Button>
+        <Controls
+            onMouseEnter={() => setControls({ left: 0 })}
+            onMouseLeave={() => setControls({ left: -180 })}
+            style={controls}
+        >
+            <Button onClick={() => handleLeave()}>Leave Room</Button>
+            <Button onClick={() => toggleAudio()}>
+                {muted ? "Unmute" : "Mute"}
+            </Button>
             <Button onClick={toggleVideo}>
                 {video ? "Hide Video" : "Show Video"}
             </Button>
@@ -66,13 +58,14 @@ export default (props: {
     );
 };
 
-const Controls = styled.div`
+const Controls = styled(animated.div)`
+    z-index: 1;
+    position: absolute;
     height: 100%;
-    min-width: 80px;
-    width: 10%;
+    width: 200px;
+    border-right: 10px solid ${(props) => props.theme.verydark};
     padding: 25% 10px 10px 10px;
     background-color: ${(props) => props.theme.verydark};
-    border-right: 5px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>
         `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue}) 3`};
     display: flex;

@@ -7,10 +7,11 @@ import PeerConnection from "../Components/Room/PeerConnection";
 import Controls from "../Components/Room/Controls";
 import { UserContext } from "../Application";
 import LoadingBar from "../Components/Animated/LoadingBar";
+import useControls from "../Components/Room/useControls";
 
 export default () => {
     const { uid, postId } = useContext(UserContext)!;
-    const post = usePostContext(postId);
+    const post = usePostContext(postId)!;
     const [connections, setConnections] = useState<RTCPeerConnection[]>([]);
     const [localStream, setLocalStream] = useState<MediaStream | undefined>(
         undefined
@@ -29,13 +30,23 @@ export default () => {
         ]);
     };
 
+    const {
+        muted,
+        videoSource,
+        handleLeave,
+        toggleAudio,
+        toggleVideoSource,
+    } = useControls(post, localStream, connections);
+
     console.log(connections);
 
     if (post) {
         return (
             <RoomPage>
                 <Controls
-                    post={post}
+                    muted={muted}
+                    handleLeave={handleLeave}
+                    toggleAudio={toggleAudio}
                     localStream={localStream}
                     connections={connections}
                 />
@@ -71,7 +82,7 @@ const RoomPage = styled.div`
 
 const Participants = styled.div`
     height: 100%;
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: right;

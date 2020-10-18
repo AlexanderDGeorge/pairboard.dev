@@ -2,6 +2,7 @@ import { UserSchema } from "../../firebase/schema";
 import { sendICECandidate, sendSessionDescription } from "../../firebase/room";
 
 export async function initiateLocalStream() {
+    console.log(navigator.mediaDevices);
     const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
