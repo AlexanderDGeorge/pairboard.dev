@@ -14,19 +14,6 @@ export async function initiateLocalStream() {
     return stream;
 }
 
-export async function initiateVideoStream() {
-    const stream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: {
-            width: { min: 1024, ideal: 1280, max: 1920 },
-            height: { min: 576, ideal: 720, max: 1080 },
-            facingMode: "user",
-            aspectRatio: 1280 / 720,
-        },
-    });
-    return stream;
-}
-
 export async function initiateScreenShare() {
     // @ts-ignore
     const stream = await navigator.mediaDevices.getDisplayMedia({

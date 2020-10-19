@@ -2,51 +2,39 @@ import React, { useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 
-export default (props: {
-    muted: boolean;
-    toggleAudio: Function;
-    videoSource: "webcam" | "screen" | "hidden";
-    setVideoSource: Function;
-    handleLeave: Function;
-}) => {
+export default (props: { controls: any }) => {
     const {
         muted,
         toggleAudio,
-        videoSource,
-        setVideoSource,
+        turnOffVideo,
+        turnOnVideo,
+        shareScreen,
         handleLeave,
-    } = props;
-    const [controls, setControls] = useSpring(() => ({
+    } = props.controls;
+    const [controlsMenu, setControlsMenu] = useSpring(() => ({
         left: 0,
     }));
 
     useEffect(() => {
         setTimeout(() => {
-            setControls({ left: -180 });
+            setControlsMenu({ left: -180 });
         }, 1500);
         // eslint-disable-next-line
     }, []);
 
-    function handleControls(e: React.SyntheticEvent) {
-        console.log(e.target);
-    }
-
     return (
         <Controls
-            onMouseEnter={() => setControls({ left: 0 })}
-            onMouseLeave={() => setControls({ left: -180 })}
-            style={controls}
+            onMouseEnter={() => setControlsMenu({ left: 0 })}
+            onMouseLeave={() => setControlsMenu({ left: -180 })}
+            style={controlsMenu}
         >
             <Button onClick={() => handleLeave()}>Leave Room</Button>
             <Button onClick={() => toggleAudio()}>
                 {muted ? "Unmute" : "Mute"}
             </Button>
-            <Button onClick={handleControls}>
-                {videoSource === "hidden" ? "Show Video" : "Hide Video"}
-            </Button>
-            <Button onClick={() => setVideoSource("screen")}>
-                Share Screen
-            </Button>
+            <Button onClick={() => shareScreen()}>Share Screen</Button>
+            <Button onClick={() => turnOffVideo()}>Hide Video</Button>
+            <Button onClick={() => turnOnVideo()}>Show Video</Button>
         </Controls>
     );
 };

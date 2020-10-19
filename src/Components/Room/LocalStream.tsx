@@ -1,11 +1,8 @@
 import React, { MutableRefObject, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-export default (props: {
-    localStream?: MediaStream;
-    videoSource: "webcam" | "screen" | "hidden";
-}) => {
-    const { localStream, videoSource } = props;
+export default (props: { localStream?: MediaStream }) => {
+    const { localStream } = props;
     const videoRef: MutableRefObject<HTMLVideoElement | null> = useRef(null);
 
     useEffect(() => {

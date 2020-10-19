@@ -11,41 +11,16 @@ export default (
     connections: RTCPeerConnection[]
 ) => {
     const { uid } = useContext(UserContext)!;
-    const [screenVideo, setScreenVideo] = useState<
-        MediaStreamTrack | undefined
-    >(undefined);
-    const [videoSource, setVideoSource] = useState<
-        "webcam" | "screen" | "hidden"
-    >("webcam");
     const [muted, setMuted] = useState(false);
     const [video, setVideo] = useState<MediaStreamTrack | undefined>(undefined);
+    const [screen, setScreen] = useState<MediaStreamTrack | undefined>(
+        undefined
+    );
 
     useEffect(() => {
         if (!localStream) return;
         setVideo(localStream.getVideoTracks()[0]);
     }, [localStream]);
-
-    useEffect(() => {
-        if (!localStream) return;
-        switch (videoSource) {
-            case "webcam":
-                localStream.getVideoTracks()[0].enabled = true;
-                connections.forEach((connection) => {
-                    connection
-                        .getSenders()
-                        .find((sender) => sender.track?.kind === "video")
-                        ?.replaceTrack(video || null);
-                });
-                break;
-            case "screen":
-                localStream.getVideoTracks()[0].enabled = true;
-                shareScreen();
-                break;
-            case "hidden":
-                localStream.getVideoTracks()[0].enabled = false;
-                break;
-        }
-    }, [videoSource]);
 
     function toggleAudio() {
         if (!localStream) return;
@@ -53,21 +28,41 @@ export default (
         setMuted(!muted);
     }
 
-    async function shareScreen() {
+    function turnOffVideo() {
         if (!localStream) return;
-        let video: MediaStreamTrack | null = null;
-        if (!screenVideo) {
-            let stream: MediaStream = await initiateScreenShare();
-            console.log(stream);
-            video = stream?.getVideoTracks()[0];
-            setScreenVideo(video);
-        }
+        localStream.getVideoTracks()[0].enabled = false;
+    }
+
+    async function turnOnVideo() {
+        if (!localStream || !video) return;
+        localStream.getVideoTracks()[0].enabled = true;
         connections.forEach((connection) => {
-            connection
-                .getSenders()
-                .find((sender) => sender.track?.kind === "video")
-                ?.replaceTrack(screenVideo || video);
+            connection.getSenders().forEach((sender) => {
+                if (sender.track?.kind === "video") {
+                    sender.replaceTrack(video);
+                }
+            });
         });
+    }
+
+    async function shareScreen(screenTrack = screen) {
+        if (!localStream) return;
+        if (!screenTrack) {
+            screenTrack = await initiateScreenShare().then((stream) => {
+                return stream.getTracks()[0];
+            });
+            setScreen(screenTrack);
+            shareScreen(screenTrack);
+        } else {
+            localStream.getVideoTracks()[0].enabled = true;
+            connections.forEach((connection) => {
+                connection.getSenders().forEach((sender) => {
+                    if (sender.track?.kind === "video" && screenTrack) {
+                        sender.replaceTrack(screenTrack);
+                    }
+                });
+            });
+        }
     }
 
     async function handleLeave() {
@@ -84,8 +79,9 @@ export default (
     return {
         muted,
         toggleAudio,
-        videoSource,
-        setVideoSource,
+        turnOffVideo,
+        turnOnVideo,
+        shareScreen,
         handleLeave,
     };
 };
