@@ -32,26 +32,27 @@ export default () => {
 
     const {
         muted,
-        videoSource,
-        handleLeave,
         toggleAudio,
-        toggleVideoSource,
+        videoSource,
+        setVideoSource,
+        handleLeave,
     } = useControls(post, localStream, connections);
-
-    console.log(connections);
 
     if (post) {
         return (
             <RoomPage>
                 <Controls
                     muted={muted}
-                    handleLeave={handleLeave}
                     toggleAudio={toggleAudio}
-                    localStream={localStream}
-                    connections={connections}
+                    videoSource={videoSource}
+                    setVideoSource={setVideoSource}
+                    handleLeave={handleLeave}
                 />
                 <Participants>
-                    <LocalStream localStream={localStream} />
+                    <LocalStream
+                        localStream={localStream}
+                        videoSource={videoSource}
+                    />
                     {post.participants.map((peerId, i) => {
                         if (uid === peerId) return null;
                         return (

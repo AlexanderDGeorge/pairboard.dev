@@ -2,21 +2,40 @@ import { UserSchema } from "../../firebase/schema";
 import { sendICECandidate, sendSessionDescription } from "../../firebase/room";
 
 export async function initiateLocalStream() {
-    console.log(navigator.mediaDevices);
     const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
         audio: true,
+        video: {
+            width: { min: 1024, ideal: 1280, max: 1920 },
+            height: { min: 576, ideal: 720, max: 1080 },
+            facingMode: "user",
+            aspectRatio: 1280 / 720,
+        },
+    });
+    return stream;
+}
+
+export async function initiateVideoStream() {
+    const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+            width: { min: 1024, ideal: 1280, max: 1920 },
+            height: { min: 576, ideal: 720, max: 1080 },
+            facingMode: "user",
+            aspectRatio: 1280 / 720,
+        },
     });
     return stream;
 }
 
 export async function initiateScreenShare() {
     // @ts-ignore
-    const screen = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+            cursor: "motion",
+        },
         audio: false,
     });
-    return screen;
+    return stream;
 }
 
 export async function initiateConnection(localStream: MediaStream) {

@@ -12,7 +12,7 @@ export default () => {
         "easy"
     );
     const [description, setDescription] = useState("");
-    const [maxCap] = useState(2);
+    const [maxCap] = useState(3);
     const { uid, photoURL, score, username, postId } = useContext(UserContext)!;
 
     function handleClick() {

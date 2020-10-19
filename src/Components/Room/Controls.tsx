@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
-import { initiateScreenShare } from "./WebRTCFunctions";
 
 export default (props: {
     muted: boolean;
     toggleAudio: Function;
+    videoSource: "webcam" | "screen" | "hidden";
+    setVideoSource: Function;
     handleLeave: Function;
-    localStream?: MediaStream;
-    connections: RTCPeerConnection[];
 }) => {
-    const { muted, toggleAudio, handleLeave, localStream, connections } = props;
-    const [video, setVideo] = useState(true);
+    const {
+        muted,
+        toggleAudio,
+        videoSource,
+        setVideoSource,
+        handleLeave,
+    } = props;
     const [controls, setControls] = useSpring(() => ({
         left: 0,
     }));
@@ -23,21 +27,8 @@ export default (props: {
         // eslint-disable-next-line
     }, []);
 
-    function toggleVideo() {
-        if (!localStream) return;
-        localStream.getVideoTracks()[0].enabled = !video;
-        setVideo(!video);
-    }
-
-    async function shareScreen() {
-        if (!localStream) return;
-        const screenShare = await initiateScreenShare();
-        connections.forEach((connection) => {
-            connection
-                .getSenders()
-                .find((sender) => sender.track?.kind === "video")
-                ?.replaceTrack(screenShare.getTracks()[0]);
-        });
+    function handleControls(e: React.SyntheticEvent) {
+        console.log(e.target);
     }
 
     return (
@@ -50,10 +41,12 @@ export default (props: {
             <Button onClick={() => toggleAudio()}>
                 {muted ? "Unmute" : "Mute"}
             </Button>
-            <Button onClick={toggleVideo}>
-                {video ? "Hide Video" : "Show Video"}
+            <Button onClick={handleControls}>
+                {videoSource === "hidden" ? "Show Video" : "Hide Video"}
             </Button>
-            <Button onClick={shareScreen}>Share Screen</Button>
+            <Button onClick={() => setVideoSource("screen")}>
+                Share Screen
+            </Button>
         </Controls>
     );
 };
