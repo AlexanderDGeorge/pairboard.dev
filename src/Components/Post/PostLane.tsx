@@ -39,7 +39,7 @@ export default (props: { name: string; query: any }) => {
 const PostLane = styled.div`
     width: 100%;
     > h1 {
-        width: 200px;
+        width: 350px;
         margin-bottom: 10px;
         border-bottom: 1px solid ${(props) => props.theme.light};
         font-weight: 500;

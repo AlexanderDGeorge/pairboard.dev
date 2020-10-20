@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaPlus } from "react-icons/fa";
 import styled from "styled-components";
+import { ModalContext } from "../../Application";
+import PostBar from "./PostBar";
 
 export default () => {
+    const { handleModal } = useContext(ModalContext)!;
+
     return (
         <CreatePost>
             <h1>Create a Post</h1>
-            <div>
+            <div onClick={() => handleModal(<PostBar />)}>
                 <FaPlus />
             </div>
         </CreatePost>

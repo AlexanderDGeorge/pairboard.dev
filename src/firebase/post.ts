@@ -8,6 +8,7 @@ import {
 
 export async function createPost(
     host: LightUserSchema,
+    title: PostSchema["title"],
     description: PostSchema["description"],
     difficulty: PostSchema["difficulty"],
     language: PostSchema["language"],
@@ -31,6 +32,7 @@ export async function createPost(
         language,
         maxCapacity,
         participants: [host.uid],
+        title,
     });
     firestore()
         .collection("users")

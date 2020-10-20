@@ -4,11 +4,14 @@ import PostLane from "./PostLane";
 import { firestore } from "../../firebase/firebase";
 
 export default () => {
+    const postsQuery = firestore().collection("posts");
+
     return (
         <PostFeed>
+            <PostLane name="All Posts" query={postsQuery} />
             <PostLane
-                name="All Posts"
-                query={firestore().collection("posts")}
+                name="JavaScript"
+                query={postsQuery.where("language", "==", "JavaScript")}
             />
         </PostFeed>
     );
