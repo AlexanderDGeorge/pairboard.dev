@@ -100,7 +100,7 @@ const Bottom = styled.div`
     width: 100%;
     align-self: flex-end;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     font-weight: 100;
     font-size: 0.8em;

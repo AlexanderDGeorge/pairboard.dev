@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Application";
-import { StyledField } from "../../styled-components/formStyles";
-import { MdVerifiedUser } from "react-icons/md";
+import { StyledButton, StyledField } from "../../styled-components/formStyles";
+import { MdError, MdVerifiedUser } from "react-icons/md";
+import { auth } from "../../firebase/firebase";
 
 export default () => {
     const user = useContext(UserContext)!;
@@ -11,6 +12,8 @@ export default () => {
     const [email, setEmail] = useState(user.email);
 
     // const [changes, setChanges] = useState(false);
+
+    console.log(user.email);
 
     return (
         <Settings>
@@ -22,13 +25,22 @@ export default () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                {user.emailVerified ? <MdVerifiedUser /> : null}
+                {user.emailVerified ? (
+                    <MdVerifiedUser />
+                ) : (
+                    <MdError style={{ fill: "#DD0000" }} />
+                )}
             </AdvancedEmailField>
-            <p>reset password</p>
-            <p>verify email</p>
-            <p>delete account</p>
-            <p>connect github</p>
-            <p>notifications</p>
+            <StyledButton
+                onClick={() => auth.currentUser?.sendEmailVerification()}
+            >
+                Verify Email
+            </StyledButton>
+            <StyledButton
+                onClick={() => auth.sendPasswordResetEmail(user.email)}
+            >
+                Reset Password
+            </StyledButton>
         </Settings>
     );
 };
@@ -36,6 +48,9 @@ export default () => {
 const Settings = styled.div`
     height: 100%;
     width: 100%;
+    > button {
+        margin-bottom: 10px;
+    }
 `;
 
 const AdvancedEmailField = styled(StyledField)`

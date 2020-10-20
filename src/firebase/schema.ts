@@ -34,12 +34,12 @@ export interface PostSchema {
     commentsId: CommentSchema["id"];
     createdAt: Date;
     description: string;
-    difficulty: "easy" | "medium" | "hard";
+    difficulty: string;
     host: LightUserSchema;
     language: string;
     maxCapacity: number;
     participants: UserSchema["uid"][];
-    tags: string[];
+    type: string;
     title: string;
     users: UserSchema["uid"][];
 }

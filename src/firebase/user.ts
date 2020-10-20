@@ -57,18 +57,3 @@ export async function updateUserProfile(
         username,
     });
 }
-
-export async function searchForUsername(search: string) {
-    // const endTerm = search.trim().substr(0, search.length).concat("~");
-    const usersRef = firestore()
-        .collection("users")
-        .orderBy("username")
-        .startAt(search);
-    // .endAt(endTerm);
-    const usernames = await usersRef.get();
-    if (usernames.empty) {
-        return [];
-    } else {
-        return usernames.docs.map((doc) => doc.data());
-    }
-}

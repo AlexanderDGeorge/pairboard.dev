@@ -10,7 +10,7 @@ export default () => {
         <PostFeed>
             <PostLane name="All Posts" query={postsQuery} />
             <PostLane
-                name="JavaScript"
+                name="JavaScript Only"
                 query={postsQuery.where("language", "==", "JavaScript")}
             />
         </PostFeed>

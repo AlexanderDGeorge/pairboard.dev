@@ -6,7 +6,7 @@ import { useSpring, animated } from "react-spring";
 import { signOut } from "../../firebase/auth";
 
 export default (props: { user: UserSchema }) => {
-    const { username, score, photoURL } = props.user;
+    const { username, email, photoURL } = props.user;
     const history = useHistory();
     const [menu, setMenu] = useSpring(() => ({
         height: 60,
@@ -30,7 +30,7 @@ export default (props: { user: UserSchema }) => {
             <img src={photoURL} alt="" onClick={handleImgClick} />
             <animated.div style={menu}>
                 <h4 onClick={handleImgClick}>{username}</h4>
-                <h5>{score}</h5>
+                <h5>{email}</h5>
                 <Link to="/messages">Messages</Link>
                 <Link to="/profile/edit">Edit Profile</Link>
                 <Link to="/profile/settings">Settings</Link>

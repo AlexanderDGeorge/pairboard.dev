@@ -7,7 +7,7 @@ import "firebase/messaging";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCbdNrcuBGDVF8-iL9UxCgsCFCbTGhoJS8",
-    authDomain: "pairboarddev.firebaseapp.com",
+    authDomain: "pairboard.dev",
     databaseURL: "https://pairboarddev.firebaseio.com",
     projectId: "pairboarddev",
     storageBucket: "pairboarddev.appspot.com",

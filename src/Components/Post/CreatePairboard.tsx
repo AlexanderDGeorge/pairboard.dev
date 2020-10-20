@@ -9,10 +9,9 @@ import useLockBodyScroll from "../../util/useLockBodyScroll";
 
 export default () => {
     const [title, setTitle] = useState("");
-    const [language, setLanguage] = useState(LANGUAGES[10]);
-    const [difficulty, setDifficulty] = useState(DIFFICULTIES[1]);
+    const [language, setLanguage] = useState("");
+    const [difficulty, setDifficulty] = useState("");
     const [description, setDescription] = useState("");
-    const [maxCap, setMaxCap] = useState(60);
     const { uid, photoURL, score, username, postId } = useContext(UserContext)!;
     const { handleModal } = useContext(ModalContext)!;
     const modalRef = useRef(null);
@@ -28,15 +27,15 @@ export default () => {
                 description,
                 difficulty,
                 language,
-                maxCap
+                2
             );
             handleModal();
         }
     }
 
     return (
-        <PostBar ref={modalRef}>
-            <h2>Create a Post</h2>
+        <CreatePairboard ref={modalRef}>
+            <h2>Create a Pairboard Post</h2>
             <StyledField>
                 <label htmlFor="title">title</label>
                 <input
@@ -80,7 +79,7 @@ export default () => {
                     ))}
                 </select>
             </StyledField>
-            <StyledField>
+            {/* <StyledField>
                 <label htmlFor="capacity">capacity</label>
                 <input
                     type="number"
@@ -90,7 +89,7 @@ export default () => {
                     max={60}
                     required
                 />
-            </StyledField>
+            </StyledField> */}
             <StyledField style={{ height: "auto" }}>
                 <label htmlFor="description">description</label>
                 <textarea
@@ -110,11 +109,11 @@ export default () => {
             >
                 Post
             </StyledButton>
-        </PostBar>
+        </CreatePairboard>
     );
 };
 
-const PostBar = styled.div`
+const CreatePairboard = styled.div`
     min-height: 400px;
     width: 300px;
     padding: 10px;

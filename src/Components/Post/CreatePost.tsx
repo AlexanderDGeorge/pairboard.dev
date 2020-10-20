@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { FaPlus } from "react-icons/fa";
 import styled from "styled-components";
 import { ModalContext } from "../../Application";
-import PostBar from "./PostBar";
+import CreatePairboard from "./CreatePairboard";
 
 export default () => {
     const { handleModal } = useContext(ModalContext)!;
@@ -10,9 +9,17 @@ export default () => {
     return (
         <CreatePost>
             <h1>Create a Post</h1>
-            <div onClick={() => handleModal(<PostBar />)}>
-                <FaPlus />
-            </div>
+            <Lane>
+                <div onClick={() => handleModal(<CreatePairboard />)}>
+                    <h2>Pairboard</h2>
+                </div>
+                <div>
+                    <h2>Group</h2>
+                </div>
+                <div>
+                    <h2>Lecture</h2>
+                </div>
+            </Lane>
         </CreatePost>
     );
 };
@@ -25,9 +32,15 @@ const CreatePost = styled.div`
         border-bottom: 1px solid ${(props) => props.theme.light};
         font-weight: 500;
     }
+`;
+
+const Lane = styled.div`
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
     > div {
-        height: 200px;
-        width: 300px;
+        min-height: 200px;
+        min-width: 300px;
         margin: 0 10px 10px 0;
         border: 1px solid ${(props) => props.theme.verydark};
         border-radius: 5px;

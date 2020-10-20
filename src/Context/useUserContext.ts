@@ -9,6 +9,7 @@ export default () => {
         let unsubscribe: Function;
 
         auth.onAuthStateChanged((authUser) => {
+            console.log(authUser);
             if (!authUser) {
                 setUser(null);
                 return;
@@ -25,7 +26,7 @@ export default () => {
                         connections: data.connections,
                         darkMode: data.darkMode,
                         email: data.email,
-                        emailVerified: data.emailVerified,
+                        emailVerified: authUser.emailVerified,
                         firstname: data.firstname,
                         githubURL: data.githubURL,
                         lastname: data.lastname,
