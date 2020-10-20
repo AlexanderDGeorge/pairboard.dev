@@ -15,6 +15,7 @@ export default function convertDocToPost(
         maxCapacity: doc.maxCapacity,
         participants: doc.participants,
         tags: doc.tags,
+        title: doc.title,
         users: doc.users,
     };
     return post;

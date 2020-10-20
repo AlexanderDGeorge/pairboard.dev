@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import PostBar from "../Components/Post/PostBar";
+import CreatePost from "../Components/Post/CreatePost";
 import PostFeed from "../Components/Post/PostFeed";
 
 export default () => {
     return (
         <Home>
-            <PostBar />
+            <CreatePost />
             <PostFeed />
         </Home>
     );
@@ -17,7 +17,5 @@ const Home = styled.div`
     width: 100%;
     padding: 2% 5%;
     display: flex;
-    @media screen and (max-width: 600px) {
-        flex-direction: column;
-    }
+    flex-direction: column;
 `;

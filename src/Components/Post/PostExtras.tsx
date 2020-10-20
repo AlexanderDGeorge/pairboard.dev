@@ -28,9 +28,6 @@ export default (props: { post: PostSchema }) => {
 };
 
 const PostExtras = styled.div`
-    position: absolute;
-    bottom: 0;
-    left: calc(50% - 25px);
     width: 50px;
     padding: 5px;
     background-color: ${(props) => props.theme.light};

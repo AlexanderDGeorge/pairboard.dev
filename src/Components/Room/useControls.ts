@@ -5,6 +5,8 @@ import { leaveRoom } from "../../firebase/room";
 import { closePost } from "../../firebase/post";
 import { initiateScreenShare } from "./WebRTCFunctions";
 
+// [TODO]: handle stop sharing from browser
+
 export default (
     post: PostSchema,
     localStream: MediaStream | undefined,

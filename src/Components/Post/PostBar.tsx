@@ -7,12 +7,12 @@ import { StyledButton, StyledField } from "../../styled-components/formStyles";
 import { PostSchema } from "../../firebase/schema";
 
 export default () => {
-    const [language, setLanguage] = useState("any");
+    const [language, setLanguage] = useState(LANGUAGES[0]);
     const [difficulty, setDifficulty] = useState<PostSchema["difficulty"]>(
         "easy"
     );
     const [description, setDescription] = useState("");
-    const [maxCap] = useState(3);
+    const [maxCap] = useState(60);
     const { uid, photoURL, score, username, postId } = useContext(UserContext)!;
 
     function handleClick() {

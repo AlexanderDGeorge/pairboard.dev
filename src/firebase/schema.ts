@@ -40,6 +40,7 @@ export interface PostSchema {
     maxCapacity: number;
     participants: UserSchema["uid"][];
     tags: string[];
+    title: string;
     users: UserSchema["uid"][];
 }
 
