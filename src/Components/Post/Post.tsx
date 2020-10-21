@@ -6,6 +6,7 @@ import { PostSchema } from "../../firebase/schema";
 import PostExtras from "./PostExtras";
 import { Link } from "react-router-dom";
 import getDateToNow from "../../util/getDateToNow";
+import { StyledCard } from "../../styled-components/StyledCard";
 
 export default (props: { post: PostSchema }) => {
     const {
@@ -44,30 +45,17 @@ export default (props: { post: PostSchema }) => {
                 <p>{dateToNow}</p>
                 <PostExtras post={props.post} />
                 <p style={{ textAlign: "end" }}>
-                    {participants.length} / {maxCapacity}
+                    {participants.current.length} / {maxCapacity}
                 </p>
             </Bottom>
         </Post>
     );
 };
 
-const Post = styled.div`
-    min-height: 200px;
-    min-width: 300px;
-    margin: 0 10px 10px 0;
-    border: 1px solid ${(props) => props.theme.verydark};
-    border-radius: 5px;
-    padding: 10px 10px 0 10px;
-    cursor: pointer;
+const Post = styled(StyledCard)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all linear 0.2s;
-    &:hover {
-        transition: all linear 0.2s;
-        border: 1px solid ${(props) => props.theme.accent};
-        box-shadow: 0 0 20px -8px ${(props) => props.theme.verydark};
-    }
     > p {
         min-height: 90px;
         font-weight: 300;

@@ -43,7 +43,7 @@ export default (props: { setTopError: Function }) => {
         }
     }
 
-    // [TODO]: validation runs excessively
+    // [TODO]: look into FastField from Formik
 
     return (
         <Formik

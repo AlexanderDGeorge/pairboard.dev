@@ -1,4 +1,9 @@
 import { User as FirebaseUser } from "firebase";
+import {
+    DIFFICULTIES,
+    LANGUAGES,
+    POSTTYPES,
+} from "../Components/Post/constants";
 
 export interface UserSchema {
     uid: FirebaseUser["uid"];
@@ -31,28 +36,33 @@ export interface LightUserSchema {
 export interface PostSchema {
     id: string;
     active: boolean;
+    author: LightUserSchema;
     commentsId: CommentSchema["id"];
     createdAt: Date;
     description: string;
-    difficulty: string;
+    difficulty: typeof DIFFICULTIES[number];
     host: LightUserSchema;
-    language: string;
-    maxCapacity: number;
-    participants: UserSchema["uid"][];
-    type: string;
+    language: typeof LANGUAGES[number];
+    maxCapacity?: number;
+    participants: {
+        all: UserSchema["uid"][];
+        current: UserSchema["uid"][];
+    };
+    password?: string;
+    private: boolean;
+    sessionDate: Date;
+    sessionTime: Date;
     title: string;
-    users: UserSchema["uid"][];
+    type: typeof POSTTYPES[number];
 }
 
 export interface CommentSchema {
     id: string;
-    comments: SingleCommentSchema[];
-}
-
-export interface SingleCommentSchema {
-    username: UserSchema["username"];
-    content: string;
-    createdAt: string;
+    comments: {
+        username: UserSchema["username"];
+        content: string;
+        createdAt: string;
+    }[];
 }
 
 export interface RoomSchema {

@@ -25,12 +25,13 @@ export const LANGUAGES = [
     "TypeScript",
     "Visual Basic",
     "Other",
-];
+] as const;
 
-export const DIFFICULTIES: Array<PostSchema["difficulty"]> = [
-    "easy",
-    "medium",
-    "hard",
-];
+export const DIFFICULTIES = [
+    "Beginner",
+    "Intermediate",
+    "Advanced",
+    "Expert",
+] as const;
 
-export const TAGS = [];
+export const POSTTYPES = ["Pairboard", "Lecture", "Group"] as const;

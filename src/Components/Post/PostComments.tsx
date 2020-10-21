@@ -4,11 +4,7 @@ import styled from "styled-components";
 import { ModalContext, UserContext } from "../../Application";
 import { firestore } from "../../firebase/firebase";
 import { addComment } from "../../firebase/post";
-import {
-    CommentSchema,
-    PostSchema,
-    SingleCommentSchema,
-} from "../../firebase/schema";
+import { CommentSchema, PostSchema } from "../../firebase/schema";
 import { StyledButton } from "../../styled-components/formStyles";
 import getDateDescription from "../../util/getDateToNow";
 import useFirebaseQuery from "../../util/useFirebaseQuery";
@@ -36,7 +32,7 @@ export default (props: { commentsId: PostSchema["commentsId"] }) => {
             <PostComments ref={commentsRef}>
                 <h2>Comments</h2>
                 {data?.comments?.map(
-                    (comment: SingleCommentSchema, i: number) => (
+                    (comment: CommentSchema["comments"][number], i: number) => (
                         <Comment comment={comment} key={i} />
                     )
                 )}
@@ -73,7 +69,7 @@ const PostComments = styled.div`
     }
 `;
 
-function Comment(props: { comment: SingleCommentSchema }) {
+function Comment(props: { comment: CommentSchema["comments"][number] }) {
     const { username, content, createdAt } = props.comment;
     return (
         <StyledComment>

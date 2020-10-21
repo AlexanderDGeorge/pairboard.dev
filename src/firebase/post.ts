@@ -92,7 +92,7 @@ export async function addComment(
 
 export function deletePost(post: PostSchema) {
     firestore().collection("postComments").doc(post.commentsId).delete();
-    post.users.forEach((uid: string) => {
+    post.participants.all.forEach((uid: string) => {
         // [TODO]: refactor this is expensive
         firestore()
             .collection("users")
