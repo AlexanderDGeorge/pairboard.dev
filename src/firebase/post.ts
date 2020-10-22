@@ -45,18 +45,15 @@ export async function createPost(
 
 export async function joinPost(
     uid: UserSchema["uid"],
-    postId: PostSchema["id"],
-    host: PostSchema["host"]
+    postId: PostSchema["id"]
 ) {
-    // [TODO]: if user has post it needs to be deleted
     const postRef = firestore().collection("posts").doc(postId);
     await postRef.update({
         users: fieldValue.arrayUnion(uid),
         participants: fieldValue.arrayUnion(uid),
     });
-    await firestore().collection("users").doc(host.uid).update({
-        status: "in room",
-    });
+    // [TODO]: needs notification refactoring
+    // send notification here
     await firestore().collection("users").doc(uid).update({
         postId: postRef.id,
         status: "in room",
@@ -92,7 +89,7 @@ export async function addComment(
 
 export function deletePost(post: PostSchema) {
     firestore().collection("postComments").doc(post.commentsId).delete();
-    post.participants.all.forEach((uid: string) => {
+    post.participants.forEach((uid: string) => {
         // [TODO]: refactor this is expensive
         firestore()
             .collection("users")

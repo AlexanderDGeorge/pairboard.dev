@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledField = styled.div`
     position: relative;
-    height: 60px;
+    min-height: 60px;
     min-width: 240px;
     width: 100%;
     /* max-width: 480px; */
@@ -15,6 +15,7 @@ export const StyledField = styled.div`
     }
     > input,
     select {
+        min-height: 60px;
         height: 100%;
         width: 100%;
         border: 1px solid ${(props) => props.theme.verydark};
@@ -29,6 +30,7 @@ export const StyledField = styled.div`
         }
     }
     > textarea {
+        min-height: 100px;
         height: 100%;
         width: 100%;
         border: 1px solid ${(props) => props.theme.verydark};

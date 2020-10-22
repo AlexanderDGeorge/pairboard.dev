@@ -37,6 +37,7 @@ export interface PostSchema {
     id: string;
     active: boolean;
     author: LightUserSchema;
+    commentsAllowed: boolean;
     commentsId: CommentSchema["id"];
     createdAt: Date;
     description: string;
@@ -44,10 +45,7 @@ export interface PostSchema {
     host: LightUserSchema;
     language: typeof LANGUAGES[number];
     maxCapacity?: number;
-    participants: {
-        all: UserSchema["uid"][];
-        current: UserSchema["uid"][];
-    };
+    participants: UserSchema["uid"][];
     password?: string;
     private: boolean;
     sessionDate: Date;

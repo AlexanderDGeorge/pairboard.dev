@@ -7,6 +7,7 @@ export default function convertDocToPost(
         id: doc.id,
         active: doc.active,
         author: doc.author,
+        commentsAllowed: doc.commentsAllowed,
         commentsId: doc.commentsId,
         createdAt: doc.createdAt,
         description: doc.description,

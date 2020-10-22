@@ -12,6 +12,7 @@ import UserPage from "./Pages/UserPage";
 import HomePage from "./Pages/HomePage";
 import RoomPage from "./Pages/RoomPage";
 import MessagesPage from "./Pages/MessagesPage";
+import CreatePage from "./Pages/CreatePage";
 import Modal from "./Components/Modal/Modal";
 
 export default function Routing() {
@@ -26,6 +27,7 @@ export default function Routing() {
                 <Header />
                 <Modal />
                 <Switch>
+                    <Route path="/create" component={CreatePage} />
                     <Route path="/messages" component={MessagesPage} />
                     <Route path="/profile" component={ProfilePage} />
                     <Route path="/user" component={UserPage} />

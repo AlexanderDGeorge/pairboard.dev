@@ -10,7 +10,6 @@ import { StyledCard } from "../../styled-components/StyledCard";
 
 export default (props: { post: PostSchema }) => {
     const {
-        id,
         createdAt,
         description,
         difficulty,
@@ -25,7 +24,7 @@ export default (props: { post: PostSchema }) => {
 
     async function handleJoin(e: React.SyntheticEvent) {
         e.stopPropagation();
-        joinPost(uid, id, host);
+        joinPost(uid, props.post.id);
     }
 
     return (
@@ -45,7 +44,7 @@ export default (props: { post: PostSchema }) => {
                 <p>{dateToNow}</p>
                 <PostExtras post={props.post} />
                 <p style={{ textAlign: "end" }}>
-                    {participants.current.length} / {maxCapacity}
+                    {participants.length} / {maxCapacity}
                 </p>
             </Bottom>
         </Post>

@@ -1,28 +1,26 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
-import { ModalContext } from "../../Application";
-import CreatePair from "./CreatePair";
 import {
-    StyledCard,
     RedPurpleCard,
     PurpleBlueCard,
     BlueGreenCard,
 } from "../../styled-components/StyledCard";
 
 export default () => {
-    const { handleModal } = useContext(ModalContext)!;
+    const history = useHistory();
 
     return (
         <CreatePost>
             <h1>Create a Post</h1>
             <Lane>
-                <RedPurpleCard onClick={() => handleModal(<CreatePair />)}>
+                <RedPurpleCard onClick={() => history.replace("/create")}>
                     <h2>Pairboard</h2>
                 </RedPurpleCard>
-                <PurpleBlueCard>
+                <PurpleBlueCard onClick={() => history.replace("/create")}>
                     <h2>Group</h2>
                 </PurpleBlueCard>
-                <BlueGreenCard>
+                <BlueGreenCard onClick={() => history.replace("/create")}>
                     <h2>Lecture</h2>
                 </BlueGreenCard>
             </Lane>

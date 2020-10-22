@@ -38,7 +38,7 @@ export default () => {
                 <Controls controls={controls} />
                 <Participants>
                     <LocalStream localStream={localStream} />
-                    {post.participants.current.map((peerId, i) => {
+                    {post.participants.map((peerId, i) => {
                         if (uid === peerId) return null;
                         return (
                             <PeerConnection

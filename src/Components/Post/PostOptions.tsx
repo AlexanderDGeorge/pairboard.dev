@@ -17,7 +17,7 @@ export default (props: { post: PostSchema }) => {
     async function handleJoin(e: React.SyntheticEvent) {
         e.stopPropagation();
         if (active) {
-            joinPost(uid, id, host);
+            joinPost(uid, id);
         }
         // [TODO]: add some kind of loading here check if active
     }

@@ -1,5 +1,3 @@
-import { PostSchema } from "../../firebase/schema";
-
 export const LANGUAGES = [
     "Any",
     "C",

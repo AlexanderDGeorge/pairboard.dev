@@ -30,7 +30,7 @@ export default (props: { post: PostSchema }) => {
 const PostExtras = styled.div`
     width: 50px;
     padding: 5px;
-    background-color: ${(props) => props.theme.light};
+    background-color: ${(props) => props.theme.light} !important;
     display: flex;
     align-items: center;
     justify-content: space-between;

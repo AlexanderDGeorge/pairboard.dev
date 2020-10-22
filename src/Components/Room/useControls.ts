@@ -73,7 +73,7 @@ export default (
             connection.close();
         });
         await leaveRoom(uid, post.id);
-        if (post.participants.current.length <= 1) {
+        if (post.participants.length <= 1) {
             closePost(post.id);
         }
     }
