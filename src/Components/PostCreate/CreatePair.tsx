@@ -1,20 +1,74 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import styled from "styled-components";
-import { StyledField } from "../../styled-components/formStyles";
+import { StyledButton, StyledField } from "../../styled-components/formStyles";
 import { DIFFICULTIES, LANGUAGES } from "../Post/constants";
+import LoadingBar from "../Animated/LoadingBar";
+import { createPost } from "../../firebase/post";
+import { UserContext } from "../../Application";
+import { useHistory } from "react-router";
 
 export default () => {
+    const { uid, username, score, photoURL } = useContext(UserContext)!;
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
     const minDate = new Date().toISOString().split("T")[0];
     async function validate(values: any) {
         const errors: { [key: string]: string } = {};
+        if (!values.title) {
+            errors.title = "required";
+        } else if (values.title.length < 4) {
+            errors.title = "title not long enough";
+        }
 
+        if (!values.description) {
+            errors.description = "required";
+        } else if (values.description.length < 10) {
+            errors.description = "please write a longer description";
+        }
+
+        if (!values.difficulty) {
+            errors.difficulty = "required";
+        }
+
+        if (!values.language) {
+            errors.language = "required";
+        }
+
+        if (!values.sessionDate) {
+            errors.sessionDate = "required";
+        }
+        if (!values.sessionTime) {
+            errors.sessionTime = "required";
+        }
         // check if date is in the future
         return errors;
     }
 
     async function handleSubmit(values: any) {
+        const {
+            title,
+            description,
+            difficulty,
+            language,
+            capacity,
+            sessionDate,
+            sessionTime,
+        } = values;
+        setLoading(true);
         console.log(values);
+        await createPost(
+            { uid, username, score, photoURL },
+            title,
+            description,
+            difficulty,
+            language,
+            capacity,
+            sessionDate,
+            sessionTime
+        );
+        history.replace("/");
+        setLoading(false);
     }
 
     return (
@@ -24,7 +78,7 @@ export default () => {
                 description: "",
                 difficulty: "",
                 language: "",
-                capacity: -1,
+                capacity: 100,
                 private: false,
                 password: "",
                 sessionDate: "",
@@ -42,6 +96,7 @@ export default () => {
                                 type="text"
                                 name="title"
                                 placeholder="LeetCode Problems in JavaScript"
+                                autoFocus
                             />
                             <ErrorMessage name="title" component="p" />
                         </StyledField>
@@ -49,10 +104,11 @@ export default () => {
                             <label htmlFor="difficulty">difficulty</label>
                             <select
                                 name="difficulty"
-                                value={values.difficulty}
+                                // value={values.difficulty}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             >
+                                <option value="">select a difficulty</option>
                                 {DIFFICULTIES.map((difficulty, i) => (
                                     <option key={i} value={difficulty}>
                                         {difficulty}
@@ -65,10 +121,11 @@ export default () => {
                             <label htmlFor="language">language</label>
                             <select
                                 name="language"
-                                value={values.language}
+                                // value={values.language}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             >
+                                <option value="">select a language</option>
                                 {LANGUAGES.map((language, i) => (
                                     <option key={i} value={language}>
                                         {language}
@@ -91,15 +148,25 @@ export default () => {
                     </div>
                     <div>
                         <StyledField>
-                            <label htmlFor="date">date</label>
-                            <Field type="date" name="date" min={minDate} />
-                            <ErrorMessage name="date" component="p" />
+                            <label htmlFor="sessionDate">date</label>
+                            <Field
+                                type="date"
+                                name="sessionDate"
+                                min={minDate}
+                            />
+                            <ErrorMessage name="sessionDate" component="p" />
                         </StyledField>
                         <StyledField>
-                            <label htmlFor="time">time</label>
-                            <Field type="time" name="time" />
-                            <ErrorMessage name="time" component="p" />
+                            <label htmlFor="sessionTime">time</label>
+                            <Field type="time" name="sessionTime" />
+                            <ErrorMessage name="sessionTime" component="p" />
                         </StyledField>
+                        <StyledButton
+                            disabled={!isValid || loading}
+                            type="submit"
+                        >
+                            {loading ? <LoadingBar /> : "Create Post"}
+                        </StyledButton>
                     </div>
                 </CreatePairboard>
             )}

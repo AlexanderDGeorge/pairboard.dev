@@ -12,7 +12,9 @@ export async function createPost(
     description: PostSchema["description"],
     difficulty: PostSchema["difficulty"],
     language: PostSchema["language"],
-    maxCapacity: PostSchema["maxCapacity"]
+    maxCapacity: PostSchema["maxCapacity"],
+    sessionDate: PostSchema["sessionDate"],
+    sessionTime: PostSchema["sessionTime"]
 ) {
     // [TODO]: could refactor to only create commentsDoc on first comment
 
@@ -32,6 +34,8 @@ export async function createPost(
         language,
         maxCapacity,
         participants: [host.uid],
+        sessionDate,
+        sessionTime,
         title,
     });
     firestore()

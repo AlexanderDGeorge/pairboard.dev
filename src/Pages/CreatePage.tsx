@@ -5,6 +5,7 @@ import CreatePair from "../Components/PostCreate/CreatePair";
 export default () => {
     return (
         <Create>
+            <h1>Create a Post</h1>
             <CreatePair />
         </Create>
     );
@@ -17,4 +18,8 @@ const Create = styled.div`
     padding: 2% 5%;
     display: flex;
     flex-direction: column;
+    > h1 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 `;
