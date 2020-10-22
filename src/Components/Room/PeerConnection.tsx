@@ -64,24 +64,17 @@ export default (props: PeerConnectionProps) => {
     }, [connection]);
 
     return (
-        <RemoteStream>
-            <video
-                ref={remoteStreamRef}
-                src="remoteStream"
-                autoPlay
-                playsInline
-            ></video>
-        </RemoteStream>
+        <RemoteStream
+            ref={remoteStreamRef}
+            src="remoteStream"
+            autoPlay
+            playsInline
+        ></RemoteStream>
     );
 };
 
-const RemoteStream = styled.div`
-    height: 240px;
-    width: 320px;
-    border: 1px solid black;
-    box-sizing: content-box;
-    > video {
-        height: 100%;
-        width: 100%;
-    }
+const RemoteStream = styled.video`
+    min-width: 480px;
+    max-width: 720px;
+    transform: scaleX(-1);
 `;

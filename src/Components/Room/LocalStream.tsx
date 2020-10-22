@@ -13,28 +13,21 @@ export default (props: { localStream?: MediaStream }) => {
 
     if (localStream) {
         return (
-            <LocalStream>
-                <video
-                    src="localStream"
-                    ref={videoRef}
-                    autoPlay
-                    playsInline
-                    muted
-                ></video>
-            </LocalStream>
+            <LocalStream
+                src="localStream"
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+            ></LocalStream>
         );
     } else {
         return null;
     }
 };
 
-const LocalStream = styled.div`
-    height: 240px;
-    width: 320px;
-    border: 1px solid black;
-    box-sizing: content-box;
-    > video {
-        height: 100%;
-        width: 100%;
-    }
+const LocalStream = styled.video`
+    min-width: 480px;
+    max-width: 720px;
+    transform: scaleX(-1);
 `;

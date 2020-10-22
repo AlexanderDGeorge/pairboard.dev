@@ -69,6 +69,7 @@ const RoomPage = styled.div`
 const Participants = styled.div`
     height: 100%;
     width: 100%;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
     align-items: right;
