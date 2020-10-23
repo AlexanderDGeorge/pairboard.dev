@@ -14,7 +14,7 @@ export default () => {
 
 const MiddleDiv = styled.div`
     min-height: 70%;
-    padding: 5%;
+    padding: 2% 10%;
     background-image: ${(props) =>
         `linear-gradient(130deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple})`};
     display: flex;

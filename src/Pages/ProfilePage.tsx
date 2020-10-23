@@ -25,7 +25,7 @@ export default () => {
 const ProfilePage = styled.div`
     min-height: 100%;
     width: 100%;
-    padding: 2% 5%;
+    padding: 2% 10%;
     display: flex;
     @media screen and (max-width: 600px) {
         flex-direction: column;

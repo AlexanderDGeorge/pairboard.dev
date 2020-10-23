@@ -31,7 +31,7 @@ export default () => {
 const TopDiv = styled.div`
     position: relative;
     min-height: 35%;
-    padding: 5%;
+    padding: 2% 10%;
     background-color: ${(props) => props.theme.white};
     display: flex;
     align-items: center;

@@ -31,13 +31,14 @@ export default () => {
 const Login = styled.div`
     min-height: 80%;
     width: 100%;
-    padding: 5%;
+    padding: 2% 10%;
     display: flex;
     flex-direction: column;
     > span {
         width: 100%;
+        max-width: 600px;
         margin: 5% 0;
-        padding: 0 5%;
+        padding: 0 10%;
         display: flex;
         align-items: center;
         font-size: 1em;
@@ -50,6 +51,7 @@ const Login = styled.div`
     > a {
         height: 50px;
         width: 100%;
+        max-width: 600px;
         text-align: center;
         color: ${(props) => props.theme.blue};
         text-decoration: none;

@@ -33,7 +33,7 @@ const CreatePost = styled.div`
     > h1 {
         width: 350px;
         margin-bottom: 10px;
-        border-bottom: 1px solid ${(props) => props.theme.light};
+        border-bottom: 3px solid ${(props) => props.theme.light};
         font-weight: 500;
     }
 `;

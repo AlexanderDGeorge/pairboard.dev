@@ -15,7 +15,7 @@ const Create = styled.div`
     position: relative;
     min-height: 100%;
     width: 100%;
-    padding: 2% 5%;
+    padding: 2% 10%;
     display: flex;
     flex-direction: column;
     > h1 {

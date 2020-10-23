@@ -5,7 +5,7 @@ export const StyledField = styled.div`
     min-height: 60px;
     min-width: 240px;
     width: 100%;
-    /* max-width: 480px; */
+    max-width: 600px;
     margin: 10px 0;
     cursor: pointer;
     > label {
@@ -63,7 +63,7 @@ export const StyledButton = styled.button`
     height: 60px;
     min-width: 120px;
     width: 100%;
-    /* max-width: 240px; */
+    max-width: 600px;
     padding: 10px;
     font-size: 1em;
     font-weight: 600;

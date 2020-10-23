@@ -25,7 +25,7 @@ const Footer = styled.footer`
     position: relative;
     height: 200px;
     width: 100%;
-    padding: 5%;
+    padding: 2% 10%;
     background-color: ${(props) => props.theme.verydark};
     border-top: 5px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>

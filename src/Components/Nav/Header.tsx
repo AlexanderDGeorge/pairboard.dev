@@ -27,7 +27,7 @@ export default () => {
 const Header = styled.header`
     height: 80px;
     width: 100%;
-    padding: 0 5%;
+    padding: 0 10%;
     background-color: ${(props) => props.theme.verydark};
     border-bottom: 5px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>
