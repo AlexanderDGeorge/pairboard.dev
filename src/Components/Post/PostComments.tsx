@@ -11,7 +11,9 @@ import useFirebaseQuery from "../../util/useFirebaseQuery";
 import useOnOutsideClick from "../../util/useOnOutsideClick";
 import LoadingBar from "../Animated/LoadingBar";
 
-export default (props: { commentsId: PostSchema["commentsId"] }) => {
+export default function PostComments(props: {
+    commentsId: PostSchema["commentsId"];
+}) {
     const commentsRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
 
@@ -29,7 +31,7 @@ export default (props: { commentsId: PostSchema["commentsId"] }) => {
         );
     } else {
         return (
-            <PostComments ref={commentsRef}>
+            <StlyedPostComments ref={commentsRef}>
                 <h2>Comments</h2>
                 {data?.comments?.map(
                     (comment: CommentSchema["comments"][number], i: number) => (
@@ -37,10 +39,10 @@ export default (props: { commentsId: PostSchema["commentsId"] }) => {
                     )
                 )}
                 <CreateComment commentsId={props.commentsId} />
-            </PostComments>
+            </StlyedPostComments>
         );
     }
-};
+}
 
 const Loading = styled.div`
     height: 200px;
@@ -50,7 +52,7 @@ const Loading = styled.div`
     justify-content: center;
 `;
 
-const PostComments = styled.div`
+const StlyedPostComments = styled.div`
     min-height: 200px;
     max-height: 80%;
     width: 90%;

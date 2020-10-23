@@ -20,7 +20,7 @@ const reducer = (state, action) => {
     }
 };
 
-export default function (query) {
+export default function useFirebaseQuery(query) {
     const initialState = {
         status: query ? "loading" : "idle",
         data: undefined,

@@ -7,22 +7,22 @@ import Info from "../Components/Profile/Info";
 import Posts from "../Components/Profile/Posts";
 import Settings from "../Components/Profile/Settings";
 
-export default () => {
+export default function ProfilePage() {
     const user = useContext(UserContext)!;
 
     return (
-        <ProfilePage>
+        <StyledProfilePage>
             <Info user={user} />
             <Switch>
                 <Route path="/profile/settings" component={Settings} />
                 <Route path="/profile/edit" component={Edit} />
                 <Route path="/profile" component={Posts} />
             </Switch>
-        </ProfilePage>
+        </StyledProfilePage>
     );
-};
+}
 
-const ProfilePage = styled.div`
+const StyledProfilePage = styled.div`
     min-height: 100%;
     width: 100%;
     padding: 2% 10%;

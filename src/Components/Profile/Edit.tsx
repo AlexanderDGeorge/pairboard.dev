@@ -4,7 +4,7 @@ import { UserContext } from "../../Application";
 import { updateUserProfile } from "../../firebase/user";
 import { StyledButton, StyledField } from "../../styled-components/formStyles";
 
-export default () => {
+export default function Edit() {
     const user = useContext(UserContext)!;
 
     const [blurb, setBlurb] = useState(user.blurb);
@@ -28,7 +28,7 @@ export default () => {
     }
 
     return (
-        <Edit>
+        <StyledEdit>
             <h2>Edit Your Profile</h2>
             <StyledField>
                 <label htmlFor="">blurb</label>
@@ -107,11 +107,11 @@ export default () => {
             <StyledButton disabled={!changes} onClick={handleSaveChanges}>
                 Save Changes
             </StyledButton>
-        </Edit>
+        </StyledEdit>
     );
-};
+}
 
-const Edit = styled.div`
+const StyledEdit = styled.div`
     height: 100%;
     width: 100%;
 `;

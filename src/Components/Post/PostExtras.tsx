@@ -6,7 +6,7 @@ import PostComments from "./PostComments";
 import PostOptions from "./PostOptions";
 import { PostSchema } from "../../firebase/schema";
 
-export default (props: { post: PostSchema }) => {
+export default function PostExtras(props: { post: PostSchema }) {
     const { handleModal } = useContext(ModalContext)!;
 
     function handleOpenComments(e: React.MouseEvent) {
@@ -20,14 +20,14 @@ export default (props: { post: PostSchema }) => {
     }
 
     return (
-        <PostExtras>
+        <StyledPostExtras>
             <FaCommentAlt onClick={handleOpenComments} />
             <FaEllipsisH onClick={handleOpenOptions} />
-        </PostExtras>
+        </StyledPostExtras>
     );
-};
+}
 
-const PostExtras = styled.div`
+const StyledPostExtras = styled.div`
     width: 50px;
     padding: 5px;
     background-color: ${(props) => props.theme.light} !important;

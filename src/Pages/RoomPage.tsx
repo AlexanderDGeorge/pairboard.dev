@@ -9,7 +9,7 @@ import { UserContext } from "../Application";
 import LoadingBar from "../Components/Animated/LoadingBar";
 import useControls from "../Components/Room/useControls";
 
-export default () => {
+export default function RoomPage() {
     const { uid, postId } = useContext(UserContext)!;
     const post = usePostContext(postId)!;
     const [connections, setConnections] = useState<RTCPeerConnection[]>([]);
@@ -34,7 +34,7 @@ export default () => {
 
     if (post) {
         return (
-            <RoomPage>
+            <StyledRoomPage>
                 <Controls controls={controls} />
                 <Participants>
                     <LocalStream localStream={localStream} />
@@ -50,16 +50,16 @@ export default () => {
                         );
                     })}
                 </Participants>
-            </RoomPage>
+            </StyledRoomPage>
         );
     } else {
         // [TODO]: add error 'A room associated with this post could not be found
         // redirecting...
         return <LoadingBar />;
     }
-};
+}
 
-const RoomPage = styled.div`
+const StyledRoomPage = styled.div`
     height: 100%;
     width: 100%;
     display: flex;

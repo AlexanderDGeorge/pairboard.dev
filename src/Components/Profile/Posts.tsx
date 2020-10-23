@@ -1,28 +1,22 @@
-import React, {
-    MutableRefObject,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { firestore } from "../../firebase/firebase";
 import { PostSchema, UserSchema } from "../../firebase/schema";
 import Post from "../Post/Post";
 import convertDocToPost from "../Post/convertDocToPost";
-import { UserContext } from "../../Application";
+// import { UserContext } from "../../Application";
 
-export default (props: { user?: UserSchema }) => {
-    const { posts } = props.user || useContext(UserContext)!;
+export default function Posts(props: { user?: UserSchema }) {
+    // const { posts } = props.user || useContext(UserContext)!;
     const [userPosts, setUserPosts] = useState<Array<PostSchema>>([]);
     const lastRead: MutableRefObject<any> = useRef(null);
 
     useEffect(() => {
-        if (posts.length) {
+        if (props.user?.posts.length) {
             (async () => {
                 const snapshot = await firestore()
                     .collection("posts")
-                    .where("id", "in", posts)
+                    .where("id", "in", props.user?.posts)
                     .orderBy("createdAt")
                     .limit(3)
                     .get();
@@ -36,7 +30,7 @@ export default (props: { user?: UserSchema }) => {
                 }
             })();
         }
-    }, [posts]);
+    }, [props.user?.posts]);
 
     return (
         <ProfilePosts>
@@ -45,7 +39,7 @@ export default (props: { user?: UserSchema }) => {
             })}
         </ProfilePosts>
     );
-};
+}
 
 const ProfilePosts = styled.div`
     height: 100%;

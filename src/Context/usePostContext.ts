@@ -3,7 +3,7 @@ import convertDocToPost from "../Components/Post/convertDocToPost";
 import { firestore } from "../firebase/firebase";
 import { PostSchema } from "../firebase/schema";
 
-export default (postId?: PostSchema["id"]) => {
+export default function usePostContext(postId?: PostSchema["id"]) {
     const [post, setPost] = useState<PostSchema | undefined>(undefined);
 
     useEffect(() => {
@@ -36,4 +36,4 @@ export default (postId?: PostSchema["id"]) => {
     }, [postId]);
 
     return post;
-};
+}

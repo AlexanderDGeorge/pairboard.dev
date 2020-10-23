@@ -9,7 +9,7 @@ interface GithubSignUpValues {
     lastname: string;
 }
 
-export default (props: { setTopError: Function }) => {
+export default function GithubSignupForm(props: { setTopError: Function }) {
     const { setTopError } = props;
     const [loading, setLoading] = useState(false);
 
@@ -81,4 +81,4 @@ export default (props: { setTopError: Function }) => {
             )}
         </Formik>
     );
-};
+}

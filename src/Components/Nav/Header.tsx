@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../../Application";
 import ProfileLink from "./ProfileLink";
 
-export default () => {
+export default function Header() {
     const history = useHistory();
     const user = useContext(UserContext);
 
@@ -15,16 +15,16 @@ export default () => {
     }
 
     return (
-        <Header>
+        <StyledHeader>
             <HomeLink onClick={handleGoHome}>
                 pairboard.dev <sup>alpha</sup>
             </HomeLink>
             {user ? <ProfileLink user={user} /> : null}
-        </Header>
+        </StyledHeader>
     );
-};
+}
 
-const Header = styled.header`
+const StyledHeader = styled.header`
     height: 80px;
     width: 100%;
     padding: 0 10%;

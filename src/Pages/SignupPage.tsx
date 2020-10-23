@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SignupForm from "../Components/Auth/SignupForm";
 import GithubSignupForm from "../Components/Auth/GithubSignupForm";
 
-export default () => {
+export default function SignupPage() {
     const [topError, setTopError] = useState<string | undefined>(undefined);
 
     return (
@@ -23,7 +23,7 @@ export default () => {
             <Link to="/password">forgot password?</Link>
         </Signup>
     );
-};
+}
 
 const Signup = styled.div`
     min-height: 100%;

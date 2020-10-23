@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import getDateToNow from "../../util/getDateToNow";
 import { StyledCard } from "../../styled-components/StyledCard";
 
-export default (props: { post: PostSchema }) => {
+export default function Post(props: { post: PostSchema }) {
     const {
         createdAt,
         description,
@@ -28,7 +28,7 @@ export default (props: { post: PostSchema }) => {
     }
 
     return (
-        <Post onClick={handleJoin}>
+        <StyledPost onClick={handleJoin}>
             <Top>
                 <img src={host.photoURL} alt="" />
                 <div>
@@ -47,11 +47,11 @@ export default (props: { post: PostSchema }) => {
                     {participants.length} / {maxCapacity}
                 </p>
             </Bottom>
-        </Post>
+        </StyledPost>
     );
-};
+}
 
-const Post = styled(StyledCard)`
+const StyledPost = styled(StyledCard)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;

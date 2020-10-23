@@ -6,7 +6,7 @@ import { MdLocationOn, MdLink } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-export default (props: { user: UserSchema }) => {
+export default function Info(props: { user: UserSchema }) {
     const { user } = props;
     const score = useSpring({ number: user.score, from: { number: 0 } });
 
@@ -37,7 +37,7 @@ export default (props: { user: UserSchema }) => {
             </a>
         </ProfileHeader>
     );
-};
+}
 
 const ProfileHeader = styled.div`
     min-width: 300px;

@@ -7,11 +7,11 @@ import { initiateScreenShare } from "./WebRTCFunctions";
 
 // [TODO]: handle stop sharing from browser
 
-export default (
+export default function useControls(
     post: PostSchema,
     localStream: MediaStream | undefined,
     connections: RTCPeerConnection[]
-) => {
+) {
     const { uid } = useContext(UserContext)!;
     const [muted, setMuted] = useState(false);
     const [video, setVideo] = useState<MediaStreamTrack | undefined>(undefined);
@@ -86,4 +86,4 @@ export default (
         shareScreen,
         handleLeave,
     };
-};
+}

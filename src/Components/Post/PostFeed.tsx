@@ -3,17 +3,17 @@ import styled from "styled-components";
 import PostLane from "./PostLane";
 import { firestore } from "../../firebase/firebase";
 
-export default () => {
+export default function PostFeed() {
     const postsQuery = firestore().collection("posts");
 
     return (
-        <PostFeed>
+        <StyledPostFeed>
             <PostLane name="All Posts" query={postsQuery} />
-        </PostFeed>
+        </StyledPostFeed>
     );
-};
+}
 
-const PostFeed = styled.div`
+const StyledPostFeed = styled.div`
     min-height: 100%;
     width: 100%;
     display: flex;

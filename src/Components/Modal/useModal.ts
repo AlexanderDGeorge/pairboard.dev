@@ -7,7 +7,7 @@ export interface ModalSchema {
     closeOnOutside: boolean;
 }
 
-export default (open = false) => {
+export default function useModal(open = false) {
     const [modalOpen, setModalOpen] = useState(open);
     const [modalContent, setModalContent] = useState<
         ModalSchema["modalContent"]
@@ -25,4 +25,4 @@ export default (open = false) => {
     };
 
     return { handleModal, closeOnOutside, modalOpen, modalContent };
-};
+}

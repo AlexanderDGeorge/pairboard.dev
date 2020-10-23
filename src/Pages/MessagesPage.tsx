@@ -3,16 +3,16 @@ import styled from "styled-components";
 import MessagesNav from "../Components/Messages/MessagesNav";
 import MessagesRouter from "../Components/Messages/MessagesRouter";
 
-export default () => {
+export default function MessagesPage() {
     return (
-        <MessagesPage>
+        <StyledMessagesPage>
             <MessagesNav />
             <MessagesRouter />
-        </MessagesPage>
+        </StyledMessagesPage>
     );
-};
+}
 
-const MessagesPage = styled.div`
+const StyledMessagesPage = styled.div`
     min-height: 100%;
     height: 100%;
     width: 100%;

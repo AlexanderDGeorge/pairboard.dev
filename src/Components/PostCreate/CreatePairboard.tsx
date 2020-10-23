@@ -8,9 +8,9 @@
 // import useLockBodyScroll from "../../util/useLockBodyScroll";
 // import { PostSchema } from "../../firebase/schema";
 
-export default () => {
+export default function CreatePairboard() {
     return null;
-};
+}
 
 // export default () => {
 //     const [title, setTitle] = useState("");

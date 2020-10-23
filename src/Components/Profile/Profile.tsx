@@ -5,7 +5,7 @@ import Info from "./Info";
 import Posts from "./Posts";
 import { UserContext } from "../../Application";
 
-export default (props: { user: UserSchema }) => {
+export default function Profile(props: { user: UserSchema }) {
     const user = useContext(UserContext)!;
 
     if (props.user.uid === user.uid) {
@@ -25,7 +25,7 @@ export default (props: { user: UserSchema }) => {
             </>
         );
     }
-};
+}
 
 const RightColumn = styled.div`
     height: 100%;

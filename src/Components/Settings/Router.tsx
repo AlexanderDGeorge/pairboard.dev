@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router";
 import Nav from "./Nav";
 import Edit from "../Profile/Edit";
 
-export default () => {
+export default function Router() {
     return (
         <>
             <Nav />
@@ -12,4 +12,4 @@ export default () => {
             </Switch>
         </>
     );
-};
+}

@@ -5,7 +5,7 @@ import { UserSchema } from "../../firebase/schema";
 import { useSpring, animated } from "react-spring";
 import { signOut } from "../../firebase/auth";
 
-export default (props: { user: UserSchema }) => {
+export default function ProfileLink(props: { user: UserSchema }) {
     const { username, email, photoURL } = props.user;
     const history = useHistory();
     const [menu, setMenu] = useSpring(() => ({
@@ -21,7 +21,7 @@ export default (props: { user: UserSchema }) => {
     }
 
     return (
-        <ProfileLink
+        <StyledProfileLink
             onMouseEnter={() =>
                 setMenu({ height: 180, width: 250, opacity: 1 })
             }
@@ -36,11 +36,11 @@ export default (props: { user: UserSchema }) => {
                 <Link to="/profile/settings">Settings</Link>
                 <button onClick={signOut}>Logout</button>
             </animated.div>
-        </ProfileLink>
+        </StyledProfileLink>
     );
-};
+}
 
-const ProfileLink = styled.div`
+const StyledProfileLink = styled.div`
     position: relative;
     height: 60px;
     width: 60px;

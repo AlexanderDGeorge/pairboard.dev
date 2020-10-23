@@ -8,7 +8,7 @@ import { createPost } from "../../firebase/post";
 import { UserContext } from "../../Application";
 import { useHistory } from "react-router";
 
-export default () => {
+export default function CreatePair() {
     const { uid, username, score, photoURL } = useContext(UserContext)!;
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -172,7 +172,7 @@ export default () => {
             )}
         </Formik>
     );
-};
+}
 
 const CreatePairboard = styled(Form)`
     min-height: 100%;

@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { loginWithGithub } from "../firebase/auth";
 import { Link } from "react-router-dom";
 
-export default () => {
+export default function LoginPage() {
     return (
         <Login>
             <h1>Login</h1>
@@ -26,7 +26,7 @@ export default () => {
             <Link to="/password">forgot password?</Link>
         </Login>
     );
-};
+}
 
 const Login = styled.div`
     min-height: 80%;

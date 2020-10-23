@@ -24,7 +24,7 @@ interface PeerConnectionProps {
     addConnection: Function;
 }
 
-export default (props: PeerConnectionProps) => {
+export default function PeerConnection(props: PeerConnectionProps) {
     const { localStream, peerId, addConnection } = props;
     const { uid } = useContext(UserContext)!;
     const remoteStreamRef: MutableRefObject<HTMLVideoElement | null> = useRef(
@@ -71,7 +71,7 @@ export default (props: PeerConnectionProps) => {
             playsInline
         ></RemoteStream>
     );
-};
+}
 
 const RemoteStream = styled.video`
     min-width: 480px;

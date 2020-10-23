@@ -11,7 +11,7 @@ interface LogInValues {
     password: string;
 }
 
-export default () => {
+export default function LoginForm() {
     const [topError, setTopError] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState(false);
 
@@ -75,7 +75,7 @@ export default () => {
             )}
         </Formik>
     );
-};
+}
 
 const TopError = styled.div`
     height: 30px;

@@ -5,7 +5,7 @@ import { StyledButton, StyledField } from "../../styled-components/formStyles";
 import { MdError, MdVerifiedUser } from "react-icons/md";
 import { auth } from "../../firebase/firebase";
 
-export default () => {
+export default function Settings() {
     const user = useContext(UserContext)!;
     // [TODO]: need to reauth before touching settings
 
@@ -16,7 +16,7 @@ export default () => {
     console.log(user.email);
 
     return (
-        <Settings>
+        <StyledSettings>
             <h2>Manage Your Settings</h2>
             <AdvancedEmailField>
                 <label htmlFor="">change email</label>
@@ -41,11 +41,11 @@ export default () => {
             >
                 Reset Password
             </StyledButton>
-        </Settings>
+        </StyledSettings>
     );
-};
+}
 
-const Settings = styled.div`
+const StyledSettings = styled.div`
     height: 100%;
     width: 100%;
     > button {

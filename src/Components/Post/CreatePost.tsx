@@ -7,11 +7,11 @@ import {
     BlueGreenCard,
 } from "../../styled-components/StyledCard";
 
-export default () => {
+export default function CreatePostLane() {
     const history = useHistory();
 
     return (
-        <CreatePost>
+        <StyledCreatePostLane>
             <h1>Create a Post</h1>
             <Lane>
                 <RedPurpleCard onClick={() => history.replace("/create")}>
@@ -24,11 +24,11 @@ export default () => {
                     <h2>Lecture</h2>
                 </BlueGreenCard>
             </Lane>
-        </CreatePost>
+        </StyledCreatePostLane>
     );
-};
+}
 
-const CreatePost = styled.div`
+const StyledCreatePostLane = styled.div`
     width: 100%;
     > h1 {
         width: 350px;

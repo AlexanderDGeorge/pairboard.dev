@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 
-export default (props: { controls: any }) => {
+export default function Controls(props: { controls: any }) {
     const {
         muted,
         toggleAudio,
@@ -23,7 +23,7 @@ export default (props: { controls: any }) => {
     }, []);
 
     return (
-        <Controls
+        <StyledControls
             onMouseEnter={() => setControlsMenu({ left: 0 })}
             onMouseLeave={() => setControlsMenu({ left: -180 })}
             style={controlsMenu}
@@ -35,11 +35,11 @@ export default (props: { controls: any }) => {
             <Button onClick={() => shareScreen()}>Share Screen</Button>
             <Button onClick={() => turnOffVideo()}>Hide Video</Button>
             <Button onClick={() => turnOnVideo()}>Show Video</Button>
-        </Controls>
+        </StyledControls>
     );
-};
+}
 
-const Controls = styled(animated.div)`
+const StyledControls = styled(animated.div)`
     z-index: 1;
     position: absolute;
     height: 100%;

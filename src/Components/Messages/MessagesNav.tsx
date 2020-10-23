@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-export default () => {
+export default function MessagesNav() {
     return (
-        <MessagesNav>
+        <StyledMessagesNav>
             <h2>Recent Messages</h2>
-        </MessagesNav>
+        </StyledMessagesNav>
     );
-};
+}
 
-const MessagesNav = styled.div`
+const StyledMessagesNav = styled.div`
     height: 100%;
     width: 30%;
     padding-right: 10px;

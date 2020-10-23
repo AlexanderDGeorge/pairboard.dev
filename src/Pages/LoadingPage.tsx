@@ -2,15 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import LoadingBar from "../Components/Animated/LoadingBar";
 
-export default () => {
+export default function LoadingPage() {
     return (
-        <LoadingPage>
+        <StyledLoadingPage>
             <LoadingBar />
-        </LoadingPage>
+        </StyledLoadingPage>
     );
-};
+}
 
-const LoadingPage = styled.div`
+const StyledLoadingPage = styled.div`
     position: relative;
     height: 100%;
     width: 100%;

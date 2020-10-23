@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-export default () => {
+export default function Footer() {
     return (
-        <Footer>
+        <StyledFooter>
             <div>
                 <h3>External Links</h3>
                 <a href="https://github.com/AlexanderDGeorge/pairboard.dev">
@@ -17,11 +17,11 @@ export default () => {
             <section>
                 &copy; 2020 | Alexander George. All rights reserved.
             </section>
-        </Footer>
+        </StyledFooter>
     );
-};
+}
 
-const Footer = styled.footer`
+const StyledFooter = styled.footer`
     position: relative;
     height: 200px;
     width: 100%;

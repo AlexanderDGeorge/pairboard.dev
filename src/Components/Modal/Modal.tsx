@@ -4,20 +4,23 @@ import styled from "styled-components";
 import { ModalContext } from "../../Application";
 // import useLockBodyScroll from "../../util/useLockBodyScroll";
 
-export default () => {
+export default function Modal() {
     const { modalOpen, modalContent } = useContext(ModalContext)!;
     const modalRoot = document.getElementById("modal-root");
 
     // useLockBodyScroll();
 
     if (modalOpen && modalRoot) {
-        return ReactDOM.createPortal(<Modal>{modalContent}</Modal>, modalRoot);
+        return ReactDOM.createPortal(
+            <StyledModal>{modalContent}</StyledModal>,
+            modalRoot
+        );
     } else {
         return null;
     }
-};
+}
 
-const Modal = styled.div`
+const StyledModal = styled.div`
     position: fixed;
     top: 0;
     left: 0;

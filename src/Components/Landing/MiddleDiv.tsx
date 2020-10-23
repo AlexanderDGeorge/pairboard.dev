@@ -2,17 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default () => {
+export default function MiddleDiv() {
     return (
-        <MiddleDiv>
+        <StyledMiddleDiv>
             <h1>Become a Better Developer</h1>
             <Link to="/login">login</Link>
             <Link to="/signup">sign up for free</Link>
-        </MiddleDiv>
+        </StyledMiddleDiv>
     );
-};
+}
 
-const MiddleDiv = styled.div`
+const StyledMiddleDiv = styled.div`
     min-height: 70%;
     padding: 2% 10%;
     background-image: ${(props) =>

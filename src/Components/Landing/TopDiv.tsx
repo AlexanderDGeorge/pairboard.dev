@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-export default () => {
+export default function TopDiv() {
     return (
-        <TopDiv>
+        <StyledTopDiv>
             <div>
                 <h1>Search</h1>
                 <p>
@@ -24,11 +24,11 @@ export default () => {
                     leave a peer review for your partner and expand your network
                 </p>
             </div>
-        </TopDiv>
+        </StyledTopDiv>
     );
-};
+}
 
-const TopDiv = styled.div`
+const StyledTopDiv = styled.div`
     position: relative;
     min-height: 35%;
     padding: 2% 10%;

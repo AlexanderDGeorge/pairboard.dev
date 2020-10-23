@@ -6,7 +6,10 @@ import styled from "styled-components";
 import { MdError } from "react-icons/md";
 import LoadingBar from "../Animated/LoadingBar";
 
-export default (props: { topError?: string; setTopError: Function }) => {
+export default function SignupForm(props: {
+    topError?: string;
+    setTopError: Function;
+}) {
     const { topError, setTopError } = props;
     const [loading, setLoading] = useState(false);
 
@@ -107,7 +110,7 @@ export default (props: { topError?: string; setTopError: Function }) => {
             )}
         </Formik>
     );
-};
+}
 
 const TopError = styled.div`
     height: 30px;

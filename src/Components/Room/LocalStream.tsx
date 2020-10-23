@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-export default (props: { localStream?: MediaStream }) => {
+export default function LocalStream(props: { localStream?: MediaStream }) {
     const { localStream } = props;
     const videoRef: MutableRefObject<HTMLVideoElement | null> = useRef(null);
 
@@ -13,20 +13,20 @@ export default (props: { localStream?: MediaStream }) => {
 
     if (localStream) {
         return (
-            <LocalStream
+            <StyledLocalStream
                 src="localStream"
                 ref={videoRef}
                 autoPlay
                 playsInline
                 muted
-            ></LocalStream>
+            ></StyledLocalStream>
         );
     } else {
         return null;
     }
-};
+}
 
-const LocalStream = styled.video`
+const StyledLocalStream = styled.video`
     min-width: 480px;
     max-width: 720px;
     transform: scaleX(-1);

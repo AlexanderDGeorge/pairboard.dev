@@ -6,7 +6,7 @@ import useOnOutsideClick from "../../util/useOnOutsideClick";
 import PostComments from "./PostComments";
 import { deletePost, joinPost } from "../../firebase/post";
 
-export default (props: { post: PostSchema }) => {
+export default function PostOptions(props: { post: PostSchema }) {
     const { uid } = useContext(UserContext)!;
     const { commentsId, active, host, id } = props.post;
     const optionsRef = useRef(null);
@@ -34,7 +34,7 @@ export default (props: { post: PostSchema }) => {
     }
 
     return (
-        <PostOptions ref={optionsRef}>
+        <StyledPostOptions ref={optionsRef}>
             {active ? <button onClick={handleJoin}>Join</button> : null}
             <button>Message Host</button>
             <button
@@ -48,11 +48,11 @@ export default (props: { post: PostSchema }) => {
                 <button onClick={handleDelete}>Delete Post</button>
             ) : null}
             <button onClick={() => handleModal()}>Close</button>
-        </PostOptions>
+        </StyledPostOptions>
     );
-};
+}
 
-const PostOptions = styled.div`
+const StyledPostOptions = styled.div`
     /* min-height: 200px; */
     max-height: 80%;
     width: 90%;

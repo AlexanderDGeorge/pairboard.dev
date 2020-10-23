@@ -3,14 +3,14 @@ import styled from "styled-components";
 import CreatePost from "../Components/Post/CreatePost";
 import PostFeed from "../Components/Post/PostFeed";
 
-export default () => {
+export default function HomePage() {
     return (
         <Home>
             <CreatePost />
             <PostFeed />
         </Home>
     );
-};
+}
 
 const Home = styled.div`
     min-height: 100%;

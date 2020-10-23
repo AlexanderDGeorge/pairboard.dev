@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { auth, firestore } from "../firebase/firebase";
 import { UserSchema } from "../firebase/schema";
 
-export default () => {
+export default function useUserContext() {
     const [user, setUser] = useState<UserSchema | undefined | null>(undefined);
 
     useEffect(() => {
@@ -49,4 +49,4 @@ export default () => {
     }, []);
 
     return user;
-};
+}

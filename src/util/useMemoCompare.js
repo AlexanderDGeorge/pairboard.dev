@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-export default (next, compare) => {
+export default function useMemoCompare(next, compare) {
     const previousRef = useRef();
     const previous = previousRef.current;
     const isEqual = compare(previous, next);
@@ -12,4 +12,4 @@ export default (next, compare) => {
     });
 
     return isEqual ? previous : next;
-};
+}

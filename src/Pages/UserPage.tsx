@@ -5,7 +5,7 @@ import { fetchUserDocFromUsername } from "../firebase/user";
 import Loading from "./LoadingPage";
 import Profile from "../Components/Profile/Profile";
 
-export default () => {
+export default function UserPage() {
     const pathname = useLocation().pathname.slice(6);
     const [user, setUser] = useState<any>(undefined);
 
@@ -20,16 +20,16 @@ export default () => {
 
     if (user) {
         return (
-            <UserPage>
+            <StyledUserPage>
                 <Profile user={user} />
-            </UserPage>
+            </StyledUserPage>
         );
     } else {
         return <Loading />;
     }
-};
+}
 
-const UserPage = styled.div`
+const StyledUserPage = styled.div`
     width: 100%;
     padding: 2% 10%;
     display: flex;
