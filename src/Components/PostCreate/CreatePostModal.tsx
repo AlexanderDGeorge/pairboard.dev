@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ModalContext } from "../../Application";
 import useLockBodyScroll from "../../util/useLockBodyScroll";
 import useOnOutsideCLick from "../../util/useOnOutsideClick";
-import PostForm from "./PostForm";
+import FormContainer from "./FormContainer";
 
 export default function CreatePostModal(props: {
     type: "Pairboard" | "Group" | "Lecture";
@@ -25,7 +25,7 @@ export default function CreatePostModal(props: {
                             <br />
                             Room limits are capped at two occupants.
                         </p>
-                        <PostForm />
+                        <FormContainer type={type} />
                     </>
                 );
             case "Group":
@@ -36,7 +36,7 @@ export default function CreatePostModal(props: {
                             <br />
                             Room limits are capped at 20 occupants.
                         </p>
-                        <PostForm />
+                        <FormContainer type={type} />
                     </>
                 );
             case "Lecture":
@@ -47,7 +47,7 @@ export default function CreatePostModal(props: {
                             speakers. <br />
                             Room limits are capped at 1,000 occupants.
                         </p>
-                        <PostForm />
+                        <FormContainer type={type} />
                     </>
                 );
             default:

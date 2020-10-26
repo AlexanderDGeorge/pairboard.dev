@@ -9,12 +9,14 @@ import {
 export async function createPost(
     host: LightUserSchema,
     title: PostSchema["title"],
+    type: PostSchema["type"],
     description: PostSchema["description"],
     difficulty: PostSchema["difficulty"],
     language: PostSchema["language"],
     maxCapacity: PostSchema["maxCapacity"],
     sessionDate: PostSchema["sessionDate"],
-    sessionTime: PostSchema["sessionTime"]
+    sessionStart: PostSchema["sessionStart"],
+    sessionEnd: PostSchema["sessionEnd"]
 ) {
     // [TODO]: could refactor to only create commentsDoc on first comment
 
@@ -33,18 +35,13 @@ export async function createPost(
         host,
         language,
         maxCapacity,
-        participants: [host.uid],
+        participants: [],
         sessionDate,
-        sessionTime,
+        sessionStart,
+        sessionEnd,
         title,
+        type,
     });
-    firestore()
-        .collection("users")
-        .doc(host.uid)
-        .update({
-            postId: postRef.id,
-            posts: fieldValue.arrayUnion(postRef.id),
-        });
 }
 
 export async function joinPost(

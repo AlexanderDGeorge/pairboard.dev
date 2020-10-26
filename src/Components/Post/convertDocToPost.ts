@@ -19,7 +19,8 @@ export default function convertDocToPost(
         password: doc.password,
         private: doc.private,
         sessionDate: doc.sessionDate,
-        sessionTime: doc.sessionTime,
+        sessionEnd: doc.sessionEnd,
+        sessionStart: doc.sessionStart,
         title: doc.title,
         type: doc.type,
     };
