@@ -49,7 +49,8 @@ export interface PostSchema {
     password?: string;
     private: boolean;
     sessionDate: Date;
-    sessionTime: Date;
+    sessionEnd: Date;
+    sessionStart: Date;
     title: string;
     type: typeof POSTTYPES[number];
 }

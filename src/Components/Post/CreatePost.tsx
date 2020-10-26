@@ -1,6 +1,7 @@
-import React from "react";
-import { useHistory } from "react-router";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { ModalContext } from "../../Application";
+import CreatePostModal from "../PostCreate/CreatePostModal";
 import {
     RedPurpleCard,
     PurpleBlueCard,
@@ -8,19 +9,31 @@ import {
 } from "../../styled-components/StyledCard";
 
 export default function CreatePostLane() {
-    const history = useHistory();
+    const { handleModal } = useContext(ModalContext)!;
 
     return (
         <StyledCreatePostLane>
             <h1>Create a Post</h1>
             <Lane>
-                <RedPurpleCard onClick={() => history.replace("/create")}>
+                <RedPurpleCard
+                    onClick={() =>
+                        handleModal(<CreatePostModal type="Pairboard" />)
+                    }
+                >
                     <h2>Pairboard</h2>
                 </RedPurpleCard>
-                <PurpleBlueCard onClick={() => history.replace("/create")}>
+                <PurpleBlueCard
+                    onClick={() =>
+                        handleModal(<CreatePostModal type="Group" />)
+                    }
+                >
                     <h2>Group</h2>
                 </PurpleBlueCard>
-                <BlueGreenCard onClick={() => history.replace("/create")}>
+                <BlueGreenCard
+                    onClick={() =>
+                        handleModal(<CreatePostModal type="Lecture" />)
+                    }
+                >
                     <h2>Lecture</h2>
                 </BlueGreenCard>
             </Lane>

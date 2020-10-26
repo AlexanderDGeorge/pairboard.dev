@@ -24,7 +24,8 @@ export const StyledField = styled.div`
         font-size: 1em;
         outline: none;
         transition: border 0.2s linear;
-        &:hover {
+        &:hover,
+        &:focus {
             transition: border 0.2s linear;
             border: 1px solid ${(props) => props.theme.accent};
         }
@@ -39,7 +40,8 @@ export const StyledField = styled.div`
         font-size: 1em;
         outline: none;
         transition: border 0.2s linear;
-        &:hover {
+        &:hover,
+        &:focus {
             transition: border 0.2s linear;
             border: 1px solid ${(props) => props.theme.accent};
         }
@@ -47,7 +49,7 @@ export const StyledField = styled.div`
     > p {
         position: absolute;
         font-weight: 500;
-        color: ${(props) => props.theme.orange};
+        color: ${(props) => props.theme.red};
         bottom: 0;
     }
     > svg {
