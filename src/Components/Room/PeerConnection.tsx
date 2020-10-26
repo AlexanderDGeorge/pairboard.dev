@@ -76,5 +76,5 @@ export default function PeerConnection(props: PeerConnectionProps) {
 const RemoteStream = styled.video`
     min-width: 480px;
     max-width: 720px;
-    transform: scaleX(-1);
+    /* transform: scaleX(-1); */
 `;

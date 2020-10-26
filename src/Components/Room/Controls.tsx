@@ -14,6 +14,9 @@ export default function Controls(props: { controls: any }) {
     const [controlsMenu, setControlsMenu] = useSpring(() => ({
         left: 0,
     }));
+    const [selector, setSelector] = useSpring(() => ({
+        bottom: 10,
+    }));
 
     useEffect(() => {
         setTimeout(() => {
@@ -32,16 +35,40 @@ export default function Controls(props: { controls: any }) {
             <Button onClick={() => toggleAudio()}>
                 {muted ? "Unmute" : "Mute"}
             </Button>
-            <Button onClick={() => shareScreen()}>Share Screen</Button>
-            <Button onClick={() => turnOffVideo()}>Hide Video</Button>
-            <Button onClick={() => turnOnVideo()}>Show Video</Button>
+            <div>
+                <animated.span style={selector}></animated.span>
+                <Button
+                    onClick={() => {
+                        shareScreen();
+                        setSelector({ bottom: 130 });
+                    }}
+                >
+                    Share Screen
+                </Button>
+                <Button
+                    onClick={() => {
+                        turnOffVideo();
+                        setSelector({ bottom: 70 });
+                    }}
+                >
+                    Hide Video
+                </Button>
+                <Button
+                    onClick={() => {
+                        turnOnVideo();
+                        setSelector({ bottom: 10 });
+                    }}
+                >
+                    Show Video
+                </Button>
+            </div>
         </StyledControls>
     );
 }
 
 const StyledControls = styled(animated.div)`
     z-index: 1;
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 200px;
     border-right: 10px solid ${(props) => props.theme.verydark};
@@ -51,12 +78,28 @@ const StyledControls = styled(animated.div)`
         `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue}) 3`};
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;
+    > div {
+        position: relative;
+        width: 100%;
+        border-top: 1px solid ${(props) => props.theme.accent};
+        border-bottom: 1px solid ${(props) => props.theme.accent};
+        padding: 10px 0;
+        background-color: transparent;
+        > span {
+            z-index: 1;
+            position: absolute;
+            bottom: 0;
+            height: 60px;
+            width: 100%;
+            background-color: ${(props) => props.theme.green};
+            opacity: 0.4;
+        }
+    }
 `;
 
 const Button = styled.button`
     height: 60px;
-    min-width: 100px;
+    width: 100%;
     font-size: 1em;
     background-color: transparent;
     color: ${(props) => props.theme.verylight};

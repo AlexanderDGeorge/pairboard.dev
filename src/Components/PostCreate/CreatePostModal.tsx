@@ -73,7 +73,9 @@ export default function CreatePostModal(props: {
 
 const StyledModal = styled.div`
     height: 80%;
+    max-height: 800px;
     width: 80%;
+    max-width: 1000px;
     border-radius: 5px;
     padding: 5%;
     display: flex;
