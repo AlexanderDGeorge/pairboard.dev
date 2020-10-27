@@ -84,14 +84,19 @@ const StyledModal = styled.div`
     overflow-y: scroll;
     > h1 {
         margin-bottom: 10px;
-        font-weight: 500;
+        font-weight: 800;
+        font-size: 3em;
+        background: linear-gradient(45deg, #009ff5, #825cff 80%);
+        -webkit-background-clip: text;
+        color: transparent;
+        /* background: ${(props) =>
+            `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`}; */
         > select {
             border: 1px solid ${(props) => props.theme.accent};
             font-size: inherit;
-            font-weight: inherit;
-        }
-        > option {
-            font-size: 1em;
+            font-weight: 500;
+            color: ${(props) => props.theme.verydark};
+            background: transparent;
         }
     }
     > p {

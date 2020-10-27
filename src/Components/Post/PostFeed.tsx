@@ -8,7 +8,12 @@ export default function PostFeed() {
 
     return (
         <StyledPostFeed>
+            <PostLane name="Create a Post" create={true} />
             <PostLane name="All Posts" query={postsQuery} />
+            <PostLane
+                name="JavaScript Only"
+                query={postsQuery.where("language", "==", "JavaScript")}
+            />
         </StyledPostFeed>
     );
 }

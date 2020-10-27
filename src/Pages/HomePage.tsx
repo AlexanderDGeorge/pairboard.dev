@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import CreatePost from "../Components/Post/CreatePost";
 import PostFeed from "../Components/Post/PostFeed";
 
 export default function HomePage() {
     return (
         <Home>
-            <CreatePost />
             <PostFeed />
         </Home>
     );
