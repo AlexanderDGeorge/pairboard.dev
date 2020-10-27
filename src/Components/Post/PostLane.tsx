@@ -36,11 +36,11 @@ export default function PostLane(props: {
             return <LoadingBar />;
         } else if (data?.length) {
             return (
-                <div>
+                <>
                     {data.map((post: PostSchema, i: number) => (
                         <Post post={post} key={i} />
                     ))}
-                </div>
+                </>
             );
         } else {
             return <p>no posts</p>;
@@ -53,15 +53,15 @@ export default function PostLane(props: {
             onMouseLeave={() => setName(restName)}
         >
             <AnimatedH1 style={name}>{props.name}</AnimatedH1>
-            {props.create ? <CreatePost /> : <AsyncPostLane />}
+            <div>{props.create ? <CreatePost /> : <AsyncPostLane />}</div>
         </StyledPostLane>
     );
 }
 
 const StyledPostLane = styled.div`
     width: 100%;
+    margin: 20px 0;
     > div {
-        width: 100%;
         display: flex;
         overflow-x: scroll;
     }
@@ -71,7 +71,8 @@ const AnimatedH1 = styled(animated.h1)`
     margin-bottom: 10px;
     border-bottom: 3px solid ${(props) => props.theme.light};
     font-weight: 500;
-    background: linear-gradient(45deg, #009ff5, #06d6a0 15%);
+    background: linear-gradient(45deg, #825cff, #ff890a 15%);
     -webkit-background-clip: text;
     background-clip: text;
+    cursor: pointer;
 `;

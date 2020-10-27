@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 import { ModalContext } from "../../Application";
 import CreatePostModal from "../PostCreate/CreatePostModal";
 import {
@@ -12,7 +11,7 @@ export default function CreatePostLane() {
     const { handleModal } = useContext(ModalContext)!;
 
     return (
-        <Lane>
+        <>
             <RedPurpleCard
                 onClick={() =>
                     handleModal(<CreatePostModal type="Pairboard" />)
@@ -30,12 +29,6 @@ export default function CreatePostLane() {
             >
                 <h2>Lecture</h2>
             </BlueGreenCard>
-        </Lane>
+        </>
     );
 }
-
-const Lane = styled.div`
-    width: 100%;
-    display: flex;
-    overflow-x: scroll;
-`;

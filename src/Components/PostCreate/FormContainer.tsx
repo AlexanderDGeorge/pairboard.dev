@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import PostForm from "./PostForm";
-import { UserContext } from "../../Application";
+import { ModalContext, UserContext } from "../../Application";
 import { useHistory } from "react-router";
 import { createPost } from "../../firebase/post";
 
@@ -8,6 +8,7 @@ export default function FormContainer(props: { type: string }) {
     const { uid, username, score, photoURL } = useContext(UserContext)!;
     const [loading, setLoading] = useState(false);
     const history = useHistory();
+    const { handleModal } = useContext(ModalContext)!;
 
     const capacity = () => {
         switch (props.type) {
@@ -58,7 +59,6 @@ export default function FormContainer(props: { type: string }) {
 
     async function handleSubmit(values: any) {
         const {
-            type,
             title,
             description,
             difficulty,
@@ -72,7 +72,8 @@ export default function FormContainer(props: { type: string }) {
         await createPost(
             { uid, username, score, photoURL },
             title,
-            type,
+            // @ts-ignore
+            props.type,
             description,
             difficulty,
             language,
@@ -83,6 +84,7 @@ export default function FormContainer(props: { type: string }) {
         );
         history.replace("/");
         setLoading(false);
+        handleModal();
     }
 
     return (

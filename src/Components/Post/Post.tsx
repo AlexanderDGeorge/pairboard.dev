@@ -56,7 +56,7 @@ const StyledPost = styled(StyledCard)`
     flex-direction: column;
     justify-content: space-between;
     > p {
-        min-height: 90px;
+        min-height: max-content;
         font-weight: 300;
         overflow-y: scroll;
     }
