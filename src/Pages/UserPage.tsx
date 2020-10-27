@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
 import Loading from "./LoadingPage";
-import Profile from "../Components/Profile/Profile";
+import Header from "../Components/User/Header";
+import ExternalLinks from "../Components/User/ExternalLinks";
+import Posts from "../Components/User/Posts";
 
 export default function UserPage() {
     const pathname = useLocation().pathname.slice(6);
@@ -16,12 +18,12 @@ export default function UserPage() {
         })();
     }, [pathname]);
 
-    console.log(user);
-
     if (user) {
         return (
             <StyledUserPage>
-                <Profile user={user} />
+                <Header user={user} />
+                <ExternalLinks user={user} />
+                <Posts user={user} />
             </StyledUserPage>
         );
     } else {
@@ -30,10 +32,9 @@ export default function UserPage() {
 }
 
 const StyledUserPage = styled.div`
+    min-height: 100%;
     width: 100%;
     padding: 2% 10%;
     display: flex;
-    @media screen and (max-width: 600px) {
-        flex-direction: column;
-    }
+    flex-direction: column;
 `;

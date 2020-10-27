@@ -86,11 +86,11 @@ const StyledModal = styled.div`
         margin-bottom: 10px;
         font-weight: 800;
         font-size: 3em;
-        background: linear-gradient(45deg, #009ff5, #825cff 80%);
+        background: ${(props) =>
+            `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`};
+        background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
-        /* background: ${(props) =>
-            `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`}; */
         > select {
             border: 1px solid ${(props) => props.theme.accent};
             font-size: inherit;

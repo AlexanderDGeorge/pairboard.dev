@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import PostFeed from "../Components/Post/PostFeed";
+// import useScrollToTop from "../util/useScrollToTop";
 
 export default function HomePage() {
+    // const { ScrollButton } = useScrollToTop();
     return (
         <Home>
+            {/* <ScrollButton /> */}
             <PostFeed />
         </Home>
     );

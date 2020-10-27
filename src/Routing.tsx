@@ -6,7 +6,6 @@ import Footer from "./Components/Nav/Footer";
 import LandingPage from "./Pages/LandingPage";
 import SignupPage from "./Pages/SignupPage";
 import LoginPage from "./Pages/LoginPage";
-import ProfilePage from "./Pages/ProfilePage";
 import LoadingPage from "./Pages/LoadingPage";
 import UserPage from "./Pages/UserPage";
 import HomePage from "./Pages/HomePage";
@@ -16,6 +15,7 @@ import Modal from "./Components/Modal/Modal";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
+    // console.log(currentUser);
 
     if (currentUser) {
         if (currentUser.status === "in room") {
@@ -27,7 +27,6 @@ export default function Routing() {
                 <Modal />
                 <Switch>
                     <Route path="/messages" component={MessagesPage} />
-                    <Route path="/profile" component={ProfilePage} />
                     <Route path="/user" component={UserPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>

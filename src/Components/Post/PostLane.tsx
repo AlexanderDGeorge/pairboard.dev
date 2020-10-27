@@ -83,6 +83,6 @@ const AnimatedH1 = styled(animated.h1)`
     background: linear-gradient(45deg, #825cff, #ff890a 15%);
     -webkit-background-clip: text;
     background-clip: text;
-    cursor: pointer;
+    cursor: default;
     /* animation: ${rotate} 2s linear infinite; */
 `;

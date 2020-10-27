@@ -79,7 +79,7 @@ const StyledPost = styled(StyledCard)`
 
     > p {
         grid-area: description;
-        font-weight: 300;
+        font-weight: 200;
         overflow-y: scroll;
     }
 `;

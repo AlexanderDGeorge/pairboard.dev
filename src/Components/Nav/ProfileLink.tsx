@@ -15,9 +15,7 @@ export default function ProfileLink(props: { user: UserSchema }) {
     }));
 
     function handleImgClick() {
-        const path = history.location.pathname;
-        if (path === "/profile") return;
-        history.replace("/profile");
+        history.replace(`/user/${username}`);
     }
 
     return (
@@ -32,8 +30,8 @@ export default function ProfileLink(props: { user: UserSchema }) {
                 <h4 onClick={handleImgClick}>{username}</h4>
                 <h5>{email}</h5>
                 <Link to="/messages">Messages</Link>
-                <Link to="/profile/edit">Edit Profile</Link>
-                <Link to="/profile/settings">Settings</Link>
+                <Link to="/user/edit">Edit Profile</Link>
+                <Link to="/user/settings">Settings</Link>
                 <button onClick={signOut}>Logout</button>
             </animated.div>
         </StyledProfileLink>

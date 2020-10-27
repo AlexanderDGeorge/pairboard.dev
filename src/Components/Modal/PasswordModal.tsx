@@ -21,7 +21,6 @@ export default function PasswordModal(props: {
     useEffect(() => {
         function listenForEnter(e: KeyboardEvent) {
             if (e.key === "Enter") {
-                console.log(password);
                 props.submitCallback(password);
             }
         }

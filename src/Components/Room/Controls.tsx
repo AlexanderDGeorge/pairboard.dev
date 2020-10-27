@@ -21,7 +21,7 @@ export default function Controls(props: { controls: any }) {
     useEffect(() => {
         setTimeout(() => {
             setControlsMenu({ left: -180 });
-        }, 1500);
+        }, 1000);
         // eslint-disable-next-line
     }, []);
 
@@ -32,11 +32,13 @@ export default function Controls(props: { controls: any }) {
             style={controlsMenu}
         >
             <Button onClick={() => handleLeave()}>Leave Room</Button>
-            <div>
-                <Button onClick={() => toggleAudio()}>
-                    {muted ? "Unmute" : "Mute"}
-                </Button>
-            </div>
+            <Button
+                onClick={() => {
+                    toggleAudio();
+                }}
+            >
+                {muted ? "Unmute" : "Mute"}
+            </Button>
             <div>
                 <animated.span style={selector}></animated.span>
                 <Button
@@ -90,7 +92,7 @@ const StyledControls = styled(animated.div)`
         > span {
             z-index: 1;
             position: absolute;
-            bottom: 0;
+            bottom: 10px;
             height: 60px;
             width: 100%;
             background-color: ${(props) => props.theme.green};

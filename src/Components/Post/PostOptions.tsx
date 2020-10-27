@@ -36,7 +36,6 @@ export default function PostOptions(props: { post: PostSchema }) {
     return (
         <StyledPostOptions ref={optionsRef}>
             {active ? <button onClick={handleJoin}>Join</button> : null}
-            <button>Message Host</button>
             <button
                 onClick={() =>
                     handleModal(<PostComments commentsId={commentsId} />)
