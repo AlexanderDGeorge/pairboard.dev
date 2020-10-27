@@ -47,7 +47,6 @@ export interface PostSchema {
     maxCapacity?: number;
     participants: UserSchema["uid"][];
     password?: string;
-    private: boolean;
     sessionDate: Date;
     sessionEnd: Date;
     sessionStart: Date;

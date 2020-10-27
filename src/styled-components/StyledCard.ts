@@ -2,12 +2,15 @@ import styled from "styled-components";
 
 export const StyledCard = styled.div`
     min-height: 200px;
+    height: 200px;
+    max-height: 200px;
     min-width: 300px;
+    width: auto;
     max-width: 500px;
     margin: 0 20px 20px 0;
     border: 1px solid ${(props) => props.theme.accent};
     border-radius: 5px;
-    padding: 10px 10px 0 10px;
+    padding: 10px;
     box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
     cursor: pointer;
     display: flex;

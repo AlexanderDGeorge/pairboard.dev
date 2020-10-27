@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ModalContext } from "../../Application";
-import CreatePostModal from "../PostCreate/CreatePostModal";
+import CreatePostModal from "./CreatePostModal";
 import {
     RedPurpleCard,
     PurpleBlueCard,

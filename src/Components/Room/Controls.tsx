@@ -32,9 +32,11 @@ export default function Controls(props: { controls: any }) {
             style={controlsMenu}
         >
             <Button onClick={() => handleLeave()}>Leave Room</Button>
-            <Button onClick={() => toggleAudio()}>
-                {muted ? "Unmute" : "Mute"}
-            </Button>
+            <div>
+                <Button onClick={() => toggleAudio()}>
+                    {muted ? "Unmute" : "Mute"}
+                </Button>
+            </div>
             <div>
                 <animated.span style={selector}></animated.span>
                 <Button

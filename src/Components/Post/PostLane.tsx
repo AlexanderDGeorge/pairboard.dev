@@ -1,11 +1,11 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { PostSchema } from "../../firebase/schema";
 import useFirebaseQuery from "../../util/useFirebaseQuery";
 import LoadingBar from "../Animated/LoadingBar";
 import Post from "./Post";
-import CreatePost from "./CreatePost";
+import CreatePost from "../PostCreate/CreatePostLane";
 
 const restName = {
     width: "40%",
@@ -66,6 +66,15 @@ const StyledPostLane = styled.div`
         overflow-x: scroll;
     }
 `;
+const rotate = keyframes`
+
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+`;
 
 const AnimatedH1 = styled(animated.h1)`
     margin-bottom: 10px;
@@ -75,4 +84,5 @@ const AnimatedH1 = styled(animated.h1)`
     -webkit-background-clip: text;
     background-clip: text;
     cursor: pointer;
+    /* animation: ${rotate} 2s linear infinite; */
 `;

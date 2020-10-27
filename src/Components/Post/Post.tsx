@@ -1,71 +1,93 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { UserContext } from "../../Application";
+import { UserContext, ModalContext } from "../../Application";
 import { joinPost } from "../../firebase/post";
 import { PostSchema } from "../../firebase/schema";
 import PostExtras from "./PostExtras";
 import { Link } from "react-router-dom";
-import getDateToNow from "../../util/getDateToNow";
 import { StyledCard } from "../../styled-components/StyledCard";
+import PasswordModal from "../Modal/PasswordModal";
 
 export default function Post(props: { post: PostSchema }) {
     const {
-        createdAt,
         description,
-        difficulty,
         host,
         language,
-        maxCapacity,
-        participants,
         title,
+        type,
+        password,
+        sessionDate,
+        sessionEnd,
+        sessionStart,
     } = props.post;
+    const { handleModal } = useContext(ModalContext)!;
     const { uid } = useContext(UserContext)!;
-    const dateToNow = getDateToNow(new Date(createdAt));
+    // const dateToNow = getDateToNow(new Date(createdAt));
 
-    async function handleJoin(e: React.SyntheticEvent) {
+    function handleJoin(input: string) {
+        if (input === password) {
+            joinPost(uid, props.post.id);
+            handleModal();
+        }
+    }
+
+    async function handleClick(e: React.SyntheticEvent) {
         e.stopPropagation();
-        joinPost(uid, props.post.id);
+        if (password) {
+            handleModal(
+                <PasswordModal
+                    pText="This room requires a password"
+                    submitCallback={handleJoin}
+                />
+            );
+        } else {
+            joinPost(uid, props.post.id);
+        }
     }
 
     return (
-        <StyledPost onClick={handleJoin}>
-            <Top>
+        <StyledPost onClick={handleClick}>
+            <Header>
                 <img src={host.photoURL} alt="" />
                 <div>
-                    <h3>{title}</h3>
-                    <span>
-                        {difficulty} | {language}
-                    </span>
+                    <h2>{title}</h2>
                     <Link to={`/user/${host.username}`}>{host.username}</Link>
                 </div>
-            </Top>
+            </Header>
+            <Tags>
+                <li>{type}</li>
+                <li>{language}</li>
+                <li>{sessionDate}</li>
+                <li>{sessionStart}</li>
+                <li>{sessionEnd}</li>
+            </Tags>
             <p>{description}</p>
-            <Bottom>
-                <p>{dateToNow}</p>
-                <PostExtras post={props.post} />
-                <p style={{ textAlign: "end" }}>
-                    {participants.length} / {maxCapacity}
-                </p>
-            </Bottom>
+            <Footer post={props.post} />
         </StyledPost>
     );
 }
 
 const StyledPost = styled(StyledCard)`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 30% 50% 20%;
+    grid-template-areas:
+        "header tags"
+        "description tags"
+        "footer footer";
+    padding-bottom: 0;
+
     > p {
-        min-height: max-content;
+        grid-area: description;
         font-weight: 300;
         overflow-y: scroll;
     }
 `;
 
-const Top = styled.div`
-    height: 80px;
+const Header = styled.header`
+    grid-area: header;
+    height: 100%;
     width: 100%;
-    margin-bottom: 10px;
     display: flex;
     > img {
         height: 100%;
@@ -75,16 +97,30 @@ const Top = styled.div`
     > div {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        > h3 {
+        > h2 {
             font-weight: 500;
+        }
+        > a {
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 `;
 
-const Bottom = styled.div`
-    height: 30px;
+const Tags = styled.ul`
+    grid-area: tags;
+    height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    list-style: none;
+`;
+
+const Footer = styled(PostExtras)`
+    grid-area: footer;
     align-self: flex-end;
     display: flex;
     align-items: flex-end;
