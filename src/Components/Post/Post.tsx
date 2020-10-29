@@ -51,7 +51,12 @@ export default function Post(props: { post: PostSchema }) {
                 <img src={host.photoURL} alt="" />
                 <div>
                     <h2>{title}</h2>
-                    <Link to={`/user/${host.username}`}>{host.username}</Link>
+                    <Link
+                        onClick={(e) => e.stopPropagation()}
+                        to={`/user/${host.username}`}
+                    >
+                        {host.username}
+                    </Link>
                 </div>
             </Header>
             <Tags>

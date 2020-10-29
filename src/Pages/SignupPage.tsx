@@ -28,7 +28,7 @@ export default function SignupPage() {
 const Signup = styled.div`
     min-height: 100%;
     width: 100%;
-    padding: 2% 10%;
+    padding: 10%;
     display: flex;
     flex-direction: column;
     > span {

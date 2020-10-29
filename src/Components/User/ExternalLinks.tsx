@@ -1,12 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { UserSchema } from "../../firebase/schema";
 
 export default function ExternalLinks(props: { user: UserSchema }) {
+    const { githubURL } = props.user;
+
     return (
         <StyledExternalLinks>
-            {/* <ExternalLink githubURL={props.user.githubURL} /> */}
+            <GithubLink githubUsername="AlexanderDGeorge" />
         </StyledExternalLinks>
     );
 }
@@ -15,15 +16,36 @@ const StyledExternalLinks = styled.div`
     width: 100%;
 `;
 
-function ExternalLink(props: { githubURL?: string }) {
-    return (
-        <StyledExternalLink to="/">
-            <img src={props.githubURL} alt="" />
-        </StyledExternalLink>
-    );
+function GithubLink(props: { githubUsername?: string }) {
+    const { githubUsername } = props;
+    const [data, setData] = useState(undefined);
+
+    useEffect(() => {
+        if (!githubUsername) return;
+        fetch(`https://api.github.com/users/${githubUsername}`, {
+            headers: {
+                Accept: "application/vnd.github.v3+json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data);
+                console.log(data);
+            })
+            .catch((error) => console.error(error.message));
+    }, [githubUsername]);
+    if (data) {
+        return (
+            <StyledExternalLink href={`https://github.com/${githubUsername}`}>
+                github
+            </StyledExternalLink>
+        );
+    } else {
+        return null;
+    }
 }
 
-const StyledExternalLink = styled(Link)`
+const StyledExternalLink = styled.a`
     height: 300px;
     width: 500px;
     border: 1px solid ${(props) => props.theme.accent};

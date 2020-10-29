@@ -31,7 +31,7 @@ export default function LoginPage() {
 const Login = styled.div`
     min-height: 80%;
     width: 100%;
-    padding: 2% 10%;
+    padding: 10%;
     display: flex;
     flex-direction: column;
     > span {

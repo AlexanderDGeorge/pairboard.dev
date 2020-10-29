@@ -27,7 +27,12 @@ export default function Routing() {
                 <Modal />
                 <Switch>
                     <Route path="/messages" component={MessagesPage} />
-                    <Route path="/user" component={UserPage} />
+                    <Route
+                        exact
+                        path="/user"
+                        render={() => <UserPage user={currentUser} />}
+                    />
+                    <Route path="/user/:username" component={UserPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>
                 <Footer />

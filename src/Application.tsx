@@ -22,7 +22,7 @@ export default function Application() {
     const currentUser = useUserContext();
 
     return (
-        <div style={{ height: "100%", width: "100%" }}>
+        <div id="application">
             <UserContext.Provider value={currentUser}>
                 <ThemeProvider theme={useThemeContext(currentUser)}>
                     <ModalContext.Provider value={useModal()}>

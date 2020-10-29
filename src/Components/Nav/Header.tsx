@@ -1,22 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
+import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../Application";
 import ProfileLink from "./ProfileLink";
 
 export default function Header() {
-    const history = useHistory();
     const user = useContext(UserContext);
+    const ref = useRef(null);
+    const [header, setHeader] = useSpring(() => ({
+        height: 110,
+    }));
 
-    function handleGoHome() {
-        const path = history.location.pathname;
-        if (path === "/") return;
-        history.replace("/");
-    }
+    useEffect(() => {
+        const root = document.getElementById("application");
+        function handleScroll() {
+            if (!root) return;
+            if (root.scrollTop > 50) {
+                console.log(ref.current);
+                // console.log(hover);
+                setHeader({
+                    height: 60,
+                });
+            } else {
+                setHeader({
+                    height: 110,
+                });
+            }
+        }
+
+        root?.addEventListener("scroll", handleScroll);
+        return () => {
+            root?.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     return (
-        <StyledHeader>
-            <HomeLink onClick={handleGoHome}>
+        <StyledHeader style={header} ref={ref}>
+            <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
                 pairboard.dev <sup>alpha</sup>
             </HomeLink>
             {user ? <ProfileLink user={user} /> : null}
@@ -24,9 +45,12 @@ export default function Header() {
     );
 }
 
-const StyledHeader = styled.header`
-    height: 80px;
+const StyledHeader = styled(animated.header)`
+    z-index: 3;
+    position: fixed;
+    height: 110px;
     width: 100%;
+    margin-bottom: 40px;
     padding: 0 10%;
     background-color: ${(props) => props.theme.verydark};
     border-bottom: 5px solid ${(props) => props.theme.verydark};
@@ -37,7 +61,7 @@ const StyledHeader = styled.header`
     justify-content: space-between;
 `;
 
-const HomeLink = styled.button`
+const HomeLink = styled(Link)`
     height: 80px;
     background-color: transparent;
     align-self: center;

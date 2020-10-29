@@ -15,7 +15,7 @@ export default function ProfileLink(props: { user: UserSchema }) {
     }));
 
     function handleImgClick() {
-        history.replace(`/user/${username}`);
+        history.push(`/user/${username}`);
     }
 
     return (
