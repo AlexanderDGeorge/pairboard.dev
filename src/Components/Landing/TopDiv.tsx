@@ -7,21 +7,21 @@ export default function TopDiv() {
             <div>
                 <h1>Search</h1>
                 <p>
-                    look for a pairboarding partner with an array of different
-                    filters
+                    find pairboarding partners and lectures host group sessions
                 </p>
             </div>
             <div>
                 <h1>Pair</h1>
                 <p>
-                    work with your partner to solve problems, work on code, and
-                    develop team skills
+                    work with your partner, group, or lecturer to solve
+                    problems, work on code, and develop team skills
                 </p>
             </div>
             <div>
                 <h1>Connect</h1>
                 <p>
-                    leave a peer review for your partner and expand your network
+                    make connections and expand your network. showcase work and
+                    social media profiles
                 </p>
             </div>
         </StyledTopDiv>

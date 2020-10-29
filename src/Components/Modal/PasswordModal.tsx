@@ -16,8 +16,6 @@ export default function PasswordModal(props: {
     useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
 
-    // [TODO]: animate lock
-
     useEffect(() => {
         function listenForEnter(e: KeyboardEvent) {
             if (e.key === "Enter") {

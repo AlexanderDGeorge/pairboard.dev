@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import PostFeed from "../Components/Post/PostFeed";
+// import TestPage from "./TestPage";
 
 export default function HomePage() {
     return (
         <Home>
+            {/* <TestPage /> */}
             <PostFeed />
         </Home>
     );
