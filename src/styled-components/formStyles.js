@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const StyledFormComponent = styled.div`
+    position: relative;
+
+`;
+
 export const StyledField = styled.div`
     position: relative;
     min-height: 60px;
@@ -7,7 +12,7 @@ export const StyledField = styled.div`
     width: 100%;
     max-width: 600px;
     margin: 10px 0;
-    cursor: pointer;
+    /* cursor: pointer; */
     > label {
         position: absolute;
         font-weight: 100;
@@ -52,6 +57,10 @@ export const StyledField = styled.div`
         color: ${(props) => props.theme.red};
         bottom: 0;
     }
+    > li {
+        margin: 10px 0 0 10px;
+        font-weight: 100;
+    }
     > svg {
         position: absolute;
         top: calc(50% - 10px);
@@ -62,6 +71,7 @@ export const StyledField = styled.div`
 `;
 
 export const StyledButton = styled.button`
+    margin-top: 10px;
     height: 60px;
     min-width: 120px;
     width: 100%;
@@ -100,5 +110,18 @@ export const StyledButton = styled.button`
         width: auto;
         margin-right: 10px;
         fill: ${(props) => props.theme.verylight};
+    }
+    > span {
+        margin: 5px 0 0 5px;
+        font-weight: 100;
+    }
+`;
+
+export const StyledLiButtonWrapper = styled.div`
+    margin: 10px 0 20px 0;
+    > li {
+        margin: 10px 0 0 20px;
+        font-weight: 100;
+        max-width: 500px;
     }
 `;

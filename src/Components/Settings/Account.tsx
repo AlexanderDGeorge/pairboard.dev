@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Overview() {
+export default function Account() {
     return (
-        <StyledOverview>
-            <h1>Overview</h1>
-            <p>Coming Soon</p>
-        </StyledOverview>
+        <StyledAccount>
+            <h1>Account</h1>
+            
+        </StyledAccount>
     )
 }
 
-const StyledOverview = styled.div`
+const StyledAccount = styled.div`
     height: 100%;
     width: 100%;
     padding: 10px;

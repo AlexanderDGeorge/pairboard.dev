@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Overview() {
+export default function Teams() {
     return (
-        <StyledOverview>
-            <h1>Overview</h1>
+        <StyledTeams>
+            <h1>Teams</h1>
             <p>Coming Soon</p>
-        </StyledOverview>
+        </StyledTeams>
     )
 }
 
-const StyledOverview = styled.div`
+const StyledTeams = styled.div`
     height: 100%;
     width: 100%;
     padding: 10px;
