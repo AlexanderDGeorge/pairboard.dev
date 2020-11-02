@@ -1,15 +1,13 @@
-import React from "react";
-import { Route, Switch } from "react-router";
-import Nav from "./Nav";
-import Edit from "../Profile/Edit";
+import React from 'react';
+import { Route, Switch } from 'react-router';
+import Overview from './Overview';
+import Profile from './Profile';
 
 export default function Router() {
     return (
-        <>
-            <Nav />
-            <Switch>
-                <Route path="/edit" component={Edit} />
-            </Switch>
-        </>
-    );
+        <Switch>
+            <Route path='/settings/profile' component={Profile}/>
+            <Route path='/settings' component={Overview} />
+        </Switch>
+    )
 }

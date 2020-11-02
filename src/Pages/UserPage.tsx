@@ -8,6 +8,7 @@ import ExternalLinks from "../Components/User/ExternalLinks";
 import Posts from "../Components/User/Posts";
 import { UserSchema } from "../firebase/schema";
 import convertDocToUser from "../Components/User/convertDocToUser";
+import UserNav from '../Components/User/UserNav';
 
 export default function UserPage(props: { user?: UserSchema }) {
     const pathname = useLocation().pathname.slice(6);
@@ -29,7 +30,8 @@ export default function UserPage(props: { user?: UserSchema }) {
         return (
             <StyledUserPage>
                 <Header user={user} />
-                <ExternalLinks user={user} />
+                <UserNav user={user}/>
+                {/* <ExternalLinks user={user} /> */}
                 <Posts user={user} />
             </StyledUserPage>
         );

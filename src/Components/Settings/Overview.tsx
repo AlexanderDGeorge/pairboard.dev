@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default function Overview() {
-    return <StyledOverview>Overview</StyledOverview>;
+    return <StyledOverview>Overview (stats)</StyledOverview>;
 }
 
 const StyledOverview = styled.div`

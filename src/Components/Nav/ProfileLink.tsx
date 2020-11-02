@@ -30,8 +30,8 @@ export default function ProfileLink(props: { user: UserSchema }) {
                 <h4 onClick={handleImgClick}>{username}</h4>
                 <h5>{email}</h5>
                 <Link to="/messages">Messages</Link>
-                <Link to="/user/edit">Edit Profile</Link>
-                <Link to="/user/settings">Settings</Link>
+                <Link to="/settings/profile">Edit Profile</Link>
+                <Link to="/settings">Settings</Link>
                 <button onClick={signOut}>Logout</button>
             </animated.div>
         </StyledProfileLink>
