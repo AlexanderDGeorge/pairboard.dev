@@ -20,9 +20,9 @@ export default function CreatePostLane() {
                 <h2>Pairboard</h2>
             </RedPurpleCard>
             <PurpleBlueCard
-                onClick={() => handleModal(<CreatePostModal type="Group" />)}
+                onClick={() => handleModal(<CreatePostModal type="Team" />)}
             >
-                <h2>Group</h2>
+                <h2>Team</h2>
             </PurpleBlueCard>
             <BlueGreenCard
                 onClick={() => handleModal(<CreatePostModal type="Lecture" />)}

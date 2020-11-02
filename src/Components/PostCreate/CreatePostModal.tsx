@@ -1,13 +1,12 @@
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { ModalContext } from "../../Application";
+import { PostSchema } from "../../firebase/schema";
 import useLockBodyScroll from "../../util/useLockBodyScroll";
 import useOnOutsideCLick from "../../util/useOnOutsideClick";
 import FormContainer from "./FormContainer";
 
-export default function CreatePostModal(props: {
-    type: "Pairboard" | "Group" | "Lecture";
-}) {
+export default function CreatePostModal(props: { type: PostSchema["type"] }) {
     const modalRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
     const [type, setType] = useState<string>(props.type);
@@ -28,12 +27,11 @@ export default function CreatePostModal(props: {
                         <FormContainer type={type} />
                     </>
                 );
-            case "Group":
+            case "Team":
                 return (
                     <>
                         <p>
-                            Groups are intended for collaborative teamwork.{" "}
-                            <br />
+                            Teams are intended for collaboration. <br />
                             Room limits are capped at 20 occupants.
                         </p>
                         <FormContainer type={type} />
@@ -61,7 +59,7 @@ export default function CreatePostModal(props: {
                 Create a{" "}
                 <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="Pairboard">Pairboard</option>
-                    <option value="Group">Group</option>
+                    <option value="Team">Team</option>
                     <option value="Lecture">Lecture</option>
                 </select>{" "}
                 Post

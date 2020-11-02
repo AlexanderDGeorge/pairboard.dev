@@ -32,4 +32,4 @@ export const DIFFICULTIES = [
     "Expert",
 ] as const;
 
-export const POSTTYPES = ["Pairboard", "Lecture", "Group"] as const;
+export const POSTTYPES = ["Pairboard", "Team", "Lecture"] as const;

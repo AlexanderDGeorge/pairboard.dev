@@ -63,12 +63,12 @@ export default function PeerConnection(props: PeerConnectionProps) {
         // eslint-disable-next-line
     }, [connection]);
 
-    useEffect(() => {
-        if (connection?.connectionState === "disconnected") {
-            console.log("here");
-            connection.close();
-        }
-    }, [connection]);
+    // useEffect(() => {
+    //     if (connection?.connectionState === "disconnected") {
+    //         console.log("here");
+    //         connection.close();
+    //     }
+    // }, [connection]);
 
     return (
         <RemoteStream

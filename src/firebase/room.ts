@@ -54,7 +54,6 @@ export function listenForCandidates(
         .ref(`/roomNotifications/${uid}/${peerId}/iceCandidate`)
         .on("value", async (snapshot) => {
             if (!snapshot.exists()) return;
-            console.log(snapshot.val());
             connection.addIceCandidate(snapshot.val());
         });
 }
@@ -70,6 +69,7 @@ export function listenForSignaling(
             if (!snapshot.exists()) return;
             console.log(snapshot.val());
             // if (snapshot.val().type === 'offer' && peerId > uid)
+            console.log(connection);
             if (peerId > uid) {
                 await connection.setRemoteDescription(snapshot.val());
                 const answer = await connection.createAnswer();
@@ -77,7 +77,13 @@ export function listenForSignaling(
                 console.log(answer);
                 sendSessionDescription(peerId, uid, answer);
             } else {
+                // check if we have sent an offer
                 if (snapshot.val().type === "answer") {
+                    if (connection.connectionState === "disconnected") {
+                        const offer = await connection.createOffer();
+                        connection.setLocalDescription(offer);
+                        sendSessionDescription(peerId, uid, offer);
+                    }
                     await connection.setRemoteDescription(snapshot.val());
                 }
             }

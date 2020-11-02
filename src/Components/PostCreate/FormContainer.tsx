@@ -14,7 +14,7 @@ export default function FormContainer(props: { type: string }) {
         switch (props.type) {
             case "Pairboard":
                 return 2;
-            case "Group":
+            case "Team":
                 return 20;
             case "Lecture":
                 return 1000;
