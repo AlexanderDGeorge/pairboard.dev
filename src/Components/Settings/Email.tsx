@@ -1,33 +1,42 @@
 import React, { useContext, useState } from 'react';
 import { MdVerifiedUser } from 'react-icons/md';
 import styled from 'styled-components';
-import { UserContext } from '../../Application';
+import { ModalContext, UserContext } from '../../Application';
+import { checkForValidEmail } from '../../firebase/auth';
 import { auth } from '../../firebase/firebase';
-import { StyledField, StyledButton, StyledLiButtonWrapper } from '../../styled-components/formStyles';
+import { StyledField } from '../../styled-components/formStyles';
+import { StyledButton } from '../../styled-components/StyledButtons';
 import Slider from '../Animated/Slider';
+import PasswordModal from '../Modal/PasswordModal';
 
 export default function Email() {
     const user = useContext(UserContext)!;
     const [email, setEmail] = useState(user.email);
     const [emailPublic, setEmailPublic] = useState(user.emailPublic);
     const [error, setError] = useState('');
+    const { handleModal } = useContext(ModalContext)!;
 
     async function handleVerifyEmail() {
         try {
             await auth.currentUser?.sendEmailVerification();
         } catch (error) {
-            setError(error.message);
-            console.error(error.message);
+            console.error(error);
         }
     }
 
     async function handleChangeEmail() {
         try {
+            const empty = await checkForValidEmail(email);
+        if (!empty && email !== user.email) {
+            setError('email already in use')
+        } else {
             await auth.currentUser?.updateEmail(email);
+        }
         } catch (error) {
-            setError(error.message);
-
-            console.error(error.message)
+            if (error.code === 'auth/requires-recent-login') {
+                handleModal(<PasswordModal pText='This operation requires reauthorization' submitCallback={handleModal}/>)
+            }
+            console.error(error)
         }
     }
 
@@ -39,8 +48,11 @@ export default function Email() {
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} pattern={'/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i'} />
                 {user.emailVerified ? <MdVerifiedUser /> : null}
                 <p>{error}</p>
+                {user.emailVerified ? 
+                <li>your email address has been verified</li>
+                : <li>verify your email address to receive important information about your account and receive email notifications</li>
+                }
             </StyledField>
-            <StyledLiButtonWrapper>
             <StyledButton onClick={handleChangeEmail} disabled={email === user.email}>
                 Change Email Address
             </StyledButton>
@@ -48,11 +60,6 @@ export default function Email() {
             <StyledButton onClick={handleVerifyEmail} disabled={user.emailVerified}>
                 Verify Email Address
             </StyledButton>
-            {user.emailVerified ? 
-            <li>your email address has been verified</li>
-            : <li>verify your email address to receive important information about your account and receive email notifications</li>
-            }
-            </StyledLiButtonWrapper>
             <SliderLane>
                 <h3>show email on profile</h3>
                 <Slider value={emailPublic} setValue={setEmailPublic}/>
@@ -69,6 +76,7 @@ const StyledEmail = styled.ul`
     > h1 {
         margin-bottom: 10px;
         font-weight: 800;
+        font-size: 3em;
         background: ${(props) =>
             `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`};
         background-clip: text;

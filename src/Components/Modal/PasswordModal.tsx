@@ -34,6 +34,7 @@ export default function PasswordModal(props: {
             <MdLock />
             <p>{props.pText}</p>
             <StyledField>
+                <label htmlFor="password">password</label>
                 <input
                     type="password"
                     value={password}
@@ -61,5 +62,6 @@ const StyledPasswordModal = styled.div`
     }
     > p {
         font-weight: 100;
+        text-align: center;
     }
 `;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { StyledField, StyledButton } from "../../styled-components/formStyles";
+import { StyledField } from "../../styled-components/formStyles";
+import { StyledButton } from '../../styled-components/StyledButtons';
 import { login } from "../../firebase/auth";
 import styled from "styled-components";
 import { MdError } from "react-icons/md";

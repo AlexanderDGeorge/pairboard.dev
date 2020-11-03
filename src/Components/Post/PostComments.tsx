@@ -5,7 +5,7 @@ import { ModalContext, UserContext } from "../../Application";
 import { firestore } from "../../firebase/firebase";
 import { addComment } from "../../firebase/post";
 import { CommentSchema, PostSchema } from "../../firebase/schema";
-import { StyledButton } from "../../styled-components/formStyles";
+import { StyledButton } from '../../styled-components/StyledButtons';
 import getDateDescription from "../../util/getDateToNow";
 import useFirebaseQuery from "../../util/useFirebaseQuery";
 import useOnOutsideClick from "../../util/useOnOutsideClick";

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import LoginForm from "../Components/Auth/LoginForm";
-import { StyledButton } from "../styled-components/formStyles";
+import { StyledButton } from '../styled-components/StyledButtons';
 import { FaGithub } from "react-icons/fa";
 import { loginWithGithub } from "../firebase/auth";
 import { Link } from "react-router-dom";

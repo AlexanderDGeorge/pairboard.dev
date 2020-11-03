@@ -2,7 +2,9 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Application";
 import { updateUserProfile } from "../../firebase/user";
-import { StyledButton, StyledField } from "../../styled-components/formStyles";
+import { StyledField } from "../../styled-components/formStyles";
+import { StyledButton } from '../../styled-components/StyledButtons';
+
 
 export default function Edit() {
     const user = useContext(UserContext)!;

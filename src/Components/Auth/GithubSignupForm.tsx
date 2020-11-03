@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { StyledField, StyledButton } from "../../styled-components/formStyles";
+import { StyledField } from "../../styled-components/formStyles";
+import { StyledButton } from '../../styled-components/StyledButtons';
 import { checkForValidUsername, signupWithGithub } from "../../firebase/auth";
 
 interface GithubSignUpValues {

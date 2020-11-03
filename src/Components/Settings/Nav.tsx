@@ -28,7 +28,7 @@ const StyledAccountNav = styled.nav`
 function NavItem(props: { title: string, current: string, setCurrent: Function }) {
     const { title, current, setCurrent } = props;
     return (
-        <StyledNavItem style={current === title ? {} : {borderLeft: '2px solid transparent'}} onClick={() => setCurrent(title)}to={`/settings/${title}`}>
+        <StyledNavItem style={current === title ? {} : {borderLeft: '2px solid transparent'}} onClick={() => setCurrent(title)} to={`/settings/${title.toLowerCase()}`}>
             {props.title}
         </StyledNavItem>
     )

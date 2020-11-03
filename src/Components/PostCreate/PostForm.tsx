@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import styled from "styled-components";
-import { StyledButton, StyledField } from "../../styled-components/formStyles";
+import { StyledField } from "../../styled-components/formStyles";
 import { DIFFICULTIES, LANGUAGES } from "../Post/constants";
 import LoadingBar from "../Animated/LoadingBar";
 import { ModalContext } from "../../Application";
+import { StyledButton, StyledCancelButton } from '../../styled-components/StyledButtons';
 
 export default function PostForm(props: {
     validate: any;
@@ -123,11 +124,10 @@ export default function PostForm(props: {
                         </div>
                     </div>
                     <span>
-                        <BackButton type="reset" onClick={() => handleModal()}>
+                        <StyledCancelButton type="reset" onClick={() => handleModal()}>
                             Cancel
-                        </BackButton>
+                        </StyledCancelButton>
                         <StyledButton
-                            style={{ maxWidth: "80%" }}
                             disabled={!isValid || props.loading}
                             type="submit"
                         >
@@ -162,16 +162,5 @@ const CreatePairboard = styled(Form)`
     > span {
         display: flex;
         justify-content: space-between;
-    }
-`;
-
-const BackButton = styled.button`
-    width: 20%;
-    border: 1px solid ${(props) => props.theme.accent};
-    margin-right: 10px;
-    transition: border 0.2s linear;
-    &:hover {
-        transition: border 0.2s linear;
-        border: 1px solid ${(props) => props.theme.verydark};
     }
 `;
