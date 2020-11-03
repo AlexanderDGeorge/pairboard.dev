@@ -1,18 +1,14 @@
 import styled from "styled-components";
 
-export const StyledFormComponent = styled.div`
-    position: relative;
-
-`;
-
-export const StyledField = styled.div`
+export const StyledField = styled.ul`
     position: relative;
     min-height: 60px;
     min-width: 240px;
     width: 100%;
     max-width: 600px;
     margin: 10px 0;
-    /* cursor: pointer; */
+    list-style-position: outside;
+
     > label {
         position: absolute;
         font-weight: 100;
@@ -57,16 +53,16 @@ export const StyledField = styled.div`
         color: ${(props) => props.theme.red};
         bottom: 0;
     }
-    > li {
-        margin: 10px 0 0 10px;
-        font-weight: 100;
-    }
     > svg {
         position: absolute;
         top: calc(50% - 10px);
         right: 10px;
         height: 20px;
         width: 20px;
+    }
+    > li {
+        margin: 10px 0 0 10px;
+        font-weight: 100;
     }
 `;
 

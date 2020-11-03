@@ -9,6 +9,7 @@ export default function convertDocToUser(
         connections: doc.connections,
         darkMode: doc.darkMode,
         email: doc.email,
+        emailPublic: doc.emailPublic,
         emailVerified: doc.emailVerified,
         firstname: doc.firstname,
         githubURL: doc.githubURL,

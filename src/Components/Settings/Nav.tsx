@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function AccountNav() {
-    const [current, setCurrent] = useState('Profile');
+    const [current, setCurrent] = useState('Overview');
 
     return (
         <StyledAccountNav>

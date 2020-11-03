@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import { UserContext } from '../../Application';
 import { auth } from '../../firebase/firebase';
 import { StyledField, StyledButton, StyledLiButtonWrapper } from '../../styled-components/formStyles';
+import Slider from '../Animated/Slider';
 
 export default function Email() {
     const user = useContext(UserContext)!;
     const [email, setEmail] = useState(user.email);
+    const [emailPublic, setEmailPublic] = useState(user.emailPublic);
     const [error, setError] = useState('');
 
     async function handleVerifyEmail() {
@@ -51,6 +53,10 @@ export default function Email() {
             : <li>verify your email address to receive important information about your account and receive email notifications</li>
             }
             </StyledLiButtonWrapper>
+            <SliderLane>
+                <h3>show email on profile</h3>
+                <Slider value={emailPublic} setValue={setEmailPublic}/>
+            </SliderLane>
         </StyledEmail>
     )
 }
@@ -70,6 +76,17 @@ const StyledEmail = styled.ul`
         color: transparent;
     }
     svg {
-        fill: ${props => props.theme.green};
+        fill: ${props => props.theme.blue};
     }
+`;
+
+const SliderLane = styled.div`
+    width: 100%;
+    max-width: 600px;
+    border-top: 1px solid ${props => props.theme.verylight};
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
 `;

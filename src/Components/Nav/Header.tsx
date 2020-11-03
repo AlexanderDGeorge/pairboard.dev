@@ -17,8 +17,6 @@ export default function Header() {
         function handleScroll() {
             if (!root) return;
             if (root.scrollTop > 50) {
-                // console.log(ref.current);
-                // console.log(hover);
                 setHeader({
                     height: 60,
                 });
@@ -33,6 +31,7 @@ export default function Header() {
         return () => {
             root?.removeEventListener("scroll", handleScroll);
         };
+        //eslint-disable-next-line
     }, []);
 
     return (

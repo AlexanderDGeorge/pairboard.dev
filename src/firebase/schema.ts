@@ -11,6 +11,7 @@ export interface UserSchema {
     connections: FirebaseUser["uid"][];
     darkMode: "auto" | "light" | "dark";
     email: string;
+    emailPublic: boolean;
     emailVerified: boolean;
     firstname: string;
     githubURL?: string;
