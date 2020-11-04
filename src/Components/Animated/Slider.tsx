@@ -10,7 +10,7 @@ export default function Slider(props: { value: boolean, setValue: Function }) {
             left: '2px',
     };
     const [spring, setSpring] = useSpring(() => initialSpring)
-    const [background, setBackground] = useSpring(() => value ? {background: '#06D6A0'} : {background: '#222222'})
+    const [background, setBackground] = useSpring(() => value ? {background: '#06D6A0'} : {background: '#888888'})
 
     useEffect(() => {
         if (value) {
@@ -18,7 +18,7 @@ export default function Slider(props: { value: boolean, setValue: Function }) {
             setBackground({ background: '#06D6A0'})
         } else {
             setSpring({ left: '2px'})
-            setBackground({ background: '#222222'})
+            setBackground({ background: '#888888'})
         }
         //eslint-disable-next-line
     }, [value])

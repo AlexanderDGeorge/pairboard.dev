@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { UserSchema } from "../../firebase/schema";
 
 export default function ExternalLinks(props: { user: UserSchema }) {
-    const { githubURL } = props.user;
-
     return (
         <StyledExternalLinks>
             <GithubLink githubUsername="AlexanderDGeorge" />

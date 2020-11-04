@@ -5,7 +5,7 @@ import { ModalContext, UserContext } from '../../Application';
 import { checkForValidEmail } from '../../firebase/auth';
 import { auth } from '../../firebase/firebase';
 import { StyledField } from '../../styled-components/formStyles';
-import { StyledButton } from '../../styled-components/StyledButtons';
+import { StyledButton, StyledButtonRow } from '../../styled-components/StyledButtons';
 import Slider from '../Animated/Slider';
 import PasswordModal from '../Modal/PasswordModal';
 
@@ -13,12 +13,14 @@ export default function Email() {
     const user = useContext(UserContext)!;
     const [email, setEmail] = useState(user.email);
     const [emailPublic, setEmailPublic] = useState(user.emailPublic);
+    const [emailSent, setEmailSent] = useState(false);
     const [error, setError] = useState('');
     const { handleModal } = useContext(ModalContext)!;
 
     async function handleVerifyEmail() {
         try {
             await auth.currentUser?.sendEmailVerification();
+            setEmailSent(true);
         } catch (error) {
             console.error(error);
         }
@@ -53,15 +55,18 @@ export default function Email() {
                 : <li>verify your email address to receive important information about your account and receive email notifications</li>
                 }
             </StyledField>
+            <StyledButtonRow>
+
             <StyledButton onClick={handleChangeEmail} disabled={email === user.email}>
                 Change Email Address
             </StyledButton>
 
-            <StyledButton onClick={handleVerifyEmail} disabled={user.emailVerified}>
-                Verify Email Address
+            <StyledButton onClick={handleVerifyEmail} disabled={user.emailVerified || emailSent}>
+                    {emailSent ? 'Email Sent' : 'Verify Email Address'}
             </StyledButton>
+            </StyledButtonRow>
             <SliderLane>
-                <h3>show email on profile</h3>
+                <h4>Show email on profile</h4>
                 <Slider value={emailPublic} setValue={setEmailPublic}/>
             </SliderLane>
         </StyledEmail>
@@ -78,13 +83,13 @@ const StyledEmail = styled.ul`
         font-weight: 800;
         font-size: 3em;
         background: ${(props) =>
-            `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`};
+            `linear-gradient(140deg, ${props.theme.blue}, 20%, ${props.theme.green})`};
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
     }
     svg {
-        fill: ${props => props.theme.blue};
+        fill: ${props => props.theme.green};
     }
 `;
 

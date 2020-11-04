@@ -16,6 +16,7 @@ export default function convertDocToUser(
         lastname: doc.lastname,
         linkedInURL: doc.linkedInURL,
         location: doc.location,
+        personalURL: doc.personalURL,
         photoURL: doc.photoURL,
         postId: doc.postId,
         posts: doc.posts,

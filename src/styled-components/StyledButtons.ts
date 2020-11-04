@@ -5,7 +5,7 @@ export const StyledButton = styled.button`
     height: 60px;
     min-width: 120px;
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
     border-radius: 60px;
     padding: 10px;
     font-size: 1em;
@@ -29,8 +29,8 @@ export const StyledButton = styled.button`
         }
     }
     &:disabled {
-        background: ${(props) => props.theme.verydark};
-        box-shadow: 0;
+        background: ${(props) => props.theme.medium};
+        box-shadow: 0 0;
         color: ${(props) => props.theme.verylight};
         fill: ${(props) => props.theme.verylight};
     }
@@ -48,15 +48,29 @@ export const StyledButton = styled.button`
     }
 `;
 
+export const StyledButtonRow = styled.div`
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+`;
+
 export const StyledCancelButton = styled.button`
-    min-width: 200px;
-    width: 200px;
-    max-width: 200px;
-    border: 1px solid ${props => props.theme.accent};
+    position: absolute;
+    left: 0;
+    height: 60px;
+    min-width: 100px;
+    width: 100px;
+    max-width: 100px;
+    /* border: 0px solid ${props => props.theme.accent}; */
     margin: 15px 0;
+    text-decoration: underline;
     transition: border 0.2s linear;
     &:hover {
         transition: border 0.2s linear;
-        border: 1px solid ${(props) => props.theme.verydark};
+        /* border: 1px solid ${(props) => props.theme.verylight}; */
+        text-decoration: none;
     }
 `;

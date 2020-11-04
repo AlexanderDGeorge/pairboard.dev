@@ -5,11 +5,12 @@ import { StyledButton } from '../styled-components/StyledButtons';
 import { FaGithub } from "react-icons/fa";
 import { loginWithGithub } from "../firebase/auth";
 import { Link } from "react-router-dom";
+import { StyledH1 } from '../styled-components/StyledHeaders';
 
 export default function LoginPage() {
     return (
         <Login>
-            <h1>Login</h1>
+            <StyledH1>Login</StyledH1>
             <LoginForm />
             <span>
                 <div></div>

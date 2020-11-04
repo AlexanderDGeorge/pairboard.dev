@@ -7,7 +7,7 @@ import {
 
 export interface UserSchema {
     uid: FirebaseUser["uid"];
-    blurb: string;
+    blurb?: string;
     connections: FirebaseUser["uid"][];
     darkMode: "auto" | "light" | "dark";
     email: string;
@@ -19,7 +19,7 @@ export interface UserSchema {
     linkedInURL?: string;
     location?: string;
     photoURL: string;
-    portfolioURL?: string;
+    personalURL?: string;
     postId?: string;
     posts: PostSchema["id"][];
     score: number;

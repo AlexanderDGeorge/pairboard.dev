@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function AccountNav() {
-    const [current, setCurrent] = useState('Overview');
+    const pathname = useLocation().pathname.slice(10);
 
     return (
         <StyledAccountNav>
-            <NavItem current={current} setCurrent={setCurrent} title='Overview'/>
-            <NavItem current={current} setCurrent={setCurrent} title='Profile'/>
-            <NavItem current={current} setCurrent={setCurrent} title='Account'/>
-            <NavItem current={current} setCurrent={setCurrent} title='Email'/>
-            <NavItem current={current} setCurrent={setCurrent} title='Notifications'/>
-            <NavItem current={current} setCurrent={setCurrent} title='Teams'/>
+            <NavItem pathname={pathname} title='Overview'/>
+            <NavItem pathname={pathname} title='Profile'/>
+            <NavItem pathname={pathname} title='Account'/>
+            <NavItem pathname={pathname} title='Email'/>
+            <NavItem pathname={pathname} title='Notifications'/>
+            <NavItem pathname={pathname} title='Teams'/>
         </StyledAccountNav>
     )
 }
@@ -25,10 +25,10 @@ const StyledAccountNav = styled.nav`
     padding: 5px;
 `;
 
-function NavItem(props: { title: string, current: string, setCurrent: Function }) {
-    const { title, current, setCurrent } = props;
+function NavItem(props: { title: string, pathname: string }) {
+    const { title, pathname } = props;
     return (
-        <StyledNavItem style={current === title ? {} : {borderLeft: '2px solid transparent'}} onClick={() => setCurrent(title)} to={`/settings/${title.toLowerCase()}`}>
+        <StyledNavItem style={pathname.toLowerCase() === title.toLowerCase() ? {} : {borderLeft: '2px solid transparent'}} to={`/settings/${title.toLowerCase()}`}>
             {props.title}
         </StyledNavItem>
     )

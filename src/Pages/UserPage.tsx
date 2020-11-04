@@ -4,7 +4,6 @@ import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
 import Loading from "./LoadingPage";
 import Header from "../Components/User/Header";
-import ExternalLinks from "../Components/User/ExternalLinks";
 import Posts from "../Components/User/Posts";
 import { UserSchema } from "../firebase/schema";
 import convertDocToUser from "../Components/User/convertDocToUser";
@@ -31,7 +30,6 @@ export default function UserPage(props: { user?: UserSchema }) {
             <StyledUserPage>
                 <Header user={user} />
                 <UserNav user={user}/>
-                {/* <ExternalLinks user={user} /> */}
                 <Posts user={user} />
             </StyledUserPage>
         );
