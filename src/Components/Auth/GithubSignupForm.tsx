@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField } from "../../styled-components/formStyles";
 import { StyledButton } from '../../styled-components/StyledButtons';
-import { checkForValidUsername, signupWithGithub } from "../../firebase/auth";
+import { signupWithGithub } from "../../firebase/auth";
+import {validateUsername} from "../../util/validationFunctions";
 
 interface GithubSignUpValues {
     username: string;
@@ -16,13 +17,7 @@ export default function GithubSignupForm(props: { setTopError: Function }) {
 
     async function validate(values: GithubSignUpValues) {
         const errors: { [key: string]: string } = {};
-        if (!values.username) {
-            errors.username = "required";
-        } else if (values.username.length < 4) {
-            errors.username = "username must be a least four characters";
-        } else if (!(await checkForValidUsername(values.username))) {
-            errors.username = "username already in use";
-        }
+        validateUsername(values.username, '', errors);
 
         if (!values.firstname) {
             errors.firstname = "required";
@@ -53,8 +48,6 @@ export default function GithubSignupForm(props: { setTopError: Function }) {
                 firstname: "",
                 lastname: "",
             }}
-            validateOnChange={false}
-            validateOnBlur={true}
             validate={validate}
             onSubmit={handleSubmit}
         >

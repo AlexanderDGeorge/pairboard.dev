@@ -57,3 +57,7 @@ export async function updateUserProfile(
         username,
     });
 }
+
+export async function updateUserAccount() {
+    
+}

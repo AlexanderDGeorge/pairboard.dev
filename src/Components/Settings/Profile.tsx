@@ -3,9 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styled from 'styled-components';
 import { UserContext } from '../../Application';
 import { StyledField } from '../../styled-components/formStyles';
-import { StyledButton } from '../../styled-components/StyledButtons';
+import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
 import { UserSchema } from '../../firebase/schema';
-import { checkForValidUsername } from '../../firebase/auth';
+import {validateUsername} from '../../util/validationFunctions';
 import LoadingBar from '../Animated/LoadingBar';
 import { updateUserProfile } from '../../firebase/user';
 
@@ -25,13 +25,7 @@ export default function Profile() {
 
     async function validate(values: ProfileValues) {
         const errors: { [key: string]: string } = {};
-        if (!values.username) {
-            errors.username = 'required';
-        } else if (!values.username.match(/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/)) {
-            errors.username = 'invalid username'
-        } else if (values.username !== username && !(await checkForValidUsername(values.username))) {
-            errors.username = 'username already in use'
-        }
+        validateUsername(values.username, username, errors);
 
         if (values.blurb && values.blurb.length > 160) {
             errors.blurb = 'blurb is too long'
@@ -41,7 +35,7 @@ export default function Profile() {
 
     async function handleSubmit(values: ProfileValues) {
         setLoading(true);
-        await updateUserProfile(uid, values.blurb, values.githubURL, values.linkedInURL, values.personalURL, values.location, values.username);
+        await updateUserProfile(uid, values.blurb, values.githubURL, values.linkedInURL, values.personalURL, values.location, values.username.toLowerCase());
         setTopMessage('Successfully updated profile')
         setLoading(false);
     }
@@ -51,8 +45,6 @@ export default function Profile() {
             initialValues={{ username, blurb: blurb || '', location: location || '', personalURL: personalURL || '', githubURL: githubURL || '', linkedInURL: linkedInURL || '' }}
             onSubmit={handleSubmit}
             validate={validate}
-            validateOnBlur={true}
-            validateOnChange={true}
         >
             {({ isValid }) => (
                 <ProfileSettings>
@@ -91,9 +83,12 @@ export default function Profile() {
                     <Field type='url' name='linkedInURL' placeholder='linkedIn.com/Username' />
                     <ErrorMessage name='linkedInURL' component='p' />
                 </StyledField>
-                <StyledButton type='submit' disabled={!isValid || loading}>
-                        {loading ? <LoadingBar /> : 'Update Changes'}
-                </StyledButton>
+                    <StyledButtonRow>
+                    <StyledCancelButton type='reset'>Cancel</StyledCancelButton>
+                    <StyledButton type='submit' disabled={!isValid || loading}>
+                        {loading ? <LoadingBar /> : 'Update Profile'}
+                    </StyledButton>
+                </StyledButtonRow>
             </ProfileSettings>
         )}
         </Formik>
@@ -113,8 +108,5 @@ const ProfileSettings = styled(Form)`
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
-    }
-    > h2 {
-        max-width: 600px;
     }
 `;

@@ -6,6 +6,7 @@ import { signup, SignUpValues } from "../../firebase/auth";
 import styled from "styled-components";
 import { MdError } from "react-icons/md";
 import LoadingBar from "../Animated/LoadingBar";
+import { validateUsername, validateEmail } from "../../util/validationFunctions";
 
 export default function SignupForm(props: {
     topError?: string;
@@ -17,11 +18,7 @@ export default function SignupForm(props: {
     async function validate(values: SignUpValues) {
         setTopError(undefined);
         const errors: { [key: string]: string } = {};
-        if (!values.username) {
-            errors.username = "required";
-        } else if (values.username.length < 4) {
-            errors.username = "username must be a least four characters";
-        }
+        validateUsername(values.username, '', errors);
 
         if (!values.firstname) {
             errors.firstname = "required";
@@ -31,13 +28,7 @@ export default function SignupForm(props: {
             errors.lastname = "required";
         }
 
-        if (!values.email) {
-            errors.email = "required";
-        } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-            errors.email = "invalid email address";
-        }
+        validateEmail(values.email, '', errors);
 
         if (!values.password) {
             errors.password = "required";
@@ -66,8 +57,6 @@ export default function SignupForm(props: {
                 email: "",
                 password: "",
             }}
-            validateOnChange={false}
-            validateOnBlur={true}
             validate={validate}
             onSubmit={handleSubmit}
         >

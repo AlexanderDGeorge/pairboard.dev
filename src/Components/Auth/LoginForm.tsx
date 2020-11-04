@@ -47,8 +47,6 @@ export default function LoginForm() {
                 email: "",
                 password: "",
             }}
-            validateOnChange={false}
-            validateOnBlur={true}
             validate={validate}
             onSubmit={handleSubmit}
         >
