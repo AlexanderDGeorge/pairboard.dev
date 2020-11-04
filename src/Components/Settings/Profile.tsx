@@ -5,76 +5,94 @@ import { UserContext } from '../../Application';
 import { StyledField } from '../../styled-components/formStyles';
 import { StyledButton } from '../../styled-components/StyledButtons';
 import { UserSchema } from '../../firebase/schema';
+import { checkForValidUsername } from '../../firebase/auth';
+import LoadingBar from '../Animated/LoadingBar';
+import { updateUserProfile } from '../../firebase/user';
 
 interface ProfileValues {
     username: UserSchema['username'];
     blurb: UserSchema['blurb'];
+    location: UserSchema['location'];
     personalURL: UserSchema['personalURL'];
     githubURL: UserSchema['githubURL'];
     linkedInURL: UserSchema['linkedInURL'] 
 }
 
 export default function Profile() {
-    const user = useContext(UserContext)!;
-    const [username, setUsername] = useState(user.username);
-    const [blurb, setBlurb] = useState(user.blurb || '');
-    const [personalURL, setPersonalURL] = useState(user.personalURL || '');
-    const [githubURL, setGithubURL] = useState(user.githubURL || '');
-    const [linkedInURL, setLinkedInURL] = useState(user.linkedInURL || '');
+    const {uid, username, blurb, location, personalURL, githubURL, linkedInURL} = useContext(UserContext)!;
+    const [loading, setLoading] = useState(false);
+    const [topMessage, setTopMessage] = useState('');
 
     async function validate(values: ProfileValues) {
-        console.log(values)
         const errors: { [key: string]: string } = {};
         if (!values.username) {
             errors.username = 'required';
-        } else if (!values.username.match(/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/)) {
-            console.log('regex failed')
+        } else if (!values.username.match(/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/)) {
+            errors.username = 'invalid username'
+        } else if (values.username !== username && !(await checkForValidUsername(values.username))) {
+            errors.username = 'username already in use'
         }
+
+        if (values.blurb && values.blurb.length > 160) {
+            errors.blurb = 'blurb is too long'
+        }
+        return errors;
     }
 
-    async function handleUsernameChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const value = e.target.value.replace(/\s+/g, '');
-        setUsername(value.toLowerCase());
-    }
-
-    async function handleSubmit() {
-
+    async function handleSubmit(values: ProfileValues) {
+        setLoading(true);
+        await updateUserProfile(uid, values.blurb, values.githubURL, values.linkedInURL, values.personalURL, values.location, values.username);
+        setTopMessage('Successfully updated profile')
+        setLoading(false);
     }
 
     return (
         <Formik
-            initialValues={{ username, blurb, personalURL, githubURL, linkedInURL }}
+            initialValues={{ username, blurb: blurb || '', location: location || '', personalURL: personalURL || '', githubURL: githubURL || '', linkedInURL: linkedInURL || '' }}
             onSubmit={handleSubmit}
             validate={validate}
             validateOnBlur={true}
-            validateOnChange={false}
+            validateOnChange={true}
         >
             {({ isValid }) => (
                 <ProfileSettings>
                     <h1>Profile</h1>
+                    <h2>{topMessage}</h2>
                 <StyledField>
                     <label htmlFor="username">username</label>
                     <Field name='username' type="text" />
                     <ErrorMessage name='username' component='p' />
+                    <li>Usernames must be between 4 - 20 characters long.</li>
+                    <li>Usernames must only contain numbers, letters, underscores, and periods. </li>
                 </StyledField>
                 <StyledField>
                     <label htmlFor="blurb">blurb</label>
-                    <input type="text" value={blurb} onChange={e => setBlurb(e.target.value)}/>
+                    <Field name='blurb' type="text" />
+                    <ErrorMessage name='blurb' component='p' />
+                    <li>Blurbs are optional but must be less than 160 characters long.</li>
                 </StyledField>
                 <StyledField>
-                    <label htmlFor="blurb">personalURL</label>
-                    <input type='url' value={personalURL} placeholder='exampleurl.com' onChange={e => setPersonalURL(e.target.value)}/>
+                    <label htmlFor="location">location</label>
+                    <Field name='location' type="text" />
+                    <ErrorMessage name='location' component='p' />
+                </StyledField>
+                <StyledField>
+                    <label htmlFor="personalURL">personalURL</label>
+                    <Field type='url' name='personalURL' placeholder='exampleurl.com' />
+                    <ErrorMessage name='personalURL' component='p' />
                 </StyledField>
                 <StyledField>
                     <label htmlFor="githubURL">githubURL</label>
-                    <input type="url" value={githubURL} onChange={e => setGithubURL(e.target.value)}/>
+                    <Field type='url' name='githubURL' placeholder='github.com/Username' />
+                    <ErrorMessage name='githubURL' component='p' />
                 </StyledField>
                 <StyledField>
                     <label htmlFor="linkedInURL">linkedInURL</label>
-                    <input type="url" value={linkedInURL} onChange={e => setLinkedInURL(e.target.value)}/>
+                    <Field type='url' name='linkedInURL' placeholder='linkedIn.com/Username' />
+                    <ErrorMessage name='linkedInURL' component='p' />
                 </StyledField>
-                <StyledButton type='submit'>
-                    Update Changes
+                <StyledButton type='submit' disabled={!isValid || loading}>
+                        {loading ? <LoadingBar /> : 'Update Changes'}
                 </StyledButton>
             </ProfileSettings>
         )}
@@ -95,5 +113,8 @@ const ProfileSettings = styled(Form)`
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
+    }
+    > h2 {
+        max-width: 600px;
     }
 `;

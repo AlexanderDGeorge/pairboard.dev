@@ -65,5 +65,6 @@ export const StyledField = styled.ul`
         margin: 10px 0 0 20px;
         font-weight: 100;
         max-width: 500px;
+        font-size: 0.9em;
     }
 `;

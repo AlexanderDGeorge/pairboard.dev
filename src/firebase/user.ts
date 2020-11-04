@@ -43,7 +43,7 @@ export async function updateUserProfile(
     blurb: UserSchema["blurb"],
     githubURL: UserSchema["githubURL"],
     linkedInURL: UserSchema["linkedInURL"],
-    portfolioURL: UserSchema["personalURL"],
+    personalURL: UserSchema["personalURL"],
     location: UserSchema["location"],
     username: UserSchema["username"]
 ) {
@@ -52,7 +52,7 @@ export async function updateUserProfile(
         blurb,
         githubURL,
         linkedInURL,
-        portfolioURL,
+        personalURL,
         location,
         username,
     });
