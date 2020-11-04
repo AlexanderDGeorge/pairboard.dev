@@ -4,8 +4,8 @@ export const StyledButton = styled.button`
     margin: 15px 0;
     height: 60px;
     min-width: 120px;
-    width: 100%;
-    max-width: 250px;
+    width: 60%;
+    max-width: 600px;
     border-radius: 60px;
     padding: 10px;
     font-size: 1em;
@@ -64,13 +64,11 @@ export const StyledCancelButton = styled.button`
     min-width: 100px;
     width: 100px;
     max-width: 100px;
-    /* border: 0px solid ${props => props.theme.accent}; */
     margin: 15px 0;
     text-decoration: underline;
     transition: border 0.2s linear;
     &:hover {
         transition: border 0.2s linear;
-        /* border: 1px solid ${(props) => props.theme.verylight}; */
         text-decoration: none;
     }
 `;

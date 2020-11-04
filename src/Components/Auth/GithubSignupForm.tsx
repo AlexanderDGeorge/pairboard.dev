@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField } from "../../styled-components/formStyles";
-import { StyledButton } from '../../styled-components/StyledButtons';
+import { StyledButton, StyledButtonRow } from '../../styled-components/StyledButtons';
 import { signupWithGithub } from "../../firebase/auth";
 import {validateUsername} from "../../util/validationFunctions";
 
@@ -68,9 +68,12 @@ export default function GithubSignupForm(props: { setTopError: Function }) {
                         <Field type="text" name="lastname" />
                         <ErrorMessage name="lastname" component="p" />
                     </StyledField>
+                    <StyledButtonRow>
                     <StyledButton type="submit" disabled={!isValid || loading}>
                         Sign Up with Github
                     </StyledButton>
+
+                    </StyledButtonRow>
                 </Form>
             )}
         </Formik>

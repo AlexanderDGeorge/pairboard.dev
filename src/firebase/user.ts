@@ -58,6 +58,10 @@ export async function updateUserProfile(
     });
 }
 
-export async function updateUserAccount() {
-    
+export async function updateUserAccount(
+    uid: UserSchema['uid'],
+    email: UserSchema['email'],
+) {
+    // const userRef = firestore().collection("users").doc(uid);
+    await auth.currentUser?.updateEmail(email);
 }

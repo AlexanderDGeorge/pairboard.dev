@@ -20,6 +20,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 export const auth = firebase.auth();
+auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 export const firestore = firebase.firestore;
 export const database = firebase.database;
 // export const messaging = firebase.messaging();

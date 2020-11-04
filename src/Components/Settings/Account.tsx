@@ -5,7 +5,7 @@ import { UserContext } from '../../Application';
 import { UserSchema } from '../../firebase/schema';
 import { updateUserAccount } from '../../firebase/user';
 import { StyledField } from '../../styled-components/formStyles';
-import { StyledButton } from '../../styled-components/StyledButtons';
+import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
 import { validateEmail } from '../../util/validationFunctions';
 import LoadingBar from '../Animated/LoadingBar';
 
@@ -15,7 +15,7 @@ interface AccountValues {
 
 export default function Account() {
     const [loading, setLoading] = useState(false);
-    const { email } = useContext(UserContext)!;
+    const { uid,email } = useContext(UserContext)!;
 
     async function validate(values: AccountValues) {
         const errors: { [key: string]: string } = {};
@@ -25,7 +25,7 @@ export default function Account() {
 
     async function handleSubmit(values: AccountValues) {
         setLoading(true);
-        await updateUserAccount();
+        await updateUserAccount(uid, values.email);
         setLoading(false);
     }
 
@@ -43,9 +43,12 @@ export default function Account() {
                         <Field name='email' type='email' />
                         <ErrorMessage name='email' component='p'/>
                     </StyledField>
+                    <StyledButtonRow>
+                        <StyledCancelButton type='reset'>Cancel</StyledCancelButton>
                     <StyledButton type='submit' disabled={!isValid || loading}>
                         {loading ? <LoadingBar /> : 'Update Account'}
                     </StyledButton>
+                    </StyledButtonRow>
                 </AccountSettings>
         )}
         </Formik>

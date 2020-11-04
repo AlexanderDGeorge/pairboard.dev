@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import LoginForm from "../Components/Auth/LoginForm";
-import { StyledButton } from '../styled-components/StyledButtons';
+import { StyledButton, StyledButtonRow } from '../styled-components/StyledButtons';
 import { FaGithub } from "react-icons/fa";
 import { loginWithGithub } from "../firebase/auth";
 import { Link } from "react-router-dom";
@@ -17,10 +17,13 @@ export default function LoginPage() {
                 OR
                 <div></div>
             </span>
+            <StyledButtonRow>
+
             <StyledButton onClick={loginWithGithub}>
                 <FaGithub />
                 Log in with Github
             </StyledButton>
+            </StyledButtonRow>
             <Link style={{ marginTop: "10%" }} to="/signup">
                 meant to sign up?
             </Link>

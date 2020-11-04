@@ -10,7 +10,6 @@ export default function AccountNav() {
             <NavItem pathname={pathname} title='Overview'/>
             <NavItem pathname={pathname} title='Profile'/>
             <NavItem pathname={pathname} title='Account'/>
-            <NavItem pathname={pathname} title='Email'/>
             <NavItem pathname={pathname} title='Notifications'/>
             <NavItem pathname={pathname} title='Teams'/>
         </StyledAccountNav>

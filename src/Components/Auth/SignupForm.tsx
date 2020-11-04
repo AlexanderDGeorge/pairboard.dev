@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField } from "../..//styled-components/formStyles";
-import { StyledButton } from '../../styled-components/StyledButtons';
+import { StyledButton, StyledButtonRow } from '../../styled-components/StyledButtons';
 import { signup, SignUpValues } from "../../firebase/auth";
 import styled from "styled-components";
 import { MdError } from "react-icons/md";
@@ -93,9 +93,12 @@ export default function SignupForm(props: {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
+                    <StyledButtonRow>
+
                     <StyledButton type="submit" disabled={!isValid || loading}>
                         {loading ? <LoadingBar /> : "Sign Up"}
                     </StyledButton>
+                    </StyledButtonRow>
                 </Form>
             )}
         </Formik>

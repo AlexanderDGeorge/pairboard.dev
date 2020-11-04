@@ -27,10 +27,10 @@ export default function ProfileLink(props: { user: UserSchema }) {
         >
             <img src={photoURL} alt="" onClick={handleImgClick} />
             <animated.div style={menu}>
-                <h4 onClick={handleImgClick}>{username}</h4>
-                <h5>{email}</h5>
+                <h3 onClick={handleImgClick}>{username}</h3>
+                <p>{email}</p>
+                <Link to='/'>Home</Link>
                 <Link to="/messages">Messages</Link>
-                <Link to="/settings/profile">Edit Profile</Link>
                 <Link to="/settings">Settings</Link>
                 <button onClick={signOut}>Logout</button>
             </animated.div>
@@ -67,17 +67,13 @@ const StyledProfileLink = styled.div`
         > * {
             background-color: transparent;
         }
-        > h4 {
+        > h3 {
             height: 30px;
             width: calc(100% - 60px);
             cursor: pointer;
             &:hover {
                 text-decoration: underline;
             }
-        }
-        > h5 {
-            height: 30px;
-            width: calc(100% - 60px);
         }
         > button,
         a {
