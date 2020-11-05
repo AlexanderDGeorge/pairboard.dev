@@ -32,7 +32,7 @@ export default function PostDate(props: { sessionDate: Date }) {
         const temp = new Date(sessionDate);
         const month = MONTHS[temp.getMonth()];
         const day = DAYS[temp.getDay()];
-        const date = temp.getDate();
+        const date = temp.getUTCDate();
         return { month, day, date };
     }
     

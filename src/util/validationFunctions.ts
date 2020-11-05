@@ -5,7 +5,7 @@ import { UserSchema } from "../firebase/schema";
 export async function validateUsername(newUsername: UserSchema['username'], oldUsername: UserSchema['username'], error: { [key: string]: string}) {
     if (!newUsername) {
         error.username = 'required';
-    } else if (!newUsername.match(/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/)) {
+    } else if (!newUsername.match(/^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/)) {
         error.username = 'invalid username'
     } else if (oldUsername !== newUsername && !(await checkForValidUsername(newUsername))) {
         error.username = 'this username is already in use'

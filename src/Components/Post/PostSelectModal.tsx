@@ -11,10 +11,19 @@ import PostTag from './PostTag';
 export default function PostSelectModal(props: {post: PostSchema}) {
     const modalRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
-    const { title, description, host, type, language } = props.post;
+    const { title, description, host, type, language, sessionDate } = props.post;
 
     useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
+
+    function canJoin() {
+        const now = new Date();
+        console.log(now);
+        const then = new Date(sessionDate);
+        console.log(then);
+        console.log(then === now);
+        return false;
+    }
 
     return (
         <StyledModal ref={modalRef}>
@@ -31,7 +40,7 @@ export default function PostSelectModal(props: {post: PostSchema}) {
             <StyledDivider />
             <StyledButtonRow>
                 <StyledCancelButton onClick={() => handleModal()}>Cancel</StyledCancelButton>
-                <StyledButton>
+                <StyledButton disabled={canJoin()}>
                     Join Room
                 </StyledButton>
             </StyledButtonRow>

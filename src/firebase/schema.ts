@@ -38,8 +38,6 @@ export interface PostSchema {
     id: string;
     active: boolean;
     author: LightUserSchema;
-    commentsAllowed: boolean;
-    commentsId: CommentSchema["id"];
     createdAt: Date;
     description: string;
     difficulty: typeof DIFFICULTIES[number];
@@ -53,15 +51,6 @@ export interface PostSchema {
     sessionStart: Date;
     title: string;
     type: typeof POSTTYPES[number];
-}
-
-export interface CommentSchema {
-    id: string;
-    comments: {
-        username: UserSchema["username"];
-        content: string;
-        createdAt: string;
-    }[];
 }
 
 export interface RoomSchema {
