@@ -10,9 +10,8 @@ export default function PostTag(props: {tag: string}) {
 }
 
 const StyledPostTag = styled.p`
-    min-width: 100px;
-    width: 100%;
-    margin-bottom: 5px;
+    width: 100px;
+    margin: 0 0 5px 5px;
     border-radius: 5px;
     padding: 5px;
     background-color: ${props => props.theme.dark} !important;

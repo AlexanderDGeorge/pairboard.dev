@@ -4,11 +4,11 @@ export const StyledCard = styled.div`
     min-height: 200px;
     height: 200px;
     max-height: 200px;
-    max-width: 500px;
+    width: 400px;
     margin: 0 20px 20px 0;
     border: 1px solid ${(props) => props.theme.accent};
     border-radius: 5px;
-    padding: 10px;
+    padding: 2%;
     box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
     cursor: pointer;
     display: flex;

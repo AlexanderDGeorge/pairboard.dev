@@ -9,7 +9,7 @@ export default function Header() {
     const user = useContext(UserContext);
     const ref = useRef(null);
     const [header, setHeader] = useSpring(() => ({
-        height: 110,
+        height: 80,
     }));
 
     useEffect(() => {
@@ -18,11 +18,11 @@ export default function Header() {
             if (!root) return;
             if (root.scrollTop > 50) {
                 setHeader({
-                    height: 60,
+                    height: 80,
                 });
             } else {
                 setHeader({
-                    height: 110,
+                    height: 80,
                 });
             }
         }
@@ -47,7 +47,7 @@ export default function Header() {
 const StyledHeader = styled(animated.header)`
     z-index: 3;
     position: fixed;
-    height: 110px;
+    height: 80;
     width: 100%;
     margin-bottom: 40px;
     padding: 0 10%;

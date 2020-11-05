@@ -4,7 +4,6 @@ import { ModalContext } from "../../Application";
 import { PostSchema } from "../../firebase/schema";
 import PostDate from "./PostDate";
 import { Link } from "react-router-dom";
-import { StyledCard } from "../../styled-components/StyledCard";
 import PostSelectModal from './PostSelectModal';
 import PostTag from './PostTag';
 
@@ -23,23 +22,20 @@ export default function Post(props: { post: PostSchema }) {
 
     async function handleClick(e: React.SyntheticEvent) {
         e.stopPropagation();
-        handleModal(<PostSelectModal />);
+        handleModal(<PostSelectModal post={props.post}/>);
     }
 
     return (
         <StyledPost onClick={handleClick}>
             <Header>
-                <img src={host.photoURL} alt="" />
-                <div>
-                    <h2>{title}</h2>
-                    <h4>{sessionStart} - {sessionEnd}</h4>
-                    <Link
-                        onClick={(e) => e.stopPropagation()}
-                        to={`/user/${host.username}`}
-                    >
-                        {host.username}
-                    </Link>
-                </div>
+                <h2>{title.slice(0, 30)}</h2>
+                <Link
+                    onClick={(e) => e.stopPropagation()}
+                    to={`/user/${host.username}`}
+                >
+                    <img src={host.photoURL} alt="" />
+                    {host.username}
+                </Link>
             </Header>
             <PostDate sessionDate={sessionDate}/>
             <Tags>
@@ -51,18 +47,37 @@ export default function Post(props: { post: PostSchema }) {
     );
 }
 
-const StyledPost = styled(StyledCard)`
-    width: max-content;
-    display: grid !important;
-    grid-template-columns: auto 10px 100px;
+const StyledPost = styled.div`
+    height: 200px;
+    margin: 0 20px 20px 0;
+    border: 1px solid ${(props) => props.theme.accent};
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
+    cursor: pointer;
+    transition: all linear 0.2s;
+    display: grid;
+    grid-template-columns: max-content 10px 100px;
     grid-template-rows: 70px 10px auto;
     grid-template-areas:
-        "header . date"
+        "title . date"
         ". . ."
         "description . tags";
+    * {
+        background: transparent;
+    }
+    &:hover {
+        transition: all linear 0.2s;
+        border-radius: 5px;
+        box-shadow: 0 0 20px -6px ${(props) => props.theme.verydark};
+    }
+    &:active {
+        box-shadow: inset 0 0 20px 2px ${(props) => props.theme.verydark};
+    }
     > p {
         height: 100%;
         width: 100%;
+        max-width: 300px;
         grid-area: description;
         font-weight: 200;
         text-align: justify;
@@ -71,27 +86,31 @@ const StyledPost = styled(StyledCard)`
 `;
 
 const Header = styled.header`
-    grid-area: header;
+    grid-area: title;
     min-height: 70px;
     height: 100%;
     width: 100%;
+    max-width: 330px;
+    width: 100%;
     display: flex;
-    > img {
-        height: 100%;
-        width: auto;
-        margin-right: 10px;
+    flex-direction: column;
+    > h2 {
+        font-weight: 500;
+        overflow: hidden;
     }
-    > div {
+    > a {
+        height: 30px;
         display: flex;
-        flex-direction: column;
-        > h2 {
-            font-weight: 500;
+        align-items: center;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
         }
-        > a {
-            text-decoration: none;
-            &:hover {
-                text-decoration: underline;
-            }
+        > img {
+            height: 100%;
+            width: auto;
+            margin-right: 10px;
+            border-radius: 50%;
         }
     }
 `;

@@ -15,7 +15,7 @@ export default function HomePage() {
 const Home = styled.div`
     min-height: 100%;
     width: 100%;
-    padding: 10%;
+    padding: 100px 10%;
     display: flex;
     flex-direction: column;
 `;

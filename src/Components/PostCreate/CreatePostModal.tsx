@@ -75,7 +75,7 @@ const StyledModal = styled.div`
     width: 80%;
     max-width: 1000px;
     border-radius: 5px;
-    padding: 5%;
+    padding: 4%;
     display: flex;
     flex-direction: column;
     cursor: auto;
