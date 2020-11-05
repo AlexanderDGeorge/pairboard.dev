@@ -13,6 +13,7 @@ export default function CreatePostLane() {
     return (
         <>
             <RedPurpleCard
+                style={{width: 300}}
                 onClick={() =>
                     handleModal(<CreatePostModal type="Pairboard" />)
                 }
@@ -20,11 +21,13 @@ export default function CreatePostLane() {
                 <h2>Pairboard</h2>
             </RedPurpleCard>
             <PurpleBlueCard
+                style={{width: 300}}
                 onClick={() => handleModal(<CreatePostModal type="Team" />)}
             >
                 <h2>Team</h2>
             </PurpleBlueCard>
             <BlueGreenCard
+                style={{width: 300}}
                 onClick={() => handleModal(<CreatePostModal type="Lecture" />)}
             >
                 <h2>Lecture</h2>

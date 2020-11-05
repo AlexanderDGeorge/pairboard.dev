@@ -4,8 +4,6 @@ export const StyledCard = styled.div`
     min-height: 200px;
     height: 200px;
     max-height: 200px;
-    min-width: 300px;
-    width: fit-content;
     max-width: 500px;
     margin: 0 20px 20px 0;
     border: 1px solid ${(props) => props.theme.accent};
@@ -22,7 +20,6 @@ export const StyledCard = styled.div`
     }
     &:hover {
         transition: all linear 0.2s;
-        border: 1px solid ${(props) => props.theme.accent};
         border-radius: 5px;
         box-shadow: 0 0 20px -6px ${(props) => props.theme.verydark};
     }

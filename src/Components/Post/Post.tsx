@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { UserContext, ModalContext } from "../../Application";
-import { joinPost } from "../../firebase/post";
+import { ModalContext } from "../../Application";
 import { PostSchema } from "../../firebase/schema";
-import PostExtras from "./PostExtras";
+import PostDate from "./PostDate";
 import { Link } from "react-router-dom";
 import { StyledCard } from "../../styled-components/StyledCard";
-import PasswordModal from "../Modal/PasswordModal";
+import PostSelectModal from './PostSelectModal';
+import PostTag from './PostTag';
 
 export default function Post(props: { post: PostSchema }) {
     const {
@@ -15,34 +15,15 @@ export default function Post(props: { post: PostSchema }) {
         language,
         title,
         type,
-        password,
         sessionDate,
         sessionEnd,
         sessionStart,
     } = props.post;
     const { handleModal } = useContext(ModalContext)!;
-    const { uid } = useContext(UserContext)!;
-    // const dateToNow = getDateToNow(new Date(createdAt));
-
-    function handleJoin(input: string) {
-        if (input === password) {
-            joinPost(uid, props.post.id);
-            handleModal();
-        }
-    }
 
     async function handleClick(e: React.SyntheticEvent) {
         e.stopPropagation();
-        if (password) {
-            handleModal(
-                <PasswordModal
-                    pText="This room requires a password"
-                    submitCallback={handleJoin}
-                />
-            );
-        } else {
-            joinPost(uid, props.post.id);
-        }
+        handleModal(<PostSelectModal />);
     }
 
     return (
@@ -51,6 +32,7 @@ export default function Post(props: { post: PostSchema }) {
                 <img src={host.photoURL} alt="" />
                 <div>
                     <h2>{title}</h2>
+                    <h4>{sessionStart} - {sessionEnd}</h4>
                     <Link
                         onClick={(e) => e.stopPropagation()}
                         to={`/user/${host.username}`}
@@ -59,38 +41,38 @@ export default function Post(props: { post: PostSchema }) {
                     </Link>
                 </div>
             </Header>
+            <PostDate sessionDate={sessionDate}/>
             <Tags>
-                <li>{type}</li>
-                <li>{language}</li>
-                <li>{sessionDate}</li>
-                <li>{sessionStart}</li>
-                <li>{sessionEnd}</li>
+                <PostTag tag={language} />
+                <PostTag tag={type} />
             </Tags>
             <p>{description}</p>
-            <Footer post={props.post} />
         </StyledPost>
     );
 }
 
 const StyledPost = styled(StyledCard)`
-    display: grid;
-    grid-template-columns: 70% 30%;
-    grid-template-rows: 30% 50% 20%;
+    width: max-content;
+    display: grid !important;
+    grid-template-columns: auto 10px 100px;
+    grid-template-rows: 70px 10px auto;
     grid-template-areas:
-        "header tags"
-        "description tags"
-        "footer footer";
-    padding-bottom: 0;
-
+        "header . date"
+        ". . ."
+        "description . tags";
     > p {
+        height: 100%;
+        width: 100%;
         grid-area: description;
         font-weight: 200;
+        text-align: justify;
         overflow-y: scroll;
     }
 `;
 
 const Header = styled.header`
     grid-area: header;
+    min-height: 70px;
     height: 100%;
     width: 100%;
     display: flex;
@@ -114,7 +96,7 @@ const Header = styled.header`
     }
 `;
 
-const Tags = styled.ul`
+const Tags = styled.div`
     grid-area: tags;
     height: 100%;
     width: 100%;
@@ -122,17 +104,4 @@ const Tags = styled.ul`
     flex-direction: column;
     align-items: flex-end;
     list-style: none;
-`;
-
-const Footer = styled(PostExtras)`
-    grid-area: footer;
-    align-self: flex-end;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    font-weight: 100;
-    font-size: 0.8em;
-    > p {
-        width: 100px;
-    }
 `;
