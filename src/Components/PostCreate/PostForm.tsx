@@ -6,6 +6,8 @@ import { DIFFICULTIES, LANGUAGES } from "../Post/constants";
 import LoadingBar from "../Animated/LoadingBar";
 import { ModalContext } from "../../Application";
 import { StyledButton, StyledCancelButton } from '../../styled-components/StyledButtons';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 export default function PostForm(props: {
     validate: any;
@@ -32,7 +34,7 @@ export default function PostForm(props: {
             onSubmit={props.handleSubmit}
             validate={props.validate}
         >
-            {({ values, isValid, handleChange, handleBlur }) => (
+            {({ isValid, handleChange, handleBlur }) => (
                 <CreatePairboard>
                     <div>
                         <div>
@@ -102,12 +104,14 @@ export default function PostForm(props: {
                                     type="date"
                                     name="sessionDate"
                                     min={minDate}
+                                    onBlur={(e: any) => console.log(e.target.value)}
                                 />
                                 <ErrorMessage
                                     name="sessionDate"
                                     component="p"
                                 />
                             </StyledField>
+                            {/* <Calendar /> */}
                             <StyledField>
                                 <label htmlFor="sessionStart">start</label>
                                 <Field type="time" name="sessionStart" />

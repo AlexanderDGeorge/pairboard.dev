@@ -3,27 +3,20 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ModalContext } from '../../Application';
 import { PostSchema } from '../../firebase/schema';
-import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
 import useLockBodyScroll from '../../util/useLockBodyScroll';
 import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import PostTag from './PostTag';
+import PostSubscribe from './PostSubscribe';
+import ExpandedPostDate from './ExpandedPostDate';
 
-export default function PostSelectModal(props: {post: PostSchema}) {
+
+export default function ExpandedPost(props: {post: PostSchema}) {
     const modalRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
-    const { title, description, host, type, language, sessionDate } = props.post;
+    const { title, description, host, type, language, sessionStart } = props.post;
 
     useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
-
-    function canJoin() {
-        const now = new Date();
-        console.log(now);
-        const then = new Date(sessionDate);
-        console.log(then);
-        console.log(then === now);
-        return false;
-    }
 
     return (
         <StyledModal ref={modalRef}>
@@ -32,24 +25,21 @@ export default function PostSelectModal(props: {post: PostSchema}) {
                 <PostTag tag={language} />
                 <PostTag tag={type} />
             </Tags>
-            <Link to={`/user/${host.username}`}>
-                <img src={host.photoURL} alt="" />
-                <h4>{host.username}</h4>
-            </Link>
+            <LinkDateRow>
+                <Link to={`/user/${host.username}`}>
+                    <img src={host.photoURL} alt="" />
+                    <h4>{host.username}</h4>
+                </Link>
+                <ExpandedPostDate sessionStart={sessionStart}/>
+            </LinkDateRow>
             <p>{description}</p>
             <StyledDivider />
-            <StyledButtonRow>
-                <StyledCancelButton onClick={() => handleModal()}>Cancel</StyledCancelButton>
-                <StyledButton disabled={canJoin()}>
-                    Join Room
-                </StyledButton>
-            </StyledButtonRow>
+            <PostSubscribe post={props.post} />
         </StyledModal>
     )
 }
 
 const StyledModal = styled.div`
-    height: 60%;
     max-height: 600px;
     width: 60%;
     max-width: 800px;
@@ -70,9 +60,19 @@ const StyledModal = styled.div`
         color: transparent;
         overflow: auto;
     }
+    > p {
+        font-weight: 100;
+        text-align: justify;
+    }
+`;
+
+const LinkDateRow = styled.div`
+    height: 50px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
     > a {
-        height: 50px;
-        margin-bottom: 20px;
+        height: 100%;
         display: flex;
         align-items: center;
         text-decoration: none;
@@ -86,10 +86,6 @@ const StyledModal = styled.div`
             border-radius: 50%;
         }
     }
-    > p {
-        font-weight: 100;
-        text-align: justify;
-    }
 `;
 
 const Tags = styled.div`
@@ -100,6 +96,6 @@ const Tags = styled.div`
 
 const StyledDivider = styled.div`
     height: 0;
-    margin: 20px;
+    margin: 20px 10%;
     border-bottom: 1px solid ${props => props.theme.accent};
 `;

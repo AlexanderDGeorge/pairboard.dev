@@ -8,21 +8,20 @@ import {
 export interface UserSchema {
     uid: FirebaseUser["uid"];
     blurb?: string;
-    connections: FirebaseUser["uid"][];
+    connections: LightUserSchema[];
     darkMode: "auto" | "light" | "dark";
     email: string;
     emailPublic: boolean;
     emailVerified: boolean;
-    firstname: string;
     githubURL?: string;
-    lastname: string;
     linkedInURL?: string;
     location?: string;
+    name: string;
     photoURL: string;
     personalURL?: string;
     postId?: string;
     posts: PostSchema["id"][];
-    score: number;
+    score?: number;
     status: "online" | "offline" | "in room";
     username: string;
 }
@@ -30,7 +29,8 @@ export interface UserSchema {
 export interface LightUserSchema {
     uid: UserSchema["uid"];
     username: UserSchema["username"];
-    score: UserSchema["score"];
+    name?: UserSchema['name'];
+    score?: UserSchema["score"];
     photoURL: UserSchema["photoURL"];
 }
 

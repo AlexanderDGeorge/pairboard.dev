@@ -4,7 +4,7 @@ import { ModalContext } from "../../Application";
 import { PostSchema } from "../../firebase/schema";
 import PostDate from "./PostDate";
 import { Link } from "react-router-dom";
-import PostSelectModal from './PostSelectModal';
+import PostSelectModal from './ExpandedPost';
 import PostTag from './PostTag';
 
 export default function Post(props: { post: PostSchema }) {

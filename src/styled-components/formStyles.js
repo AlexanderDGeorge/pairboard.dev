@@ -8,7 +8,6 @@ export const StyledField = styled.ul`
     max-width: 600px;
     margin: 15px 0;
     list-style-position: outside;
-
     > label {
         position: absolute;
         font-weight: 100;
@@ -17,7 +16,7 @@ export const StyledField = styled.ul`
     > input,
     select {
         min-height: 60px;
-        height: 100%;
+        height: 60px;
         width: 100%;
         border: 1px solid ${(props) => props.theme.verydark};
         padding: 10px;
