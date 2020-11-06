@@ -41,6 +41,8 @@ export interface PostSchema {
     createdAt: Date;
     description: string;
     difficulty: typeof DIFFICULTIES[number];
+    eventEnd: Date;
+    eventStart: Date;
     host: LightUserSchema;
     language: typeof LANGUAGES[number];
     maxCapacity?: number;

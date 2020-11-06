@@ -8,6 +8,7 @@ import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import PostTag from './PostTag';
 import PostSubscribe from './PostSubscribe';
 import ExpandedPostDate from './ExpandedPostDate';
+import ExpandedPostOptions from './ExpandedPostOptions';
 
 
 export default function ExpandedPost(props: {post: PostSchema}) {
@@ -20,6 +21,7 @@ export default function ExpandedPost(props: {post: PostSchema}) {
 
     return (
         <StyledModal ref={modalRef}>
+            <ExpandedPostOptions />
             <h1>{title}</h1>
             <Tags>
                 <PostTag tag={language} />
@@ -40,6 +42,7 @@ export default function ExpandedPost(props: {post: PostSchema}) {
 }
 
 const StyledModal = styled.div`
+    position: relative;
     max-height: 600px;
     width: 60%;
     max-width: 800px;
