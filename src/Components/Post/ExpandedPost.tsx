@@ -8,20 +8,18 @@ import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import PostTag from './PostTag';
 import PostSubscribe from './PostSubscribe';
 import ExpandedPostDate from './ExpandedPostDate';
-import ExpandedPostOptions from './ExpandedPostOptions';
 
 
 export default function ExpandedPost(props: {post: PostSchema}) {
     const modalRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
-    const { title, description, host, type, language, sessionStart } = props.post;
+    const { title, description, host, type, language, eventStart } = props.post;
 
     useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
 
     return (
         <StyledModal ref={modalRef}>
-            <ExpandedPostOptions />
             <h1>{title}</h1>
             <Tags>
                 <PostTag tag={language} />
@@ -32,7 +30,7 @@ export default function ExpandedPost(props: {post: PostSchema}) {
                     <img src={host.photoURL} alt="" />
                     <h4>{host.username}</h4>
                 </Link>
-                <ExpandedPostDate sessionStart={sessionStart}/>
+                <ExpandedPostDate eventStart={eventStart}/>
             </LinkDateRow>
             <p>{description}</p>
             <StyledDivider />

@@ -72,3 +72,20 @@ export const StyledCancelButton = styled.button`
         text-decoration: none;
     }
 `;
+
+export const StyledDeleteButton = styled.button`
+    position: absolute;
+    right: 0;
+    height: 60px;
+    min-width: 100px;
+    width: 100px;
+    max-width: 100px;
+    margin: 15px 0;
+    color: ${props => props.theme.red};
+    text-decoration: underline;
+    transition: border 0.2s linear;
+    &:hover {
+        transition: border 0.2s linear;
+        text-decoration: none;
+    }
+`;

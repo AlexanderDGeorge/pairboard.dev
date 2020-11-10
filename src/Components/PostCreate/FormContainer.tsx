@@ -4,6 +4,17 @@ import { ModalContext, UserContext } from "../../Application";
 import { useHistory } from "react-router";
 import { createPost } from "../../firebase/post";
 
+interface PostCreateValues {
+    title: string,
+    description: string,
+    difficulty: string,
+    language: string,
+    capacity: number,
+    sessionDate: Date,
+    sessionStart: string,
+    sessionEnd: string,
+}
+
 export default function FormContainer(props: { type: string }) {
     const { uid, username, score, photoURL } = useContext(UserContext)!;
     const [loading, setLoading] = useState(false);
@@ -23,7 +34,7 @@ export default function FormContainer(props: { type: string }) {
         }
     };
 
-    function validate(values: any) {
+    function validate(values: PostCreateValues) {
         const errors: { [key: string]: string } = {};
         if (!values.title) {
             errors.title = "required";
@@ -68,7 +79,8 @@ export default function FormContainer(props: { type: string }) {
             sessionEnd,
         } = values;
         setLoading(true);
-        console.log(values);
+        const eventEnd = new Date(sessionDate).setHours(sessionEnd.slice(0,2), sessionEnd.slice(3));
+        const eventStart = new Date(sessionDate).setHours(sessionStart.slice(0, 2), sessionStart.slice(3));
         await createPost(
             { uid, username, score, photoURL },
             title,
@@ -78,9 +90,8 @@ export default function FormContainer(props: { type: string }) {
             difficulty,
             language,
             capacity(),
-            sessionDate,
-            sessionStart,
-            sessionEnd
+            new Date(eventEnd).toString(),
+            new Date(eventStart).toString(),
         );
         history.replace("/");
         setLoading(false);

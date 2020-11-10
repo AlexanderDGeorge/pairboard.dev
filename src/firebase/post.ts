@@ -13,9 +13,8 @@ export async function createPost(
     difficulty: PostSchema["difficulty"],
     language: PostSchema["language"],
     maxCapacity: PostSchema["maxCapacity"],
-    sessionDate: PostSchema["sessionDate"],
-    sessionStart: PostSchema["sessionStart"],
-    sessionEnd: PostSchema["sessionEnd"]
+    eventEnd: PostSchema["eventEnd"],
+    eventStart: PostSchema["eventStart"],
 ) {
     const postRef = firestore().collection("posts").doc();
     await postRef.set({
@@ -24,13 +23,12 @@ export async function createPost(
         createdAt: new Date().toString(),
         description,
         difficulty,
+        eventEnd,
+        eventStart,
         host,
         language,
         maxCapacity,
         participants: [],
-        sessionDate,
-        sessionStart,
-        sessionEnd,
         title,
         type,
     });
@@ -65,15 +63,6 @@ export async function closePost(postId: PostSchema["id"]) {
     });
 }
 
-export function deletePost(post: PostSchema) {
-    post.participants.forEach((uid: string) => {
-        // [TODO]: refactor this is expensive
-        firestore()
-            .collection("users")
-            .doc(uid)
-            .update({
-                posts: fieldValue.arrayRemove(post.id),
-            });
-    });
-    firestore().collection("posts").doc(post.id).delete();
+export function deletePost(postId: PostSchema['id']) {
+    firestore().collection("posts").doc(postId).delete();
 }

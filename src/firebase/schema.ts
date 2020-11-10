@@ -47,10 +47,6 @@ export interface PostSchema {
     language: typeof LANGUAGES[number];
     maxCapacity?: number;
     participants: UserSchema["uid"][];
-    password?: string;
-    sessionDate: Date;
-    sessionEnd: Date;
-    sessionStart: Date;
     title: string;
     type: typeof POSTTYPES[number];
 }

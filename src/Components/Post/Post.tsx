@@ -14,9 +14,8 @@ export default function Post(props: { post: PostSchema }) {
         language,
         title,
         type,
-        sessionDate,
-        sessionEnd,
-        sessionStart,
+        eventStart,
+        eventEnd,
     } = props.post;
     const { handleModal } = useContext(ModalContext)!;
 
@@ -37,7 +36,7 @@ export default function Post(props: { post: PostSchema }) {
                     {host.username}
                 </Link>
             </Header>
-            <PostDate sessionDate={sessionDate}/>
+            <PostDate eventStart={eventStart}/>
             <Tags>
                 <PostTag tag={language} />
                 <PostTag tag={type} />

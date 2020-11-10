@@ -1,22 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ModalContext, UserContext } from '../../Application';
-import { joinPost } from '../../firebase/post';
+import { deletePost, joinPost } from '../../firebase/post';
 import { PostSchema } from '../../firebase/schema';
-import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
-import LoadingBar from '../Animated/LoadingBar';
-
+import { StyledButton, StyledButtonRow, StyledCancelButton, StyledDeleteButton } from '../../styled-components/StyledButtons';
 
 export default function PostSubscribe(props: { post: PostSchema }) {
-    const [loading, setLoading] = useState(false);
-    const { type, id } = props.post;
+    const { type, id, host } = props.post;
     const { uid } = useContext(UserContext)!;
     const { handleModal } = useContext(ModalContext)!;
 
     async function handleJoin() {
-        setLoading(true);
+        handleModal();
         await joinPost(uid, id);
-        setLoading(false);
+    }
+
+    function handleDelete() {
+        handleModal();
+        deletePost(id);
     }
 
     return (
@@ -29,9 +30,14 @@ export default function PostSubscribe(props: { post: PostSchema }) {
                 <StyledCancelButton onClick={() => handleModal()}>
                     Cancel
                 </StyledCancelButton>
-                <StyledButton onClick={handleJoin} disabled={loading}>
-                    {loading ? <LoadingBar /> : `Join this ${type}`}
+                <StyledButton onClick={handleJoin}>
+                    Join this {type}
                 </StyledButton>
+                {host.uid === uid ? 
+                    <StyledDeleteButton onClick={handleDelete}>
+                        Delete
+                    </StyledDeleteButton> : null
+                }
             </StyledButtonRow>
         </StyledPostSubscribe>
     )
