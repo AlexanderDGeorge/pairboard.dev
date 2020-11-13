@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Application";
 import ProfileLink from "./ProfileLink";
+import Search from '../Search/Search';
 
 export default function Header() {
     const user = useContext(UserContext);
@@ -39,6 +40,7 @@ export default function Header() {
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
                 pairboard.dev <sup>alpha</sup>
             </HomeLink>
+            <Search />
             {user ? <ProfileLink user={user} /> : null}
         </StyledHeader>
     );
@@ -47,7 +49,7 @@ export default function Header() {
 const StyledHeader = styled(animated.header)`
     z-index: 3;
     position: fixed;
-    height: 80;
+    height: 80px;
     width: 100%;
     margin-bottom: 40px;
     padding: 0 10%;
