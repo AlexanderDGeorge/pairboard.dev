@@ -7,7 +7,7 @@ export default function useUserContext() {
     const [user, setUser] = useState<UserSchema | undefined | null>(undefined);
 
     useEffect(() => {
-        let unsubscribe: Function;
+        let unsubscribe: Function | null = null;
 
         auth.onAuthStateChanged((authUser) => {
             console.log(authUser);
@@ -29,7 +29,9 @@ export default function useUserContext() {
         });
 
         return () => {
-            unsubscribe();
+            if (unsubscribe) {
+                unsubscribe();
+            }
         };
     }, []);
 

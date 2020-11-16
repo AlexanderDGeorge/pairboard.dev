@@ -40,7 +40,7 @@ export default function Header() {
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
                 pairboard.dev <sup>alpha</sup>
             </HomeLink>
-            <Search />
+            {user ? <Search /> : null}
             {user ? <ProfileLink user={user} /> : null}
         </StyledHeader>
     );

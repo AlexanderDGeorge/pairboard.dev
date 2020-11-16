@@ -3,27 +3,27 @@ import styled from 'styled-components';
 
 const MONTHS = [
     'JAN',
- 'FEB',
- 'MAR',
- 'APR',
- 'MAY',
- 'JUN',
- 'JUL',
- 'AUG',
- 'SEP',
- 'OCT',
-     'NOV',
-     'DEC'
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC'
 ]
 
 const DAYS = [
- 'SUNDAY',
- 'MONDAY',
- 'TUESDAY',
- 'WEDNESDAY',
- 'THURSDAY',
- 'FRIDAY',
- 'SATURDAY',
+    'SUNDAY',
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+    'SATURDAY',
 ]
 
 export default function PostDate(props: { eventStart: Date }) {
