@@ -24,11 +24,20 @@ export default function UserHit(props: { hit: IUserHit} ) {
 }
 
 const StyledUserHit = styled(Link)`
+    border-top: 1px solid ${props => props.theme.accent};
+    padding: 5px;
     display: flex;
-    border: 1px solid ${props => props.theme.accent};
-    img {
+    align-items: center;
+    background: transparent;
+    color: ${props => props.theme.white};
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+    > img {
         height: 50px;
         width: 50px;
         border-radius: 50%;
+        margin-right: 5px;
     }
 `;

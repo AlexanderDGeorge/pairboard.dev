@@ -58,7 +58,6 @@ const StyledHeader = styled(animated.header)`
     border-image: ${(props) =>
         `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue}) 3`};
     display: flex;
-    align-items: center;
     justify-content: space-between;
 `;
 

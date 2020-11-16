@@ -22,7 +22,6 @@ function SearchBox(props: { currentRefinement: string, refine: Function }) {
 }
 
 const StyledSearchBox = styled.div`
-    z-index: 2;
     height: 40px;
     width: 400px;
     border-radius: 10px;

@@ -42,6 +42,7 @@ const StyledProfileLink = styled.div`
     position: relative;
     height: 60px;
     width: 60px;
+    margin-top: 10px;
     background-color: ${(props) => props.theme.mid};
     > img {
         z-index: 2;
