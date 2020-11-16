@@ -30,7 +30,7 @@ export default function PostDate(props: { eventStart: Date }) {
 
     function convertDate(eventStart: Date) {
         const temp = new Date(eventStart);
-        console.log(temp);
+        // console.log(temp);
         const month = MONTHS[temp.getMonth()];
         const day = DAYS[temp.getDay() + 1];
         const date = temp.getDate() + 1;

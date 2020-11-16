@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { UserSchema } from "../../firebase/schema";
 import { useSpring, animated } from "react-spring";
 import { signOut } from "../../firebase/auth";
+import DropdownItem from './DropdownItem';
+import { MdChatBubble, MdExitToApp, MdGroup, MdHome, MdNotifications, MdSettings } from "react-icons/md";
 
 export default function ProfileLink(props: { user: UserSchema }) {
-    const { username, email, photoURL } = props.user;
+    const { username, photoURL } = props.user;
     const history = useHistory();
     const [menu, setMenu] = useSpring(() => ({
         height: 60,
@@ -21,18 +23,19 @@ export default function ProfileLink(props: { user: UserSchema }) {
     return (
         <StyledProfileLink
             onMouseEnter={() =>
-                setMenu({ height: 180, width: 250, opacity: 1 })
+                setMenu({ height: 320, width: 250, opacity: 1 })
             }
             onMouseLeave={() => setMenu({ height: 60, width: 60, opacity: 0 })}
         >
             <img src={photoURL} alt="" onClick={handleImgClick} />
             <animated.div style={menu}>
                 <h3 onClick={handleImgClick}>{username}</h3>
-                <p>{email}</p>
-                <Link to='/'>Home</Link>
-                <Link to="/messages">Messages</Link>
-                <Link to="/settings">Settings</Link>
-                <button onClick={signOut}>Logout</button>
+                <DropdownItem icon={<MdHome />} path='' name='Home'/>
+                <DropdownItem icon={<MdChatBubble />} path='messages' name='Messages'/>
+                <DropdownItem icon={<MdGroup />} path='teams' name='Teams'/>
+                <DropdownItem icon={<MdNotifications />} path='notifications' name='Notifications'/>
+                <DropdownItem icon={<MdSettings />} path='settings' name='Settings'/>
+                <button onClick={signOut}><MdExitToApp /> Logout</button>
             </animated.div>
         </StyledProfileLink>
     );
@@ -43,12 +46,14 @@ const StyledProfileLink = styled.div`
     height: 60px;
     width: 60px;
     margin-top: 10px;
-    background-color: ${(props) => props.theme.mid};
+    border-radius: 10px;
+    background-color: ${(props) => props.theme.dark};
     > img {
         z-index: 2;
         position: absolute;
         height: 100%;
         width: 100%;
+        border-top-right-radius: 10px;
         background-color: ${(props) => props.theme.accent};
         cursor: pointer;
     }
@@ -58,39 +63,49 @@ const StyledProfileLink = styled.div`
         position: absolute;
         top: -1px;
         right: -1px;
-        border: 1px solid ${(props) => props.theme.verydark};
+        border-radius: 10px;
         padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: left;
-        background-color: ${(props) => props.theme.white};
+        background-color: ${(props) => props.theme.dark};
         box-shadow: 0 0 20px -5px;
         > * {
             background-color: transparent;
         }
         > h3 {
-            height: 30px;
+            height: 60px;
             width: calc(100% - 60px);
+            color: ${props => props.theme.white};
             cursor: pointer;
             &:hover {
                 text-decoration: underline;
             }
         }
-        > button,
-        a {
-            height: 25px;
+        > button {
+            height: 40px;
             width: 100%;
-            font-size: 0.8em;
-            text-decoration: none;
-            transition: background-color 0s;
+            border-radius: 10px;
+            padding: 5px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            outline: none;
-            cursor: pointer;
+            color: ${props => props.theme.light};
+            fill: ${props => props.theme.light};
+            text-decoration: none;
+            transition: all 0s;
+            font-size: 1em;
             &:hover {
-                background-color: ${(props) => props.theme.light};
-                transition: background-color 0s;
+                transition: all 0s;
+                color: ${props => props.theme.white};
+                fill: ${props => props.theme.white};
+                background-color: ${props => props.theme.medium};
+            }
+            > svg {
+                height: 100%;
+                width: auto;
+                margin-right: 10px;
+                fill: inherit;
+                background: transparent;
             }
         }
     }

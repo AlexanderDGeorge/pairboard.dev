@@ -13,7 +13,7 @@ export default function MiddleDiv() {
 }
 
 const StyledMiddleDiv = styled.div`
-    min-height: 70%;
+    min-height: 95%;
     padding: 10% 10% 2% 10%;
     background-image: ${(props) =>
         `linear-gradient(130deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple})`};
@@ -48,6 +48,7 @@ const StyledMiddleDiv = styled.div`
         height: 80px;
         width: 300px;
         margin: 20px;
+        border-radius: 10px;
         font-size: 1.5em;
         text-decoration: none;
         outline: none;

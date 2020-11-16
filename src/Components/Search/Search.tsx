@@ -38,4 +38,5 @@ const StyledSearchWrapper = styled.div`
     margin-top: 20px;
     background-color: ${props => props.theme.dark};
     border-radius: 5px;
+    box-shadow: 0 0 20px ${props => props.theme.verydark};
 `;

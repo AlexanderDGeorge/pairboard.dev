@@ -9,7 +9,6 @@ function Hits(props: { hits: object[] }) {
 
     
     if (focused) {
-        console.log(props.hits)
         return (
             <StyledHits>
                 {props.hits.map((hit: any, i: number) => {

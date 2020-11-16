@@ -13,10 +13,8 @@ interface IUserHit {
 export default function UserHit(props: { hit: IUserHit} ) {
     const { hit } = props;
     
-    console.log(hit);
-
     return (
-        <StyledUserHit to={`users/${hit.username}`}>
+        <StyledUserHit to={`/user/${hit.username}`}>
             <img src={hit.photoURL} alt=""/>
             {hit.username}
         </StyledUserHit>
