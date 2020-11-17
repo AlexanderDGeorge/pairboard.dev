@@ -6,7 +6,7 @@ export default function DropdownItem(props: {icon: JSX.Element, path: string, na
     const { icon, path, name } = props;
 
     return (
-        <StyledDropdownItem to={`/${path}`}>
+        <StyledDropdownItem to={path}>
             {icon}
             {name}
         </StyledDropdownItem>
@@ -17,7 +17,7 @@ const StyledDropdownItem = styled(Link)`
     height: 40px;
     width: 100%;
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
     display: flex;
     align-items: center;
     color: ${props => props.theme.light};
@@ -31,7 +31,7 @@ const StyledDropdownItem = styled(Link)`
         background-color: ${props => props.theme.medium};
     }
     > svg {
-        height: 100%;
+        height: 20px;
         width: auto;
         margin-right: 10px;
         fill: inherit;

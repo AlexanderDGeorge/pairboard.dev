@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { UserSchema } from "../../firebase/schema";
 import { useSpring, animated } from "react-spring";
 import { signOut } from "../../firebase/auth";
@@ -30,11 +30,12 @@ export default function ProfileLink(props: { user: UserSchema }) {
             <img src={photoURL} alt="" onClick={handleImgClick} />
             <animated.div style={menu}>
                 <h3 onClick={handleImgClick}>{username}</h3>
-                <DropdownItem icon={<MdHome />} path='' name='Home'/>
-                <DropdownItem icon={<MdChatBubble />} path='messages' name='Messages'/>
-                <DropdownItem icon={<MdGroup />} path='teams' name='Teams'/>
-                <DropdownItem icon={<MdNotifications />} path='notifications' name='Notifications'/>
-                <DropdownItem icon={<MdSettings />} path='settings' name='Settings'/>
+                <Link style={{marginBottom: 10}} to='/settings/profile'>Edit Profile</Link>
+                <DropdownItem icon={<MdHome />} path='/' name='Home'/>
+                <DropdownItem icon={<MdChatBubble />} path='/messages' name='Messages'/>
+                <DropdownItem icon={<MdGroup />} path='/teams' name='Teams'/>
+                <DropdownItem icon={<MdNotifications />} path='/settings/notifications' name='Notifications'/>
+                <DropdownItem icon={<MdSettings />} path='/settings' name='Settings'/>
                 <button onClick={signOut}><MdExitToApp /> Logout</button>
             </animated.div>
         </StyledProfileLink>
@@ -74,7 +75,7 @@ const StyledProfileLink = styled.div`
             background-color: transparent;
         }
         > h3 {
-            height: 60px;
+            height: 30px;
             width: calc(100% - 60px);
             color: ${props => props.theme.white};
             cursor: pointer;
@@ -86,7 +87,7 @@ const StyledProfileLink = styled.div`
             height: 40px;
             width: 100%;
             border-radius: 10px;
-            padding: 5px;
+            padding: 10px;
             display: flex;
             align-items: center;
             color: ${props => props.theme.light};
@@ -101,7 +102,7 @@ const StyledProfileLink = styled.div`
                 background-color: ${props => props.theme.medium};
             }
             > svg {
-                height: 100%;
+                height: 20px;
                 width: auto;
                 margin-right: 10px;
                 fill: inherit;
