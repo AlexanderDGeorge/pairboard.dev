@@ -7,7 +7,7 @@ export const StyledCard = styled.div`
     width: 400px;
     margin: 0 20px 20px 0;
     border: 1px solid ${(props) => props.theme.accent};
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 2%;
     box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
     cursor: pointer;

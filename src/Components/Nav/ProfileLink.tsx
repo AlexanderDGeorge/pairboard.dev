@@ -62,8 +62,8 @@ const StyledProfileLink = styled.div`
         z-index: 1;
         overflow: hidden;
         position: absolute;
-        top: -1px;
-        right: -1px;
+        top: 0;
+        right: 0;
         border-radius: 10px;
         padding: 10px;
         display: flex;

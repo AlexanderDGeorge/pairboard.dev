@@ -27,7 +27,7 @@ export default function Post(props: { post: PostSchema }) {
     return (
         <StyledPost onClick={handleClick}>
             <Header>
-                <h2>{title.slice(0, 30)}</h2>
+                <h2>{title.slice(0, 28)}</h2>
                 <Link
                     onClick={(e) => e.stopPropagation()}
                     to={`/user/${host.username}`}
@@ -50,7 +50,7 @@ const StyledPost = styled.div`
     height: 200px;
     margin: 0 20px 20px 0;
     border: 1px solid ${(props) => props.theme.accent};
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 10px;
     box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
     cursor: pointer;
