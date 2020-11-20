@@ -20,12 +20,8 @@ export default function SignupForm(props: {
         const errors: { [key: string]: string } = {};
         validateUsername(values.username, '', errors);
 
-        if (!values.firstname) {
-            errors.firstname = "required";
-        }
-
-        if (!values.lastname) {
-            errors.lastname = "required";
+        if (!values.name) {
+            errors.name = "required";
         }
 
         validateEmail(values.email, '', errors);
@@ -52,8 +48,7 @@ export default function SignupForm(props: {
         <Formik
             initialValues={{
                 username: "",
-                firstname: "",
-                lastname: "",
+                name: "",
                 email: "",
                 password: "",
             }}
@@ -74,14 +69,9 @@ export default function SignupForm(props: {
                         <ErrorMessage name="username" component="p" />
                     </StyledField>
                     <StyledField>
-                        <label htmlFor="firstname">first name</label>
-                        <Field type="text" name="firstname" />
-                        <ErrorMessage name="firstname" component="p" />
-                    </StyledField>
-                    <StyledField>
-                        <label htmlFor="lastname">last name</label>
-                        <Field type="text" name="lastname" />
-                        <ErrorMessage name="lastname" component="p" />
+                        <label htmlFor="name">name</label>
+                        <Field type="text" name="name" />
+                        <ErrorMessage name="name" component="p" />
                     </StyledField>
                     <StyledField>
                         <label htmlFor="email">email</label>

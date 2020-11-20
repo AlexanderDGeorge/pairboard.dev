@@ -48,9 +48,9 @@ export default function Email() {
             <StyledField>
                 <label htmlFor="email">email</label>
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} pattern={'/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i'} />
-                {user.emailVerified ? <MdVerifiedUser /> : null}
+                {auth.currentUser?.emailVerified ? <MdVerifiedUser /> : null}
                 <p>{error}</p>
-                {user.emailVerified ? 
+                {auth.currentUser?.emailVerified ? 
                 <li>your email address has been verified</li>
                 : <li>verify your email address to receive important information about your account and receive email notifications</li>
                 }
@@ -61,7 +61,7 @@ export default function Email() {
                 Change Email Address
             </StyledButton>
 
-            <StyledButton onClick={handleVerifyEmail} disabled={user.emailVerified || emailSent}>
+            <StyledButton onClick={handleVerifyEmail} disabled={auth.currentUser?.emailVerified || emailSent}>
                     {emailSent ? 'Email Sent' : 'Verify Email Address'}
             </StyledButton>
             </StyledButtonRow>

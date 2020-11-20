@@ -7,8 +7,7 @@ import {validateUsername} from "../../util/validationFunctions";
 
 interface GithubSignUpValues {
     username: string;
-    firstname: string;
-    lastname: string;
+    name: string;
 }
 
 export default function GithubSignupForm(props: { setTopError: Function }) {
@@ -19,20 +18,17 @@ export default function GithubSignupForm(props: { setTopError: Function }) {
         const errors: { [key: string]: string } = {};
         validateUsername(values.username, '', errors);
 
-        if (!values.firstname) {
-            errors.firstname = "required";
+        if (!values.name) {
+            errors.name = "required";
         }
 
-        if (!values.lastname) {
-            errors.lastname = "required";
-        }
         return errors;
     }
 
     async function handleSubmit(values: GithubSignUpValues) {
         setLoading(true);
-        const { username, firstname, lastname } = values;
-        const result = await signupWithGithub(username, firstname, lastname);
+        const { username, name } = values;
+        const result = await signupWithGithub(username, name);
         if (result) {
             setTopError("there was an error creating your account");
             setLoading(false);
@@ -45,8 +41,7 @@ export default function GithubSignupForm(props: { setTopError: Function }) {
         <Formik
             initialValues={{
                 username: "",
-                firstname: "",
-                lastname: "",
+                name: "",
             }}
             validate={validate}
             onSubmit={handleSubmit}
@@ -59,14 +54,9 @@ export default function GithubSignupForm(props: { setTopError: Function }) {
                         <ErrorMessage name="username" component="p" />
                     </StyledField>
                     <StyledField>
-                        <label htmlFor="firstname">first name</label>
-                        <Field type="text" name="firstname" />
-                        <ErrorMessage name="firstname" component="p" />
-                    </StyledField>
-                    <StyledField>
-                        <label htmlFor="lastname">last name</label>
-                        <Field type="text" name="lastname" />
-                        <ErrorMessage name="lastname" component="p" />
+                        <label htmlFor="name">name</label>
+                        <Field type="text" name="name" />
+                        <ErrorMessage name="name" component="p" />
                     </StyledField>
                     <StyledButtonRow>
                     <StyledButton type="submit" disabled={!isValid || loading}>

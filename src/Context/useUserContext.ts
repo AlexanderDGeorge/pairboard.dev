@@ -21,10 +21,7 @@ export default function useUserContext() {
                 .onSnapshot((snapshot) => {
                     const data = snapshot?.data();
                     if (!data) return;
-                    setUser({
-                        ...convertDocToUser(data),
-                        emailVerified: authUser.emailVerified,
-                    });
+                    setUser(convertDocToUser(data));
                 });
         });
 

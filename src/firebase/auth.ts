@@ -3,8 +3,7 @@ import { UserSchema } from "./schema";
 
 export interface SignUpValues {
     username: string;
-    firstname: string;
-    lastname: string;
+    name: string;
     email: string;
     password: string;
 }
@@ -34,13 +33,12 @@ export async function login(email: UserSchema["email"], password: string) {
 
 export async function signupWithGithub(
     username: string,
-    firstname: string,
-    lastname: string
+    name: string,
 ) {
     try {
         const { user } = await auth.signInWithPopup(githubProvider);
         if (user) {
-            createUserDocument(user, username, firstname, lastname);
+            createUserDocument(user, username, name);
         } else {
             return "there was an error creating your account";
         }
@@ -51,7 +49,7 @@ export async function signupWithGithub(
 }
 
 export async function signup(signUpValues: SignUpValues) {
-    const { email, password, username, firstname, lastname } = signUpValues;
+    const { email, password, username, name } = signUpValues;
     try {
         if (!(await checkForValidUsername(username))) {
             return { type: "username", message: "username already in use" };
@@ -65,7 +63,7 @@ export async function signup(signUpValues: SignUpValues) {
         );
         if (user) {
             console.log(user);
-            createUserDocument(user, username, firstname, lastname);
+            createUserDocument(user, username, name);
         }
     } catch (error) {
         console.error(error.message);
@@ -76,8 +74,7 @@ export async function signup(signUpValues: SignUpValues) {
 async function createUserDocument(
     user: firebase.User,
     username: string,
-    firstname: string,
-    lastname: string
+    name: string,
 ) {
     const userRef = firestore().collection("users").doc(user.uid);
     const userDoc = await userRef.get();
@@ -93,8 +90,7 @@ async function createUserDocument(
             darkMode: "auto",
             email,
             emailVerified: false,
-            firstname,
-            lastname,
+            name,
             photoURL:
                 user.photoURL ||
                 "https://blacklivesmatter.com/wp-content/uploads/2017/07/BLM-logo.png",
