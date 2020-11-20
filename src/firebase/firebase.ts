@@ -3,7 +3,6 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/database";
-// import "firebase/messaging";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCbdNrcuBGDVF8-iL9UxCgsCFCbTGhoJS8",
@@ -23,22 +22,5 @@ export const auth = firebase.auth();
 auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 export const firestore = firebase.firestore;
 export const database = firebase.database;
-// export const messaging = firebase.messaging();
 export const fieldValue = firebase.firestore.FieldValue;
 export const githubProvider = new firebase.auth.GithubAuthProvider();
-
-// messaging
-//     // @ts-ignore
-//     .getToken({
-//         vapidKey:
-//             "BLKvDddpquwQV6R2QYTrKJAN7zUx0e36PhvyMkW-mI_MhtCkKVtJzk01wn1Gxn7nNxJNQzHjZl7z4DIJZdS82r4",
-//     })
-//     .then((currentToken) => {
-//         console.log(currentToken);
-//         if (currentToken) {
-//         }
-//     });
-
-// messaging.onMessage((payload) => {
-//     console.log("message", payload);
-// });

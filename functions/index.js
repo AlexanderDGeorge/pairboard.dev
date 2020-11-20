@@ -1,41 +1,30 @@
 const functions = require('firebase-functions');
-const algoliasearch = require('algoliasearch');
+const algolia = require('algoliasearch');
 
-const APP_ID = functions.config().algolia.app;
-const ADMIN_KEY = functions.config().algolia.key;
+const APP_ID = functions.config().algolia.appid;
+const ADMIN_KEY = functions.config().algolia.apikey;
 
-const client = algoliasearch(APP_ID, ADMIN_KEY);
-const index = client.initIndex('users');
+const algoliaClient = algolia(APP_ID, ADMIN_KEY);
+const index = algoliaClient.initIndex('users');
 
-exports.addUserToIndex = functions.firestore.document('users/{uid}')
+exports.addUserIndex = functions.firestore.document('users/{uid}')
     .onCreate(snapshot => {
         const data = snapshot.data();
-        const { username, blurb, connections, photoURL, uid } = data;
+        const { username, blurb, photoURL } = data;
         return index.saveObject({
-            username, blurb, connections, photoURL, objectId: uid
+            username, blurb, photoURL, objectID: snapshot.id
         })
     });
 
 exports.updateUserIndex = functions.firestore.document('users/{uid}')
     .onUpdate(snapshot => {
-        console.log('updating algolia')
-        const newData = snapshot.after.data();
-        console.log(newData);
-        const { username, blurb, connections, photoURL, uid } = newData;
+        console.log(snapshot);
+        const data = snapshot.after.data();
+        const { username, blurb, photoURL } = data;
         return index.saveObject({
-            username, blurb, connections, photoURL, objectId: uid
+            username, blurb, photoURL, objectID: snapshot.id
         })
     });
 
-exports.updateUserIndex = functions.firestore.document('users/{uid}')
-    .onWrite(snapshot => {
-        const newData = snapshot.after.data();
-        console.log(newData);
-        const { username, blurb, connections, photoURL, uid } = newData;
-        return index.saveObject({
-            username, blurb, connections, photoURL, objectId: uid
-        })
-    });
-
-exports.deleteFromIndex = functions.firestore.document('users/{uid}')
+exports.deleteUserIndex = functions.firestore.document('users/{uid}')
     .onDelete(snapshot => index.deleteObject(snapshot.id));
