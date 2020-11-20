@@ -12,7 +12,6 @@ export interface UserSchema {
     darkMode: "auto" | "light" | "dark";
     email: string;
     emailPublic: boolean;
-    emailVerified: boolean;
     githubURL?: string;
     linkedInURL?: string;
     location?: string;

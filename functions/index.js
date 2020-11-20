@@ -10,19 +10,18 @@ const index = algoliaClient.initIndex('users');
 exports.addUserIndex = functions.firestore.document('users/{uid}')
     .onCreate(snapshot => {
         const data = snapshot.data();
-        const { username, blurb, photoURL } = data;
+        const { username, email, name, blurb, photoURL } = data;
         return index.saveObject({
-            username, blurb, photoURL, objectID: snapshot.id
+            username, email, name, blurb, photoURL, objectID: snapshot.id
         })
     });
 
 exports.updateUserIndex = functions.firestore.document('users/{uid}')
     .onUpdate(snapshot => {
-        console.log(snapshot);
         const data = snapshot.after.data();
-        const { username, blurb, photoURL } = data;
+        const { username, email, name, blurb, photoURL } = data;
         return index.saveObject({
-            username, blurb, photoURL, objectID: snapshot.id
+            username, email, name, blurb, photoURL, objectID: snapshot.after.id
         })
     });
 
