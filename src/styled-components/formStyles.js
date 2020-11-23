@@ -12,6 +12,7 @@ export const StyledField = styled.ul`
         position: absolute;
         font-weight: 100;
         color: ${(props) => props.theme.verydark};
+        background-color: ${(props) => props.theme.white};
     }
     > input,
     select {
@@ -50,6 +51,7 @@ export const StyledField = styled.ul`
         position: absolute;
         font-weight: 500;
         color: ${(props) => props.theme.red};
+        background-color: ${(props) => props.theme.white};
         top: 45px;
         left: 10px;
     }

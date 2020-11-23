@@ -28,7 +28,7 @@ export default function ConnectionButton(props: {user: UserSchema}) {
                 {connections.length} connections
             </ConnectionsButton>
             <ConnectionDropdownButton
-                onClick={() => setSpring({ height: 200 })}
+                onClick={() => setSpring({ height: 120 })}
             >
                 <MdArrowDropDown />
             </ConnectionDropdownButton>

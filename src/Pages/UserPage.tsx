@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useLocation } from "react-router";
 import { fetchUserDocFromUsername } from "../firebase/user";
 import Loading from "./LoadingPage";
-import Header from "../Components/User/Header";
+import LargeUserCard from "../Components/User/LargeUserCard";
 import Posts from "../Components/User/Posts";
 import { UserSchema } from "../firebase/schema";
 import convertDocToUser from "../Components/User/convertDocToUser";
@@ -28,7 +28,7 @@ export default function UserPage(props: { user?: UserSchema }) {
     if (user) {
         return (
             <StyledUserPage>
-                <Header user={user} />
+                <LargeUserCard user={user} />
                 <Posts user={user} />
             </StyledUserPage>
         );

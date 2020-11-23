@@ -31,14 +31,12 @@ export async function login(email: UserSchema["email"], password: string) {
     }
 }
 
-export async function signupWithGithub(
-    username: string,
-    name: string,
-) {
+export async function signupWithGithub(username: string) {
     try {
         const { user } = await auth.signInWithPopup(githubProvider);
         if (user) {
-            createUserDocument(user, username, name);
+            const { displayName } = user.providerData[0]!;
+            createUserDocument(user, username, displayName!);
         } else {
             return "there was an error creating your account";
         }

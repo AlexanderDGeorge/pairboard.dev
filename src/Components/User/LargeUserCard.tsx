@@ -3,12 +3,13 @@ import { MdLocationOn } from "react-icons/md";
 import styled from "styled-components";
 import { UserSchema } from "../../firebase/schema";
 import ConnectionButton from './ConnectionButton';
+import UserLinks from './UserLinks';
 
-export default function Header(props: { user: UserSchema }) {
+export default function LargeUserCard(props: { user: UserSchema }) {
     const { photoURL, username, blurb, name, location } = props.user;
 
     return (
-        <StyledHeader>
+        <StyledLargeUserCard>
             <img src={photoURL} alt="profile" />
             <StyledInfoPane>
                 <h1>{username}</h1>
@@ -17,11 +18,13 @@ export default function Header(props: { user: UserSchema }) {
                 <p>{blurb}</p>
                 {location ? <StyledLink><MdLocationOn /> {location}</StyledLink> : null}
             </StyledInfoPane>
-        </StyledHeader>
+            <UserLinks user={props.user}/>
+        </StyledLargeUserCard>
     );
 }
 
-const StyledHeader = styled.header`
+const StyledLargeUserCard = styled.header`
+    position: relative;
     width: 100%;
     display: flex;
     border-radius: 40px;
@@ -29,11 +32,12 @@ const StyledHeader = styled.header`
     padding: 10px;
     background-color: ${props => props.theme.white};
     box-shadow: 0 5px 20px -12px ${(props) => props.theme.verydark};
+    overflow: hidden;
     > img {
         height: 250px;
         width: 250px;
         margin-right: 30px;
-        border: 2px solid ${(props) => props.theme.verydark};
+        border: 2px solid ${(props) => props.theme.medium};
         border-radius: 50%;
     }
 `;

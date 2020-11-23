@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SignupForm from "../Components/Auth/SignupForm";
-import GithubSignupForm from "../Components/Auth/GithubSignupForm";
 
 export default function SignupPage() {
     const [topError, setTopError] = useState<string | undefined>(undefined);
@@ -16,7 +15,6 @@ export default function SignupPage() {
                 OR
                 <div></div>
             </span>
-            <GithubSignupForm setTopError={setTopError} />
             <Link style={{ marginTop: "10%" }} to="/login">
                 meant to log in?
             </Link>

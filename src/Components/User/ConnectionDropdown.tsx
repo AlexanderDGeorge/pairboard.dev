@@ -22,9 +22,6 @@ export default function ConnectionDropdown(props: {user: UserSchema }) {
 
     return (
         <StyledConnectionDropdown>
-            <StyledDropdownLink to='/'>
-                Send a Message
-            </StyledDropdownLink>
             <StyledDropdownButton>
                 View Connections
             </StyledDropdownButton>
