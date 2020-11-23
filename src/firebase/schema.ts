@@ -28,8 +28,7 @@ export interface UserSchema {
 export interface LightUserSchema {
     uid: UserSchema["uid"];
     username: UserSchema["username"];
-    name?: UserSchema['name'];
-    score?: UserSchema["score"];
+    name: UserSchema['name'];
     photoURL: UserSchema["photoURL"];
 }
 

@@ -24,7 +24,7 @@ export default function Header(props: { user: UserSchema }) {
 const StyledHeader = styled.header`
     width: 100%;
     display: flex;
-    border-radius: 10px;
+    border-radius: 40px;
     margin-bottom: 10px;
     padding: 10px;
     background-color: ${props => props.theme.white};
@@ -33,7 +33,7 @@ const StyledHeader = styled.header`
         height: 250px;
         width: 250px;
         margin-right: 30px;
-        /* border: 1px solid ${(props) => props.theme.accent}; */
+        border: 2px solid ${(props) => props.theme.verydark};
         border-radius: 50%;
     }
 `;

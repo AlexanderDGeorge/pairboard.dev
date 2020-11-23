@@ -16,7 +16,7 @@ interface PostCreateValues {
 }
 
 export default function FormContainer(props: { type: string }) {
-    const { uid, username, score, photoURL } = useContext(UserContext)!;
+    const { uid, username, name, photoURL } = useContext(UserContext)!;
     const [loading, setLoading] = useState(false);
     const history = useHistory();
     const { handleModal } = useContext(ModalContext)!;
@@ -82,7 +82,7 @@ export default function FormContainer(props: { type: string }) {
         const eventEnd = new Date(sessionDate).setHours(sessionEnd.slice(0,2), sessionEnd.slice(3));
         const eventStart = new Date(sessionDate).setHours(sessionStart.slice(0, 2), sessionStart.slice(3));
         await createPost(
-            { uid, username, score, photoURL },
+            { uid, username, name, photoURL },
             title,
             // @ts-ignore
             props.type,

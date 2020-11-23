@@ -1,37 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { MdArrowDropDown } from 'react-icons/md';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
-import { ModalContext, UserContext } from '../../Application';
+import { ModalContext } from '../../Application';
 import { UserSchema } from '../../firebase/schema';
+import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import UserConnectionsModal from './UserConnectionsModal';
+import ConnectionDropdown from './ConnectionDropdown';
 
 export default function ConnectionButton(props: {user: UserSchema}) {
-    const currentUser = useContext(UserContext)!;
+    const buttonRef = useRef(null);
     const { connections } = props.user;
     const { handleModal } = useContext(ModalContext)!;
     const [spring, setSpring] = useSpring(() => ({
         height: 40
     }))
 
-    if (currentUser.uid === props.user.uid) {
-        return null;
-    } else {
-        return (
-            <StyledConnectionButton style={spring}>
-                <ConnectionsButton
-                    onClick={() => handleModal(<UserConnectionsModal user={props.user}/>)}
-                >
-                    {connections.length} connections
-                </ConnectionsButton>
-                <ConnectionDropdownButton
-                    onClick={() => setSpring({ height: 200 })}
-                >
-                    <MdArrowDropDown />
-                </ConnectionDropdownButton>
-            </StyledConnectionButton>
-        )
-    }
+    useOnOutsideCLick(buttonRef, () => setSpring({ height: 40 }))
+    
+    return (
+        <StyledConnectionButton ref={buttonRef} style={spring}>
+            <span>
+
+            <ConnectionsButton
+                onClick={() => handleModal(<UserConnectionsModal user={props.user}/>)}
+            >
+                {connections.length} connections
+            </ConnectionsButton>
+            <ConnectionDropdownButton
+                onClick={() => setSpring({ height: 200 })}
+            >
+                <MdArrowDropDown />
+            </ConnectionDropdownButton>
+            </span>
+            <ConnectionDropdown user={props.user}/>
+        </StyledConnectionButton>
+    )
 }
 
 const StyledConnectionButton = styled(animated.div)`
@@ -41,10 +45,14 @@ const StyledConnectionButton = styled(animated.div)`
     border-radius: 10px;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
+    > span {
+        display: flex;
+    }
 `;
 
 const ConnectionsButton = styled.button`
-    height: 100%;
+    height: 40px;
     width: 70%;
     border-right: 1px solid ${props => props.theme.light};
     display: flex;
@@ -60,8 +68,8 @@ const ConnectionsButton = styled.button`
 `;
 
 const ConnectionDropdownButton = styled.button`
+    height: 40px;
     width: 30%;
-    height: 100%;
     background-color: ${props => props.theme.green};
     display: flex;
     align-items: center;
