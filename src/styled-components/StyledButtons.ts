@@ -12,7 +12,7 @@ export const StyledButton = styled.button`
     font-weight: 600;
     background: ${(props) =>
         `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`};
-    color: ${(props) => props.theme.verylight};
+    color: ${(props) => props.theme.light};
     outline: none;
     display: flex;
     align-items: center;
@@ -31,8 +31,8 @@ export const StyledButton = styled.button`
     &:disabled {
         background: ${(props) => props.theme.medium};
         box-shadow: 0 0;
-        color: ${(props) => props.theme.verylight};
-        fill: ${(props) => props.theme.verylight};
+        color: ${(props) => props.theme.light};
+        fill: ${(props) => props.theme.light};
     }
     > svg {
         transition: all 0.5s ease-out;
@@ -40,7 +40,7 @@ export const StyledButton = styled.button`
         height: 30px;
         width: auto;
         margin-right: 10px;
-        fill: ${(props) => props.theme.verylight};
+        fill: ${(props) => props.theme.light};
     }
     > span {
         margin: 5px 0 0 5px;

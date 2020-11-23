@@ -16,6 +16,7 @@ export default function UserPage(props: { user?: UserSchema }) {
         if (user || user === null) return;
         (async () => {
             const userDoc = await fetchUserDocFromUsername(pathname);
+            console.log(userDoc);
             if (userDoc) {
                 setUser(convertDocToUser(userDoc));
             } else {
@@ -48,4 +49,5 @@ const StyledUserPage = styled.div`
     padding: 100px 10%;
     display: flex;
     flex-direction: column;
+    background-color: ${props => props.theme.verylight};
 `;

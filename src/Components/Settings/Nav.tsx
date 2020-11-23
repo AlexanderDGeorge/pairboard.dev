@@ -46,6 +46,6 @@ const StyledNavItem = styled(Link)`
     &:hover {
         transition: all 0.2s linear;
         border-left: 2px solid ${props => props.theme.red} !important;
-        background-color: ${props => props.theme.verylight};
+        background-color: ${props => props.theme.light};
     }
 `;

@@ -15,7 +15,6 @@ export default function Post(props: { post: PostSchema }) {
         title,
         type,
         eventStart,
-        eventEnd,
     } = props.post;
     const { handleModal } = useContext(ModalContext)!;
 
@@ -53,6 +52,7 @@ const StyledPost = styled.div`
     border-radius: 15px;
     padding: 10px;
     box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
+    background-color: ${props => props.theme.white};
     cursor: pointer;
     transition: all linear 0.2s;
     display: grid;

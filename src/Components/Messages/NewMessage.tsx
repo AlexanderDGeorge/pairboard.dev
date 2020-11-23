@@ -13,6 +13,6 @@ export default function NewMessage() {
 const StyledNewMessage = styled.div`
     height: 100%;
     width: 100%;
-    border-left: 1px solid ${(props) => props.theme.verylight};
+    border-left: 1px solid ${(props) => props.theme.light};
     padding-left: 10px;
 `;

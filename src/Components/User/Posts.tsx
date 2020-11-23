@@ -8,7 +8,7 @@ export default function Posts(props: { user: UserSchema }) {
 
     return (
         <PostLane
-            name="user posts"
+            name={`Posts by ${username}`}
             query={firestore()
                 .collection("posts")
                 .where("host.username", "==", username)}

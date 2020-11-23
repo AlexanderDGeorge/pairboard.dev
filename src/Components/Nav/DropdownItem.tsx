@@ -21,7 +21,7 @@ const StyledDropdownItem = styled(Link)`
     display: flex;
     align-items: center;
     color: ${props => props.theme.light};
-    fill: ${props => props.theme.light};
+    fill: ${props => props.theme.verydark};
     text-decoration: none;
     transition: all 0s;
     &:hover {
@@ -31,8 +31,8 @@ const StyledDropdownItem = styled(Link)`
         background-color: ${props => props.theme.medium};
     }
     > svg {
-        height: 20px;
-        width: auto;
+        height: auto;
+        width: 20px;
         margin-right: 10px;
         fill: inherit;
         background: transparent;

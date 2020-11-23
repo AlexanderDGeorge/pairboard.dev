@@ -7,7 +7,7 @@ export const lightTheme: Theme = {
     medium: "#888888",
     accent: "#aaaaaa",
     light: "#cccccc",
-    verylight: "#dddddd",
+    verylight: "#efefef",
     white: "#ffffff",
     orange: "#FF890A",
     yellow: "#FCBF49",
@@ -19,7 +19,7 @@ export const lightTheme: Theme = {
 
 export const darkTheme: Theme = {
     black: "#ffffff",
-    verydark: "#dddddd",
+    verydark: "#efefef",
     dark: "#cccccc",
     medium: "#aaaaaa",
     accent: "#888888",

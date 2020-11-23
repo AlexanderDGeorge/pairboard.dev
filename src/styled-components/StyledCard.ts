@@ -10,6 +10,7 @@ export const StyledCard = styled.div`
     border-radius: 15px;
     padding: 2%;
     box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
+    background-color: ${props => props.theme.white};
     cursor: pointer;
     display: flex;
     align-items: center;

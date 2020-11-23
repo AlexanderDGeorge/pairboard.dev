@@ -91,7 +91,7 @@ const StyledProfileLink = styled.div`
             display: flex;
             align-items: center;
             color: ${props => props.theme.light};
-            fill: ${props => props.theme.light};
+            fill: ${props => props.theme.verydark};
             text-decoration: none;
             transition: all 0s;
             font-size: 1em;

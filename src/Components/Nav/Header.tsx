@@ -70,7 +70,7 @@ const HomeLink = styled(Link)`
     justify-content: center;
     font-size: 2.4em;
     font-weight: 100;
-    color: ${(props) => props.theme.verylight};
+    color: ${(props) => props.theme.light};
     transition: all 0.25s linear;
     text-decoration: none;
     outline: none;

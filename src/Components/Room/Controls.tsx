@@ -106,7 +106,7 @@ const Button = styled.button`
     width: 100%;
     font-size: 1em;
     background-color: transparent;
-    color: ${(props) => props.theme.verylight};
+    color: ${(props) => props.theme.light};
     transition: color 0.25s linear;
     &:hover {
         transition: color 0.25s linear;

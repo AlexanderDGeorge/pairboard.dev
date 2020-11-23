@@ -96,7 +96,7 @@ const StyledEmail = styled.ul`
 const SliderLane = styled.div`
     width: 100%;
     max-width: 600px;
-    border-top: 1px solid ${props => props.theme.verylight};
+    border-top: 1px solid ${props => props.theme.light};
     padding: 10px;
     display: flex;
     justify-content: space-between;

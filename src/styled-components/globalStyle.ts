@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
         font-weight: 300;
         color: ${(props) => props.theme.verydark};
-        background-color: ${(props) => props.theme.white};
+        /* fill: ${(props) => props.theme.verydark}; */
+        /* background-color: ${(props) => props.theme.white}; */
     }
 `;
