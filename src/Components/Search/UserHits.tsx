@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { SearchContext } from './Search';
 import SmallUserCard from '../User/SmallUserCard';
 
-function Hits(props: { hits: object[] }) {
+function UserHits(props: { hits: object[] }) {
     const { focused } = useContext(SearchContext)!;
 
     
@@ -35,6 +35,6 @@ const StyledHits = styled.div`
     flex-direction: column;
 `;
 
-const CustomHits = connectHits(Hits);
+const CustomHits = connectHits(UserHits);
 
 export default CustomHits;

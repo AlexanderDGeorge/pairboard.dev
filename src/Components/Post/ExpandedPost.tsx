@@ -48,6 +48,7 @@ const StyledModal = styled.div`
     padding: 4%;
     display: flex;
     flex-direction: column;
+    background-color: ${props => props.theme.white};
     cursor: auto;
     overflow-y: scroll;
     > h1 {

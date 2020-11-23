@@ -1,8 +1,9 @@
 import React, { createContext, useRef, useState } from 'react';
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch } from 'react-instantsearch-dom';
+import { Index, InstantSearch } from 'react-instantsearch-dom';
 import SearchBox from './SearchBox';
-import Hits from './Hits';
+import UserHits from './UserHits';
+import PostHits from './PostHits';
 import styled from 'styled-components';
 import useOnOutsideCLick from '../../util/useOnOutsideClick';
 
@@ -26,7 +27,12 @@ export default function Search() {
             <StyledSearchWrapper ref={searchRef}>
                 <InstantSearch searchClient={searchClient} indexName="users">
                     <SearchBox />
-                    <Hits />
+                    <Index indexName='users'>
+                        <UserHits />
+                    </Index>
+                    <Index indexName='posts'>
+                        <PostHits />
+                    </Index>
                 </InstantSearch>
             </StyledSearchWrapper>
         </SearchContext.Provider>

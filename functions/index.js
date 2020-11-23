@@ -32,22 +32,20 @@ exports.deleteUserIndex = functions.firestore.document('users/{uid}')
 exports.addPostIndex = functions.firestore.document('posts/{postId}')
     .onCreate(snapshot => {
         const data = snapshot.data();
-        const { title, description, difficulty, language } = data;
+        const { title, description, eventStart, difficulty, language } = data;
         return postIndex.saveObject({
-            title, description, difficulty, language, objectID: snapshot.id
+            title, description, eventStart, difficulty, language, objectID: snapshot.id
         })
     })
 
 exports.updatePostIndex = functions.firestore.document('posts/{postId}')
     .onUpdate(snapshot => {
         const data = snapshot.after.data();
-        const { title, description, difficulty, language } = data;
+        const { title, description, eventStart, difficulty, language } = data;
         return postIndex.saveObject({
-            title, description, difficulty, language, objectID: snapshot.after.id
+            title, description, eventStart, difficulty, language, objectID: snapshot.after.id
         })
     })
 
-exports.deletePostIndex = functions.firestore.document('posts/{postId')
-    .onDelete(snapshot => {
-        postIndex.deleteObject(snapshot.id)
-    })
+exports.deletePostIndex = functions.firestore.document('posts/{postId}')
+    .onDelete(snapshot => postIndex.deleteObject(snapshot.id))

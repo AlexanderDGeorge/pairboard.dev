@@ -49,6 +49,15 @@ export interface PostSchema {
     type: typeof POSTTYPES[number];
 }
 
+export interface LitePostSchema {
+    id: PostSchema['id'];
+    description: PostSchema['description'];
+    difficulty: PostSchema['difficulty'];
+    language: PostSchema['language'];
+    title: PostSchema['title'];
+    eventStart: PostSchema['eventStart'];
+}
+
 export interface RoomSchema {
     id: string;
     candidates: Candidate[];
