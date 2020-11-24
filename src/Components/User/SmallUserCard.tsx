@@ -28,7 +28,7 @@ const StyledSmallUserCard = styled(Link)`
     display: flex;
     text-decoration: none;
     &:hover {
-        text-decoration: underline;
+        box-shadow: 0 0 10px ${props => props.theme.verylight};
     }
     > img {
         height: 50px;

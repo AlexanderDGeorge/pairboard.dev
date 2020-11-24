@@ -52,8 +52,7 @@ const StyledPostDate = styled.div`
     grid-area: date;
     height: 100%;
     min-height: 60px;
-    width: 100%;
-    min-width: 60px;
+    width: 100px;
     border: 1px solid ${props => props.theme.accent};
     border-radius: 5px;
     padding: 5px;

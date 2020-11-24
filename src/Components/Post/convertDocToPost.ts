@@ -5,8 +5,6 @@ export default function convertDocToPost(
 ): PostSchema {
     const post = {
         id: doc.id,
-        active: doc.active,
-        author: doc.author,
         createdAt: doc.createdAt,
         description: doc.description,
         difficulty: doc.difficulty,
@@ -16,7 +14,6 @@ export default function convertDocToPost(
         language: doc.language,
         maxCapacity: doc.maxCapacity,
         participants: doc.participants,
-        password: doc.password,
         title: doc.title,
         type: doc.type,
     };

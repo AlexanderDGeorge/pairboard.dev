@@ -34,8 +34,6 @@ export interface LightUserSchema {
 
 export interface PostSchema {
     id: string;
-    active: boolean;
-    author: LightUserSchema;
     createdAt: Date;
     description: string;
     difficulty: typeof DIFFICULTIES[number];
@@ -47,15 +45,6 @@ export interface PostSchema {
     participants: UserSchema["uid"][];
     title: string;
     type: typeof POSTTYPES[number];
-}
-
-export interface LitePostSchema {
-    id: PostSchema['id'];
-    description: PostSchema['description'];
-    difficulty: PostSchema['difficulty'];
-    language: PostSchema['language'];
-    title: PostSchema['title'];
-    eventStart: PostSchema['eventStart'];
 }
 
 export interface RoomSchema {

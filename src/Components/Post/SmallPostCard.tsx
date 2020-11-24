@@ -1,17 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { LitePostSchema } from '../../firebase/schema';
+import { PostSchema } from '../../firebase/schema';
 import PostDate from './PostDate';
 import PostTag from './PostTag';
 
-export default function SmallPostCard(props: { post: LitePostSchema }) {
-    const { id, title, description, difficulty, language, eventStart } = props.post;
+export default function SmallPostCard(props: { post: PostSchema }) {
+    const { id, title, host, description, difficulty, language, eventStart } = props.post;
 
     return (
         <StyledSmallPostCard to={`/post/${id}`}>
             <div>
                 <h3>{title}</h3>
+                <StyledHostDiv>
+                    <img src={host.photoURL} alt=""/>
+                    {host.username}
+                </StyledHostDiv>
                 <p>{description}</p>
             </div>
             <div>
@@ -32,12 +36,23 @@ const StyledSmallPostCard = styled(Link)`
     background-color: ${props => props.theme.white};
     overflow: hidden;
     display: flex;
+    justify-content: space-between;
     text-decoration: none;
     &:hover {
-        text-decoration: underline;
+        box-shadow: 0 0 10px ${props => props.theme.verylight};
     }
     > div {
         display: flex;
         flex-direction: column;
+    }
+    `;
+
+const StyledHostDiv = styled.div`
+    display: flex;
+    align-items: center;
+    > img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
     }
 `;
