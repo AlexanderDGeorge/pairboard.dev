@@ -3,16 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { StyledField } from "../..//styled-components/formStyles";
 import { StyledButton, StyledButtonRow } from '../../styled-components/StyledButtons';
 import { signup, SignUpValues } from "../../firebase/auth";
-import styled from "styled-components";
-import { MdError } from "react-icons/md";
 import LoadingBar from "../Animated/LoadingBar";
 import { validateUsername, validateEmail } from "../../util/validationFunctions";
 
 export default function SignupForm(props: {
-    topError?: string;
     setTopError: Function;
 }) {
-    const { topError, setTopError } = props;
+    const { setTopError } = props;
     const [loading, setLoading] = useState(false);
 
     async function validate(values: SignUpValues) {
@@ -56,13 +53,7 @@ export default function SignupForm(props: {
             onSubmit={handleSubmit}
         >
             {({ isValid }) => (
-                <Form>
-                    <TopError
-                        style={topError ? { opacity: 1 } : { opacity: 0 }}
-                    >
-                        <MdError />
-                        {topError}
-                    </TopError>
+                <Form style={{width: '100%'}}> 
                     <StyledField>
                         <label htmlFor="username">username</label>
                         <Field type="text" name="username" />
@@ -84,9 +75,12 @@ export default function SignupForm(props: {
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
                     <StyledButtonRow>
-
-                    <StyledButton type="submit" disabled={!isValid || loading}>
-                        {loading ? <LoadingBar /> : "Sign Up"}
+                    <StyledButton
+                        style={{width: '100%'}}
+                        type="submit"
+                        disabled={!isValid || loading}
+                    >
+                    {loading ? <LoadingBar /> : "Sign Up"}
                     </StyledButton>
                     </StyledButtonRow>
                 </Form>
@@ -95,17 +89,3 @@ export default function SignupForm(props: {
     );
 }
 
-const TopError = styled.div`
-    height: 30px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    color: ${(props) => props.theme.red};
-    > svg {
-        height: 100%;
-        width: auto;
-        margin-right: 10px;
-        background: transparent;
-        fill: ${(props) => props.theme.red};
-    }
-`;

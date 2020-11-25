@@ -52,11 +52,7 @@ export default function LoginForm() {
         >
             {({ isValid }) => (
                 <Form>
-                    <TopError
-                        style={topError ? { opacity: 1 } : { opacity: 0 }}
-                    >
-                        <MdError /> {topError}
-                    </TopError>
+                    {topError ? <TopError><MdError /> {topError} </TopError> : null}
                     <StyledField>
                         <label htmlFor="email">email</label>
                         <Field type="email" name="email" />
@@ -68,8 +64,12 @@ export default function LoginForm() {
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
                     <StyledButtonRow>
-                    <StyledButton disabled={!isValid || loading} type="submit">
-                        {loading ? <LoadingBar /> : "Log in"}
+                    <StyledButton 
+                        style={{width: '100%'}}
+                        disabled={!isValid || loading}
+                        type="submit"
+                    >
+                        {loading ? <LoadingBar /> : "log in"}
                     </StyledButton>
 
                     </StyledButtonRow>

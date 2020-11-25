@@ -19,7 +19,7 @@ export const StyledField = styled.ul`
         min-height: 60px;
         height: 60px;
         width: 100%;
-        border: 1px solid ${(props) => props.theme.verydark};
+        border: 2px solid ${(props) => props.theme.verydark};
         padding: 10px;
         resize: none;
         font-size: 1em;
@@ -28,14 +28,14 @@ export const StyledField = styled.ul`
         &:hover,
         &:focus {
             transition: border 0.2s linear;
-            border: 1px solid ${(props) => props.theme.accent};
+            border: 2px solid ${(props) => props.theme.accent};
         }
     }
     > textarea {
         min-height: 100px;
         height: 100%;
         width: 100%;
-        border: 1px solid ${(props) => props.theme.verydark};
+        border: 2px solid ${(props) => props.theme.verydark};
         padding: 20px 10px 10px 10px;
         resize: none;
         font-size: 1em;
@@ -44,16 +44,18 @@ export const StyledField = styled.ul`
         &:hover,
         &:focus {
             transition: border 0.2s linear;
-            border: 1px solid ${(props) => props.theme.accent};
+            border: 2px solid ${(props) => props.theme.accent};
         }
     }
     > p {
         position: absolute;
+        width: calc(100% - 4px);
+        border-bottom: 2px solid ${props => props.theme.red};
         font-weight: 500;
         color: ${(props) => props.theme.red};
         background-color: ${(props) => props.theme.white};
-        top: 45px;
-        left: 10px;
+        top: 44px;
+        left: 2px;
     }
     > svg {
         position: absolute;

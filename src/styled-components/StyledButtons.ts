@@ -6,7 +6,7 @@ export const StyledButton = styled.button`
     min-width: 120px;
     width: 60%;
     max-width: 600px;
-    border-radius: 60px;
+    border-radius: 20px;
     padding: 10px;
     font-size: 1em;
     font-weight: 600;
@@ -87,5 +87,21 @@ export const StyledDeleteButton = styled.button`
     &:hover {
         transition: border 0.2s linear;
         text-decoration: none;
+    }
+`;
+
+export const StyledGithubButton = styled.button`
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${props => props.theme.black};
+    > svg {
+        height: 40px;
+        width: auto;
+        fill: ${props => props.theme.white};
     }
 `;

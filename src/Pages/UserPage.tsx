@@ -13,17 +13,17 @@ export default function UserPage(props: { user?: UserSchema }) {
     const [user, setUser] = useState<UserSchema | undefined | null>(props.user);
 
     useEffect(() => {
-        if (user || user === null) return;
+        if (props.user || user === null) return;
         (async () => {
             const userDoc = await fetchUserDocFromUsername(pathname);
-            console.log(userDoc);
             if (userDoc) {
                 setUser(convertDocToUser(userDoc));
             } else {
                 setUser(null);
             }
         })();
-    }, [pathname, user]);
+        // eslint-disable-next-line
+    }, [pathname]);
 
     if (user) {
         return (

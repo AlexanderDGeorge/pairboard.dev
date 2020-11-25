@@ -8,6 +8,7 @@ import SignupPage from "./Pages/SignupPage";
 import LoginPage from "./Pages/LoginPage";
 import LoadingPage from "./Pages/LoadingPage";
 import UserPage from "./Pages/UserPage";
+import PostPage from "./Pages/PostPage";
 import HomePage from "./Pages/HomePage";
 import RoomPage from "./Pages/RoomPage";
 import MessagesPage from "./Pages/MessagesPage";
@@ -16,7 +17,6 @@ import SettingsPage from "./Pages/SettingsPage";
 
 export default function Routing() {
     const currentUser = useContext(UserContext);
-    // console.log(currentUser);
 
     if (currentUser) {
         if (currentUser.status === "in room") {
@@ -35,6 +35,7 @@ export default function Routing() {
                         render={() => <UserPage user={currentUser} />}
                     />
                     <Route path="/user/:username" component={UserPage} />
+                    <Route path='/post/:postId' component={PostPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>
                 <Footer />

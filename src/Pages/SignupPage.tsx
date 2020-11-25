@@ -1,57 +1,70 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SignupForm from "../Components/Auth/SignupForm";
+import ProviderSignup from "../Components/Auth/ProviderSignup";
+import { StyledH1 } from "../styled-components/StyledHeaders";
+import { StyledHorDiv } from "./LoginPage";
+import { MdError } from "react-icons/md";
 
 export default function SignupPage() {
     const [topError, setTopError] = useState<string | undefined>(undefined);
 
     return (
         <Signup>
-            <h1>Signup</h1>
-            <SignupForm topError={topError} setTopError={setTopError} />
-            <span>
-                <div></div>
-                OR
-                <div></div>
-            </span>
-            <Link style={{ marginTop: "10%" }} to="/login">
-                meant to log in?
-            </Link>
-            <Link to="/password">forgot password?</Link>
+            <div>
+                <StyledH1>Sign Up</StyledH1>
+                {topError ? 
+                    <TopError>
+                        <MdError />{topError}
+                    </TopError> :
+                    null
+                }
+                <ProviderSignup setTopError={setTopError}/>
+                <StyledHorDiv>
+                    <div></div>
+                    <h4>OR</h4>
+                    <div></div>
+                </StyledHorDiv>
+                <SignupForm setTopError={setTopError} />
+            </div>
         </Signup>
     );
 }
 
 const Signup = styled.div`
-    min-height: 100%;
+    min-height: 80%;
     width: 100%;
-    padding: 10%;
+    padding: 100px 10%;
     display: flex;
     flex-direction: column;
-    > span {
-        width: 100%;
-        max-width: 600px;
-        margin: 5% 0;
-        padding: 0 10%;
+    align-items: center;
+    justify-content: center;
+    background-color: ${props => props.theme.dark};
+    > div {
+        min-width: 300px;
+        width: 60%;
+        max-width: 500px;
+        border-radius: 20px;
+        padding: 20px;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        font-size: 1em;
-        font-weight: 500;
-        > div {
-            width: 50%;
-            border-top: 1px solid ${(props) => props.theme.verydark};
-        }
+        background-color: ${props => props.theme.white};
+        box-shadow: 0 5px 20px -4px ${props => props.theme.black};
     }
-    > a {
-        height: 50px;
-        width: 100%;
-        max-width: 600px;
-        text-align: center;
-        color: ${(props) => props.theme.blue};
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
+`;
+
+const TopError = styled.div`
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.red};
+    > svg {
+        height: 100%;
+        width: auto;
+        margin-right: 10px;
+        background: transparent;
+        fill: ${(props) => props.theme.red};
     }
 `;

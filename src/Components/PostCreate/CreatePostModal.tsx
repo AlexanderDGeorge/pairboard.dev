@@ -76,6 +76,7 @@ const StyledModal = styled.div`
     max-width: 1000px;
     border-radius: 5px;
     padding: 2%;
+    background-color: ${props => props.theme.white};
     display: flex;
     flex-direction: column;
     cursor: auto;

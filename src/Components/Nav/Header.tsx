@@ -41,7 +41,13 @@ export default function Header() {
                 pairboard.dev <sup>alpha</sup>
             </HomeLink>
             {user ? <Search /> : null}
-            {user ? <ProfileLink user={user} /> : null}
+            {user ?
+                <ProfileLink user={user} /> : 
+                <AuthButtons>
+                    <Link to='login'>Log In</Link>
+                    <Link to='signup'>Sign Up</Link>
+                </AuthButtons>
+            }
         </StyledHeader>
     );
 }
@@ -54,7 +60,7 @@ const StyledHeader = styled(animated.header)`
     margin-bottom: 40px;
     padding: 0 10%;
     background-color: ${(props) => props.theme.verydark};
-    border-bottom: 5px solid ${(props) => props.theme.verydark};
+    border-bottom: 7px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>
         `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue}) 3`};
     display: flex;
@@ -83,5 +89,35 @@ const HomeLink = styled(Link)`
         background-color: transparent;
         color: ${(props) => props.theme.light};
         font-size: 0.5em;
+    }
+`;
+
+const AuthButtons = styled.div`
+    height: fit-content;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: space-between;
+    > a:first-of-type {
+        background-color: ${props => props.theme.dark};
+        border-radius: 20px 0 0 20px;
+        &:hover {
+            box-shadow: -4px 0 10px ${props => props.theme.dark};
+        }
+    }
+    > a:last-of-type {
+        background-color: ${props => props.theme.green};
+        border-radius: 0 20px 20px 0;
+        &:hover {
+            box-shadow: 4px 0 10px ${props => props.theme.green};
+        }
+    }
+    > a {
+        width: 100px;
+        padding: 10px;        
+        color: ${props => props.theme.white};
+        text-align: center;
+        text-decoration: none;
+        font-size: 0.9em;
     }
 `;

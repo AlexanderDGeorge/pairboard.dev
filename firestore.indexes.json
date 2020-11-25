@@ -1,4 +1,13 @@
 {
-  "indexes": [],
-  "fieldOverrides": []
+    "indexes": [
+        {
+            "collectionGroup": "posts",
+            "queryScope": "COLLECTION",
+            "fields": [
+                { "fieldPath": "id", "order": "ASCENDING" },
+                { "fieldPath": "createdAt", "order": "ASCENDING" }
+            ]
+        }
+    ],
+    "fieldOverrides": []
 }
