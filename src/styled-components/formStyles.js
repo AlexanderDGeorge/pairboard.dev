@@ -54,7 +54,7 @@ export const StyledField = styled.ul`
         font-weight: 500;
         color: ${(props) => props.theme.red};
         background-color: ${(props) => props.theme.white};
-        top: 44px;
+        bottom: -2px;
         left: 2px;
     }
     > svg {

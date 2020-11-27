@@ -76,7 +76,7 @@ export default function PostForm(props: {
                                         </option>
                                     ))}
                                 </select>
-                                <ErrorMessage name="difficulty" component="p" />
+                                <ErrorMessage name="language" component="p" />
                             </StyledField>
                             <StyledField>
                                 <label htmlFor="description">description</label>
