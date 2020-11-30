@@ -13,22 +13,19 @@ export async function createPost(
     difficulty: PostSchema["difficulty"],
     language: PostSchema["language"],
     maxCapacity: PostSchema["maxCapacity"],
-    eventEnd: PostSchema["eventEnd"],
-    eventStart: PostSchema["eventStart"],
+    start: PostSchema["start"],
 ) {
     const postRef = firestore().collection("posts").doc();
     await postRef.set({
         id: postRef.id,
-        active: true,
         createdAt: new Date().toString(),
         description,
         difficulty,
-        eventEnd,
-        eventStart,
         host,
         language,
         maxCapacity,
         participants: [],
+        start,
         title,
         type,
     });

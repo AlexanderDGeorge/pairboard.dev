@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import DatePicker from '../Animated/DatePicker';
+import DatePicker from './DatePicker';
 import styled from "styled-components";
 import { StyledField } from "../../styled-components/StyledField";
 import { DIFFICULTIES, LANGUAGES } from "../Post/constants";
@@ -24,13 +24,11 @@ export default function PostForm(props: {
                 language: "",
                 capacity: 100,
                 sessionDate: new Date(),
-                sessionStart: "",
-                sessionEnd: "",
             }}
             onSubmit={props.handleSubmit}
             validate={props.validate}
         >
-            {({ isValid, handleChange, handleBlur, values }) => (
+            {({ isValid, handleChange, handleBlur, setFieldValue }) => (
                 <CreatePairboard>
                     <StyledField>
                         <label htmlFor="title">title</label>
@@ -90,10 +88,7 @@ export default function PostForm(props: {
                             component="p"
                         />
                     </StyledField>
-                    <DatePicker
-                        selected={values.sessionDate}
-                        onChange={handleChange}
-                    />
+                    <DatePicker setFieldValue={setFieldValue}/>
                     <StyledButtonRow>
                         <StyledCancelButton type="reset" onClick={() => handleModal()}>
                             Cancel

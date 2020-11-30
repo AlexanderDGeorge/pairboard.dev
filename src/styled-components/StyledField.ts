@@ -9,6 +9,7 @@ export const StyledField = styled.ul`
     margin: 15px 0;
     list-style-position: outside;
     label {
+        z-index: 1;
         position: absolute;
         font-weight: 100;
         color: ${(props) => props.theme.verydark};
@@ -69,5 +70,8 @@ export const StyledField = styled.ul`
         font-weight: 100;
         max-width: 500px;
         font-size: 0.9em;
+    }
+    > div {
+        width: 100%;
     }
 `;

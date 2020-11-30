@@ -37,12 +37,11 @@ export interface PostSchema {
     createdAt: Date;
     description: string;
     difficulty: typeof DIFFICULTIES[number];
-    eventEnd: Date;
-    eventStart: Date;
     host: LightUserSchema;
     language: typeof LANGUAGES[number];
     maxCapacity?: number;
     participants: UserSchema["uid"][];
+    start: Date;
     title: string;
     type: typeof POSTTYPES[number];
 }

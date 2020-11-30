@@ -1,17 +1,15 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { ModalContext } from "../../Application";
 import { PostSchema } from "../../firebase/schema";
 import useLockBodyScroll from "../../util/useLockBodyScroll";
-import useOnOutsideCLick from "../../util/useOnOutsideClick";
 import FormContainer from "./FormContainer";
 
 export default function CreatePostModal(props: { type: PostSchema["type"] }) {
     const modalRef = useRef(null);
-    const { handleModal } = useContext(ModalContext)!;
     const [type, setType] = useState<string>(props.type);
 
-    useOnOutsideCLick(modalRef, () => handleModal());
+    // [TODO]: figure out how to get this to work with react-datepicker
+    // useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
 
     function ModalContent() {

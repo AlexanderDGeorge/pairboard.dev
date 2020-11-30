@@ -6,7 +6,7 @@ import PostDate from './PostDate';
 import PostTag from './PostTag';
 
 export default function SmallPostCard(props: { post: PostSchema }) {
-    const { id, title, host, description, difficulty, language, eventStart } = props.post;
+    const { id, title, host, description, difficulty, language, start } = props.post;
 
     return (
         <StyledSmallPostCard to={`/post/${id}`}>
@@ -19,7 +19,7 @@ export default function SmallPostCard(props: { post: PostSchema }) {
                 <p>{description}</p>
             </div>
             <div>
-                <PostDate eventStart={eventStart}/>
+                <PostDate start={start}/>
                 <PostTag tag={difficulty}/>
                 <PostTag tag={language}/>
             </div>

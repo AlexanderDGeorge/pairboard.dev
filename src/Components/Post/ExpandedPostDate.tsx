@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function ExpandedPostDate(props: { eventStart: Date }) {
+export default function ExpandedPostDate(props: { start: Date }) {
     
 
     return (

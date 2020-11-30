@@ -29,6 +29,7 @@ export const StyledButton = styled.button`
         }
     }
     &:disabled {
+        cursor: not-allowed;
         background: ${(props) => props.theme.medium};
         box-shadow: 0 0;
         color: ${(props) => props.theme.light};

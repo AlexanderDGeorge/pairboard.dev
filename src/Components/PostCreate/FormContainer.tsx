@@ -10,9 +10,7 @@ interface PostCreateValues {
     difficulty: string,
     language: string,
     capacity: number,
-    sessionDate: Date,
-    sessionStart: string,
-    sessionEnd: string,
+    start: Date,
 }
 
 export default function FormContainer(props: { type: string }) {
@@ -20,19 +18,6 @@ export default function FormContainer(props: { type: string }) {
     const [loading, setLoading] = useState(false);
     const history = useHistory();
     const { handleModal } = useContext(ModalContext)!;
-
-    const capacity = () => {
-        switch (props.type) {
-            case "Pairboard":
-                return 2;
-            case "Team":
-                return 20;
-            case "Lecture":
-                return 1000;
-            default:
-                return 1000;
-        }
-    };
 
     function validate(values: PostCreateValues) {
         const errors: { [key: string]: string } = {};
@@ -56,14 +41,8 @@ export default function FormContainer(props: { type: string }) {
             errors.language = "required";
         }
 
-        if (!values.sessionDate) {
-            errors.sessionDate = "required";
-        }
-        if (!values.sessionStart) {
-            errors.sessionStart = "required";
-        }
-        if (!values.sessionEnd) {
-            errors.sessionEnd = "required";
+        if (!values.start) {
+            errors.start = "required";
         }
         return errors;
     }
@@ -74,13 +53,10 @@ export default function FormContainer(props: { type: string }) {
             description,
             difficulty,
             language,
-            sessionDate,
-            sessionStart,
-            sessionEnd,
+            capacity,
+            start,
         } = values;
         setLoading(true);
-        const eventEnd = new Date(sessionDate).setHours(sessionEnd.slice(0,2), sessionEnd.slice(3));
-        const eventStart = new Date(sessionDate).setHours(sessionStart.slice(0, 2), sessionStart.slice(3));
         await createPost(
             { uid, username, name, photoURL },
             title,
@@ -89,9 +65,8 @@ export default function FormContainer(props: { type: string }) {
             description,
             difficulty,
             language,
-            capacity(),
-            new Date(eventEnd).toString(),
-            new Date(eventStart).toString(),
+            capacity,
+            start
         );
         history.replace("/");
         setLoading(false);

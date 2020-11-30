@@ -13,7 +13,7 @@ import ExpandedPostDate from './ExpandedPostDate';
 export default function ExpandedPost(props: {post: PostSchema}) {
     const modalRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
-    const { title, description, host, type, language, eventStart } = props.post;
+    const { title, description, host, type, language, start } = props.post;
 
     useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
@@ -30,7 +30,7 @@ export default function ExpandedPost(props: {post: PostSchema}) {
                     <img src={host.photoURL} alt="" />
                     <h4>{host.username}</h4>
                 </Link>
-                <ExpandedPostDate eventStart={eventStart}/>
+                <ExpandedPostDate start={start}/>
             </LinkDateRow>
             <p>{description}</p>
             <StyledDivider />

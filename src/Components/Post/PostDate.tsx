@@ -26,10 +26,10 @@ const DAYS = [
     'SATURDAY',
 ]
 
-export default function PostDate(props: { eventStart: Date }) {
+export default function PostDate(props: { start: Date }) {
 
-    function convertDate(eventStart: Date) {
-        const temp = new Date(eventStart);
+    function convertDate(start: Date) {
+        const temp = new Date(start);
         // console.log(temp);
         const month = MONTHS[temp.getMonth()];
         const day = DAYS[temp.getDay() + 1];
@@ -37,7 +37,7 @@ export default function PostDate(props: { eventStart: Date }) {
         return { month, day, date };
     }
     
-    const { month, day, date } = convertDate(props.eventStart);
+    const { month, day, date } = convertDate(props.start);
 
     return (   
         <StyledPostDate>

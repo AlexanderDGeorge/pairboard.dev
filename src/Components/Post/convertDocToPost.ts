@@ -8,12 +8,11 @@ export default function convertDocToPost(
         createdAt: doc.createdAt,
         description: doc.description,
         difficulty: doc.difficulty,
-        eventEnd: doc.eventEnd,
-        eventStart: doc.eventStart,
         host: doc.host,
         language: doc.language,
         maxCapacity: doc.maxCapacity,
         participants: doc.participants,
+        start: doc.start,
         title: doc.title,
         type: doc.type,
     };
