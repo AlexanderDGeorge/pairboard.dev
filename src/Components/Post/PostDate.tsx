@@ -16,34 +16,31 @@ const MONTHS = [
     'DEC'
 ]
 
-const DAYS = [
-    'SUNDAY',
-    'MONDAY',
-    'TUESDAY',
-    'WEDNESDAY',
-    'THURSDAY',
-    'FRIDAY',
-    'SATURDAY',
-]
-
 export default function PostDate(props: { start: Date }) {
 
-    function convertDate(start: Date) {
-        const temp = new Date(start);
-        // console.log(temp);
+    function convertDate() {
+        const temp = new Date(props.start);
         const month = MONTHS[temp.getMonth()];
-        const day = DAYS[temp.getDay() + 1];
-        const date = temp.getDate() + 1;
-        return { month, day, date };
+        const date = temp.getDate();
+        let hours = temp.getHours();
+        let minutes = temp.getMinutes();
+        let meridian;
+        if (hours - 12 > 0) {
+            hours -= 12;
+            meridian = 'PM'
+        } else {
+            meridian = 'AM'
+        }
+        return { month, date, hours, minutes, meridian };
     }
     
-    const { month, day, date } = convertDate(props.start);
+    const { month, date, hours, minutes, meridian } = convertDate();
 
     return (   
         <StyledPostDate>
             <h4>{month}</h4>
             <h2>{date}</h2>
-            <h6>{day}</h6>
+            <h5>{hours}:{minutes}{meridian}</h5>
         </StyledPostDate>
     )
 }

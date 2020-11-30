@@ -10,7 +10,7 @@ export default function useUserContext() {
         let unsubscribe: Function | null = null;
 
         auth.onAuthStateChanged((authUser) => {
-            console.log(authUser);
+            // console.log(authUser);
             if (!authUser) {
                 setUser(null);
                 return;

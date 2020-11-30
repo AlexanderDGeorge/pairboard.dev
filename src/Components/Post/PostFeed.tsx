@@ -11,8 +11,16 @@ export default function PostFeed() {
             <PostLane name="Create a Post" create={true} />
             <PostLane name="All Posts" query={postsQuery} />
             <PostLane
-                name="JavaScript Only"
-                query={postsQuery.where("language", "==", "JavaScript")}
+                name="Pairboard Posts"
+                query={postsQuery.where("type", "==", "Pairboard")}
+            />
+            <PostLane
+                name="Team Posts"
+                query={postsQuery.where("type", "==", "Team")}
+            />
+            <PostLane
+                name="Lecture Posts"
+                query={postsQuery.where("type", "==", "Lecture")}
             />
         </StyledPostFeed>
     );
