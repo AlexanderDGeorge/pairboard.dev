@@ -18,9 +18,7 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
                 return (
                     <>
                         <p>
-                            Pairboards are intended for one on one learning.{" "}
-                            <br />
-                            Room limits are capped at two occupants.
+                            Work with a partner!
                         </p>
                         <FormContainer type={type} />
                     </>
@@ -29,8 +27,7 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
                 return (
                     <>
                         <p>
-                            Teams are intended for collaboration. <br />
-                            Room limits are capped at 20 occupants.
+                            Collaborate with your team! <br />
                         </p>
                         <FormContainer type={type} />
                     </>
@@ -39,9 +36,7 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
                 return (
                     <>
                         <p>
-                            Lectures are intended for one or a few main
-                            speakers. <br />
-                            Room limits are capped at 1,000 occupants.
+                            Listen and learn!
                         </p>
                         <FormContainer type={type} />
                     </>

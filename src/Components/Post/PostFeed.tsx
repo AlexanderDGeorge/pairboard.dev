@@ -8,7 +8,7 @@ export default function PostFeed() {
 
     return (
         <StyledPostFeed>
-            <PostLane name="Create a Post" create={true} />
+            <PostLane name="Create a Post" create />
             <PostLane name="All Posts" query={postsQuery} />
             <PostLane
                 name="Pairboard Posts"

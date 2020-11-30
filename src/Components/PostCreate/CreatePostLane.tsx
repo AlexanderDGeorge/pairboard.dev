@@ -1,31 +1,27 @@
 import React, { useContext } from "react";
 import { ModalContext } from "../../Application";
 import CreatePostModal from "./CreatePostModal";
-import {
-    RedPurpleCard,
-    PurpleBlueCard,
-    BlueGreenCard,
-} from "../../styled-components/StyledCard";
+import { BlueGreenCard } from "../../styled-components/StyledCard";
 
 export default function CreatePostLane() {
     const { handleModal } = useContext(ModalContext)!;
 
     return (
         <>
-            <RedPurpleCard
+            <BlueGreenCard
                 style={{width: 300}}
                 onClick={() =>
                     handleModal(<CreatePostModal type="Pairboard" />)
                 }
             >
                 <h2>Pairboard</h2>
-            </RedPurpleCard>
-            <PurpleBlueCard
+            </BlueGreenCard>
+            <BlueGreenCard
                 style={{width: 300}}
                 onClick={() => handleModal(<CreatePostModal type="Team" />)}
             >
                 <h2>Team</h2>
-            </PurpleBlueCard>
+            </BlueGreenCard>
             <BlueGreenCard
                 style={{width: 300}}
                 onClick={() => handleModal(<CreatePostModal type="Lecture" />)}

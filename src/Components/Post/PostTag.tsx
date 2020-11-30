@@ -18,4 +18,5 @@ const StyledPostTag = styled.p`
     color: ${props => props.theme.white};
     font-size: 0.8em;
     text-align: center;
+    font-weight: 400;
 `;

@@ -22,9 +22,9 @@ export default function PostSubscribe(props: { post: PostSchema }) {
 
     return (
         <StyledPostSubscribe>
-            <h2>Notifications</h2>
+            {/* <h2>Notifications</h2>
             <p>Subscribe to receive important updates and notifications.</p>
-            <p>When the event is live you may join.</p>
+            <p>When the event is live you may join.</p> */}
             <PostNotificationSettings />
             <StyledButtonRow>
                 <StyledCancelButton onClick={() => handleModal()}>

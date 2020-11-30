@@ -7,7 +7,7 @@ import useLockBodyScroll from '../../util/useLockBodyScroll';
 import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import PostTag from './PostTag';
 import PostSubscribe from './PostSubscribe';
-import ExpandedPostDate from './ExpandedPostDate';
+import PostDate from './PostDate';
 
 
 export default function ExpandedPost(props: {post: PostSchema}) {
@@ -21,17 +21,15 @@ export default function ExpandedPost(props: {post: PostSchema}) {
     return (
         <StyledModal ref={modalRef}>
             <h1>{title}</h1>
+            <PostDate start={start} expanded/>
             <Tags>
                 <PostTag tag={language} />
                 <PostTag tag={type} />
             </Tags>
-            <LinkDateRow>
-                <Link to={`/user/${host.username}`}>
-                    <img src={host.photoURL} alt="" />
-                    <h4>{host.username}</h4>
-                </Link>
-                <ExpandedPostDate start={start}/>
-            </LinkDateRow>
+            <Link to={`/user/${host.username}`}>
+                <img src={host.photoURL} alt="" />
+                <h4>{host.username}</h4>
+            </Link>
             <p>{description}</p>
             <StyledDivider />
             <PostSubscribe post={props.post} />
@@ -41,11 +39,9 @@ export default function ExpandedPost(props: {post: PostSchema}) {
 
 const StyledModal = styled.div`
     position: relative;
-    max-height: 600px;
-    width: 60%;
-    max-width: 800px;
+    min-width: 600px;
     border-radius: 5px;
-    padding: 4%;
+    padding: 2%;
     display: flex;
     flex-direction: column;
     background-color: ${props => props.theme.white};
@@ -63,18 +59,12 @@ const StyledModal = styled.div`
         overflow: auto;
     }
     > p {
-        font-weight: 100;
         text-align: justify;
     }
-`;
-
-const LinkDateRow = styled.div`
-    height: 50px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
     > a {
-        height: 100%;
+        height: 50px;
+        width: 50%;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
         text-decoration: none;
@@ -91,9 +81,13 @@ const LinkDateRow = styled.div`
 `;
 
 const Tags = styled.div`
-    width: 100%;
+    margin: 10px 0;
     overflow-x: scroll;
     display: flex;
+    > p {
+        margin-top: 0;
+        margin-right: 10px;
+    }
 `;
 
 const StyledDivider = styled.div`

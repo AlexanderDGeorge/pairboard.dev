@@ -68,7 +68,7 @@ const StyledPost = styled.div`
     &:hover {
         transition: all linear 0.2s;
         border-radius: 5px;
-        box-shadow: 0 0 20px -6px ${(props) => props.theme.verydark};
+        box-shadow: 0 0 20px -2px ${(props) => props.theme.verydark};
     }
     &:active {
         box-shadow: inset 0 0 20px 2px ${(props) => props.theme.verydark};
