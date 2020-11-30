@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ModalContext, UserContext } from '../../Application';
 import { checkForValidEmail } from '../../firebase/auth';
 import { auth } from '../../firebase/firebase';
-import { StyledField } from '../../styled-components/formStyles';
+import { StyledField } from '../../styled-components/StyledField';
 import { StyledButton, StyledButtonRow } from '../../styled-components/StyledButtons';
 import Slider from '../Animated/Slider';
 import PasswordModal from '../Modal/PasswordModal';

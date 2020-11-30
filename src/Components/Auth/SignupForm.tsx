@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { StyledField } from "../..//styled-components/formStyles";
+import { StyledField } from "../../styled-components/StyledField";
 import { StyledButton, StyledButtonRow } from '../../styled-components/StyledButtons';
 import { signup, SignUpValues } from "../../firebase/auth";
 import LoadingBar from "../Animated/LoadingBar";

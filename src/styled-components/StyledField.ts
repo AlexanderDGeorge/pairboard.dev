@@ -8,13 +8,13 @@ export const StyledField = styled.ul`
     max-width: 600px;
     margin: 15px 0;
     list-style-position: outside;
-    > label {
+    label {
         position: absolute;
         font-weight: 100;
         color: ${(props) => props.theme.verydark};
         background-color: ${(props) => props.theme.white};
     }
-    > input,
+    input,
     select {
         min-height: 60px;
         height: 60px;
@@ -31,7 +31,7 @@ export const StyledField = styled.ul`
             border: 2px solid ${(props) => props.theme.accent};
         }
     }
-    > textarea {
+    textarea {
         min-height: 100px;
         height: 100%;
         width: 100%;

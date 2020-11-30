@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { MdLock } from "react-icons/md";
-import { StyledField } from "../../styled-components/formStyles";
+import { StyledField } from "../../styled-components/StyledField";
 import useOnOutsideCLick from "../../util/useOnOutsideClick";
 import { ModalContext } from "../../Application";
 import useLockBodyScroll from "../../util/useLockBodyScroll";

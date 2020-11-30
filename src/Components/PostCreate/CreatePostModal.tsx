@@ -70,10 +70,6 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
 }
 
 const StyledModal = styled.div`
-    height: 80%;
-    max-height: 800px;
-    width: 80%;
-    max-width: 1000px;
     border-radius: 5px;
     padding: 2%;
     background-color: ${props => props.theme.white};
@@ -99,7 +95,6 @@ const StyledModal = styled.div`
         }
     }
     > p {
-        font-weight: 100;
         margin-bottom: 20px;
     }
 `;

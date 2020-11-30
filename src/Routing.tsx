@@ -21,7 +21,11 @@ export default function Routing() {
 
     if (currentUser) {
         if (currentUser.status === "in room") {
-            return <RoomPage />;
+            return (
+                <Suspense fallback={<LoadingPage />}>
+                    <RoomPage />
+                </Suspense>
+            )
         }
         return (
             <BrowserRouter>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { FaGithub } from 'react-icons/fa';
 import styled from 'styled-components';
-import { StyledField } from '../../styled-components/formStyles';
+import { StyledField } from '../../styled-components/StyledField';
 import { StyledGithubButton } from '../../styled-components/StyledButtons';
 import { validateUsername } from '../../util/validationFunctions';
 import { signupWithGithub } from '../../firebase/auth';

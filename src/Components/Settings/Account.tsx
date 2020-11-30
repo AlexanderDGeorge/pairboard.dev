@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { UserContext } from '../../Application';
 import { UserSchema } from '../../firebase/schema';
 import { updateUserAccount } from '../../firebase/user';
-import { StyledField } from '../../styled-components/formStyles';
+import { StyledField } from '../../styled-components/StyledField';
 import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
 import { validateEmail } from '../../util/validationFunctions';
 import LoadingBar from '../Animated/LoadingBar';

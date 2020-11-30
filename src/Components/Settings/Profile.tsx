@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styled from 'styled-components';
 import { UserContext } from '../../Application';
-import { StyledField } from '../../styled-components/formStyles';
+import { StyledField } from '../../styled-components/StyledField';
 import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
 import { UserSchema } from '../../firebase/schema';
 import {validateUsername} from '../../util/validationFunctions';
