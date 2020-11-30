@@ -34,13 +34,16 @@ export default function PostDate(props: { start: Date, expanded?: any }) {
         const date = temp.getDate();
         const day = DAYS[temp.getDay()];
         let hours = temp.getHours();
-        let minutes = temp.getMinutes();
+        let minutes: string | number = temp.getMinutes();
         let meridian;
         if (hours - 12 > 0) {
             hours -= 12;
             meridian = 'PM'
         } else {
             meridian = 'AM'
+        }
+        if (minutes === 0) {
+            minutes = '00'
         }
         return { year, month, date, day, hours, minutes, meridian };
     }

@@ -36,7 +36,7 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
                 return (
                     <>
                         <p>
-                            Listen and learn!
+                            Teach and demonstrate concepts!
                         </p>
                         <FormContainer type={type} />
                     </>

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
-    margin: 15px 0;
+    margin: 10px 0;
     height: 60px;
     min-width: 120px;
-    width: 60%;
+    width: 80%;
     max-width: 600px;
     border-radius: 20px;
     padding: 10px;
@@ -51,8 +51,7 @@ export const StyledButton = styled.button`
 
 export const StyledButtonRow = styled.div`
     position: relative;
-    width: 100%;
-    max-width: 600px;
+    margin: 10px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -65,7 +64,11 @@ export const StyledCancelButton = styled.button`
     min-width: 100px;
     width: 100px;
     max-width: 100px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     margin: 15px 0;
+    background-color: ${props => props.theme.dark};
+    color: ${props => props.theme.accent};
     text-decoration: underline;
     transition: border 0.2s linear;
     &:hover {
@@ -81,7 +84,10 @@ export const StyledDeleteButton = styled.button`
     min-width: 100px;
     width: 100px;
     max-width: 100px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     margin: 15px 0;
+    background-color: ${props => props.theme.dark};
     color: ${props => props.theme.red};
     text-decoration: underline;
     transition: border 0.2s linear;

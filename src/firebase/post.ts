@@ -25,7 +25,7 @@ export async function createPost(
         language,
         maxCapacity,
         participants: [],
-        start: new Date(start).toString(),
+        start: start.toString(),
         title,
         type,
     });

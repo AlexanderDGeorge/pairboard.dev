@@ -23,12 +23,12 @@ export default function PostForm(props: {
                 difficulty: "",
                 language: "",
                 capacity: 100,
-                sessionDate: new Date(),
+                start: new Date(),
             }}
             onSubmit={props.handleSubmit}
             validate={props.validate}
         >
-            {({ isValid, handleChange, handleBlur, setFieldValue }) => (
+            {({ isValid, handleChange, handleBlur, values, setFieldValue }) => (
                 <CreatePairboard>
                     <StyledField>
                         <label htmlFor="title">title</label>
@@ -88,7 +88,7 @@ export default function PostForm(props: {
                             component="p"
                         />
                     </StyledField>
-                    <DatePicker setFieldValue={setFieldValue}/>
+                    <DatePicker value={values.start}setFieldValue={setFieldValue}/>
                     <StyledButtonRow>
                         <StyledCancelButton type="reset" onClick={() => handleModal()}>
                             Cancel
