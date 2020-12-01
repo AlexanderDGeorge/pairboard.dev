@@ -8,6 +8,7 @@ import { UserSchema } from '../../firebase/schema';
 import {validateUsername} from '../../util/validationFunctions';
 import LoadingBar from '../Animated/LoadingBar';
 import { updateUserProfile } from '../../firebase/user';
+import ProfilePicture from './ProfilePicture';
 
 interface ProfileValues {
     username: UserSchema['username'];
@@ -50,6 +51,7 @@ export default function Profile() {
                 <ProfileSettings>
                     <h1>Profile</h1>
                     <h2>{topMessage}</h2>
+                <ProfilePicture submit={loading}/>
                 <StyledField>
                     <label htmlFor="username">username</label>
                     <Field name='username' type="text" />

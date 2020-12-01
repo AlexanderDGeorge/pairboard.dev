@@ -5,7 +5,10 @@ import { UserSchema } from "../../firebase/schema";
 import { useSpring, animated } from "react-spring";
 import { signOut } from "../../firebase/auth";
 import DropdownItem from './DropdownItem';
-import { MdChatBubble, MdExitToApp, MdGroup, MdHome, MdNotifications, MdSettings } from "react-icons/md";
+import {
+    MdChatBubble, MdExitToApp, MdGroup,
+    MdHome, MdNotifications, MdSettings
+} from "react-icons/md";
 
 export default function ProfileLink(props: { user: UserSchema }) {
     const { username, photoURL } = props.user;
@@ -35,7 +38,7 @@ export default function ProfileLink(props: { user: UserSchema }) {
                 <DropdownItem icon={<MdChatBubble />} path='/messages' name='Messages'/>
                 <DropdownItem icon={<MdGroup />} path='/teams' name='Teams'/>
                 <DropdownItem icon={<MdNotifications />} path='/settings/notifications' name='Notifications'/>
-                <DropdownItem icon={<MdSettings />} path='/settings' name='Settings'/>
+                <DropdownItem icon={<MdSettings />} path='/settings/profile' name='Settings'/>
                 <button onClick={signOut}><MdExitToApp /> Logout</button>
             </animated.div>
         </StyledProfileLink>

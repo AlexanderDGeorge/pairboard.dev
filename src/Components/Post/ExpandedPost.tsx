@@ -39,7 +39,7 @@ export default function ExpandedPost(props: {post: PostSchema}) {
 
 const StyledModal = styled.div`
     position: relative;
-    min-width: 600px;
+    width: 600px;
     border-radius: 5px;
     padding: 2%;
     display: flex;

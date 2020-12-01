@@ -51,6 +51,7 @@ export const StyledButton = styled.button`
 
 export const StyledButtonRow = styled.div`
     position: relative;
+    max-width: 600px;
     margin: 10px;
     display: flex;
     align-items: center;

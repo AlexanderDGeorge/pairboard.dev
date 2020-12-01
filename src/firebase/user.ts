@@ -1,4 +1,4 @@
-import { firestore, auth } from "./firebase";
+import { firestore, auth, storage } from "./firebase";
 import { UserSchema } from "./schema";
 
 const userRef = (uid: UserSchema["uid"]) =>
@@ -64,4 +64,15 @@ export async function updateUserAccount(
 ) {
     // const userRef = firestore().collection("users").doc(uid);
     await auth.currentUser?.updateEmail(email);
+}
+
+export async function uploadPhoto(file: File, uid: UserSchema['uid']) {
+    try {
+        return await storage.ref()
+            .child(`photoURLs/${uid}`)
+            .put(file)
+            .then((snapshot) => snapshot.ref.getDownloadURL())
+    } catch (error) {
+        console.error(error.message);
+    }
 }
