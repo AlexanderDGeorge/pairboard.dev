@@ -16,10 +16,11 @@ export interface UserSchema {
     linkedInURL?: string;
     location?: string;
     name: string;
-    photoURL: string;
     personalURL?: string;
+    photoURL: string;
     postId?: string;
     posts: PostSchema["id"][];
+    providerPhotoURL?: string;
     score?: number;
     status: "online" | "offline" | "in room";
     username: string;

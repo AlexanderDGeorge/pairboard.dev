@@ -51,6 +51,7 @@ export async function updateUserProfile(
     const userRef = firestore().collection("users").doc(uid);
     await userRef.update({
         blurb,
+        photoURL,
         githubURL,
         linkedInURL,
         personalURL,

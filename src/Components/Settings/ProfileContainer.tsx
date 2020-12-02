@@ -2,11 +2,10 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../../Application';
 import { UserSchema } from '../../firebase/schema';
 import { validateUsername } from '../../util/validationFunctions';
-import { updateUserProfile } from '../../firebase/user';
+import { updateUserProfile, uploadPhoto } from '../../firebase/user';
 import Profile from './Profile';
 
 interface ProfileValues {
-    photoURL: UserSchema['photoURL'];
     username: UserSchema['username'];
     name: UserSchema['name'];
     blurb: UserSchema['blurb'];
@@ -18,6 +17,7 @@ interface ProfileValues {
 
 export default function ProfileContainer() {
     const user = useContext(UserContext)!;
+    const [imageFile, setImageFile] = useState<File | string | undefined>(undefined);
     const [loading, setLoading] = useState(false);
     const [topMessage, setTopMessage] = useState('');
 
@@ -32,11 +32,37 @@ export default function ProfileContainer() {
     }
 
     async function handleSubmit(values: ProfileValues) {
+        const {
+            blurb,
+            githubURL,
+            linkedInURL,
+            personalURL,
+            location,
+            username
+        } = values;
+
+        let imageURL;
         setLoading(true);
+
+        if (typeof imageFile === 'string') {
+            imageURL = imageFile
+        } else if (imageFile) {
+            imageURL = await uploadPhoto(imageFile, user.uid);
+        } else {
+            imageURL = user.photoURL;
+        }
+
         await updateUserProfile(
-            user.uid, values.photoURL, values.blurb, values.githubURL, values.linkedInURL,
-            values.personalURL, values.location, values.username.toLowerCase()
-        );
+            user.uid,
+            imageURL,
+            blurb,
+            githubURL,
+            linkedInURL,
+            personalURL,
+            location,
+            username.toLowerCase()
+        )
+        
         setTopMessage('Successfully updated profile')
         setLoading(false);
     }
@@ -46,6 +72,7 @@ export default function ProfileContainer() {
             user={user}
             loading={loading}
             topMessage={topMessage}
+            setImageFile={setImageFile}
             validate={validate}
             handleSubmit={handleSubmit}
         />

@@ -10,7 +10,7 @@ export default function useUserContext() {
         let unsubscribe: Function | null = null;
 
         auth.onAuthStateChanged((authUser) => {
-            // console.log(authUser);
+            console.log(authUser);
             if (!authUser) {
                 setUser(null);
                 return;
@@ -21,7 +21,11 @@ export default function useUserContext() {
                 .onSnapshot((snapshot) => {
                     const data = snapshot?.data();
                     if (!data) return;
-                    setUser(convertDocToUser(data));
+                    const providerPhotoURL = authUser.photoURL || '';
+                    setUser({
+                        ...convertDocToUser(data),
+                        providerPhotoURL
+                    });
                 });
         });
 

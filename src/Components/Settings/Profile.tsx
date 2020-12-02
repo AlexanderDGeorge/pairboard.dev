@@ -11,21 +11,21 @@ import ProfilePicture from './ProfilePicture';
 export default function Profile(props: {
     loading: boolean,
     topMessage: string,
+    setImageFile: Function,
     validate: any,
     handleSubmit: any
     user: UserSchema
 }) {
     const {
-        photoURL, username, name, blurb, location, personalURL,
-        githubURL, linkedInURL
+        username, name, blurb, location,
+        personalURL, githubURL, linkedInURL
     } = props.user;
-    const { loading, topMessage, validate, handleSubmit } = props;
+    const { loading, topMessage, validate, handleSubmit, setImageFile } = props;
 
     return (
         <Formik
             initialValues={{
                 username,
-                photoURL,
                 name: name || '',
                 blurb: blurb || '',
                 location: location || '',
@@ -36,15 +36,11 @@ export default function Profile(props: {
             onSubmit={handleSubmit}
             validate={validate}
         >
-            {({ isValid, values, setFieldValue }) => (
+            {({ isValid }) => (
                 <ProfileSettings>
                     <h1>Profile</h1>
                     <h2>{topMessage}</h2>
-                <ProfilePicture
-                    submit={loading}
-                    photoURL={values.photoURL}
-                    setFieldValue={setFieldValue}
-                />
+                <ProfilePicture setImageFile={setImageFile} />
                 <StyledField>
                     <label htmlFor="username">username</label>
                     <Field name='username' type="text" />
