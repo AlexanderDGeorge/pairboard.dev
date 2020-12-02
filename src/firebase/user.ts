@@ -40,6 +40,7 @@ export async function updateDarkModeSetting(darkMode: UserSchema["uid"]) {
 
 export async function updateUserProfile(
     uid: UserSchema["uid"],
+    photoURL: UserSchema['photoURL'],
     blurb: UserSchema["blurb"],
     githubURL: UserSchema["githubURL"],
     linkedInURL: UserSchema["linkedInURL"],
@@ -62,7 +63,10 @@ export async function updateUserAccount(
     uid: UserSchema['uid'],
     email: UserSchema['email'],
 ) {
-    // const userRef = firestore().collection("users").doc(uid);
+    const userRef = firestore().collection("users").doc(uid);
+    await userRef.update({
+        email
+    });
     await auth.currentUser?.updateEmail(email);
 }
 

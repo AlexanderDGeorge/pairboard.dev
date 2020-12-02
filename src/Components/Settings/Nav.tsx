@@ -19,9 +19,8 @@ export default function AccountNav() {
 const StyledAccountNav = styled.nav`
     height: 100%;
     min-width: 200px;
-    border: 1px solid ${props => props.theme.accent};
-    border-radius: 5px;
-    padding: 5px;
+    border-right: 1px solid ${props => props.theme.accent};
+    padding: 10px;
 `;
 
 function NavItem(props: { title: string, pathname: string }) {

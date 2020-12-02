@@ -31,4 +31,7 @@ const StyledDatePicker = styled(StyledField)`
     > div {
         width: 100%;
     }
+    * {
+        transition: 0s;
+    }
 `;

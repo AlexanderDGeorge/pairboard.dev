@@ -2,17 +2,29 @@ import React, { useContext, useEffect, useState } from 'react';
 import { MdAddAPhoto } from 'react-icons/md';
 import styled from 'styled-components';
 import { UserContext } from '../../Application';
+import { UserSchema } from '../../firebase/schema';
 import { uploadPhoto } from '../../firebase/user';
 
-export default function ProfilePicture(props: {submit: boolean}) {
+export default function ProfilePicture(props:
+    { submit: boolean, photoURL: UserSchema['photoURL'], setFieldValue: Function }
+){
     const { photoURL, uid } = useContext(UserContext)!;
     const [newPhotoURI, setNewPhotoURI] = useState<any>(undefined);
     const [file, setFile] = useState<File | undefined>(undefined);
 
     useEffect(() => {
         if (!props.submit || !file) return;
-        console.log('here')
-        uploadPhoto(file, uid);
+
+        async function handleUpload() {
+            if (!file) return;
+            console.log('here');
+            const newURL = await uploadPhoto(file, uid);
+            console.log(newURL);
+            
+        }
+
+        handleUpload();
+
     }, [props.submit, file, uid])
 
     function handlePreview(e: React.ChangeEvent<HTMLInputElement>) {
@@ -25,8 +37,6 @@ export default function ProfilePicture(props: {submit: boolean}) {
             reader.readAsDataURL(e.target.files[0])
         }
     }
-
-    // console.log(newPhotoURI);
 
     return (
         <StyledProfilePicture>
@@ -70,6 +80,7 @@ const StyledUploadButton = styled.div`
         position: absolute;
         height: 100%;
         width: 100%;
+        cursor: pointer;
     }
     > input {
         position: absolute;

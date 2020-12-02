@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import Overview from './Overview';
-import Profile from './Profile';
+import Profile from './ProfileContainer';
 import Account from './Account';
 import Notifications from './Notifications';
 import Teams from './Teams';

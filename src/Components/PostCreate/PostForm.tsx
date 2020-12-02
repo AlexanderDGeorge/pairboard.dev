@@ -88,7 +88,7 @@ export default function PostForm(props: {
                             component="p"
                         />
                     </StyledField>
-                    <DatePicker value={values.start}setFieldValue={setFieldValue}/>
+                    <DatePicker value={values.start} setFieldValue={setFieldValue}/>
                     <StyledButtonRow>
                         <StyledCancelButton type="reset" onClick={() => handleModal()}>
                             Cancel

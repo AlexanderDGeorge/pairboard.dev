@@ -1,63 +1,61 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styled from 'styled-components';
-import { UserContext } from '../../Application';
 import { StyledField } from '../../styled-components/StyledField';
 import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
 import { UserSchema } from '../../firebase/schema';
-import {validateUsername} from '../../util/validationFunctions';
 import LoadingBar from '../Animated/LoadingBar';
-import { updateUserProfile } from '../../firebase/user';
 import ProfilePicture from './ProfilePicture';
 
-interface ProfileValues {
-    username: UserSchema['username'];
-    blurb: UserSchema['blurb'];
-    location: UserSchema['location'];
-    personalURL: UserSchema['personalURL'];
-    githubURL: UserSchema['githubURL'];
-    linkedInURL: UserSchema['linkedInURL'] 
-}
 
-export default function Profile() {
-    const {uid, username, blurb, location, personalURL, githubURL, linkedInURL} = useContext(UserContext)!;
-    const [loading, setLoading] = useState(false);
-    const [topMessage, setTopMessage] = useState('');
-
-    async function validate(values: ProfileValues) {
-        const errors: { [key: string]: string } = {};
-        validateUsername(values.username, username, errors);
-
-        if (values.blurb && values.blurb.length > 160) {
-            errors.blurb = 'blurb is too long'
-        }
-        return errors;
-    }
-
-    async function handleSubmit(values: ProfileValues) {
-        setLoading(true);
-        await updateUserProfile(uid, values.blurb, values.githubURL, values.linkedInURL, values.personalURL, values.location, values.username.toLowerCase());
-        setTopMessage('Successfully updated profile')
-        setLoading(false);
-    }
+export default function Profile(props: {
+    loading: boolean,
+    topMessage: string,
+    validate: any,
+    handleSubmit: any
+    user: UserSchema
+}) {
+    const {
+        photoURL, username, name, blurb, location, personalURL,
+        githubURL, linkedInURL
+    } = props.user;
+    const { loading, topMessage, validate, handleSubmit } = props;
 
     return (
         <Formik
-            initialValues={{ username, blurb: blurb || '', location: location || '', personalURL: personalURL || '', githubURL: githubURL || '', linkedInURL: linkedInURL || '' }}
+            initialValues={{
+                username,
+                photoURL,
+                name: name || '',
+                blurb: blurb || '',
+                location: location || '',
+                personalURL: personalURL || '',
+                githubURL: githubURL || '',
+                linkedInURL: linkedInURL || ''
+            }}
             onSubmit={handleSubmit}
             validate={validate}
         >
-            {({ isValid }) => (
+            {({ isValid, values, setFieldValue }) => (
                 <ProfileSettings>
                     <h1>Profile</h1>
                     <h2>{topMessage}</h2>
-                <ProfilePicture submit={loading}/>
+                <ProfilePicture
+                    submit={loading}
+                    photoURL={values.photoURL}
+                    setFieldValue={setFieldValue}
+                />
                 <StyledField>
                     <label htmlFor="username">username</label>
                     <Field name='username' type="text" />
                     <ErrorMessage name='username' component='p' />
                     <li>Usernames must be between 4 - 20 characters long.</li>
                     <li>Usernames must only contain numbers, letters, underscores, and periods. </li>
+                </StyledField>
+                <StyledField>
+                    <label htmlFor="name">name</label>
+                    <Field name='name' type="text" />
+                    <ErrorMessage name='name' component='p' />
                 </StyledField>
                 <StyledField>
                     <label htmlFor="blurb">blurb</label>
@@ -101,6 +99,7 @@ const ProfileSettings = styled(Form)`
     height: 100%;
     width: 100%;
     padding: 10px;
+    overflow-y: scroll;
     > h1 {
         margin-bottom: 10px;
         font-weight: 800;
