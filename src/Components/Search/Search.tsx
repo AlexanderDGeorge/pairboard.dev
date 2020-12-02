@@ -40,6 +40,7 @@ export default function Search() {
 }
 
 const StyledSearchWrapper = styled.div`
+    z-index: 2;
     height: fit-content;
     margin-top: 20px;
     background-color: ${props => props.theme.dark};

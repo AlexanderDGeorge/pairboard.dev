@@ -6,6 +6,7 @@ import PostDate from "./PostDate";
 import { Link } from "react-router-dom";
 import ExpandedPost from './ExpandedPost';
 import PostTag from './PostTag';
+import { StyledCard } from "../../styled-components/StyledCard";
 
 export default function Post(props: { post: PostSchema }) {
     const {
@@ -45,16 +46,7 @@ export default function Post(props: { post: PostSchema }) {
     );
 }
 
-const StyledPost = styled.div`
-    height: 200px;
-    margin: 0 20px 20px 0;
-    border: 1px solid ${(props) => props.theme.accent};
-    border-radius: 15px;
-    padding: 10px;
-    box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
-    background-color: ${props => props.theme.white};
-    cursor: pointer;
-    transition: all linear 0.2s;
+const StyledPost = styled(StyledCard)`
     display: grid;
     grid-template-columns: max-content 10px 100px;
     grid-template-rows: 70px 10px auto;
@@ -62,9 +54,6 @@ const StyledPost = styled.div`
         "title . date"
         ". . ."
         "description . tags";
-    * {
-        background: transparent;
-    }
     &:hover {
         transition: all linear 0.2s;
         border-radius: 5px;
@@ -90,7 +79,6 @@ const Header = styled.header`
     height: 100%;
     width: 100%;
     max-width: 330px;
-    width: 100%;
     display: flex;
     flex-direction: column;
     > h2 {

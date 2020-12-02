@@ -17,8 +17,6 @@ export default function SettingsPage() {
 const StyledSettingsPage = styled.div`
     height: 100%;
     width: 100%;
-    padding: 100px 10%;
-    background-color: ${props => props.theme.verylight};
     > div {
         height: 100%;
         width: 100%;

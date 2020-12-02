@@ -9,7 +9,6 @@ export default function CreatePostLane() {
     return (
         <>
             <BlueGreenCard
-                style={{width: 300}}
                 onClick={() =>
                     handleModal(<CreatePostModal type="Pairboard" />)
                 }

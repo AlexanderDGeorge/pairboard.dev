@@ -53,7 +53,7 @@ const StyledProfileLink = styled.div`
     border-radius: 10px;
     background-color: ${(props) => props.theme.dark};
     > img {
-        z-index: 2;
+        z-index: 3;
         position: absolute;
         height: 100%;
         width: 100%;
@@ -62,7 +62,7 @@ const StyledProfileLink = styled.div`
         cursor: pointer;
     }
     > div {
-        z-index: 1;
+        z-index: 2;
         overflow: hidden;
         position: absolute;
         top: 0;

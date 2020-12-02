@@ -4,9 +4,9 @@ export const StyledCard = styled.div`
     min-height: 200px;
     height: 200px;
     max-height: 200px;
-    width: 400px;
+    min-width: 300px;
     margin: 0 20px 20px 0;
-    border: 1px solid ${(props) => props.theme.accent};
+    border: 2px solid ${(props) => props.theme.accent};
     border-radius: 15px;
     padding: 2%;
     box-shadow: 0 0 20px -12px ${(props) => props.theme.verydark};
@@ -29,32 +29,9 @@ export const StyledCard = styled.div`
     }
 `;
 
-export const RedPurpleCard = styled(StyledCard)`
-    &:hover {
-        border: 0;
-        background-image: ${(props) =>
-            `linear-gradient(140deg, ${props.theme.purple}, ${props.theme.red})`};
-        * {
-            color: ${(props) => props.theme.white};
-        }
-    }
-`;
-
-export const PurpleBlueCard = styled(StyledCard)`
-    &:hover {
-        border: 0;
-        background-image: ${(props) =>
-            `linear-gradient(50deg, ${props.theme.blue}, ${props.theme.purple})`};
-        * {
-            color: ${(props) => props.theme.white};
-        }
-    }
-`;
-
 export const BlueGreenCard = styled(StyledCard)`
     &:hover {
         border: 0;
-
         background-image: ${(props) =>
             `linear-gradient(10deg, ${props.theme.blue}, ${props.theme.green})`};
         * {

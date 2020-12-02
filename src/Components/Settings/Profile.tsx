@@ -55,13 +55,13 @@ export default function Profile(props: {
                 </StyledField>
                 <StyledField>
                     <label htmlFor="blurb">blurb</label>
-                    <Field name='blurb' type="text" />
+                    <Field name='blurb' type="text" placeholder='Sample blurb!' />
                     <ErrorMessage name='blurb' component='p' />
                     <li>Blurbs are optional but must be less than 160 characters long.</li>
                 </StyledField>
                 <StyledField>
                     <label htmlFor="location">location</label>
-                    <Field name='location' type="text" />
+                    <Field name='location' type="text" placeholder='Seattle, WA'/>
                     <ErrorMessage name='location' component='p' />
                 </StyledField>
                 <StyledField>

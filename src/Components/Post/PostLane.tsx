@@ -1,11 +1,11 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { PostSchema } from "../../firebase/schema";
 import useFirebaseQuery from "../../util/useFirebaseQuery";
 import LoadingBar from "../Animated/LoadingBar";
 import Post from "./Post";
-import CreatePost from "../PostCreate/CreatePostLane";
+import CreatePostLane from "../PostCreate/CreatePostLane";
 
 const restName = {
     width: "40%",
@@ -53,7 +53,7 @@ export default function PostLane(props: {
             onMouseLeave={() => setName(restName)}
         >
             <AnimatedH1 style={name}>{props.name}</AnimatedH1>
-            <div>{props.create ? <CreatePost /> : <AsyncPostLane />}</div>
+            <div>{props.create ? <CreatePostLane /> : <AsyncPostLane />}</div>
         </StyledPostLane>
     );
 }
@@ -66,17 +66,9 @@ const StyledPostLane = styled.div`
         overflow-x: scroll;
     }
 `;
-const rotate = keyframes`
-
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-`;
 
 const AnimatedH1 = styled(animated.h1)`
+    min-width: 400px;
     margin-bottom: 10px;
     border-bottom: 3px solid ${(props) => props.theme.light};
     font-weight: 500;
@@ -84,5 +76,4 @@ const AnimatedH1 = styled(animated.h1)`
     -webkit-background-clip: text;
     background-clip: text;
     cursor: default;
-    /* animation: ${rotate} 2s linear infinite; */
 `;

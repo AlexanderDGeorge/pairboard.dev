@@ -54,17 +54,18 @@ export default function Header() {
 
 const StyledHeader = styled(animated.header)`
     z-index: 3;
-    position: fixed;
     height: 80px;
     width: 100%;
-    margin-bottom: 40px;
-    padding: 0 10%;
+    padding: 0 15%;
     background-color: ${(props) => props.theme.verydark};
     border-bottom: 7px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>
         `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue}) 3`};
     display: flex;
     justify-content: space-between;
+    @media screen and (max-width: 600px){
+        padding: 2%;
+    }
 `;
 
 const HomeLink = styled(Link)`

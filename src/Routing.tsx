@@ -6,6 +6,7 @@ import Footer from "./Components/Nav/Footer";
 import LandingPage from "./Pages/LandingPage";
 import LoadingPage from "./Pages/LoadingPage";
 import Modal from "./Components/Modal/Modal";
+import styled from "styled-components";
 
 const SignupPage = lazy(() => import('./Pages/SignupPage'));
 const LoginPage = lazy(() => import("./Pages/LoginPage"));
@@ -30,19 +31,21 @@ export default function Routing() {
             <BrowserRouter>
                 <Header />
                 <Modal />
-                <Suspense fallback={<LoadingPage />}>
-                    <Switch>
-                        <Route path="/settings" component={SettingsPage} />
-                        <Route path="/messages" component={MessagesPage} />
-                        <Route
-                            exact
-                            path="/user"
-                            render={() => <UserPage user={currentUser} />}
-                            />
-                        <Route path="/user/:username" component={UserPage} />
-                        <Route path="/" component={HomePage} />
-                    </Switch>
-                </Suspense>
+                <StyledPage>
+                    <Suspense fallback={<LoadingPage />}>
+                        <Switch>
+                            <Route path="/settings" component={SettingsPage} />
+                            <Route path="/messages" component={MessagesPage} />
+                            <Route
+                                exact
+                                path="/user"
+                                render={() => <UserPage user={currentUser} />}
+                                />
+                            <Route path="/user/:username" component={UserPage} />
+                            <Route path="/" component={HomePage} />
+                        </Switch>
+                    </Suspense>
+                </StyledPage>
                 <Footer />
             </BrowserRouter>
         );
@@ -51,13 +54,13 @@ export default function Routing() {
             <BrowserRouter>
                 <Header />
                 <Modal />
-                <Suspense fallback={<LoadingPage />}>
-                    <Switch>
-                        <Route path="/signup" component={SignupPage} />
-                        <Route path="/login" component={LoginPage} />
-                        <Route path="/" component={LandingPage} />
-                    </Switch>
-                </Suspense>
+                    <Suspense fallback={<LoadingPage />}>
+                        <Switch>
+                            <Route path="/signup" component={SignupPage} />
+                            <Route path="/login" component={LoginPage} />
+                            <Route path="/" component={LandingPage} />
+                        </Switch>
+                    </Suspense>
                 <Footer />
             </BrowserRouter>
         );
@@ -72,3 +75,14 @@ export default function Routing() {
         );
     }
 }
+
+const StyledPage = styled.div`
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    padding: 2% 15%;
+    background-color: ${props => props.theme.verylight};
+    @media screen and (max-width: 600px) {
+        padding: 2%;
+    }
+`;

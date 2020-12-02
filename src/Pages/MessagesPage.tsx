@@ -13,12 +13,5 @@ export default function MessagesPage() {
 }
 
 const StyledMessagesPage = styled.div`
-    min-height: 100%;
-    height: 100%;
     width: 100%;
-    padding: 100px 10%;
-    display: flex;
-    @media screen and (max-width: 600px) {
-        flex-direction: column;
-    }
 `;
