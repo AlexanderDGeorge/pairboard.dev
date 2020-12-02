@@ -10,7 +10,6 @@ import Modal from "./Components/Modal/Modal";
 const SignupPage = lazy(() => import('./Pages/SignupPage'));
 const LoginPage = lazy(() => import("./Pages/LoginPage"));
 const UserPage = lazy(() => import("./Pages/UserPage"));
-const PostPage = lazy(() => import("./Pages/PostPage"));
 const HomePage = lazy(() => import("./Pages/HomePage"));
 const RoomPage = lazy(() => import("./Pages/RoomPage"));
 const MessagesPage = lazy(() => import("./Pages/MessagesPage"));
@@ -41,7 +40,6 @@ export default function Routing() {
                             render={() => <UserPage user={currentUser} />}
                             />
                         <Route path="/user/:username" component={UserPage} />
-                        <Route path='/post/:postId' component={PostPage} />
                         <Route path="/" component={HomePage} />
                     </Switch>
                 </Suspense>

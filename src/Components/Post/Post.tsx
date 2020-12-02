@@ -4,7 +4,7 @@ import { ModalContext } from "../../Application";
 import { PostSchema } from "../../firebase/schema";
 import PostDate from "./PostDate";
 import { Link } from "react-router-dom";
-import PostSelectModal from './ExpandedPost';
+import ExpandedPost from './ExpandedPost';
 import PostTag from './PostTag';
 
 export default function Post(props: { post: PostSchema }) {
@@ -18,9 +18,9 @@ export default function Post(props: { post: PostSchema }) {
     } = props.post;
     const { handleModal } = useContext(ModalContext)!;
 
-    async function handleClick(e: React.SyntheticEvent) {
+    function handleClick(e: React.SyntheticEvent) {
         e.stopPropagation();
-        handleModal(<PostSelectModal post={props.post}/>);
+        handleModal(<ExpandedPost post={props.post}/>);
     }
 
     return (

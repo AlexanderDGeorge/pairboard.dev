@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ModalContext } from '../../Application';
 import { PostSchema } from '../../firebase/schema';
+import ExpandedPost from './ExpandedPost';
 import PostDate from './PostDate';
 import PostTag from './PostTag';
 
 export default function SmallPostCard(props: { post: PostSchema }) {
-    const { id, title, host, description, difficulty, language, start } = props.post;
+    const { title, host, description, difficulty, language, start } = props.post;
+    const { handleModal } = useContext(ModalContext)!;
+
+    function handleClick(e: React.SyntheticEvent) {
+        e.stopPropagation();
+        handleModal(<ExpandedPost post={props.post}/>);
+    }
 
     return (
-        <StyledSmallPostCard to={`/post/${id}`}>
+        <StyledSmallPostCard onClick={handleClick}>
             <div>
                 <h3>{title}</h3>
-                <StyledHostDiv>
+                <StyledHostDiv to={`/user/${host.username}`}>
                     <img src={host.photoURL} alt=""/>
                     {host.username}
                 </StyledHostDiv>
@@ -27,7 +35,7 @@ export default function SmallPostCard(props: { post: PostSchema }) {
     )
 }
 
-const StyledSmallPostCard = styled(Link)`
+const StyledSmallPostCard = styled.div`
     width: 100%;
     max-width: 400px;
     margin-bottom: 5px;
@@ -38,6 +46,7 @@ const StyledSmallPostCard = styled(Link)`
     display: flex;
     justify-content: space-between;
     text-decoration: none;
+    cursor: pointer;
     &:hover {
         box-shadow: 0 0 10px ${props => props.theme.verylight};
     }
@@ -47,9 +56,13 @@ const StyledSmallPostCard = styled(Link)`
     }
     `;
 
-const StyledHostDiv = styled.div`
+const StyledHostDiv = styled(Link)`
     display: flex;
     align-items: center;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
     > img {
         height: 40px;
         width: 40px;

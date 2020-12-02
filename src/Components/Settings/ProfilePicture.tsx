@@ -27,7 +27,7 @@ export default function ProfilePicture(props: { setImageFile: Function }) {
     }
 
     function ProviderPhoto() {
-        if (photoURL === providerPhotoURL) {
+        if (photoURL && photoURL === providerPhotoURL) {
             return null;
         } else {
             return (
