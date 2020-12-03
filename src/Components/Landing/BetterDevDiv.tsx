@@ -14,13 +14,16 @@ export default function BetterDevDiv() {
 
 const StyledBetterDevDiv = styled.div`
     min-height: 95%;
-    padding: 10% 10% 2% 10%;
+    padding: 5% 15%;
     background-image: ${(props) =>
-        `linear-gradient(130deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple})`};
+        `linear-gradient(40deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple})`};
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
+    @media screen and (max-width: 600px) {
+        padding: 5%;
+    }
     > h1 {
         position: relative;
         min-height: 200px;
@@ -48,19 +51,31 @@ const StyledBetterDevDiv = styled.div`
         height: 80px;
         width: 300px;
         margin: 20px;
-        border-radius: 10px;
+        border-radius: 20px;
         font-size: 1.5em;
+        font-weight: 500;
         text-decoration: none;
         outline: none;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 15px -4px ${(props) => props.theme.black};
+        box-shadow: 2px 4px 15px -4px ${(props) => props.theme.dark};
         transition: all 0.5s linear;
+        color: ${props => props.theme.white};
+        background-color: ${(props) => props.theme.dark};
         &:hover {
             transition: all 0.5s linear;
-            box-shadow: 0 4px 20px 0px ${(props) => props.theme.black};
+            box-shadow: 2px 4px 20px 4px ${(props) => props.theme.dark};
+        }
+    }
+    > a:last-of-type {
+        color: ${props => props.theme.white};
+        box-shadow: 2px 4px 15px -4px ${(props) => props.theme.green};
+        background-image: ${(props) =>
+            `linear-gradient(80deg, ${props.theme.green}, ${props.theme.blue} 140%)`};        
+        &:hover {
+            box-shadow: 2px 4px 20px 4px ${(props) => props.theme.green};
         }
     }
 `;

@@ -60,7 +60,7 @@ const StyledHeader = styled(animated.header)`
     background-color: ${(props) => props.theme.verydark};
     border-bottom: 7px solid ${(props) => props.theme.verydark};
     border-image: ${(props) =>
-        `linear-gradient(140deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue}) 3`};
+        `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple}) 3`};
     display: flex;
     justify-content: space-between;
     @media screen and (max-width: 600px){

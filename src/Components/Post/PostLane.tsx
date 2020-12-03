@@ -72,7 +72,7 @@ const AnimatedH1 = styled(animated.h1)`
     margin-bottom: 10px;
     border-bottom: 3px solid ${(props) => props.theme.light};
     font-weight: 500;
-    background: linear-gradient(45deg, #825cff, #ff890a 15%);
+    background: linear-gradient(30deg, #06D6A0, #009FF5 25%);
     -webkit-background-clip: text;
     background-clip: text;
     cursor: default;

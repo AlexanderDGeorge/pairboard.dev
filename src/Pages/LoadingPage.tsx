@@ -14,6 +14,7 @@ const StyledLoadingPage = styled.div`
     position: relative;
     height: 100%;
     width: 100%;
+    padding: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;

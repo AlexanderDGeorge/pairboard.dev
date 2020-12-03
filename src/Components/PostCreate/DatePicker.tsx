@@ -11,6 +11,7 @@ export default function CustomDatePicker(props: {value: Date, setFieldValue: Fun
             <label htmlFor="start">start</label>
             <DatePicker
                 selected={props.value}
+                popperPlacement='top'
                 onChange={(date: Date) => props.setFieldValue("start", date)}
                 showTimeSelect
                 shouldCloseOnSelect={false}

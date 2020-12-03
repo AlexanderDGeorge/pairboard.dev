@@ -54,20 +54,11 @@ const StyledPost = styled(StyledCard)`
         "title . date"
         ". . ."
         "description . tags";
-    &:hover {
-        transition: all linear 0.2s;
-        border-radius: 5px;
-        box-shadow: 0 0 20px -2px ${(props) => props.theme.verydark};
-    }
-    &:active {
-        box-shadow: inset 0 0 20px 2px ${(props) => props.theme.verydark};
-    }
     > p {
         height: 100%;
         width: 100%;
         max-width: 300px;
         grid-area: description;
-        font-weight: 200;
         text-align: justify;
         overflow-y: scroll;
     }

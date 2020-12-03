@@ -6,6 +6,7 @@ import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-
 import { UserSchema } from '../../firebase/schema';
 import LoadingBar from '../Animated/LoadingBar';
 import ProfilePicture from './ProfilePicture';
+import { HeavyH1 } from '../../styled-components/StyledHeaders';
 
 
 export default function Profile(props: {
@@ -38,7 +39,7 @@ export default function Profile(props: {
         >
             {({ isValid }) => (
                 <ProfileSettings>
-                    <h1>Profile</h1>
+                    <HeavyH1>Profile</HeavyH1>
                     <h2>{topMessage}</h2>
                 <ProfilePicture setImageFile={setImageFile} />
                 <StyledField>
@@ -96,14 +97,4 @@ const ProfileSettings = styled(Form)`
     width: 100%;
     padding: 10px;
     overflow-y: scroll;
-    > h1 {
-        margin-bottom: 10px;
-        font-weight: 800;
-        font-size: 3em;
-        background: ${(props) =>
-            `linear-gradient(140deg, ${props.theme.blue}, 20%, ${props.theme.green})`};
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-    }
 `;

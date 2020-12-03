@@ -26,7 +26,13 @@ const StyledAccountNav = styled.nav`
 function NavItem(props: { title: string, pathname: string }) {
     const { title, pathname } = props;
     return (
-        <StyledNavItem style={pathname.toLowerCase() === title.toLowerCase() ? {} : {borderLeft: '2px solid transparent'}} to={`/settings/${title.toLowerCase()}`}>
+        <StyledNavItem
+            style={
+                pathname.toLowerCase() === title.toLowerCase() ?
+                    {} :
+                    { borderLeft: '2px solid transparent' }} to={`/settings/${title.toLowerCase()}`
+            }
+        >
             {props.title}
         </StyledNavItem>
     )
@@ -35,7 +41,7 @@ function NavItem(props: { title: string, pathname: string }) {
 const StyledNavItem = styled(Link)`
     height: 40px;
     width: 100%;
-    border-left: 2px solid ${props => props.theme.red};
+    border-left: 4px solid ${props => props.theme.green};
     border-bottom: 1px solid ${props => props.theme.accent};
     padding: 5px;
     display: flex;
@@ -44,7 +50,7 @@ const StyledNavItem = styled(Link)`
     transition: all 0.2s linear;
     &:hover {
         transition: all 0.2s linear;
-        border-left: 2px solid ${props => props.theme.red} !important;
+        border-left: 4px solid ${props => props.theme.green} !important;
         background-color: ${props => props.theme.light};
     }
 `;

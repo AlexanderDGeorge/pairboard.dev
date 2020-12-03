@@ -6,13 +6,13 @@ export const StyledField = styled.ul`
     min-width: 240px;
     width: 100%;
     max-width: 600px;
-    margin: 15px 0;
+    margin: 10px 0;
     list-style-position: outside;
     label {
         z-index: 1;
         position: absolute;
-        font-weight: 100;
-        color: ${(props) => props.theme.verydark};
+        font-weight: 500;
+        color: ${(props) => props.theme.dark};
         background-color: ${(props) => props.theme.white};
     }
     input,

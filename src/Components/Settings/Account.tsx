@@ -8,6 +8,7 @@ import { StyledField } from '../../styled-components/StyledField';
 import { StyledButton, StyledButtonRow, StyledCancelButton } from '../../styled-components/StyledButtons';
 import { validateEmail } from '../../util/validationFunctions';
 import LoadingBar from '../Animated/LoadingBar';
+import { HeavyH1 } from '../../styled-components/StyledHeaders';
 
 interface AccountValues {
     email: UserSchema['email']
@@ -15,7 +16,7 @@ interface AccountValues {
 
 export default function Account() {
     const [loading, setLoading] = useState(false);
-    const { uid,email } = useContext(UserContext)!;
+    const { uid, email } = useContext(UserContext)!;
 
     async function validate(values: AccountValues) {
         const errors: { [key: string]: string } = {};
@@ -37,7 +38,7 @@ export default function Account() {
         >
             {({ isValid }) => (
                 <AccountSettings>
-                    <h1>Account</h1>
+                    <HeavyH1>Account</HeavyH1>
                     <StyledField>
                         <label htmlFor="email">email</label>
                         <Field name='email' type='email' />
@@ -59,14 +60,4 @@ const AccountSettings = styled(Form)`
     height: 100%;
     width: 100%;
     padding: 10px;
-    > h1 {
-        margin-bottom: 10px;
-        font-weight: 800;
-        font-size: 3em;
-        background: ${(props) =>
-            `linear-gradient(140deg, ${props.theme.blue}, 20%, ${props.theme.green})`};
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-    }
 `;
