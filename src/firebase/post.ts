@@ -29,6 +29,10 @@ export async function createPost(
         title,
         type,
     });
+    const userRef = firestore().collection('users').doc(host.uid);
+    await userRef.update({
+        posts: fieldValue.arrayUnion(postRef.id)
+    })
 }
 
 export async function joinPost(

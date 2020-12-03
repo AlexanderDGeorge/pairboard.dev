@@ -7,7 +7,6 @@ import useOnOutsideCLick from '../../util/useOnOutsideClick';
 export default function UserConnectionsModal(props: {user: UserSchema}) {
     const { handleModal } = useContext(ModalContext)!;
     const modalRef = useRef(null);
-    const { connections } = props.user;
 
     useOnOutsideCLick(modalRef, () => handleModal());
 

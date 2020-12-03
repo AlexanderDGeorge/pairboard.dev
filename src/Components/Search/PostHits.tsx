@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { SearchContext } from './Search';
-import SmallPostCard from '../Post/SmallPostCard';
+import Post from '../Post/Post';
 import { connectHits } from 'react-instantsearch-dom';
 
 function PostHits(props: { hits: object[] }) {
@@ -12,7 +12,7 @@ function PostHits(props: { hits: object[] }) {
             <StyledHits>
                 {props.hits?.map((hit: any, i: number) => {
                     return (
-                        <SmallPostCard key={i} post={hit} />
+                        <Post key={i} post={hit} />
                     )
                 })}
             </StyledHits>

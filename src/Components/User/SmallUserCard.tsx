@@ -9,20 +9,19 @@ export default function SmallUserCard(props: { user: LightUserSchema }) {
     return (
         <StyledSmallUserCard to={`/user/${username}`}>
             <img src={photoURL} alt="profile" />
-            <div>
+            <StyledInfoPane>
                 <h3>{username}</h3>
                 <h4>{name}</h4>
-            </div>
+            </StyledInfoPane>
+            
         </StyledSmallUserCard>
     )
 }
 
 const StyledSmallUserCard = styled(Link)`
     width: 100%;
-    max-width: 400px;
     margin-bottom: 5px;
     border-radius: 10px;
-    padding: 5px;
     background-color: ${props => props.theme.white};
     overflow: hidden;
     display: flex;
@@ -34,15 +33,38 @@ const StyledSmallUserCard = styled(Link)`
         height: 50px;
         width: 50px;
         margin-right: 10px;
-        border: 1px solid ${props => props.theme.medium};
-        border-radius: 50%;
+        border-right: 1px solid ${props => props.theme.medium};
     }
-    > div {
+`;
+
+const StyledInfoPane = styled.div`
+    width: 100%;
+    max-width: 500px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    > h3 {
         display: flex;
-        flex-direction: column;
-        > h4 {
-            font-weight: 100;
-            text-decoration: none !important;
-        }
+        font-weight: 500;
+        color: transparent;
+        background: ${(props) =>
+            `linear-gradient(45deg, ${props.theme.green}, ${props.theme.blue})`};
+        background-clip: text;
+        -webkit-background-clip: text;
+    }
+    > * {
+        margin-bottom: 5px;
+    }
+`;
+
+const StyledLink = styled.a`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    > svg {
+        height: 20px;
+        width: auto;
+        margin-right: 10px;
     }
 `;

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../../Application';
 import { UserSchema } from '../../firebase/schema';
 import { validateUsername } from '../../util/validationFunctions';
-import { updateUserProfile, uploadPhoto } from '../../firebase/user';
+import { updateUserProfile, uploadPhoto, updateUserPosts } from '../../firebase/user';
 import Profile from './Profile';
 
 interface ProfileValues {
@@ -52,17 +52,24 @@ export default function ProfileContainer() {
             imageURL = user.photoURL;
         }
 
-        await updateUserProfile(
-            user.uid,
-            imageURL,
+        await updateUserProfile({
+            uid: user.uid,
+            photoURL: imageURL,
             blurb,
             githubURL,
             linkedInURL,
             personalURL,
             location,
-            username.toLowerCase()
-        )
+            username: username.toLowerCase()
+        })
         
+        updateUserPosts({
+            uid: user.uid,
+            photoURL: imageURL,
+            username: username.toLowerCase(),
+            name: user.name
+        }, user.posts)
+
         setTopMessage('Successfully updated profile')
         setLoading(false);
     }

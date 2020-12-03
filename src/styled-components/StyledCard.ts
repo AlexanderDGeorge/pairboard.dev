@@ -4,6 +4,7 @@ export const StyledCard = styled.div`
     min-height: 200px;
     height: 200px;
     max-height: 200px;
+    width: fit-content;
     margin: 0 20px 20px 0;
     border: 2px solid ${(props) => props.theme.accent};
     border-radius: 15px;

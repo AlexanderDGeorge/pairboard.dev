@@ -1,5 +1,5 @@
 import { firestore, auth, storage } from "./firebase";
-import { UserSchema } from "./schema";
+import { LightUserSchema, UserSchema } from "./schema";
 
 const userRef = (uid: UserSchema["uid"]) =>
     firestore().collection("users").doc(uid);
@@ -38,7 +38,7 @@ export async function updateDarkModeSetting(darkMode: UserSchema["uid"]) {
     }
 }
 
-export async function updateUserProfile(
+export async function updateUserProfile(profileValues: {
     uid: UserSchema["uid"],
     photoURL: UserSchema['photoURL'],
     blurb: UserSchema["blurb"],
@@ -47,17 +47,20 @@ export async function updateUserProfile(
     personalURL: UserSchema["personalURL"],
     location: UserSchema["location"],
     username: UserSchema["username"]
-) {
-    const userRef = firestore().collection("users").doc(uid);
+}) {
+    const userRef = firestore().collection("users").doc(profileValues.uid);
     await userRef.update({
-        blurb,
-        photoURL,
-        githubURL,
-        linkedInURL,
-        personalURL,
-        location,
-        username,
+        ...profileValues
     });
+}
+
+export async function updateUserPosts(lightUser: LightUserSchema, posts: UserSchema['posts']) {
+    posts.forEach(post => {
+        const postRef = firestore().collection('posts').doc(post);
+        postRef.update({
+            host: lightUser
+        })
+    })
 }
 
 export async function updateUserAccount(

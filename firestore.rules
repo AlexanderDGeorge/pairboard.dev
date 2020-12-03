@@ -15,6 +15,7 @@ service cloud.firestore {
   match /posts/{postId} {
       allow read;
       allow update: if 
+      		(resource.data.host.uid == request.auth.uid) ||
           notUpdating('createdAt') &&
           notUpdating('description') &&
           notUpdating('difficulty') &&
