@@ -1,5 +1,6 @@
 import { UserSchema } from "../../firebase/schema";
 import { sendICECandidate, sendSessionDescription } from "../../firebase/room";
+import { database } from "../../firebase/firebase";
 
 export async function initiateLocalStream() {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -51,12 +52,22 @@ export async function listenToConnectionEvents(
     uid: UserSchema["uid"],
     remoteStreamRef: HTMLVideoElement
 ) {
+    const polite = uid > peerId;
+    let makingOffer = false;
+    let ignoreOffer = false;
+    let isSettingRemoteAnswerPending = false;
+
     connection.onnegotiationneeded = async () => {
         console.log("negotiation needed");
-        if (peerId < uid) {
-            const offer = await connection.createOffer();
-            connection.setLocalDescription(offer);
-            sendSessionDescription(peerId, uid, offer);
+        try {
+            makingOffer = true;
+            // @ts-ignore
+            await connection.setLocalDescription();
+            sendSessionDescription(peerId, uid, connection.localDescription!)
+        } catch (error) {
+            console.error(error.message);
+        } finally {
+            makingOffer = false;
         }
     };
 
@@ -74,4 +85,30 @@ export async function listenToConnectionEvents(
         remoteStream.addTrack(trackEvent.track);
         remoteStreamRef.srcObject = remoteStream;
     };
+
+    database()
+        .ref(`/roomNotifications/${uid}/${peerId}/sessionDescription`)
+        .on("value", async (snapshot) => {
+            if (!snapshot.exists()) return;
+            const description = snapshot.val();
+
+            const readyForOffer =
+                !makingOffer &&
+                (connection.signalingState === 'stable' ||
+                    isSettingRemoteAnswerPending)
+            const offerCollision = description.type === 'offer' && !readyForOffer;
+
+            ignoreOffer = !polite && offerCollision;
+            if (ignoreOffer) return;
+
+            isSettingRemoteAnswerPending = description.type === 'answer';
+
+            await connection.setRemoteDescription(description);
+            isSettingRemoteAnswerPending = false;
+            if (description.type === 'offer') {
+                // @ts-ignore
+                await connection.setLocalDescription();
+                sendSessionDescription(peerId, uid, connection.localDescription!);
+            }
+        });
 }

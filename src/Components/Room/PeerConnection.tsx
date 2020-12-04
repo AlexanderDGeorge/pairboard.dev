@@ -53,7 +53,7 @@ export default function PeerConnection(props: PeerConnectionProps) {
 
     useEffect(() => {
         if (!connection || !localStream) return;
-        listenForSignaling(connection, uid, peerId);
+        // listenForSignaling(connection, uid, peerId);
         listenForCandidates(connection, uid, peerId);
     }, [uid, peerId, connection, localStream]);
 

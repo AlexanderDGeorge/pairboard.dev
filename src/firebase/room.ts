@@ -54,7 +54,11 @@ export function listenForCandidates(
         .ref(`/roomNotifications/${uid}/${peerId}/iceCandidate`)
         .on("value", async (snapshot) => {
             if (!snapshot.exists()) return;
-            connection.addIceCandidate(snapshot.val());
+            try {
+                await connection.addIceCandidate(snapshot.val());
+            } catch (error) {
+                console.error(error.message);
+            }
         });
 }
 
