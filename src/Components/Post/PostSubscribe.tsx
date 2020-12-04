@@ -17,7 +17,7 @@ export default function PostSubscribe(props: { post: PostSchema }) {
 
     function handleDelete() {
         handleModal();
-        deletePost(id);
+        deletePost(id, uid);
     }
 
     return (

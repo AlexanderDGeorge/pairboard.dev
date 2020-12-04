@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { connectHits } from 'react-instantsearch-dom';
 import styled from 'styled-components';
 import { SearchContext } from './Search';
-import SmallUserCard from '../User/SmallUserCard';
+import MediumUserCard from '../User/MediumUserCard';
 
 function UserHits(props: { hits: object[] }) {
     const { focused } = useContext(SearchContext)!;
@@ -13,7 +13,7 @@ function UserHits(props: { hits: object[] }) {
             <StyledHits>
                 {props.hits.map((hit: any, i: number) => {
                     return (
-                        <SmallUserCard key={i} user={hit}/>
+                        <MediumUserCard key={i} user={hit}/>
                         )
                     })}
             </StyledHits>

@@ -43,7 +43,7 @@ export default function PostLane(props: {
                 </>
             );
         } else {
-            return <p>no posts</p>;
+            return <h2>no posts</h2>;
         }
     }
 

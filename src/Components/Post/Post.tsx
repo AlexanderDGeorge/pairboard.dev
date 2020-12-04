@@ -48,8 +48,8 @@ export default function Post(props: { post: PostSchema }) {
 
 const StyledPost = styled(StyledCard)`
     display: grid;
-    grid-template-columns: max-content 10px 100px;
-    grid-template-rows: 70px 10px auto;
+    grid-template-columns: max-content 5px 100px;
+    grid-template-rows: 70px 5px auto;
     grid-template-areas:
         "title . date"
         ". . ."

@@ -64,6 +64,11 @@ export async function closePost(postId: PostSchema["id"]) {
     });
 }
 
-export function deletePost(postId: PostSchema['id']) {
-    firestore().collection("posts").doc(postId).delete();
+export function deletePost(postId: PostSchema['id'], uid: UserSchema['uid']) {
+    const postRef = firestore().collection("posts").doc(postId);
+    postRef.delete();
+    const userRef = firestore().collection('users').doc(uid);
+    userRef.update({
+        posts: fieldValue.arrayRemove(postId)
+    })
 }

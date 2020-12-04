@@ -42,6 +42,7 @@ export default function Search() {
 const StyledSearchWrapper = styled.div`
     z-index: 2;
     height: fit-content;
+    max-width: 400px;
     margin-top: 20px;
     background-color: ${props => props.theme.dark};
     border-radius: 5px;
