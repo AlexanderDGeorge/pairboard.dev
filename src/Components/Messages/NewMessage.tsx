@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-// import SearchBar from "../Search/SearchBar";
+import { HeavyH1 } from '../../styled-components/StyledHeaders';
+
 export default function NewMessage() {
     return (
         <StyledNewMessage>
-            <h2>Compose a Message</h2>
-            {/* To: <SearchBar /> */}
+            <HeavyH1>Compose a Message</HeavyH1>
         </StyledNewMessage>
     );
 }
@@ -13,6 +13,5 @@ export default function NewMessage() {
 const StyledNewMessage = styled.div`
     height: 100%;
     width: 100%;
-    border-left: 1px solid ${(props) => props.theme.light};
-    padding-left: 10px;
+    padding: 10px;
 `;

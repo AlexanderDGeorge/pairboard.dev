@@ -29,5 +29,6 @@ export default function LocalStream(props: { localStream?: MediaStream }) {
 const StyledLocalStream = styled.video`
     min-width: 480px;
     max-width: 720px;
-    /* transform: scaleX(-1); */
+    transform: scaleX(-1);
+    /* border: 2px solid ${props => props.theme.verydark}; */
 `;

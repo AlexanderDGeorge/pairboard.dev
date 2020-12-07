@@ -6,7 +6,7 @@ import Account from './Account';
 import Notifications from './Notifications';
 import Teams from './Teams';
 
-export default function Router() {
+export default function SettingsRouter() {
     return (
         <Switch>
             <Route path='/settings/profile' component={Profile}/>

@@ -61,7 +61,8 @@ const StyledRoomPage = styled.div`
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     background-color: ${props => props.theme.dark};
 `;
 

@@ -1,19 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import { StyledNav } from "../../styled-components/StyledNav";
+import NavItem from "../Nav/NavItem";
 
 export default function MessagesNav() {
     return (
-        <StyledMessagesNav>
-            <h2>Recent Messages</h2>
-        </StyledMessagesNav>
+        <StyledNav>
+            <NavItem path='/messages/new' title='New Message'/>
+        </StyledNav>
     );
 }
-
-const StyledMessagesNav = styled.div`
-    height: 100%;
-    width: 30%;
-    padding-right: 10px;
-    > h2 {
-        margin-bottom: 10px;
-    }
-`;
