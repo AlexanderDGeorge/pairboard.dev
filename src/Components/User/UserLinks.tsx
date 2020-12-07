@@ -32,12 +32,6 @@ export default function UserLinks(props: { user: UserSchema }) {
             >
                 <FaLinkedin />
             </StyledLink>
-            <StyledLink 
-                style={{ background: '#0072b1' }}
-                href={linkedInURL}
-            >
-                <FaLinkedin />
-            </StyledLink>
         </StyledUserLinks>
     )
 }
@@ -47,14 +41,9 @@ const StyledUserLinks = styled.div`
     right: 0;
     top: 0;
     height: 100%;
-    width: 160px;
-    /* padding: 5px; */
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    /* background-color: ${props => props.theme.accent}; */
 `;
 
 const StyledLink = styled.a`

@@ -19,24 +19,33 @@ export default function ConnectionButton(props: {user: UserSchema}) {
     useOnOutsideCLick(buttonRef, () => setSpring({ height: 40 }))
     
     return (
-        <StyledConnectionButton ref={buttonRef} style={spring}>
-            <span>
+        <Wrapper>
+            <StyledConnectionButton ref={buttonRef} style={spring}>
+                <span>
 
-            <ConnectionsButton
-                onClick={() => handleModal(<UserConnectionsModal user={props.user}/>)}
-            >
-                {connections.length} connections
-            </ConnectionsButton>
-            <ConnectionDropdownButton
-                onClick={() => setSpring({ height: 120 })}
-            >
-                <MdArrowDropDown />
-            </ConnectionDropdownButton>
-            </span>
-            <ConnectionDropdown user={props.user}/>
-        </StyledConnectionButton>
+                <ConnectionsButton
+                    onClick={() => handleModal(<UserConnectionsModal user={props.user}/>)}
+                >
+                    {connections.length} connections
+                </ConnectionsButton>
+                <ConnectionDropdownButton
+                    onClick={() => setSpring({ height: 120 })}
+                >
+                    <MdArrowDropDown />
+                </ConnectionDropdownButton>
+                </span>
+                <ConnectionDropdown user={props.user}/>
+            </StyledConnectionButton>
+        </Wrapper>
     )
 }
+
+const Wrapper = styled.div`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
 
 const StyledConnectionButton = styled(animated.div)`
     height: 40px;

@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { UserContext } from '../../Application';
+import { ModalContext, UserContext } from '../../Application';
 import { UserSchema } from '../../firebase/schema';
+import UserConnectionsModal from './UserConnectionsModal';
 
 export default function ConnectionDropdown(props: {user: UserSchema }) {
     const { connections } = props.user;
     const { uid, username, name, photoURL } = useContext(UserContext)!;
+    const { handleModal } = useContext(ModalContext)!;
 
     function AddRemoveConnection() {
         const lightUser = {uid, username, name, photoURL}
@@ -22,12 +24,12 @@ export default function ConnectionDropdown(props: {user: UserSchema }) {
 
     return (
         <StyledConnectionDropdown>
-            <StyledDropdownButton>
+            <StyledDropdownButton onClick={() => handleModal(<UserConnectionsModal user={props.user} />)}>
                 View Connections
             </StyledDropdownButton>
             {username !== props.user.username ? 
                 <AddRemoveConnection /> :
-                <StyledDropdownLink to='/settings/edit'>
+                <StyledDropdownLink to='/settings/profile'>
                     Edit Profile
                 </StyledDropdownLink>
             }

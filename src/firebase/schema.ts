@@ -33,6 +33,13 @@ export interface LightUserSchema {
     photoURL: UserSchema["photoURL"];
 }
 
+export interface NotificationSchema {
+    type: typeof NOTIFICATIONTYPES[number];
+    from: LightUserSchema;
+    to: UserSchema['uid'];
+    content?: string;
+}
+
 export interface PostSchema {
     id: string;
     createdAt: Date;
@@ -47,20 +54,11 @@ export interface PostSchema {
     type: typeof POSTTYPES[number];
 }
 
-export interface RoomSchema {
-    id: string;
-    candidates: Candidate[];
-    offers: Offer[];
-}
-
-interface Candidate {
-    to: UserSchema["uid"];
-    from: UserSchema["uid"];
-    candidates: RTCIceCandidateInit[];
-}
-
-interface Offer {
-    to: UserSchema["uid"];
-    from: UserSchema["uid"];
-    description: RTCSessionDescriptionInit;
-}
+const NOTIFICATIONTYPES = [
+    'connection',
+    'room',
+    'team',
+    'pairboard',
+    'reminder',
+    'message'
+] as const;

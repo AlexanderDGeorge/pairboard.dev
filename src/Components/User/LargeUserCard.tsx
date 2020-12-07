@@ -2,7 +2,7 @@ import React from "react";
 import { MdLocationOn } from "react-icons/md";
 import styled from "styled-components";
 import { UserSchema } from "../../firebase/schema";
-// import ConnectionButton from './ConnectionButton';
+import ConnectionButton from './ConnectionButton';
 import UserLinks from './UserLinks';
 
 export default function LargeUserCard(props: { user: UserSchema }) {
@@ -20,7 +20,7 @@ export default function LargeUserCard(props: { user: UserSchema }) {
                     null
                 }
             </StyledInfoPane>
-            {/* <ConnectionButton user={props.user}/> */}
+            <ConnectionButton user={props.user}/>
             <UserLinks user={props.user}/>
         </StyledLargeUserCard>
     );
@@ -28,10 +28,11 @@ export default function LargeUserCard(props: { user: UserSchema }) {
 
 const StyledLargeUserCard = styled.header`
     position: relative;
+    height: 250px;
     width: 100%;
-    display: flex;
     border-radius: 40px;
     margin-bottom: 10px;
+    display: flex;
     background-color: ${props => props.theme.white};
     box-shadow: 0 5px 20px -8px ${(props) => props.theme.verydark};
     overflow: hidden;
@@ -44,9 +45,9 @@ const StyledLargeUserCard = styled.header`
 `;
 
 const StyledInfoPane = styled.div`
-    width: 100%;
-    max-width: 500px;
-    margin-right: 20px;
+    /* width: 100%; */
+    width: 400px;
+    margin-right: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
