@@ -36,20 +36,18 @@ export default function RoomPage() {
         return (
             <StyledRoomPage>
                 <Controls controls={controls} />
-                <Participants>
-                    <LocalStream localStream={localStream} />
-                    {post.participants.map((peerId, i) => {
-                        if (uid === peerId) return null;
-                        return (
-                            <PeerConnection
-                                key={i}
-                                localStream={localStream}
-                                peerId={peerId}
-                                addConnection={addConnection}
-                            />
-                        );
-                    })}
-                </Participants>
+                <LocalStream localStream={localStream} />
+                {post.participants.map((peerId, i) => {
+                    if (uid === peerId) return null;
+                    return (
+                        <PeerConnection
+                            key={i}
+                            localStream={localStream}
+                            peerId={peerId}
+                            addConnection={addConnection}
+                        />
+                    );
+                })}
             </StyledRoomPage>
         );
     } else {
@@ -64,13 +62,6 @@ const StyledRoomPage = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    background-color: ${props => props.theme.dark};
 `;
 
-const Participants = styled.div`
-    height: 100%;
-    width: 100%;
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-`;

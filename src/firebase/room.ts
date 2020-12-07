@@ -62,34 +62,3 @@ export function listenForCandidates(
         });
 }
 
-export function listenForSignaling(
-    connection: RTCPeerConnection,
-    uid: UserSchema["uid"],
-    peerId: UserSchema["uid"]
-) {
-    database()
-        .ref(`/roomNotifications/${uid}/${peerId}/sessionDescription`)
-        .on("value", async (snapshot) => {
-            if (!snapshot.exists()) return;
-            console.log(snapshot.val());
-            // if (snapshot.val().type === 'offer' && peerId > uid)
-            console.log(connection);
-            if (peerId > uid) {
-                await connection.setRemoteDescription(snapshot.val());
-                const answer = await connection.createAnswer();
-                await connection.setLocalDescription(answer);
-                console.log(answer);
-                sendSessionDescription(peerId, uid, answer);
-            } else {
-                // check if we have sent an offer
-                if (snapshot.val().type === "answer") {
-                    if (connection.connectionState === "disconnected") {
-                        const offer = await connection.createOffer();
-                        connection.setLocalDescription(offer);
-                        sendSessionDescription(peerId, uid, offer);
-                    }
-                    await connection.setRemoteDescription(snapshot.val());
-                }
-            }
-        });
-}

@@ -1,6 +1,9 @@
 import { UserSchema } from "../../firebase/schema";
 import { sendICECandidate, sendSessionDescription } from "../../firebase/room";
 import { database } from "../../firebase/firebase";
+import adapter from 'webrtc-adapter';
+
+console.log(adapter.browserDetails.browser);
 
 export async function initiateLocalStream() {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -46,7 +49,7 @@ export async function initiateConnection(localStream: MediaStream) {
     return localConnection;
 }
 
-export async function listenToConnectionEvents(
+export async function listenForConnectionEvents(
     connection: RTCPeerConnection,
     peerId: UserSchema["uid"],
     uid: UserSchema["uid"],

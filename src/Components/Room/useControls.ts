@@ -14,14 +14,15 @@ export default function useControls(
 ) {
     const { uid } = useContext(UserContext)!;
     const [muted, setMuted] = useState(false);
-    const [video, setVideo] = useState<MediaStreamTrack | undefined>(undefined);
+    const [video, setVideo] = useState(true);
+    const [videoTrack, setVideoTrack] = useState<MediaStreamTrack | undefined>(undefined);
     const [screen, setScreen] = useState<MediaStreamTrack | undefined>(
         undefined
     );
 
     useEffect(() => {
         if (!localStream) return;
-        setVideo(localStream.getVideoTracks()[0]);
+        setVideoTrack(localStream.getVideoTracks()[0]);
     }, [localStream]);
 
     function toggleAudio() {
@@ -30,18 +31,27 @@ export default function useControls(
         setMuted(!muted);
     }
 
+    function toggleVideo() {
+        if (video) {
+            turnOffVideo()
+        } else {
+            turnOnVideo()
+        }
+        setVideo(!video);
+    }
+
     function turnOffVideo() {
         if (!localStream) return;
         localStream.getVideoTracks()[0].enabled = false;
     }
 
     async function turnOnVideo() {
-        if (!localStream || !video) return;
+        if (!localStream || !videoTrack) return;
         localStream.getVideoTracks()[0].enabled = true;
         connections.forEach((connection) => {
             connection.getSenders().forEach((sender) => {
                 if (sender.track?.kind === "video") {
-                    sender.replaceTrack(video);
+                    sender.replaceTrack(videoTrack);
                 }
             });
         });
@@ -80,9 +90,9 @@ export default function useControls(
 
     return {
         muted,
+        video,
         toggleAudio,
-        turnOffVideo,
-        turnOnVideo,
+        toggleVideo,
         shareScreen,
         handleLeave,
     };

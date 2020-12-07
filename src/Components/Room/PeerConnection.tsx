@@ -8,11 +8,10 @@ import React, {
 import styled from "styled-components";
 import {
     initiateConnection,
-    listenToConnectionEvents,
+    listenForConnectionEvents,
 } from "./WebRTCFunctions";
 import {
     listenForCandidates,
-    listenForSignaling,
     resetRoomNotifications,
 } from "../../firebase/room";
 import { UserSchema } from "../../firebase/schema";
@@ -42,7 +41,7 @@ export default function PeerConnection(props: PeerConnectionProps) {
             if (!remoteStreamRef.current || !localStream) return;
             const localConnection = await initiateConnection(localStream);
             setConnection(localConnection);
-            listenToConnectionEvents(
+            listenForConnectionEvents(
                 localConnection,
                 peerId,
                 uid,
@@ -53,7 +52,6 @@ export default function PeerConnection(props: PeerConnectionProps) {
 
     useEffect(() => {
         if (!connection || !localStream) return;
-        // listenForSignaling(connection, uid, peerId);
         listenForCandidates(connection, uid, peerId);
     }, [uid, peerId, connection, localStream]);
 
@@ -62,13 +60,6 @@ export default function PeerConnection(props: PeerConnectionProps) {
         addConnection(connection);
         // eslint-disable-next-line
     }, [connection]);
-
-    // useEffect(() => {
-    //     if (connection?.connectionState === "disconnected") {
-    //         console.log("here");
-    //         connection.close();
-    //     }
-    // }, [connection]);
 
     return (
         <RemoteStream
