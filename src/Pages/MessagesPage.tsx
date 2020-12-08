@@ -19,5 +19,5 @@ const StyledMessagesPage = styled.div`
     border-radius: 10px;
     background-color: ${props => props.theme.white};
     display: flex;
-    overflow: hidden;
+    overflow-y: scroll;
 `;

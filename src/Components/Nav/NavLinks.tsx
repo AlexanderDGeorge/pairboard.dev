@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MdChatBubble, MdGroup, MdHome, MdNotifications } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ModalContext } from '../../Application';
+import NotificationModal from '../Notifications/NotificationModal';
 
 export default function NavLinks() {
+    const { handleModal } = useContext(ModalContext)!;
+
     return (
         <StyledNavLinks>
             <StyledNavLink to='/'>
@@ -18,10 +22,10 @@ export default function NavLinks() {
                 <MdGroup />
                 <p>Teams</p>
             </StyledNavLink>
-            <StyledNavLink to='/notifications'>
+            <StyledButton onClick={() => handleModal(<NotificationModal />)}>
                 <MdNotifications />
                 <p>Notifications</p>
-            </StyledNavLink>
+            </StyledButton>
         </StyledNavLinks>
     )
 }
@@ -47,6 +51,35 @@ const StyledNavLink = styled(Link)`
     text-decoration: none;
     background-color: ${props => props.theme.verydark};
     transition: all 0.25s linear;
+    font-size: 1em;
+    &:hover {
+        transition: all 0.25s linear;
+        background: transparent;
+    }
+    > svg {
+        height: 26px;
+        width: 26px;
+        fill: ${props => props.theme.white};
+    }
+    > p {
+        color: ${props => props.theme.white};
+        font-size: 0.8em;
+    }
+`;
+
+const StyledButton = styled.button`
+    position: relative;
+    height: 100%;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: ${props => props.theme.verydark};
+    transition: all 0.25s linear;
+    font-size: 1em;
+
     &:hover {
         transition: all 0.25s linear;
         background: transparent;

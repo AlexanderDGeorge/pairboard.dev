@@ -7,9 +7,6 @@ import FormContainer from "./FormContainer";
 export default function CreatePostModal(props: { type: PostSchema["type"] }) {
     const modalRef = useRef(null);
     const [type, setType] = useState<string>(props.type);
-
-    // [TODO]: figure out how to get this to work with react-datepicker
-    // useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
 
     function ModalContent() {

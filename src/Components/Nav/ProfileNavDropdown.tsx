@@ -24,7 +24,7 @@ export default function ProfileNavDropdown(props: { setOpen: Function }) {
             <h2>{username}</h2>
             <h3>{name}</h3>
             <Link onClick={handleLinkClick} to={`/user/${username}`}>View Profile</Link>
-            <Link onClick={handleLinkClick} to='/settings'>Settings</Link>
+            <Link onClick={handleLinkClick} to='/settings/profile'>Settings</Link>
             <button onClick={handleSignOut}>Sign Out</button>
         </StyledDropdown>
     )

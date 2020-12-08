@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import NewMessage from "./NewMessage";
+import NewTeam from './NewTeam';
 
 export default function MessagesRouter() {
     return (
         <Switch>
-            <Route path="/messages" component={NewMessage} />
+            <Route path='/' component={NewTeam}/>
         </Switch>
     );
 }
