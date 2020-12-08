@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { SearchContext } from './Search';
+import { SearchContext } from './SearchBox';
 import Post from '../Post/Post';
 import { connectHits } from 'react-instantsearch-dom';
 

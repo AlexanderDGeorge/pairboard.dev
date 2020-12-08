@@ -1,56 +1,34 @@
-import React, { useContext, useEffect, useRef } from "react";
-import { useSpring, animated } from "react-spring";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Application";
 import NavLinks from "./NavLinks";
-import Search from '../Search/Search';
+import Search from '../Search/SearchBox';
+import ProfileNav from "./ProfileNav";
 
 export default function Header() {
     const user = useContext(UserContext);
-    const ref = useRef(null);
-    const [header, setHeader] = useSpring(() => ({
-        height: 80,
-    }));
-
-    useEffect(() => {
-        const root = document.getElementById("application");
-        function handleScroll() {
-            if (!root) return;
-            if (root.scrollTop > 50) {
-                setHeader({
-                    height: 80,
-                });
-            } else {
-                setHeader({
-                    height: 80,
-                });
-            }
-        }
-
-        root?.addEventListener("scroll", handleScroll);
-        return () => {
-            root?.removeEventListener("scroll", handleScroll);
-        };
-        //eslint-disable-next-line
-    }, []);
 
     return (
-        <StyledHeader style={header} ref={ref}>
+        <StyledHeader>
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
-                pairboard.dev <sup>alpha</sup>
+                pairboard.dev <sup>beta</sup>
             </HomeLink>
             {user ? <Search /> : null}
-            {user ? <NavLinks /> :
+            {user ?
+                <LeftLinks>
+                    <NavLinks />
+                    <ProfileNav />
+                </LeftLinks> :
                 <AuthButtons>
-                    <button>Log In</button>
-                    <button>Sign Up</button>
-                </AuthButtons> }
+                    <Link to='/login'>Log In</Link>
+                    <Link to='/signup'>Sign Up</Link>
+                </AuthButtons>}
         </StyledHeader>
     );
 }
 
-const StyledHeader = styled(animated.header)`
+const StyledHeader = styled.header`
     z-index: 3;
     height: 80px;
     width: 100%;
@@ -76,20 +54,22 @@ const HomeLink = styled(Link)`
     justify-content: center;
     font-size: 2.4em;
     font-weight: 100;
-    color: ${(props) => props.theme.light};
+    color: ${(props) => props.theme.white};
     transition: all 0.25s linear;
     text-decoration: none;
     outline: none;
-    &:hover {
-        transition: all 0.25s linear;
-        font-size: 2.41em;
-        color: ${(props) => props.theme.white};
-    }
     > sup {
         background-color: transparent;
         color: ${(props) => props.theme.light};
         font-size: 0.5em;
     }
+`;
+
+const LeftLinks = styled.div`
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
 `;
 
 const AuthButtons = styled.div`

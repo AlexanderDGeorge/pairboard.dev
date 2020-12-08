@@ -1,43 +1,58 @@
-import React, { useContext } from 'react';
-import { connectSearchBox } from 'react-instantsearch-dom';
+import React, { createContext, useRef, useState } from 'react';
+import algoliasearch from 'algoliasearch/lite';
+import { Index, InstantSearch } from 'react-instantsearch-dom';
+import SearchInput from './SearchInput';
+import UserHits from './UserHits';
+import PostHits from './PostHits';
 import styled from 'styled-components';
-import { SearchContext } from './Search';
+import useOnOutsideCLick from '../../util/useOnOutsideClick';
 
-function SearchBox(props: { currentRefinement: string, refine: Function }) {
-    const { currentRefinement, refine } = props;
-    const { setFocus } = useContext(SearchContext)!;
+interface ISearch {
+    focused: boolean;
+    setFocus: Function;
+}
+
+const searchClient = algoliasearch('IQDWF0CVXQ', 'c47f48c53f21df6fd24f2eb5ab1c7356');
+
+export const SearchContext = createContext<ISearch | undefined>(undefined)
+
+export default function Search() {
+    const [focused, setFocus] = useState(false);
+    const searchRef = useRef(null);
+
+    useOnOutsideCLick(searchRef, () => setFocus(false));
 
     return (
-        <StyledSearchBox>
-            <input
-                onClick={() => setFocus(true)}
-                onFocus={() => setFocus(true)}
-                type="search"
-                value={currentRefinement}
-                onChange={event => refine(event.currentTarget.value)}
-                placeholder='Search for users, posts...'
-            />
-        </StyledSearchBox>
+        <SearchContext.Provider value={{ focused, setFocus }}>
+            <StyledSearchWrapper ref={searchRef}>
+                <InstantSearch searchClient={searchClient} indexName="users">
+                    <SearchInput />
+                    <HitsWrapper>
+                        <Index indexName='users'>
+                            <UserHits />
+                        </Index>
+                        <Index indexName='posts'>
+                            <PostHits />
+                        </Index>
+                    </HitsWrapper>
+                </InstantSearch> 
+            </StyledSearchWrapper>
+        </SearchContext.Provider>
     )
 }
 
-const StyledSearchBox = styled.div`
+const StyledSearchWrapper = styled.div`
+    position: relative;
+    z-index: 2;
     height: 40px;
-    width: 400px;
-    border-radius: 10px;
-    padding: 5px;
+    width: 300px;
     background-color: ${props => props.theme.dark};
-    color: ${props => props.theme.light};
-    overflow: hidden;
-    > input {
-        height: 100%;
-        width: 100%;
-        background-color: transparent;
-        color: ${props => props.theme.light};
-        outline: none;
-    }
+    border-radius: 5px;
+    box-shadow: 0 0 20px ${props => props.theme.verydark};
 `;
 
-const CustomSearchBox = connectSearchBox(SearchBox);
-
-export default CustomSearchBox;
+const HitsWrapper = styled.div`
+    position: absolute;
+    border-radius: 10px;
+    background-color: ${props => props.theme.dark};
+`;

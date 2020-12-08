@@ -1,28 +1,27 @@
 import React from 'react';
-import { MdChatBubble, MdGroup, MdHome, MdNotifications, MdSettings } from 'react-icons/md';
+import { MdChatBubble, MdGroup, MdHome, MdNotifications } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import ProfileLink from './ProfileLink';
 
 export default function NavLinks() {
     return (
         <StyledNavLinks>
             <StyledNavLink to='/'>
                 <MdHome />
+                <p>Home</p>
             </StyledNavLink>
             <StyledNavLink to='/messages'>
                 <MdChatBubble />
+                <p>Messages</p>
             </StyledNavLink>
             <StyledNavLink to='/teams' >
                 <MdGroup />
-            </StyledNavLink>
-            <StyledNavLink to='/settings'>
-                <MdSettings />
+                <p>Teams</p>
             </StyledNavLink>
             <StyledNavLink to='/notifications'>
                 <MdNotifications />
+                <p>Notifications</p>
             </StyledNavLink>
-            <ProfileLink />
         </StyledNavLinks>
     )
 }
@@ -40,7 +39,7 @@ const StyledNavLinks = styled.ul`
 const StyledNavLink = styled(Link)`
     position: relative;
     height: 100%;
-    width: 60px;
+    width: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,5 +55,9 @@ const StyledNavLink = styled(Link)`
         height: 26px;
         width: 26px;
         fill: ${props => props.theme.white};
+    }
+    > p {
+        color: ${props => props.theme.white};
+        font-size: 0.8em;
     }
 `;

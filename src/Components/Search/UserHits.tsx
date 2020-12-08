@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { connectHits } from 'react-instantsearch-dom';
 import styled from 'styled-components';
-import { SearchContext } from './Search';
+import { SearchContext } from './SearchBox';
 import MediumUserCard from '../User/MediumUserCard';
 
 function UserHits(props: { hits: object[] }) {
