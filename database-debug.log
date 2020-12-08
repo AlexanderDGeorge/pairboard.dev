@@ -1,7 +1,0 @@
-12:13:40.792 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-12:13:41.230 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
-12:17:16.038 [Thread-1] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
-12:17:16.075 [NamespaceSystem-akka.actor.default-dispatcher-7] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: pairboarddev
-12:17:16.094 [NamespaceSystem-akka.actor.default-dispatcher-7] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for pairboarddev
-12:17:16.096 [NamespaceSystem-akka.actor.default-dispatcher-7] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for pairboarddev
-12:17:16.105 [Thread-1] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
