@@ -25,15 +25,18 @@ export default function Search() {
     return (
         <SearchContext.Provider value={{ focused, setFocus }}>
             <StyledSearchWrapper ref={searchRef}>
-                <InstantSearch searchClient={searchClient} indexName="users">
-                    <SearchBox />
-                    <Index indexName='users'>
-                        <UserHits />
-                    </Index>
-                    <Index indexName='posts'>
-                        <PostHits />
-                    </Index>
-                </InstantSearch>
+                {focused ? 
+                    <InstantSearch searchClient={searchClient} indexName="users">
+                        <SearchBox />
+                        <Index indexName='users'>
+                            <UserHits />
+                        </Index>
+                        <Index indexName='posts'>
+                            <PostHits />
+                        </Index>
+                    </InstantSearch> :
+                    null
+                }
             </StyledSearchWrapper>
         </SearchContext.Provider>
     )
@@ -41,10 +44,9 @@ export default function Search() {
 
 const StyledSearchWrapper = styled.div`
     z-index: 2;
-    height: fit-content;
-    max-width: 400px;
-    margin-top: 20px;
-    background-color: ${props => props.theme.dark};
-    border-radius: 5px;
+    height: 40px;
+    width: 200px;
+    background-color: ${props => props.theme.accent};
+    border-radius: 10px;
     box-shadow: 0 0 20px ${props => props.theme.verydark};
 `;

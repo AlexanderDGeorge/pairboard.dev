@@ -3,7 +3,7 @@ import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Application";
-import ProfileLink from "./ProfileLink";
+import NavLinks from "./NavLinks";
 import Search from '../Search/Search';
 
 export default function Header() {
@@ -41,13 +41,11 @@ export default function Header() {
                 pairboard.dev <sup>alpha</sup>
             </HomeLink>
             {user ? <Search /> : null}
-            {user ?
-                <ProfileLink user={user} /> : 
+            {user ? <NavLinks /> :
                 <AuthButtons>
-                    <Link to='login'>Log In</Link>
-                    <Link to='signup'>Sign Up</Link>
-                </AuthButtons>
-            }
+                    <button>Log In</button>
+                    <button>Sign Up</button>
+                </AuthButtons> }
         </StyledHeader>
     );
 }
@@ -62,6 +60,7 @@ const StyledHeader = styled(animated.header)`
     border-image: ${(props) =>
         `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple}) 3`};
     display: flex;
+    align-items: center;
     justify-content: space-between;
     @media screen and (max-width: 600px){
         padding: 2%;
