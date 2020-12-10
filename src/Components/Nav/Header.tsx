@@ -5,6 +5,7 @@ import { UserContext } from "../../Application";
 import NavLinks from "./NavLinks";
 import Search from '../Search/SearchBox';
 import ProfileNav from "./ProfileNav";
+import logo from '../../Assets/PB.png';
 
 export default function Header() {
     const user = useContext(UserContext);
@@ -12,7 +13,7 @@ export default function Header() {
     return (
         <StyledHeader>
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
-                pairboard.dev <sup>beta</sup>
+                <img src={logo} alt=""/>
             </HomeLink>
             {user ? <Search /> : null}
             {user ?
@@ -58,10 +59,9 @@ const HomeLink = styled(Link)`
     transition: all 0.25s linear;
     text-decoration: none;
     outline: none;
-    > sup {
-        background-color: transparent;
-        color: ${(props) => props.theme.light};
-        font-size: 0.5em;
+    > img {
+        height: 100%;
+        width: auto;
     }
 `;
 

@@ -79,7 +79,7 @@ const StyledButton = styled.button`
     background-color: ${props => props.theme.verydark};
     transition: all 0.25s linear;
     font-size: 1em;
-
+    outline: none;
     &:hover {
         transition: all 0.25s linear;
         background: transparent;
