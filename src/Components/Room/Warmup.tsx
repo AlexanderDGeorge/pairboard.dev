@@ -53,6 +53,7 @@ export default function Warmup(props: { post: PostSchema }) {
                                 localStream={localStream}
                                 pc={pc}
                                 peerId={peerId}
+                                peers={post.participants.length}
                             />
                         );
                     })}

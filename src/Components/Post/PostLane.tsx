@@ -1,21 +1,21 @@
-import React from "react";
-import { useSpring, animated } from "react-spring";
-import styled from "styled-components";
-import { PostSchema } from "../../firebase/schema";
-import useFirebaseQuery from "../../util/useFirebaseQuery";
-import LoadingBar from "../Animated/LoadingBar";
-import Post from "./Post";
-import CreatePostLane from "../PostCreate/CreatePostLane";
+import React from 'react';
+import { useSpring, animated } from 'react-spring';
+import styled from 'styled-components';
+import { PostSchema } from '../../firebase/schema';
+import useFirebaseQuery from '../../util/useFirebaseQuery';
+import LoadingBar from '../Animated/LoadingBar';
+import Post from './Post';
+import CreatePostLane from '../PostCreate/CreatePostLane';
 
 const restName = {
-    width: "40%",
-    fontSize: "2em",
-    color: "rgba(0, 0, 0, 1)",
+    width: '40%',
+    fontSize: '2em',
+    color: 'rgba(0, 0, 0, 1)',
 };
 const hoverName = {
-    width: "80%",
-    fontSize: "3em",
-    color: "rgba(0, 0, 0, 0)",
+    width: '80%',
+    fontSize: '3em',
+    color: 'rgba(0, 0, 0, 0)',
 };
 
 export default function PostLane(props: {
@@ -26,13 +26,13 @@ export default function PostLane(props: {
     const { status, data } = useFirebaseQuery(props.query);
 
     const [name, setName] = useSpring(() => ({
-        width: "40%",
-        fontSize: "2em",
-        color: "rgba(0, 0, 0, 1)",
+        width: '40%',
+        fontSize: '2em',
+        color: 'rgba(0, 0, 0, 1)',
     }));
 
     function AsyncPostLane() {
-        if (status === "loading") {
+        if (status === 'loading') {
             return <LoadingBar />;
         } else if (data?.length) {
             return (
@@ -63,7 +63,7 @@ const StyledPostLane = styled.div`
     margin: 20px 0;
     > div {
         display: flex;
-        overflow-x: scroll;
+        overflow-x: auto;
     }
 `;
 
@@ -72,7 +72,7 @@ const AnimatedH1 = styled(animated.h1)`
     margin-bottom: 10px;
     border-bottom: 3px solid ${(props) => props.theme.light};
     font-weight: 500;
-    background: linear-gradient(30deg, #06D6A0, #009FF5 25%);
+    background: linear-gradient(30deg, #06d6a0, #009ff5 25%);
     -webkit-background-clip: text;
     background-clip: text;
     cursor: default;

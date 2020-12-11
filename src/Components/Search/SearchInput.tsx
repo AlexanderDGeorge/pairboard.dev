@@ -3,7 +3,7 @@ import { connectSearchBox } from 'react-instantsearch-dom';
 import styled from 'styled-components';
 import { SearchContext } from './SearchBox';
 
-function SearchInput(props: { currentRefinement: string, refine: Function }) {
+function SearchInput(props: { currentRefinement: string; refine: Function }) {
     const { currentRefinement, refine } = props;
     const { setFocus } = useContext(SearchContext)!;
 
@@ -14,11 +14,11 @@ function SearchInput(props: { currentRefinement: string, refine: Function }) {
                 onFocus={() => setFocus(true)}
                 type="search"
                 value={currentRefinement}
-                onChange={event => refine(event.currentTarget.value)}
-                placeholder='Search for users, posts...'
+                onChange={(event) => refine(event.currentTarget.value)}
+                placeholder="Search for users, posts..."
             />
         </StyledSearchInput>
-    )
+    );
 }
 
 const StyledSearchInput = styled.div`
@@ -26,14 +26,14 @@ const StyledSearchInput = styled.div`
     width: 100%;
     border-radius: 10px;
     padding: 5px;
-    background-color: ${props => props.theme.dark};
-    color: ${props => props.theme.light};
+    /* background-color: ${(props) => props.theme.dark}; */
+    color: ${(props) => props.theme.light};
     overflow: hidden;
     > input {
         height: 100%;
         width: 100%;
         background-color: transparent;
-        color: ${props => props.theme.light};
+        color: ${(props) => props.theme.light};
         outline: none;
     }
 `;

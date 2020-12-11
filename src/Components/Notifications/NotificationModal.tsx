@@ -16,7 +16,7 @@ export default function NotificationModal() {
             <HeavyH1>Notifications</HeavyH1>
             <h1>Coming Soon</h1>
         </StyledNotificationModal>
-    )
+    );
 }
 
 const StyledNotificationModal = styled.div`
@@ -24,9 +24,9 @@ const StyledNotificationModal = styled.div`
     width: 60%;
     border-radius: 5px;
     padding: 2%;
-    background-color: ${props => props.theme.white};
+    background-color: ${(props) => props.theme.white};
     display: flex;
     flex-direction: column;
     cursor: auto;
-    overflow-y: scroll;
+    overflow-y: auto;
 `;

@@ -29,8 +29,8 @@ export default function Controls(props: {
     return (
         <StyledControls>
             <Button onClick={() => toggleAudio()}>
-                {audio ? <MdVolumeUp /> : <MdVolumeOff />}
-                {audio ? 'Unmute' : 'Mute'}
+                {!audio ? <MdVolumeUp /> : <MdVolumeOff />}
+                {!audio ? 'Unmute' : 'Mute'}
             </Button>
             <Button onClick={() => toggleVideo()}>
                 {!video ? <MdVideocam /> : <MdVideocamOff />}
@@ -50,6 +50,7 @@ export default function Controls(props: {
 
 const StyledControls = styled.div`
     position: absolute;
+    z-index: 3;
     bottom: 0;
     height: 100px;
     width: 100%;

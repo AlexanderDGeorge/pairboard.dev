@@ -84,7 +84,7 @@ export default function Routing() {
 const StyledPage = styled.div`
     height: 100%;
     width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 2% 15%;
     background-color: ${(props) => props.theme.verylight};
     @media screen and (max-width: 600px) {

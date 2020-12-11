@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { UserContext } from "../../Application";
-import NavLinks from "./NavLinks";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { UserContext } from '../../Application';
+import NavLinks from './NavLinks';
 import Search from '../Search/SearchBox';
-import ProfileNav from "./ProfileNav";
+import ProfileNav from './ProfileNav';
 import logo from '../../Assets/PB.png';
 
 export default function Header() {
@@ -13,25 +13,27 @@ export default function Header() {
     return (
         <StyledHeader>
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
-                <img src={logo} alt=""/>
+                <img src={logo} alt="" />
             </HomeLink>
             {user ? <Search /> : null}
-            {user ?
+            {user ? (
                 <LeftLinks>
                     <NavLinks />
                     <ProfileNav />
-                </LeftLinks> :
+                </LeftLinks>
+            ) : (
                 <AuthButtons>
-                    <Link to='/login'>Log In</Link>
-                    <Link to='/signup'>Sign Up</Link>
-                </AuthButtons>}
+                    <Link to="/login">Log In</Link>
+                    <Link to="/signup">Sign Up</Link>
+                </AuthButtons>
+            )}
         </StyledHeader>
     );
 }
 
 const StyledHeader = styled.header`
     z-index: 3;
-    height: 80px;
+    height: 100px;
     width: 100%;
     padding: 0 15%;
     background-color: ${(props) => props.theme.verydark};
@@ -41,14 +43,19 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 600px) {
         padding: 2%;
     }
 `;
 
 const HomeLink = styled(Link)`
-    height: 80px;
-    background-color: transparent;
+    min-height: 60px;
+    height: 60px;
+    min-width: 60px;
+    width: 60px;
+    margin-right: 20px;
+    border: 2px solid ${(props) => props.theme.accent};
+    border-radius: 10px;
     align-self: center;
     display: flex;
     align-items: center;
@@ -60,8 +67,12 @@ const HomeLink = styled(Link)`
     text-decoration: none;
     outline: none;
     > img {
-        height: 100%;
+        height: 60%;
         width: auto;
+    }
+    &:hover {
+        border: 2px solid ${(props) => props.theme.white};
+        box-shadow: 0 0 20px -8px;
     }
 `;
 
@@ -79,23 +90,23 @@ const AuthButtons = styled.div`
     align-items: center;
     justify-content: space-between;
     > a:first-of-type {
-        background-color: ${props => props.theme.dark};
+        background-color: ${(props) => props.theme.dark};
         border-radius: 20px 0 0 20px;
         &:hover {
-            box-shadow: -4px 0 10px ${props => props.theme.dark};
+            box-shadow: -4px 0 10px ${(props) => props.theme.dark};
         }
     }
     > a:last-of-type {
-        background-color: ${props => props.theme.green};
+        background-color: ${(props) => props.theme.green};
         border-radius: 0 20px 20px 0;
         &:hover {
-            box-shadow: 4px 0 10px ${props => props.theme.green};
+            box-shadow: 4px 0 10px ${(props) => props.theme.green};
         }
     }
     > a {
         width: 100px;
-        padding: 10px;        
-        color: ${props => props.theme.white};
+        padding: 10px;
+        color: ${(props) => props.theme.white};
         text-align: center;
         text-decoration: none;
         font-size: 0.9em;

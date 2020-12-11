@@ -1,26 +1,24 @@
-import React, { useRef, useState } from "react";
-import styled from "styled-components";
-import { PostSchema } from "../../firebase/schema";
-import useLockBodyScroll from "../../util/useLockBodyScroll";
-import FormContainer from "./FormContainer";
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
+import { PostSchema } from '../../firebase/schema';
+import useLockBodyScroll from '../../util/useLockBodyScroll';
+import FormContainer from './FormContainer';
 
-export default function CreatePostModal(props: { type: PostSchema["type"] }) {
+export default function CreatePostModal(props: { type: PostSchema['type'] }) {
     const modalRef = useRef(null);
     const [type, setType] = useState<string>(props.type);
     useLockBodyScroll();
 
     function ModalContent() {
         switch (type) {
-            case "Pairboard":
+            case 'Pairboard':
                 return (
                     <>
-                        <p>
-                            Work with a partner!
-                        </p>
+                        <p>Work with a partner!</p>
                         <FormContainer type={type} />
                     </>
                 );
-            case "Team":
+            case 'Team':
                 return (
                     <>
                         <p>
@@ -29,12 +27,10 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
                         <FormContainer type={type} />
                     </>
                 );
-            case "Lecture":
+            case 'Lecture':
                 return (
                     <>
-                        <p>
-                            Teach and demonstrate concepts!
-                        </p>
+                        <p>Teach and demonstrate concepts!</p>
                         <FormContainer type={type} />
                     </>
                 );
@@ -46,12 +42,12 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
     return (
         <StyledModal ref={modalRef}>
             <h1>
-                Create a{" "}
+                Create a{' '}
                 <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="Pairboard">Pairboard</option>
                     <option value="Team">Team</option>
                     <option value="Lecture">Lecture</option>
-                </select>{" "}
+                </select>{' '}
                 Post
             </h1>
             <ModalContent />
@@ -62,11 +58,11 @@ export default function CreatePostModal(props: { type: PostSchema["type"] }) {
 const StyledModal = styled.div`
     border-radius: 5px;
     padding: 2%;
-    background-color: ${props => props.theme.white};
+    background-color: ${(props) => props.theme.white};
     display: flex;
     flex-direction: column;
     cursor: auto;
-    overflow-y: scroll;
+    overflow-y: auto;
     > h1 {
         margin-bottom: 10px;
         font-weight: 800;

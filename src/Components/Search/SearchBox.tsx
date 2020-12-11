@@ -12,9 +12,12 @@ interface ISearch {
     setFocus: Function;
 }
 
-const searchClient = algoliasearch('IQDWF0CVXQ', 'c47f48c53f21df6fd24f2eb5ab1c7356');
+const searchClient = algoliasearch(
+    'IQDWF0CVXQ',
+    'c47f48c53f21df6fd24f2eb5ab1c7356',
+);
 
-export const SearchContext = createContext<ISearch | undefined>(undefined)
+export const SearchContext = createContext<ISearch | undefined>(undefined);
 
 export default function Search() {
     const [focused, setFocus] = useState(false);
@@ -28,31 +31,31 @@ export default function Search() {
                 <InstantSearch searchClient={searchClient} indexName="users">
                     <SearchInput />
                     <HitsWrapper>
-                        <Index indexName='users'>
+                        <Index indexName="users">
                             <UserHits />
                         </Index>
-                        <Index indexName='posts'>
+                        <Index indexName="posts">
                             <PostHits />
                         </Index>
                     </HitsWrapper>
-                </InstantSearch> 
+                </InstantSearch>
             </StyledSearchWrapper>
         </SearchContext.Provider>
-    )
+    );
 }
 
 const StyledSearchWrapper = styled.div`
     position: relative;
     z-index: 2;
-    height: 40px;
+    height: 60px;
     width: 300px;
-    background-color: ${props => props.theme.dark};
-    border-radius: 5px;
-    box-shadow: 0 0 20px ${props => props.theme.verydark};
+    border: 2px solid ${(props) => props.theme.accent};
+    border-radius: 10px;
+    box-shadow: 0 0 20px ${(props) => props.theme.verydark};
 `;
 
 const HitsWrapper = styled.div`
     position: absolute;
     border-radius: 10px;
-    background-color: ${props => props.theme.dark};
+    background-color: ${(props) => props.theme.dark};
 `;

@@ -1,27 +1,20 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { ModalContext } from "../../Application";
-import { PostSchema } from "../../firebase/schema";
-import PostDate from "./PostDate";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { ModalContext } from '../../Application';
+import { PostSchema } from '../../firebase/schema';
+import PostDate from './PostDate';
+import { Link } from 'react-router-dom';
 import ExpandedPost from './ExpandedPost';
 import PostTag from './PostTag';
-import { StyledCard } from "../../styled-components/StyledCard";
+import { StyledCard } from '../../styled-components/StyledCard';
 
 export default function Post(props: { post: PostSchema }) {
-    const {
-        description,
-        host,
-        language,
-        title,
-        type,
-        start,
-    } = props.post;
+    const { description, host, language, title, type, start } = props.post;
     const { handleModal } = useContext(ModalContext)!;
 
     function handleClick(e: React.SyntheticEvent) {
         e.stopPropagation();
-        handleModal(<ExpandedPost post={props.post}/>);
+        handleModal(<ExpandedPost post={props.post} />);
     }
 
     return (
@@ -36,7 +29,7 @@ export default function Post(props: { post: PostSchema }) {
                     {host.username}
                 </Link>
             </Header>
-            <PostDate start={start}/>
+            <PostDate start={start} />
             <Tags>
                 <PostTag tag={language} />
                 <PostTag tag={type} />
@@ -51,16 +44,16 @@ const StyledPost = styled(StyledCard)`
     grid-template-columns: max-content 5px 100px;
     grid-template-rows: 70px 5px auto;
     grid-template-areas:
-        "title . date"
-        ". . ."
-        "description . tags";
+        'title . date'
+        '. . .'
+        'description . tags';
     > p {
         height: 100%;
         width: 100%;
         max-width: 300px;
         grid-area: description;
         text-align: justify;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 `;
 

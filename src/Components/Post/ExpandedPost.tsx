@@ -9,8 +9,7 @@ import PostTag from './PostTag';
 import PostSubscribe from './PostSubscribe';
 import PostDate from './PostDate';
 
-
-export default function ExpandedPost(props: {post: PostSchema}) {
+export default function ExpandedPost(props: { post: PostSchema }) {
     const modalRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
     const { title, description, host, type, language, start } = props.post;
@@ -21,7 +20,7 @@ export default function ExpandedPost(props: {post: PostSchema}) {
     return (
         <StyledModal ref={modalRef}>
             <h1>{title}</h1>
-            <PostDate start={start} expanded/>
+            <PostDate start={start} expanded />
             <Tags>
                 <PostTag tag={language} />
                 <PostTag tag={type} />
@@ -34,7 +33,7 @@ export default function ExpandedPost(props: {post: PostSchema}) {
             <StyledDivider />
             <PostSubscribe post={props.post} />
         </StyledModal>
-    )
+    );
 }
 
 const StyledModal = styled.div`
@@ -44,9 +43,9 @@ const StyledModal = styled.div`
     padding: 2%;
     display: flex;
     flex-direction: column;
-    background-color: ${props => props.theme.white};
+    background-color: ${(props) => props.theme.white};
     cursor: auto;
-    overflow-y: scroll;
+    overflow-y: auto;
     > h1 {
         margin-bottom: 5px;
         font-weight: 800;
@@ -82,7 +81,7 @@ const StyledModal = styled.div`
 
 const Tags = styled.div`
     margin: 10px 0;
-    overflow-x: scroll;
+    overflow-x: auto;
     display: flex;
     > p {
         margin-top: 0;
@@ -93,5 +92,5 @@ const Tags = styled.div`
 const StyledDivider = styled.div`
     height: 0;
     margin: 20px 10%;
-    border-bottom: 1px solid ${props => props.theme.accent};
+    border-bottom: 1px solid ${(props) => props.theme.accent};
 `;
