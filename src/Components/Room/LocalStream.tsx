@@ -1,5 +1,5 @@
-import React, { MutableRefObject, useEffect, useRef } from "react";
-import styled from "styled-components";
+import React, { MutableRefObject, useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
 export default function LocalStream(props: { localStream?: MediaStream }) {
     const { localStream } = props;
@@ -30,5 +30,4 @@ const StyledLocalStream = styled.video`
     min-width: 480px;
     max-width: 720px;
     transform: scaleX(-1);
-    /* border: 2px solid ${props => props.theme.verydark}; */
 `;

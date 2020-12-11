@@ -1,65 +1,33 @@
-import React, {
-    MutableRefObject,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from "react";
-import styled from "styled-components";
-import {
-    initiateConnection,
-    listenForConnectionEvents,
-} from "./WebRTCFunctions";
-import {
-    listenForCandidates,
-    resetRoomNotifications,
-} from "../../firebase/room";
-import { UserSchema } from "../../firebase/schema";
-import { UserContext } from "../../Application";
+import React, { MutableRefObject, useContext, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import { listenForConnectionEvents } from './WebRTCFunctions';
+import { listenForCandidates } from '../../firebase/room';
+import { UserSchema } from '../../firebase/schema';
+import { UserContext } from '../../Application';
 
 interface PeerConnectionProps {
-    localStream?: MediaStream;
-    peerId: UserSchema["uid"];
-    addConnection: Function;
+    localStream: MediaStream;
+    pc: RTCPeerConnection;
+    peerId: UserSchema['uid'];
 }
 
 export default function PeerConnection(props: PeerConnectionProps) {
-    const { localStream, peerId, addConnection } = props;
+    const { localStream, pc, peerId } = props;
     const { uid } = useContext(UserContext)!;
     const remoteStreamRef: MutableRefObject<HTMLVideoElement | null> = useRef(
-        null
+        null,
     );
-    const [connection, setConnection] = useState<RTCPeerConnection | undefined>(
-        undefined
-    );
-
-    window.connection = connection;
 
     useEffect(() => {
         (async () => {
-            await resetRoomNotifications(peerId, uid);
             if (!remoteStreamRef.current || !localStream) return;
-            const localConnection = await initiateConnection(localStream);
-            setConnection(localConnection);
-            listenForConnectionEvents(
-                localConnection,
-                peerId,
-                uid,
-                remoteStreamRef.current
-            );
+            listenForConnectionEvents(pc, peerId, uid, remoteStreamRef.current);
         })();
     }, [uid, peerId, localStream]);
 
     useEffect(() => {
-        if (!connection || !localStream) return;
-        listenForCandidates(connection, uid, peerId);
-    }, [uid, peerId, connection, localStream]);
-
-    useEffect(() => {
-        if (!connection) return;
-        addConnection(connection);
-        // eslint-disable-next-line
-    }, [connection]);
+        listenForCandidates(pc, uid, peerId);
+    }, [uid, peerId, pc, localStream]);
 
     return (
         <RemoteStream
@@ -75,5 +43,5 @@ const RemoteStream = styled.video`
     min-width: 480px;
     max-width: 720px;
     transform: scaleX(-1);
-    /* border: 2px solid ${props => props.theme.verydark}; */
+    /* border: 2px solid ${(props) => props.theme.verydark}; */
 `;

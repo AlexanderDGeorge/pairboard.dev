@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 export default function LoadingBar() {
     return (
@@ -20,7 +20,6 @@ const load = keyframes`
 `;
 
 const StyledLoadingBar = styled.div`
-    position: relative;
     height: 40%;
     max-height: 40px;
     width: 80%;
@@ -29,12 +28,14 @@ const StyledLoadingBar = styled.div`
     box-shadow: 0 0 10px -2px ${(props) => props.theme.verydark};
     background-color: transparent;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-image: ${(props) =>
         `linear-gradient(40deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue})`};
     > div {
-        position: absolute;
         height: 100%;
-        width: 10%;
+        width: 100%;
         animation: ${load} 2s linear alternate infinite;
         background-color: rgba(250, 250, 250, 0.5);
     }

@@ -1,9 +1,18 @@
-import { UserSchema } from "../../firebase/schema";
-import { sendICECandidate, sendSessionDescription } from "../../firebase/room";
-import { database } from "../../firebase/firebase";
-import adapter from 'webrtc-adapter';
+import { UserSchema } from '../../firebase/schema';
+import { sendICECandidate, sendSessionDescription } from '../../firebase/room';
+import { database } from '../../firebase/firebase';
 
-console.log(adapter.browserDetails.browser);
+const configuration: RTCConfiguration = {
+    iceServers: [
+        {
+            urls: [
+                'stun:stun1.l.google.com:19302',
+                'stun:stun2.l.google.com:19302',
+            ],
+        },
+    ],
+    iceCandidatePoolSize: 10,
+};
 
 export async function initiateLocalStream() {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -11,49 +20,38 @@ export async function initiateLocalStream() {
         video: {
             width: { min: 1024, ideal: 1280, max: 1920 },
             height: { min: 576, ideal: 720, max: 1080 },
-            facingMode: "user",
+            facingMode: 'user',
             aspectRatio: 1280 / 720,
         },
     });
     return stream;
 }
 
-export async function initiateScreenShare() {
-    // @ts-ignore
-    const stream = await navigator.mediaDevices.getDisplayMedia({
-        video: {
-            cursor: "motion",
-        },
-        audio: false,
-    });
-    return stream;
-}
-
 export async function initiateConnection(localStream: MediaStream) {
-    // [TODO]: configure turn servers
-    const configuration: RTCConfiguration = {
-        iceServers: [
-            {
-                urls: [
-                    "stun:stun1.l.google.com:19302",
-                    "stun:stun2.l.google.com:19302",
-                ],
-            },
-        ],
-        iceCandidatePoolSize: 10,
-    };
-    const localConnection = new RTCPeerConnection(configuration);
-    localStream.getTracks().forEach((track) => {
-        localConnection.addTrack(track, localStream);
-    });
-    return localConnection;
+    try {
+        const pc = new RTCPeerConnection(configuration);
+        pc.addTransceiver(localStream.getAudioTracks()[0], {
+            direction: 'sendonly',
+        });
+        pc.addTransceiver(localStream.getVideoTracks()[0], {
+            direction: 'sendonly',
+            sendEncodings: [
+                { rid: 'q', scaleResolutionDownBy: 4.0 },
+                { rid: 'h', scaleResolutionDownBy: 2.0 },
+                { rid: 'f' },
+            ],
+        });
+        return pc;
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
 export async function listenForConnectionEvents(
     connection: RTCPeerConnection,
-    peerId: UserSchema["uid"],
-    uid: UserSchema["uid"],
-    remoteStreamRef: HTMLVideoElement
+    peerId: UserSchema['uid'],
+    uid: UserSchema['uid'],
+    remoteStreamRef: HTMLVideoElement,
 ) {
     const polite = uid > peerId;
     let makingOffer = false;
@@ -61,12 +59,12 @@ export async function listenForConnectionEvents(
     let isSettingRemoteAnswerPending = false;
 
     connection.onnegotiationneeded = async () => {
-        console.log("negotiation needed");
+        console.log('negotiation needed');
         try {
             makingOffer = true;
             // @ts-ignore
             await connection.setLocalDescription();
-            sendSessionDescription(peerId, uid, connection.localDescription!)
+            sendSessionDescription(peerId, uid, connection.localDescription!);
         } catch (error) {
             console.error(error.message);
         } finally {
@@ -91,15 +89,16 @@ export async function listenForConnectionEvents(
 
     database()
         .ref(`/roomNotifications/${uid}/${peerId}/sessionDescription`)
-        .on("value", async (snapshot) => {
+        .on('value', async (snapshot) => {
             if (!snapshot.exists()) return;
             const description = snapshot.val();
 
             const readyForOffer =
                 !makingOffer &&
                 (connection.signalingState === 'stable' ||
-                    isSettingRemoteAnswerPending)
-            const offerCollision = description.type === 'offer' && !readyForOffer;
+                    isSettingRemoteAnswerPending);
+            const offerCollision =
+                description.type === 'offer' && !readyForOffer;
 
             ignoreOffer = !polite && offerCollision;
             if (ignoreOffer) return;
@@ -111,7 +110,22 @@ export async function listenForConnectionEvents(
             if (description.type === 'offer') {
                 // @ts-ignore
                 await connection.setLocalDescription();
-                sendSessionDescription(peerId, uid, connection.localDescription!);
+                sendSessionDescription(
+                    peerId,
+                    uid,
+                    connection.localDescription!,
+                );
             }
         });
+}
+
+export async function initiateScreenShare() {
+    // @ts-ignore
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+            cursor: 'motion',
+        },
+        audio: false,
+    });
+    return stream;
 }

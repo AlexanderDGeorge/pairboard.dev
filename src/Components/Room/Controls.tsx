@@ -1,22 +1,36 @@
 import React from 'react';
-import { MdExitToApp, MdScreenShare, MdVideocam, MdVideocamOff, MdVolumeOff, MdVolumeUp } from 'react-icons/md';
+import {
+    MdExitToApp,
+    MdScreenShare,
+    MdVideocam,
+    MdVideocamOff,
+    MdVolumeOff,
+    MdVolumeUp,
+} from 'react-icons/md';
 import styled from 'styled-components';
 
-export default function Controls(props: { controls: any }) {
+export default function Controls(props: {
+    audio?: boolean;
+    toggleAudio: Function;
+    video?: boolean;
+    toggleVideo: Function;
+    shareScreen: Function;
+    handleLeave: Function;
+}) {
     const {
-        muted,
-        video,
+        audio,
         toggleAudio,
+        video,
         toggleVideo,
         shareScreen,
         handleLeave,
-    } = props.controls;
+    } = props;
 
     return (
         <StyledControls>
             <Button onClick={() => toggleAudio()}>
-                {muted ? <MdVolumeUp /> : <MdVolumeOff />}
-                {muted ? 'Unmute' : 'Mute'}
+                {audio ? <MdVolumeUp /> : <MdVolumeOff />}
+                {audio ? 'Unmute' : 'Mute'}
             </Button>
             <Button onClick={() => toggleVideo()}>
                 {!video ? <MdVideocam /> : <MdVideocamOff />}
@@ -31,7 +45,7 @@ export default function Controls(props: { controls: any }) {
                 Leave
             </Button>
         </StyledControls>
-    )
+    );
 }
 
 const StyledControls = styled.div`
@@ -51,8 +65,8 @@ const Button = styled.button`
     height: 80px;
     width: 100px;
     border-radius: 10px;
-    background-color: ${props => props.theme.verydark};
-    color: ${props => props.theme.white};
+    background-color: ${(props) => props.theme.verydark};
+    color: ${(props) => props.theme.white};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,6 +75,6 @@ const Button = styled.button`
     > svg {
         height: 40px;
         width: auto;
-        fill: ${props => props.theme.white};
+        fill: ${(props) => props.theme.white};
     }
 `;
