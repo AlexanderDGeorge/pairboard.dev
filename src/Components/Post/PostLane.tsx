@@ -70,7 +70,7 @@ const StyledPostLane = styled.div`
 const AnimatedH1 = styled(animated.h1)`
     min-width: 400px;
     margin-bottom: 10px;
-    border-bottom: 3px solid ${(props) => props.theme.light};
+    border-bottom: 3px solid ${(props) => props.theme.verydark};
     font-weight: 500;
     background: linear-gradient(30deg, #06d6a0, #009ff5 25%);
     -webkit-background-clip: text;

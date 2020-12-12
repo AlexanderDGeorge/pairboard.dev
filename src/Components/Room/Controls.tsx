@@ -10,29 +10,21 @@ import {
 import styled from 'styled-components';
 
 export default function Controls(props: {
+    toggle: Function;
     audio?: boolean;
-    toggleAudio: Function;
     video?: boolean;
-    toggleVideo: Function;
     shareScreen: Function;
     handleLeave: Function;
 }) {
-    const {
-        audio,
-        toggleAudio,
-        video,
-        toggleVideo,
-        shareScreen,
-        handleLeave,
-    } = props;
+    const { toggle, audio, video, shareScreen, handleLeave } = props;
 
     return (
         <StyledControls>
-            <Button onClick={() => toggleAudio()}>
+            <Button onClick={() => toggle('audio')}>
                 {!audio ? <MdVolumeUp /> : <MdVolumeOff />}
                 {!audio ? 'Unmute' : 'Mute'}
             </Button>
-            <Button onClick={() => toggleVideo()}>
+            <Button onClick={() => toggle('video')}>
                 {!video ? <MdVideocam /> : <MdVideocamOff />}
                 {!video ? 'Show Video' : 'Hide Video'}
             </Button>

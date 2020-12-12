@@ -8,58 +8,37 @@ import { initiateScreenShare } from './WebRTCFunctions';
 
 export default function ControlsContainer(props: {
     post: PostSchema;
-    pc: RTCPeerConnection;
     localStream: MediaStream;
+    setClose: Function;
 }) {
     const { uid } = useContext(UserContext)!;
-    const { post, pc, localStream } = props;
-    const audioTransceiver = pc.getTransceivers()[0];
-    const videoTransceiver = pc.getTransceivers()[1];
+    const { post, setClose, localStream } = props;
+    const audioTrack = localStream.getAudioTracks()[0];
+    const videoTrack = localStream.getVideoTracks()[0];
 
-    const [audio, setAudio] = useState(audioTransceiver.sender.track?.enabled);
-    const [video, setVideo] = useState(audioTransceiver.sender.track?.enabled);
+    const [audio, setAudio] = useState(audioTrack.enabled);
+    const [video, setVideo] = useState(videoTrack.enabled);
 
-    function toggleAudio() {
-        const track = audioTransceiver.sender.track;
-        if (!track) {
-            console.log('no track');
-            return;
-        }
-
-        if (audio) {
-            track.enabled = false;
-            setAudio(false);
+    const toggle = (track: 'audio' | 'video') => {
+        if (track === 'audio') {
+            audioTrack.enabled = !audio;
+            setAudio(!audio);
         } else {
-            track.enabled = true;
-            setAudio(true);
+            videoTrack.enabled = !video;
+            setVideo(!video);
         }
-    }
-
-    function toggleVideo() {
-        const track = videoTransceiver.sender.track;
-        if (!track) {
-            console.log('no track');
-            return;
-        }
-
-        if (video) {
-            track.enabled = false;
-            setVideo(false);
-        } else {
-            track.enabled = true;
-            setVideo(true);
-        }
-    }
+    };
 
     async function shareScreen() {
         const screenTrack = await initiateScreenShare().then(
             (stream) => stream.getTracks()[0],
         );
+        console.log(screenTrack);
     }
 
     async function handleLeave() {
+        setClose(true);
         localStream.getTracks().forEach((track) => track.stop());
-        pc.close();
         await leaveRoom(uid, post.id);
         if (post.participants.length <= 1) {
             closePost(post.id);
@@ -68,10 +47,9 @@ export default function ControlsContainer(props: {
 
     return (
         <Controls
+            toggle={toggle}
             audio={audio}
-            toggleAudio={toggleAudio}
             video={video}
-            toggleVideo={toggleVideo}
             shareScreen={shareScreen}
             handleLeave={handleLeave}
         />

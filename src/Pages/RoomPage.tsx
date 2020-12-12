@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import usePostContext from '../Context/usePostContext';
 import { UserContext } from '../Application';
 import LoadingBar from '../Components/Animated/LoadingBar';
-import Warmup from '../Components/Room/Warmup';
+import Warmup from '../Components/Room/Shell';
 
 export default function RoomPage() {
     const { postId } = useContext(UserContext)!;

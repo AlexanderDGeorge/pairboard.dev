@@ -1,33 +1,55 @@
-import React, { MutableRefObject, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { listenForConnectionEvents } from './WebRTCFunctions';
+import {
+    initiateConnection,
+    listenForConnectionEvents,
+} from './WebRTCFunctions';
 import {
     listenForCandidates,
     resetRoomNotifications,
 } from '../../firebase/room';
 import { UserSchema } from '../../firebase/schema';
 import { UserContext } from '../../Application';
+import LoadingBar from '../Animated/LoadingBar';
 
 interface PeerConnectionProps {
     localStream: MediaStream;
-    pc: RTCPeerConnection;
     peerId: UserSchema['uid'];
     peers: number;
+    closeConnection: boolean;
 }
 
 export default function PeerConnection(props: PeerConnectionProps) {
-    const { localStream, pc, peerId, peers } = props;
+    const { localStream, peerId, closeConnection } = props;
+    const [loading, setLoading] = useState(true);
+    const [pc, setPc] = useState<RTCPeerConnection | undefined>(undefined);
     const { uid } = useContext(UserContext)!;
-    const remoteStreamRef: MutableRefObject<HTMLVideoElement | null> = useRef(
+    const remoteStreamRef: React.MutableRefObject<HTMLVideoElement | null> = useRef(
         null,
     );
 
     useEffect(() => {
+        if (closeConnection && pc) {
+            console.log('here');
+            pc.close();
+        }
+    }, [closeConnection, pc]);
+
+    useEffect(() => {
+        async function startConnection() {
+            const connection = await initiateConnection(localStream);
+            setPc(connection);
+        }
+        startConnection();
+    }, [localStream]);
+
+    useEffect(() => {
         resetRoomNotifications(uid);
+        if (!pc || !remoteStreamRef.current) return;
         listenForCandidates(pc, uid, peerId);
-        if (!remoteStreamRef.current) return;
         listenForConnectionEvents(pc, peerId, uid, remoteStreamRef.current);
-    }, [uid, peerId, pc, localStream]);
+        setLoading(false);
+    }, [uid, peerId, pc]);
 
     return (
         <RemoteStream
@@ -35,7 +57,9 @@ export default function PeerConnection(props: PeerConnectionProps) {
             src="remoteStream"
             autoPlay
             playsInline
-        ></RemoteStream>
+        >
+            {loading ? <LoadingBar /> : null}
+        </RemoteStream>
     );
 }
 
@@ -43,5 +67,6 @@ const RemoteStream = styled.video`
     min-width: 480px;
     width: 50%;
     max-width: 720px;
+    border: 2px solid ${(props) => props.theme.accent};
     transform: scaleX(-1);
 `;

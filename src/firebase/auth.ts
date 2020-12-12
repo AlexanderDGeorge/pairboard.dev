@@ -1,5 +1,5 @@
-import { auth, firestore, githubProvider } from "./firebase";
-import { UserSchema } from "./schema";
+import { auth, firestore, githubProvider } from './firebase';
+import { UserSchema } from './schema';
 
 export interface SignUpValues {
     username: string;
@@ -22,7 +22,7 @@ export async function loginWithGithub() {
     }
 }
 
-export async function login(email: UserSchema["email"], password: string) {
+export async function login(email: UserSchema['email'], password: string) {
     try {
         await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
@@ -38,11 +38,11 @@ export async function signupWithGithub(username: string) {
             const { displayName } = user.providerData[0]!;
             createUserDocument(user, username, displayName!);
         } else {
-            return "there was an error creating your account";
+            return 'there was an error creating your account';
         }
     } catch (error) {
         console.error(error.message);
-        return "there was an error creating your account";
+        return 'there was an error creating your account';
     }
 }
 
@@ -50,14 +50,14 @@ export async function signup(signUpValues: SignUpValues) {
     const { email, password, username, name } = signUpValues;
     try {
         if (!(await checkForValidUsername(username))) {
-            return { type: "username", message: "username already in use" };
+            return { type: 'username', message: 'username already in use' };
         }
         if (!(await checkForValidEmail(email))) {
-            return "email already in use";
+            return 'email already in use';
         }
         const { user } = await auth.createUserWithEmailAndPassword(
             email,
-            password
+            password,
         );
         if (user) {
             console.log(user);
@@ -74,27 +74,27 @@ async function createUserDocument(
     username: string,
     name: string,
 ) {
-    const userRef = firestore().collection("users").doc(user.uid);
+    const userRef = firestore().collection('users').doc(user.uid);
     const userDoc = await userRef.get();
     if (userDoc.exists) {
-        console.log("User document already exists");
+        console.log('User document already exists');
     } else {
-        console.log("Creating user document");
+        console.log('Creating user document');
         const { uid, email } = user;
         userRef.set({
             uid,
-            blurb: "",
+            blurb: '',
             connections: [],
-            darkMode: "auto",
+            darkMode: 'auto',
             email,
             emailVerified: false,
             name,
             photoURL:
                 user.photoURL ||
-                "https://blacklivesmatter.com/wp-content/uploads/2017/07/BLM-logo.png",
+                'https://firebasestorage.googleapis.com/v0/b/pairboarddev.appspot.com/o/photoURLs%2Fpairboard%20-%20B2.jpg?alt=media&token=8c860a24-bb83-47ff-a949-c071a09c9be4',
             posts: [],
             score: 0,
-            status: "online",
+            status: 'online',
             username,
         });
     }
@@ -110,8 +110,8 @@ export function signOut() {
 export async function checkForValidUsername(username: string) {
     if (!username) return;
     const usersRef = await firestore()
-        .collection("users")
-        .where("username", "==", username)
+        .collection('users')
+        .where('username', '==', username)
         .get();
     return usersRef.empty;
 }
@@ -119,8 +119,8 @@ export async function checkForValidUsername(username: string) {
 export async function checkForValidEmail(email: string) {
     if (!email) return;
     const usersRef = await firestore()
-        .collection("users")
-        .where("email", "==", email)
+        .collection('users')
+        .where('email', '==', email)
         .get();
     return usersRef.empty;
 }
