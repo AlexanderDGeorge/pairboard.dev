@@ -65,6 +65,7 @@ export async function listenForConnectionEvents(
             // @ts-ignore
             await connection.setLocalDescription();
             sendSessionDescription(peerId, uid, connection.localDescription!);
+            console.log(connection.localDescription);
         } catch (error) {
             console.error(error.message);
         } finally {
@@ -92,6 +93,7 @@ export async function listenForConnectionEvents(
         .on('value', async (snapshot) => {
             if (!snapshot.exists()) return;
             const description = snapshot.val();
+            console.log(description);
 
             const readyForOffer =
                 !makingOffer &&

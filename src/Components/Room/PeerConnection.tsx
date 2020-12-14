@@ -10,7 +10,6 @@ import {
 } from '../../firebase/room';
 import { UserSchema } from '../../firebase/schema';
 import { UserContext } from '../../Application';
-import LoadingBar from '../Animated/LoadingBar';
 
 interface PeerConnectionProps {
     localStream: MediaStream;
@@ -21,12 +20,13 @@ interface PeerConnectionProps {
 
 export default function PeerConnection(props: PeerConnectionProps) {
     const { localStream, peerId, closeConnection } = props;
-    const [loading, setLoading] = useState(true);
     const [pc, setPc] = useState<RTCPeerConnection | undefined>(undefined);
     const { uid } = useContext(UserContext)!;
     const remoteStreamRef: React.MutableRefObject<HTMLVideoElement | null> = useRef(
         null,
     );
+
+    window.pc = pc;
 
     useEffect(() => {
         if (closeConnection && pc) {
@@ -37,19 +37,21 @@ export default function PeerConnection(props: PeerConnectionProps) {
 
     useEffect(() => {
         async function startConnection() {
+            await resetRoomNotifications(peerId, uid);
             const connection = await initiateConnection(localStream);
-            setPc(connection);
+            if (connection) {
+                setPc(connection);
+                listenForConnectionEvents(
+                    connection,
+                    peerId,
+                    uid,
+                    remoteStreamRef.current!,
+                );
+                listenForCandidates(connection, uid, peerId);
+            }
         }
         startConnection();
-    }, [localStream]);
-
-    useEffect(() => {
-        resetRoomNotifications(uid);
-        if (!pc || !remoteStreamRef.current) return;
-        listenForCandidates(pc, uid, peerId);
-        listenForConnectionEvents(pc, peerId, uid, remoteStreamRef.current);
-        setLoading(false);
-    }, [uid, peerId, pc]);
+    }, [localStream, peerId, uid]);
 
     return (
         <RemoteStream
@@ -57,9 +59,7 @@ export default function PeerConnection(props: PeerConnectionProps) {
             src="remoteStream"
             autoPlay
             playsInline
-        >
-            {loading ? <LoadingBar /> : null}
-        </RemoteStream>
+        ></RemoteStream>
     );
 }
 

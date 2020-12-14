@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import convertDocToUser from "../Components/User/convertDocToUser";
-import { auth, firestore } from "../firebase/firebase";
-import { UserSchema } from "../firebase/schema";
+import { useEffect, useState } from 'react';
+import convertDocToUser from '../Components/User/convertDocToUser';
+import { auth, firestore } from '../firebase/firebase';
+import { UserSchema } from '../firebase/schema';
 
 export default function useUserContext() {
     const [user, setUser] = useState<UserSchema | undefined | null>(undefined);
@@ -10,13 +10,13 @@ export default function useUserContext() {
         let unsubscribe: Function | null = null;
 
         auth.onAuthStateChanged((authUser) => {
-            console.log(authUser);
+            // console.log(authUser);
             if (!authUser) {
                 setUser(null);
                 return;
             }
             unsubscribe = firestore()
-                .collection("users")
+                .collection('users')
                 .doc(authUser.uid)
                 .onSnapshot((snapshot) => {
                     const data = snapshot?.data();
@@ -24,7 +24,7 @@ export default function useUserContext() {
                     const providerPhotoURL = authUser.photoURL || '';
                     setUser({
                         ...convertDocToUser(data),
-                        providerPhotoURL
+                        providerPhotoURL,
                     });
                 });
         });

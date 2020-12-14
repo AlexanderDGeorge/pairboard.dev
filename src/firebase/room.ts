@@ -9,6 +9,7 @@ export async function sendSessionDescription(
     await database().ref(`/roomNotifications/${peerId}/${uid}`).update({
         sessionDescription,
     });
+    console.log('description sent');
 }
 
 export async function sendICECandidate(
@@ -21,8 +22,11 @@ export async function sendICECandidate(
     });
 }
 
-export async function resetRoomNotifications(uid: UserSchema['uid']) {
-    await database().ref(`/roomNotifications/${uid}`).remove();
+export async function resetRoomNotifications(
+    peerId: UserSchema['uid'],
+    uid: UserSchema['uid'],
+) {
+    await database().ref(`/roomNotifications/${peerId}/${uid}`).remove();
 }
 
 export async function leaveRoom(

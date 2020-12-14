@@ -6,6 +6,7 @@ import PeerConnection from './PeerConnection';
 import ControlsContainer from './ControlsContainer';
 import { UserContext } from '../../Application';
 import { PostSchema } from '../../firebase/schema';
+import { leaveRoom } from '../../firebase/room';
 import LoadingBar from '../Animated/LoadingBar';
 
 export default function Shell(props: { post: PostSchema }) {
@@ -29,6 +30,13 @@ export default function Shell(props: { post: PostSchema }) {
             setClose(true);
         };
     }, []);
+
+    useEffect(() => {
+        if (close) {
+            localStream?.getTracks().forEach((track) => track.stop());
+            leaveRoom(uid, post.id);
+        }
+    }, [localStream, post.id, uid, close]);
 
     if (warming) {
         return (

@@ -1,15 +1,15 @@
-import { User as FirebaseUser } from "firebase";
+import { User as FirebaseUser } from 'firebase';
 import {
     DIFFICULTIES,
     LANGUAGES,
     POSTTYPES,
-} from "../Components/Post/constants";
+} from '../Components/Post/constants';
 
 export interface UserSchema {
-    uid: FirebaseUser["uid"];
+    uid: FirebaseUser['uid'];
     blurb?: string;
-    connections: LightUserSchema[];
-    darkMode: "auto" | "light" | "dark";
+    connections: FirebaseUser['uid'][];
+    darkMode: 'auto' | 'light' | 'dark';
     email: string;
     emailPublic: boolean;
     githubURL?: string;
@@ -19,18 +19,17 @@ export interface UserSchema {
     personalURL?: string;
     photoURL: string;
     postId?: string;
-    posts: PostSchema["id"][];
+    posts: PostSchema['id'][];
     providerPhotoURL?: string;
-    score?: number;
-    status: "online" | "offline" | "in room";
+    status: 'online' | 'offline' | 'in room';
     username: string;
 }
 
 export interface LightUserSchema {
-    uid: UserSchema["uid"];
-    username: UserSchema["username"];
+    uid: UserSchema['uid'];
+    username: UserSchema['username'];
     name: UserSchema['name'];
-    photoURL: UserSchema["photoURL"];
+    photoURL: UserSchema['photoURL'];
 }
 
 export interface NotificationSchema {
@@ -48,7 +47,7 @@ export interface PostSchema {
     host: LightUserSchema;
     language: typeof LANGUAGES[number];
     maxCapacity?: number;
-    participants: UserSchema["uid"][];
+    participants: UserSchema['uid'][];
     start: Date;
     title: string;
     type: typeof POSTTYPES[number];
@@ -60,5 +59,5 @@ const NOTIFICATIONTYPES = [
     'team',
     'pairboard',
     'reminder',
-    'message'
+    'message',
 ] as const;
