@@ -1,4 +1,4 @@
-import { auth, firestore, githubProvider } from './firebase';
+import { auth, firestore, githubProvider } from '../firebase';
 import { UserSchema } from './schema';
 
 export interface SignUpValues {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import convertDocToUser from '../Components/User/convertDocToUser';
-import { auth, firestore } from '../firebase/firebase';
+import { auth, firestore } from '../firebase';
 import { UserSchema } from '../firebase/schema';
 
 export default function useUserContext() {

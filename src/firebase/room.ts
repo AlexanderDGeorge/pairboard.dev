@@ -1,4 +1,4 @@
-import { database, fieldValue, firestore } from './firebase';
+import { database, fieldValue, firestore } from '../firebase';
 import { PostSchema, UserSchema } from './schema';
 
 export async function sendSessionDescription(

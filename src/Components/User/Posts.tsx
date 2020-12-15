@@ -1,7 +1,7 @@
-import React from "react";
-import { firestore } from "../../firebase/firebase";
-import { UserSchema } from "../../firebase/schema";
-import PostLane from "../Post/PostLane";
+import React from 'react';
+import { firestore } from '../../firebase';
+import { UserSchema } from '../../firebase/schema';
+import PostLane from '../Post/PostLane';
 
 export default function Posts(props: { user: UserSchema }) {
     const { username } = props.user;
@@ -10,8 +10,8 @@ export default function Posts(props: { user: UserSchema }) {
         <PostLane
             name={`Posts by ${username}`}
             query={firestore()
-                .collection("posts")
-                .where("host.username", "==", username)}
+                .collection('posts')
+                .where('host.username', '==', username)}
         />
     );
 }

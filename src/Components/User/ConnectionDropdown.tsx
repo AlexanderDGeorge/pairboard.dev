@@ -5,36 +5,39 @@ import { ModalContext, UserContext } from '../../Application';
 import { UserSchema } from '../../firebase/schema';
 import UserConnectionsModal from './UserConnectionsModal';
 
-export default function ConnectionDropdown(props: {user: UserSchema }) {
+export default function ConnectionDropdown(props: { user: UserSchema }) {
     const { connections } = props.user;
-    const { uid, username, name, photoURL } = useContext(UserContext)!;
+    const { uid } = useContext(UserContext)!;
     const { handleModal } = useContext(ModalContext)!;
 
     function AddRemoveConnection() {
-        const lightUser = {uid, username, name, photoURL}
-
         return (
             <StyledDropdownButton>
-                {connections.includes(lightUser) ? 
-                    'Remove Connection' : 'Add Connection'
-                }
+                {connections.includes(uid)
+                    ? 'Remove Connection'
+                    : 'Add Connection'}
             </StyledDropdownButton>
-        )
+        );
     }
 
     return (
         <StyledConnectionDropdown>
-            <StyledDropdownButton onClick={() => handleModal(<UserConnectionsModal user={props.user} />)}>
+            <StyledDropdownButton
+                onClick={() =>
+                    handleModal(<UserConnectionsModal user={props.user} />)
+                }
+            >
                 View Connections
             </StyledDropdownButton>
-            {username !== props.user.username ? 
-                <AddRemoveConnection /> :
-                <StyledDropdownLink to='/settings/profile'>
+            {uid !== props.user.uid ? (
+                <AddRemoveConnection />
+            ) : (
+                <StyledDropdownLink to="/settings/profile">
                     Edit Profile
                 </StyledDropdownLink>
-            }
+            )}
         </StyledConnectionDropdown>
-    )
+    );
 }
 
 const StyledConnectionDropdown = styled.div`
@@ -46,9 +49,9 @@ const StyledConnectionDropdown = styled.div`
 
 const StyledDropdownLink = styled(Link)`
     width: 100%;
-    border-top: 1px solid ${props => props.theme.accent};
+    border-top: 1px solid ${(props) => props.theme.accent};
     padding: 10px;
-    background-color: ${props => props.theme.white};
+    background-color: ${(props) => props.theme.white};
     text-decoration: none;
     font-size: 0.9em;
     display: flex;
@@ -58,9 +61,9 @@ const StyledDropdownLink = styled(Link)`
 
 const StyledDropdownButton = styled.button`
     width: 100%;
-    border-top: 1px solid ${props => props.theme.accent};
+    border-top: 1px solid ${(props) => props.theme.accent};
     padding: 10px;
-    background-color: ${props => props.theme.white};
+    background-color: ${(props) => props.theme.white};
     outline: none;
     font-size: 0.9em;
 `;

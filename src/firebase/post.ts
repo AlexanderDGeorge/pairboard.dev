@@ -1,4 +1,4 @@
-import { firestore, fieldValue } from './firebase';
+import { firestore, fieldValue } from '../firebase';
 import { LightUserSchema, PostSchema, UserSchema } from './schema';
 
 export async function createPost(

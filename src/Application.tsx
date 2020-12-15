@@ -1,11 +1,12 @@
-import React, { createContext } from "react";
-import { UserSchema } from "./firebase/schema";
-import useModal, { ModalSchema } from "./Components/Modal/useModal";
-import useUserContext from "./Context/useUserContext";
-import useThemeContext from "./Context/useThemeContext";
-import { GlobalStyle } from "./styled-components/globalStyle";
-import { ThemeProvider } from "styled-components";
-import Routing from "./Routing";
+import React, { createContext } from 'react';
+import { UserSchema } from './firebase/schema';
+import useModal, { ModalSchema } from './Components/Modal/useModal';
+import useUserContext from './Context/useUserContext';
+import useThemeContext from './Context/useThemeContext';
+import { GlobalStyle } from './styled-components/globalStyle';
+import { ThemeProvider } from 'styled-components';
+import Routing from './Routing';
+import { RecoilRoot } from 'recoil';
 
 declare global {
     interface Window {
@@ -14,7 +15,7 @@ declare global {
 }
 
 export const UserContext = createContext<UserSchema | undefined | null>(
-    undefined
+    undefined,
 );
 export const ModalContext = createContext<ModalSchema | undefined>(undefined);
 
@@ -23,14 +24,16 @@ export default function Application() {
 
     return (
         <div id="application">
-            <UserContext.Provider value={currentUser}>
-                <ThemeProvider theme={useThemeContext(currentUser)}>
-                    <ModalContext.Provider value={useModal()}>
-                        <GlobalStyle />
-                        <Routing />
-                    </ModalContext.Provider>
-                </ThemeProvider>
-            </UserContext.Provider>
+            <RecoilRoot>
+                <UserContext.Provider value={currentUser}>
+                    <ThemeProvider theme={useThemeContext(currentUser)}>
+                        <ModalContext.Provider value={useModal()}>
+                            <GlobalStyle />
+                            <Routing />
+                        </ModalContext.Provider>
+                    </ThemeProvider>
+                </UserContext.Provider>
+            </RecoilRoot>
         </div>
     );
 }

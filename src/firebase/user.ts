@@ -1,10 +1,10 @@
-import { firestore, auth, storage } from "./firebase";
-import { LightUserSchema, UserSchema } from "./schema";
+import { firestore, auth, storage } from '../firebase';
+import { LightUserSchema, UserSchema } from './schema';
 
-const userRef = (uid: UserSchema["uid"]) =>
-    firestore().collection("users").doc(uid);
+const userRef = (uid: UserSchema['uid']) =>
+    firestore().collection('users').doc(uid);
 
-export async function fetchUserDocument(uid: UserSchema["uid"]) {
+export async function fetchUserDocument(uid: UserSchema['uid']) {
     try {
         const userDoc = await userRef(uid).get();
         return { ...userDoc.data() };
@@ -13,11 +13,11 @@ export async function fetchUserDocument(uid: UserSchema["uid"]) {
     }
 }
 
-export async function fetchUserDocFromUsername(username: UserSchema["uid"]) {
+export async function fetchUserDocFromUsername(username: UserSchema['uid']) {
     try {
         const userRef = firestore()
-            .collection("users")
-            .where("username", "==", username)
+            .collection('users')
+            .where('username', '==', username)
             .limit(1);
         const userCollection = await userRef.get();
         const userDoc = userCollection.docs[0].data();
@@ -27,8 +27,8 @@ export async function fetchUserDocFromUsername(username: UserSchema["uid"]) {
     }
 }
 
-export async function updateDarkModeSetting(darkMode: UserSchema["uid"]) {
-    const userRef = firestore().collection("users").doc(auth.currentUser?.uid);
+export async function updateDarkModeSetting(darkMode: UserSchema['uid']) {
+    const userRef = firestore().collection('users').doc(auth.currentUser?.uid);
     try {
         await userRef.update({
             darkMode,
@@ -39,47 +39,51 @@ export async function updateDarkModeSetting(darkMode: UserSchema["uid"]) {
 }
 
 export async function updateUserProfile(profileValues: {
-    uid: UserSchema["uid"],
-    photoURL: UserSchema['photoURL'],
-    blurb: UserSchema["blurb"],
-    githubURL: UserSchema["githubURL"],
-    linkedInURL: UserSchema["linkedInURL"],
-    personalURL: UserSchema["personalURL"],
-    location: UserSchema["location"],
-    username: UserSchema["username"]
+    uid: UserSchema['uid'];
+    photoURL: UserSchema['photoURL'];
+    blurb: UserSchema['blurb'];
+    githubURL: UserSchema['githubURL'];
+    linkedInURL: UserSchema['linkedInURL'];
+    personalURL: UserSchema['personalURL'];
+    location: UserSchema['location'];
+    username: UserSchema['username'];
 }) {
-    const userRef = firestore().collection("users").doc(profileValues.uid);
+    const userRef = firestore().collection('users').doc(profileValues.uid);
     await userRef.update({
-        ...profileValues
+        ...profileValues,
     });
 }
 
-export async function updateUserPosts(lightUser: LightUserSchema, posts: UserSchema['posts']) {
-    posts.forEach(post => {
+export async function updateUserPosts(
+    lightUser: LightUserSchema,
+    posts: UserSchema['posts'],
+) {
+    posts.forEach((post) => {
         const postRef = firestore().collection('posts').doc(post);
         postRef.update({
-            host: lightUser
-        })
-    })
+            host: lightUser,
+        });
+    });
 }
 
 export async function updateUserAccount(
     uid: UserSchema['uid'],
     email: UserSchema['email'],
 ) {
-    const userRef = firestore().collection("users").doc(uid);
+    const userRef = firestore().collection('users').doc(uid);
     await userRef.update({
-        email
+        email,
     });
     await auth.currentUser?.updateEmail(email);
 }
 
 export async function uploadPhoto(file: File, uid: UserSchema['uid']) {
     try {
-        return await storage.ref()
+        return await storage
+            .ref()
             .child(`photoURLs/${uid}`)
             .put(file)
-            .then((snapshot) => snapshot.ref.getDownloadURL())
+            .then((snapshot) => snapshot.ref.getDownloadURL());
     } catch (error) {
         console.error(error.message);
     }

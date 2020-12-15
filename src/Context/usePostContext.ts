@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import convertDocToPost from "../Components/Post/convertDocToPost";
-import { firestore } from "../firebase/firebase";
-import { PostSchema } from "../firebase/schema";
+import { useEffect, useState } from 'react';
+import convertDocToPost from '../Components/Post/convertDocToPost';
+import { firestore } from '../firebase';
+import { PostSchema } from '../firebase/schema';
 
-export default function usePostContext(postId?: PostSchema["id"]) {
+export default function usePostContext(postId?: PostSchema['id']) {
     const [post, setPost] = useState<PostSchema | undefined>(undefined);
 
     useEffect(() => {
         if (!postId) return;
 
         const unsubscribe = firestore()
-            .collection("posts")
+            .collection('posts')
             .doc(postId)
             .onSnapshot((snapshot) => {
                 const data = snapshot?.data();
                 if (!data) return;
                 setPost(
-                    convertDocToPost(data)
+                    convertDocToPost(data),
                     // id: snapshot.id,
                     // active: data.active,
                     // commentsId: data.commentsId,

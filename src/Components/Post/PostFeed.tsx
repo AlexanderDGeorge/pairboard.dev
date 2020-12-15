@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import PostLane from "./PostLane";
-import { firestore } from "../../firebase/firebase";
+import React from 'react';
+import styled from 'styled-components';
+import PostLane from './PostLane';
+import { firestore } from '../../firebase';
 
 export default function PostFeed() {
-    const postsQuery = firestore().collection("posts");
+    const postsQuery = firestore().collection('posts');
 
     return (
         <StyledPostFeed>
@@ -12,15 +12,15 @@ export default function PostFeed() {
             <PostLane name="All Posts" query={postsQuery} />
             <PostLane
                 name="Pairboard Posts"
-                query={postsQuery.where("type", "==", "Pairboard")}
+                query={postsQuery.where('type', '==', 'Pairboard')}
             />
             <PostLane
                 name="Team Posts"
-                query={postsQuery.where("type", "==", "Team")}
+                query={postsQuery.where('type', '==', 'Team')}
             />
             <PostLane
                 name="Lecture Posts"
-                query={postsQuery.where("type", "==", "Lecture")}
+                query={postsQuery.where('type', '==', 'Lecture')}
             />
         </StyledPostFeed>
     );
