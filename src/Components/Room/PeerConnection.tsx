@@ -8,12 +8,12 @@ import {
     listenForCandidates,
     resetRoomNotifications,
 } from '../../firebase/room';
-import { UserSchema } from '../../firebase/schema';
-import { UserContext } from '../../Application';
+import { CurrentDevContext } from '../../Application';
+import { DevPublicProfile } from '../../Devs/devSchema';
 
 interface PeerConnectionProps {
     localStream: MediaStream;
-    peerId: UserSchema['uid'];
+    peerId: DevPublicProfile['uid'];
     peers: number;
     closeConnection: boolean;
 }
@@ -21,7 +21,7 @@ interface PeerConnectionProps {
 export default function PeerConnection(props: PeerConnectionProps) {
     const { localStream, peerId, closeConnection } = props;
     const [pc, setPc] = useState<RTCPeerConnection | undefined>(undefined);
-    const { uid } = useContext(UserContext)!;
+    const { user } = useContext(CurrentDevContext)!;
     const remoteStreamRef: React.MutableRefObject<HTMLVideoElement | null> = useRef(
         null,
     );
@@ -37,21 +37,21 @@ export default function PeerConnection(props: PeerConnectionProps) {
 
     useEffect(() => {
         async function startConnection() {
-            await resetRoomNotifications(peerId, uid);
+            await resetRoomNotifications(peerId, user.uid);
             const connection = await initiateConnection(localStream);
             if (connection) {
                 setPc(connection);
                 listenForConnectionEvents(
                     connection,
                     peerId,
-                    uid,
+                    user.uid,
                     remoteStreamRef.current!,
                 );
-                listenForCandidates(connection, uid, peerId);
+                listenForCandidates(connection, user.uid, peerId);
             }
         }
         startConnection();
-    }, [localStream, peerId, uid]);
+    }, [localStream, peerId, user.uid]);
 
     return (
         <RemoteStream

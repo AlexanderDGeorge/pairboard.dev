@@ -1,15 +1,15 @@
+import { DevPublicProfile } from '../Devs/devSchema';
 import { firestore, fieldValue } from '../firebase';
-import { LightUserSchema, PostSchema, UserSchema } from './schema';
+import { PublicPostSchema } from '../Posts/postSchema';
 
 export async function createPost(
-    host: LightUserSchema,
-    title: PostSchema['title'],
-    type: PostSchema['type'],
-    description: PostSchema['description'],
-    difficulty: PostSchema['difficulty'],
-    language: PostSchema['language'],
-    maxCapacity: PostSchema['maxCapacity'],
-    start: PostSchema['start'],
+    host: DevPublicProfile,
+    title: PublicPostSchema['title'],
+    type: PublicPostSchema['type'],
+    description: PublicPostSchema['description'],
+    difficulty: PublicPostSchema['difficulty'],
+    language: PublicPostSchema['language'],
+    start: PublicPostSchema['start_date'],
 ) {
     const postRef = firestore().collection('posts').doc();
     await postRef.set({
@@ -19,7 +19,6 @@ export async function createPost(
         difficulty,
         host,
         language,
-        maxCapacity,
         participants: [],
         start: start.toString(),
         title,
@@ -32,8 +31,8 @@ export async function createPost(
 }
 
 export async function joinPost(
-    uid: UserSchema['uid'],
-    postId: PostSchema['id'],
+    uid: DevPublicProfile['uid'],
+    postId: PublicPostSchema['id'],
 ) {
     const postRef = firestore().collection('posts').doc(postId);
     await postRef.update({
@@ -51,13 +50,4 @@ export async function joinPost(
 export async function fetchPosts() {
     const postsRef = await firestore().collection('posts').get();
     return postsRef.docs.map((post) => post.data());
-}
-
-export function deletePost(postId: PostSchema['id'], uid: UserSchema['uid']) {
-    const postRef = firestore().collection('posts').doc(postId);
-    postRef.delete();
-    const userRef = firestore().collection('users').doc(uid);
-    userRef.update({
-        posts: fieldValue.arrayRemove(postId),
-    });
 }

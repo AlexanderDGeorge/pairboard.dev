@@ -1,22 +1,20 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { SearchContext } from './SearchBox';
-import Post from '../Post/Post';
+import Post from '../../Posts/Post';
 import { connectHits } from 'react-instantsearch-dom';
 
 function PostHits(props: { hits: object[] }) {
     const { focused } = useContext(SearchContext)!;
-    
+
     if (focused) {
         return (
             <StyledHits>
                 {props.hits?.map((hit: any, i: number) => {
-                    return (
-                        <Post key={i} post={hit} />
-                    )
+                    return <Post key={i} post={hit} />;
                 })}
             </StyledHits>
-        )
+        );
     } else {
         return null;
     }

@@ -1,22 +1,22 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../Application';
+import { CurrentDevContext } from '../../Application';
 import NavLinks from './NavLinks';
 import Search from '../Search/SearchBox';
 import ProfileNav from './ProfileNav';
 import logo from '../../Assets/PB.png';
 
 export default function Header() {
-    const user = useContext(UserContext);
+    const dev = useContext(CurrentDevContext);
 
     return (
         <StyledHeader>
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
                 <img src={logo} alt="" />
             </HomeLink>
-            {user ? <Search /> : null}
-            {user ? (
+            {dev ? <Search /> : null}
+            {dev ? (
                 <LeftLinks>
                     <NavLinks />
                     <ProfileNav />

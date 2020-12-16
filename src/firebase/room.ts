@@ -1,9 +1,10 @@
+import { DevPublicProfile } from '../Devs/devSchema';
 import { database, fieldValue, firestore } from '../firebase';
-import { PostSchema, UserSchema } from './schema';
+import { PostSchema } from '../Posts/postSchema';
 
 export async function sendSessionDescription(
-    peerId: UserSchema['uid'],
-    uid: UserSchema['uid'],
+    peerId: DevPublicProfile['uid'],
+    uid: DevPublicProfile['uid'],
     sessionDescription: RTCSessionDescriptionInit,
 ) {
     await database().ref(`/roomNotifications/${peerId}/${uid}`).update({
@@ -13,8 +14,8 @@ export async function sendSessionDescription(
 }
 
 export async function sendICECandidate(
-    peerId: UserSchema['uid'],
-    uid: UserSchema['uid'],
+    peerId: DevPublicProfile['uid'],
+    uid: DevPublicProfile['uid'],
     iceCandidate: RTCIceCandidateInit,
 ) {
     await database().ref(`/roomNotifications/${peerId}/${uid}`).update({
@@ -23,15 +24,15 @@ export async function sendICECandidate(
 }
 
 export async function resetRoomNotifications(
-    peerId: UserSchema['uid'],
-    uid: UserSchema['uid'],
+    peerId: DevPublicProfile['uid'],
+    uid: DevPublicProfile['uid'],
 ) {
     await database().ref(`/roomNotifications/${peerId}/${uid}`).remove();
 }
 
 export async function leaveRoom(
-    uid: UserSchema['uid'],
-    postId: PostSchema['id'],
+    uid: DevPublicProfile['uid'],
+    postId: PostSchema['document']['id'],
 ) {
     await firestore()
         .collection('posts')
@@ -48,8 +49,8 @@ export async function leaveRoom(
 
 export function listenForCandidates(
     connection: RTCPeerConnection,
-    uid: UserSchema['uid'],
-    peerId: UserSchema['uid'],
+    uid: DevPublicProfile['uid'],
+    peerId: DevPublicProfile['uid'],
 ) {
     database()
         .ref(`/roomNotifications/${uid}/${peerId}/iceCandidate`)

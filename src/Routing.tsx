@@ -1,6 +1,6 @@
 import React, { useContext, Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { UserContext } from './Application';
+import { CurrentDevContext } from './Application';
 import Header from './Components/Nav/Header';
 import Footer from './Components/Nav/Footer';
 import LandingPage from './Pages/LandingPage';
@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const SignupPage = lazy(() => import('./Pages/SignupPage'));
 const LoginPage = lazy(() => import('./Pages/LoginPage'));
-const UserPage = lazy(() => import('./Pages/UserPage'));
+const ProfilePage = lazy(() => import('./Pages/ProfilePage'));
 const HomePage = lazy(() => import('./Pages/HomePage'));
 const RoomPage = lazy(() => import('./Pages/RoomPage'));
 const MessagesPage = lazy(() => import('./Pages/MessagesPage'));
@@ -18,16 +18,16 @@ const SettingsPage = lazy(() => import('./Pages/SettingsPage'));
 const TeamPage = lazy(() => import('./Pages/TeamPage'));
 
 export default function Routing() {
-    const currentUser = useContext(UserContext);
+    const currentDev = useContext(CurrentDevContext);
 
-    if (currentUser) {
-        if (currentUser.status === 'in room') {
-            return (
-                <Suspense fallback={<LoadingPage />}>
-                    <RoomPage />
-                </Suspense>
-            );
-        }
+    if (currentDev) {
+        // if (currentDev.status === 'in room') {
+        //     return (
+        //         <Suspense fallback={<LoadingPage />}>
+        //             <RoomPage />
+        //         </Suspense>
+        //     );
+        // }
         return (
             <BrowserRouter>
                 <Header />
@@ -38,14 +38,14 @@ export default function Routing() {
                             <Route path="/teams" component={TeamPage} />
                             <Route path="/settings" component={SettingsPage} />
                             <Route path="/messages" component={MessagesPage} />
-                            <Route
+                            {/* <Route
                                 exact
                                 path="/user"
-                                render={() => <UserPage user={currentUser} />}
-                            />
+                                render={() => <ProfilePage user={currentDev} />}
+                            /> */}
                             <Route
                                 path="/user/:username"
-                                component={UserPage}
+                                component={ProfilePage}
                             />
                             <Route path="/" component={HomePage} />
                         </Switch>
@@ -54,7 +54,7 @@ export default function Routing() {
                 <Footer />
             </BrowserRouter>
         );
-    } else if (currentUser === null) {
+    } else if (currentDev === null) {
         return (
             <BrowserRouter>
                 <Header />

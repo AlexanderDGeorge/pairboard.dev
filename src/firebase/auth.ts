@@ -1,5 +1,5 @@
+import { DevSchema } from '../Devs/devSchema';
 import { auth, firestore, githubProvider } from '../firebase';
-import { UserSchema } from './schema';
 
 export interface SignUpValues {
     username: string;
@@ -22,14 +22,14 @@ export async function loginWithGithub() {
     }
 }
 
-export async function login(email: UserSchema['email'], password: string) {
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-    } catch (error) {
-        console.error(error.message);
-        return error;
-    }
-}
+// export async function login(email: DevSchema['email'], password: string) {
+//     try {
+//         await auth.signInWithEmailAndPassword(email, password);
+//     } catch (error) {
+//         console.error(error.message);
+//         return error;
+//     }
+// }
 
 export async function signupWithGithub(username: string) {
     try {

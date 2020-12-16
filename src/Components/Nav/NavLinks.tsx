@@ -3,7 +3,7 @@ import { MdChatBubble, MdGroup, MdHome, MdNotifications } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ModalContext } from '../../Application';
-import NotificationModal from '../Notifications/NotificationModal';
+import NotificationModal from '../../Notifications/NotificationModal';
 
 export default function NavLinks() {
     const { handleModal } = useContext(ModalContext)!;

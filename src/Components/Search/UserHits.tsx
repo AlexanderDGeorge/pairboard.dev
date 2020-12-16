@@ -2,26 +2,22 @@ import React, { useContext } from 'react';
 import { connectHits } from 'react-instantsearch-dom';
 import styled from 'styled-components';
 import { SearchContext } from './SearchBox';
-import MediumUserCard from '../User/MediumUserCard';
+import MediumUserCard from '../../Devs/Profile/MediumUserCard';
 
 function UserHits(props: { hits: object[] }) {
     const { focused } = useContext(SearchContext)!;
 
-    
     if (focused) {
         return (
             <StyledHits>
                 {props.hits.map((hit: any, i: number) => {
-                    return (
-                        <MediumUserCard key={i} user={hit}/>
-                        )
-                    })}
+                    return <MediumUserCard key={i} user={hit} />;
+                })}
             </StyledHits>
-        )
+        );
     } else {
         return null;
     }
-
 }
 
 const StyledHits = styled.div`

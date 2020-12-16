@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { StyledField } from "../../styled-components/StyledField";
-import { StyledButton, StyledButtonRow } from '../../styled-components/StyledButtons';
-import { login } from "../../firebase/auth";
-import styled from "styled-components";
-import { MdError } from "react-icons/md";
-import LoadingBar from "../Animated/LoadingBar";
+import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { StyledField } from '../../styled-components/StyledField';
+import {
+    StyledButton,
+    StyledButtonRow,
+} from '../../styled-components/StyledButtons';
+// import { login } from "../../firebase/auth";
+import styled from 'styled-components';
+import { MdError } from 'react-icons/md';
+import LoadingBar from '../Animated/LoadingBar';
 
 interface LogInValues {
     email: string;
@@ -20,23 +23,24 @@ export default function LoginForm() {
         setTopError(undefined);
         const errors: { [key: string]: string } = {};
         if (!values.email) {
-            errors.email = "required";
+            errors.email = 'required';
         } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
-            errors.email = "invalid email address";
+            errors.email = 'invalid email address';
         }
         if (!values.password) {
-            errors.password = "required";
+            errors.password = 'required';
         }
         return errors;
     }
 
     async function handleSubmit(values: LogInValues) {
         setLoading(true);
-        const result = await login(values.email, values.password);
+        // const result = await login(values.email, values.password);
+        const result = true;
         if (result) {
-            setTopError("incorrect email and/or password");
+            setTopError('incorrect email and/or password');
             setLoading(false);
         }
     }
@@ -44,15 +48,19 @@ export default function LoginForm() {
     return (
         <Formik
             initialValues={{
-                email: "",
-                password: "",
+                email: '',
+                password: '',
             }}
             validate={validate}
             onSubmit={handleSubmit}
         >
             {({ isValid }) => (
                 <Form>
-                    {topError ? <TopError><MdError /> {topError} </TopError> : null}
+                    {topError ? (
+                        <TopError>
+                            <MdError /> {topError}{' '}
+                        </TopError>
+                    ) : null}
                     <StyledField>
                         <label htmlFor="email">email</label>
                         <Field type="email" name="email" />
@@ -64,14 +72,13 @@ export default function LoginForm() {
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
                     <StyledButtonRow>
-                    <StyledButton 
-                        style={{width: '100%'}}
-                        disabled={!isValid || loading}
-                        type="submit"
-                    >
-                        {loading ? <LoadingBar /> : "log in"}
-                    </StyledButton>
-
+                        <StyledButton
+                            style={{ width: '100%' }}
+                            disabled={!isValid || loading}
+                            type="submit"
+                        >
+                            {loading ? <LoadingBar /> : 'log in'}
+                        </StyledButton>
                     </StyledButtonRow>
                 </Form>
             )}

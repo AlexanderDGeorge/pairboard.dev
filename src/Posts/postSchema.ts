@@ -1,25 +1,32 @@
 import { database, firestore } from 'firebase';
-import { GlobalDevSchema } from '../Devs/devSchema';
+import { DevPublicProfile } from '../Devs/devSchema';
 
 export interface PostSchema {
     document: firestore.DocumentSnapshot;
     // exists, metadata, id, ref
     created_at: Date;
     max_capacity: number;
-    subscribers: GlobalDevSchema;
+    subscribers: DevPublicProfile[];
     room: database.Reference;
-}
-
-export interface PublicPostSchema {
-    // changes here need to invoke cloud functions
-    // to update in (user.created_posts, user.joined_posts)
-    created_by: GlobalDevSchema;
+    created_by: DevPublicProfile;
     title: string;
     description: string;
     difficulty: typeof DIFFICULTIES[number];
     image_url?: string;
     language: typeof LANGUAGES[number];
-    subscribers_length: number;
+    start_date: Date;
+    type: typeof POSTTYPES[number];
+}
+
+export interface PublicPostSchema {
+    id: PostSchema['document']['id'];
+    created_by: DevPublicProfile;
+    title: string;
+    description: string;
+    difficulty: typeof DIFFICULTIES[number];
+    image_url?: string;
+    language: typeof LANGUAGES[number];
+    current_occupants: DevPublicProfile[];
     start_date: Date;
     type: typeof POSTTYPES[number];
 }
