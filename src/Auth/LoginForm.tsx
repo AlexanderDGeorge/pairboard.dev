@@ -1,27 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { StyledField } from '../styled-components/StyledField';
 import {
     StyledButton,
     StyledButtonRow,
 } from '../styled-components/StyledButtons';
-// import { login } from "../../firebase/auth";
 import styled from 'styled-components';
 import { MdError } from 'react-icons/md';
 import LoadingBar from '../Components/Animated/LoadingBar';
-
-interface LogInValues {
-    email: string;
-    password: string;
-}
+import useLogin from './util/useLogin';
 
 export default function LoginForm() {
     const [topError, setTopError] = useState<string | undefined>(undefined);
-    const [loading, setLoading] = useState(false);
+    const { loginWithEmail, status, error } = useLogin();
 
-    function validate(values: LogInValues) {
-        setTopError(undefined);
+    useEffect(() => {
+        setTopError(error);
+    }, [error]);
+
+    function validate(values: { email: string; password: string }) {
         const errors: { [key: string]: string } = {};
+
         if (!values.email) {
             errors.email = 'required';
         } else if (
@@ -35,16 +34,6 @@ export default function LoginForm() {
         return errors;
     }
 
-    async function handleSubmit(values: LogInValues) {
-        setLoading(true);
-        // const result = await login(values.email, values.password);
-        const result = true;
-        if (result) {
-            setTopError('incorrect email and/or password');
-            setLoading(false);
-        }
-    }
-
     return (
         <Formik
             initialValues={{
@@ -52,7 +41,7 @@ export default function LoginForm() {
                 password: '',
             }}
             validate={validate}
-            onSubmit={handleSubmit}
+            onSubmit={(values) => loginWithEmail(values.email, values.password)}
         >
             {({ isValid }) => (
                 <Form>
@@ -74,10 +63,10 @@ export default function LoginForm() {
                     <StyledButtonRow>
                         <StyledButton
                             style={{ width: '100%' }}
-                            disabled={!isValid || loading}
+                            disabled={!isValid || status === 'loading'}
                             type="submit"
                         >
-                            {loading ? <LoadingBar /> : 'log in'}
+                            {status === 'loading' ? <LoadingBar /> : 'log in'}
                         </StyledButton>
                     </StyledButtonRow>
                 </Form>

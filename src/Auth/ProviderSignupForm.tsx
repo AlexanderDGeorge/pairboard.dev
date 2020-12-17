@@ -12,7 +12,6 @@ export default function ProviderSignup(props: { setTopError: Function }) {
     const { status, error, signupWithGithub } = useSignup();
 
     useEffect(() => {
-        console.log(error);
         setTopError(error);
     }, [error]);
 

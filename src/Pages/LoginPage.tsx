@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import LoginForm from '../Auth/LoginForm';
 import { FaGithub } from 'react-icons/fa';
-import { loginWithGithub } from '../firebase/auth';
 import { Link } from 'react-router-dom';
 import { StyledH1 } from '../styled-components/StyledHeaders';
 import { StyledGithubButton } from '../styled-components/StyledButtons';
+import useLogin from '../Auth/util/useLogin';
 
 export default function LoginPage() {
+    const { loginWithGithub } = useLogin();
+
     return (
         <Login>
             <div>
