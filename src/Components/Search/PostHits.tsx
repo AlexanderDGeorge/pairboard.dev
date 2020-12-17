@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { SearchContext } from './SearchBox';
-import Post from '../../Posts/Post';
+import Post from '../../Posts/Components/Post';
 import { connectHits } from 'react-instantsearch-dom';
 
 function PostHits(props: { hits: object[] }) {

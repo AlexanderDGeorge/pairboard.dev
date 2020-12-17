@@ -1,38 +1,10 @@
 import { DevPublicProfile } from '../Devs/devSchema';
 import { firestore, fieldValue } from '../firebase';
-import { PublicPostSchema } from '../Posts/postSchema';
-
-export async function createPost(
-    host: DevPublicProfile,
-    title: PublicPostSchema['title'],
-    type: PublicPostSchema['type'],
-    description: PublicPostSchema['description'],
-    difficulty: PublicPostSchema['difficulty'],
-    language: PublicPostSchema['language'],
-    start: PublicPostSchema['start_date'],
-) {
-    const postRef = firestore().collection('posts').doc();
-    await postRef.set({
-        id: postRef.id,
-        createdAt: new Date().toString(),
-        description,
-        difficulty,
-        host,
-        language,
-        participants: [],
-        start: start.toString(),
-        title,
-        type,
-    });
-    const userRef = firestore().collection('users').doc(host.uid);
-    await userRef.update({
-        posts: fieldValue.arrayUnion(postRef.id),
-    });
-}
+import { PostSchema } from '../Posts/postSchema';
 
 export async function joinPost(
     uid: DevPublicProfile['uid'],
-    postId: PublicPostSchema['id'],
+    postId: PostSchema['id'],
 ) {
     const postRef = firestore().collection('posts').doc(postId);
     await postRef.update({

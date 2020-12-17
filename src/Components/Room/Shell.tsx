@@ -7,9 +7,9 @@ import ControlsContainer from './ControlsContainer';
 import { CurrentDevContext } from '../../Application';
 import { leaveRoom } from '../../firebase/room';
 import LoadingBar from '../Animated/LoadingBar';
-import { PublicPostSchema } from '../../Posts/postSchema';
+import { PostSchema } from '../../Posts/postSchema';
 
-export default function Shell(props: { post: PublicPostSchema }) {
+export default function Shell(props: { post: PostSchema }) {
     const { post } = props;
     const { user } = useContext(CurrentDevContext)!;
     const [close, setClose] = useState(false);

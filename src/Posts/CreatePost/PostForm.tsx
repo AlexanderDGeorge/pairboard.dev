@@ -15,8 +15,9 @@ import {
 export default function PostForm(props: {
     validate: any;
     handleSubmit: any;
-    loading: boolean;
+    status: string;
 }) {
+    const { status, validate, handleSubmit } = props;
     const { handleModal } = useContext(ModalContext)!;
 
     return (
@@ -26,11 +27,10 @@ export default function PostForm(props: {
                 description: '',
                 difficulty: '',
                 language: '',
-                capacity: 100,
-                start: new Date(),
+                start_date: new Date(),
             }}
-            onSubmit={props.handleSubmit}
-            validate={props.validate}
+            onSubmit={handleSubmit}
+            validate={validate}
         >
             {({ isValid, handleChange, handleBlur, values, setFieldValue }) => (
                 <CreatePairboard>
@@ -88,7 +88,7 @@ export default function PostForm(props: {
                         <ErrorMessage name="description" component="p" />
                     </StyledField>
                     <DatePicker
-                        value={values.start}
+                        value={values.start_date}
                         setFieldValue={setFieldValue}
                     />
                     <StyledButtonRow>
@@ -99,10 +99,14 @@ export default function PostForm(props: {
                             Cancel
                         </StyledCancelButton>
                         <StyledButton
-                            disabled={!isValid || props.loading}
+                            disabled={!isValid || status === 'loading'}
                             type="submit"
                         >
-                            {props.loading ? <LoadingBar /> : 'Create Post'}
+                            {status === 'loading' ? (
+                                <LoadingBar />
+                            ) : (
+                                'Create Post'
+                            )}
                         </StyledButton>
                     </StyledButtonRow>
                 </CreatePairboard>

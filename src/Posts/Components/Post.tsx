@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ModalContext } from '.././Application';
+import { ModalContext } from '../../Application';
 import PostDate from './PostDate';
 import { Link } from 'react-router-dom';
 import ExpandedPost from './ExpandedPost';
 import PostTag from './PostTag';
-import { StyledCard } from '.././styled-components/StyledCard';
-import { PublicPostSchema } from './postSchema';
+import { StyledCard } from '../../styled-components/StyledCard';
+import { PostSchema } from '../postSchema';
 
-export default function Post(props: { post: PublicPostSchema }) {
+export default function Post(props: { post: PostSchema }) {
     const {
         description,
         created_by,

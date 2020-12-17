@@ -32,7 +32,7 @@ export async function resetRoomNotifications(
 
 export async function leaveRoom(
     uid: DevPublicProfile['uid'],
-    postId: PostSchema['document']['id'],
+    postId: PostSchema['id'],
 ) {
     await firestore()
         .collection('posts')

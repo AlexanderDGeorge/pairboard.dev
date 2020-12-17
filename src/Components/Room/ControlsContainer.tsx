@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { PublicPostSchema } from '../../Posts/postSchema';
+import { PostSchema } from '../../Posts/postSchema';
 import Controls from './Controls';
 import { initiateScreenShare } from './WebRTCFunctions';
 
 export default function ControlsContainer(props: {
-    post: PublicPostSchema;
+    post: PostSchema;
     localStream: MediaStream;
     setClose: Function;
 }) {

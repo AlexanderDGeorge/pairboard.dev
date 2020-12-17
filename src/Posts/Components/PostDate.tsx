@@ -9,7 +9,7 @@ const DAYS = [
     'THURSDAY',
     'FRIDAY',
     'SATURDAY',
-]
+];
 const MONTHS = [
     'JAN',
     'FEB',
@@ -22,13 +22,15 @@ const MONTHS = [
     'SEP',
     'OCT',
     'NOV',
-    'DEC'
-]
+    'DEC',
+];
 
-export default function PostDate(props: { start: Date, expanded?: any }) {
+export default function PostDate(props: { start: Date; expanded?: any }) {
+    console.log(props.start);
 
     function convertDate() {
         const temp = new Date(props.start);
+        console.log(temp);
         const year = temp.getFullYear();
         const month = MONTHS[temp.getMonth()];
         const date = temp.getDate();
@@ -38,16 +40,16 @@ export default function PostDate(props: { start: Date, expanded?: any }) {
         let meridian;
         if (hours - 12 > 0) {
             hours -= 12;
-            meridian = 'PM'
+            meridian = 'PM';
         } else {
-            meridian = 'AM'
+            meridian = 'AM';
         }
         if (minutes === 0) {
-            minutes = '00'
+            minutes = '00';
         }
         return { year, month, date, day, hours, minutes, meridian };
     }
-    
+
     const { year, month, date, day, hours, minutes, meridian } = convertDate();
 
     if (props.expanded) {
@@ -57,17 +59,23 @@ export default function PostDate(props: { start: Date, expanded?: any }) {
                 <h4>{month}</h4>
                 <h3>{year}</h3>
                 <h2>{day}</h2>
-                <h3>{hours}:{minutes}{meridian}</h3>
+                <h3>
+                    {hours}:{minutes}
+                    {meridian}
+                </h3>
             </StyledExpandedPostDate>
-        )
+        );
     } else {
-        return (   
+        return (
             <StyledPostDate>
                 <h4>{month}</h4>
                 <h2>{date}</h2>
-                <h5>{hours}:{minutes}{meridian}</h5>
+                <h5>
+                    {hours}:{minutes}
+                    {meridian}
+                </h5>
             </StyledPostDate>
-        )
+        );
     }
 }
 
@@ -76,23 +84,23 @@ const StyledPostDate = styled.div`
     height: 100%;
     min-height: 60px;
     width: 100px;
-    border: 1px solid ${props => props.theme.dark};
+    border: 1px solid ${(props) => props.theme.dark};
     border-radius: 5px;
     padding: 5px;
-    /* background-color: ${props => props.theme.dark}; */
+    /* background-color: ${(props) => props.theme.dark}; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
     > * {
-        /* color: ${props => props.theme.verylight}; */
+        /* color: ${(props) => props.theme.verylight}; */
     }
     > h2 {
         font-weight: 500;
     }
     > h4 {
-        color: ${props => props.theme.orange};
+        color: ${(props) => props.theme.orange};
     }
 `;
 

@@ -1,12 +1,12 @@
 import { User } from 'firebase';
-import { PublicPostSchema } from '../Posts/postSchema';
+import { PostSchema } from '../Posts/postSchema';
 
 export interface DevSchema {
     // propagate changes through cloud functions
     user: User;
     settings: DevSettings;
-    joined_posts: PublicPostSchema;
-    created_posts: PublicPostSchema;
+    joined_posts: PostSchema;
+    created_posts: PostSchema;
     profile: DevPublicProfile;
 }
 

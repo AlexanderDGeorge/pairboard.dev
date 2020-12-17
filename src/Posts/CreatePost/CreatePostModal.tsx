@@ -1,12 +1,10 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import useLockBodyScroll from '../../util/useLockBodyScroll';
-import { PublicPostSchema } from '../postSchema';
+import { PostSchema } from '../postSchema';
 import FormContainer from './FormContainer';
 
-export default function CreatePostModal(props: {
-    type: PublicPostSchema['type'];
-}) {
+export default function CreatePostModal(props: { type: PostSchema['type'] }) {
     const modalRef = useRef(null);
     const [type, setType] = useState<string>(props.type);
     useLockBodyScroll();

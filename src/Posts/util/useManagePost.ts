@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PostSchema, PublicPostSchema } from '../postSchema';
+import { PostSchema } from '../postSchema';
 
 export default function useManagePost() {
     const [status, setStatus] = useState<
@@ -7,7 +7,7 @@ export default function useManagePost() {
     >('idle');
     const [error, setError] = useState<string | undefined>(undefined);
 
-    async function updatePost(updatedPost: PublicPostSchema) {}
+    async function updatePost(updatedPost: PostSchema) {}
 
     async function deletePost(post: PostSchema) {
         //     const postRef = firestore().collection('posts').doc(postId);

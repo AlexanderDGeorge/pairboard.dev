@@ -1,15 +1,15 @@
 import React, { useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ModalContext } from '.././Application';
-import useLockBodyScroll from '.././util/useLockBodyScroll';
-import useOnOutsideCLick from '.././util/useOnOutsideClick';
+import { ModalContext } from '../../Application';
+import useLockBodyScroll from '../../util/useLockBodyScroll';
+import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import PostTag from './PostTag';
 import PostSubscribe from './PostSubscribe';
 import PostDate from './PostDate';
-import { PublicPostSchema } from './postSchema';
+import { PostSchema } from '../postSchema';
 
-export default function ExpandedPost(props: { post: PublicPostSchema }) {
+export default function ExpandedPost(props: { post: PostSchema }) {
     const modalRef = useRef(null);
     const { handleModal } = useContext(ModalContext)!;
     const {

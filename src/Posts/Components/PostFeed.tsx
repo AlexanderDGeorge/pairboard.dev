@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PostLane from './PostLane';
-import { firestore } from '.././firebase';
+import { firestore } from '../../firebase';
 
 export default function PostFeed() {
     const postsQuery = firestore().collection('posts');

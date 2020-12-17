@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
-import useFirebaseQuery from '.././util/useFirebaseQuery';
-import LoadingBar from '.././Components/Animated/LoadingBar';
+import useFirebaseQuery from '../../util/useFirebaseQuery';
+import LoadingBar from '../../Components/Animated/LoadingBar';
 import Post from './Post';
-import CreatePostLane from './PostCreate/CreatePostLane';
-import { PublicPostSchema } from './postSchema';
+import CreatePostLane from '../CreatePost/CreatePostLane';
+import { PostSchema } from '../postSchema';
 
 const restName = {
     width: '40%',
@@ -37,7 +37,7 @@ export default function PostLane(props: {
         } else if (data?.length) {
             return (
                 <>
-                    {data.map((post: PublicPostSchema, i: number) => (
+                    {data.map((post: PostSchema, i: number) => (
                         <Post post={post} key={i} />
                     ))}
                 </>

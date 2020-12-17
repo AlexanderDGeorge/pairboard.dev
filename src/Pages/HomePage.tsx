@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PostFeed from '../Posts/PostFeed';
+import PostFeed from '../Posts/Components/PostFeed';
 
 export default function HomePage() {
     return (

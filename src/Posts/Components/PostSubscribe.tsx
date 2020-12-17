@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ModalContext, CurrentDevContext } from '.././Application';
-import useManagePost from './util/useManagePost';
+import { ModalContext, CurrentDevContext } from '../../Application';
+import useManagePost from '../util/useManagePost';
 import {
     StyledButton,
     StyledButtonRow,
     StyledCancelButton,
-} from '../styled-components/StyledButtons';
-import { PublicPostSchema } from './postSchema';
+} from '../../styled-components/StyledButtons';
+import { PostSchema } from '../postSchema';
 
-export default function PostSubscribe(props: { post: PublicPostSchema }) {
+export default function PostSubscribe(props: { post: PostSchema }) {
     const { type, id, created_by } = props.post;
     const { user } = useContext(CurrentDevContext)!;
     const { handleModal } = useContext(ModalContext)!;

@@ -2,9 +2,9 @@ import { database, firestore } from 'firebase';
 import { DevPublicProfile } from '../Devs/devSchema';
 
 export interface PostSchema {
-    document: firestore.DocumentSnapshot;
-    // exists, metadata, id, ref
+    id: firestore.DocumentSnapshot['id'];
     created_at: Date;
+    current_occupants: DevPublicProfile[];
     max_capacity: number;
     subscribers: DevPublicProfile[];
     room: database.Reference;
@@ -14,19 +14,6 @@ export interface PostSchema {
     difficulty: typeof DIFFICULTIES[number];
     image_url?: string;
     language: typeof LANGUAGES[number];
-    start_date: Date;
-    type: typeof POSTTYPES[number];
-}
-
-export interface PublicPostSchema {
-    id: PostSchema['document']['id'];
-    created_by: DevPublicProfile;
-    title: string;
-    description: string;
-    difficulty: typeof DIFFICULTIES[number];
-    image_url?: string;
-    language: typeof LANGUAGES[number];
-    current_occupants: DevPublicProfile[];
     start_date: Date;
     type: typeof POSTTYPES[number];
 }
