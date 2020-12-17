@@ -1,6 +1,7 @@
-import { auth, firestore } from 'firebase';
+import { auth, firestore } from '../../firebase';
+import { firestore as Firestore } from 'firebase';
 import { useEffect, useState } from 'react';
-import { DevSchema } from './devSchema';
+import { DevSchema } from '../devSchema';
 
 export default function useCurrentDev() {
     const [dev, setDev] = useState<DevSchema | undefined | null>(undefined);
@@ -8,7 +9,7 @@ export default function useCurrentDev() {
     useEffect(() => {
         let unsubscribe: Function | null = null;
 
-        auth().onAuthStateChanged((user) => {
+        auth.onAuthStateChanged((user) => {
             if (!user) {
                 setDev(null);
                 return;
@@ -36,7 +37,7 @@ export default function useCurrentDev() {
     return dev;
 }
 
-const convertDocToDev = (doc: firestore.DocumentData) => ({
+const convertDocToDev = (doc: Firestore.DocumentData) => ({
     settings: doc.settings,
     joined_posts: doc.joined_posts,
     created_posts: doc.created_posts,

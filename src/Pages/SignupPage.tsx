@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import SignupForm from "../Components/Auth/SignupForm";
-import ProviderSignup from "../Components/Auth/ProviderSignup";
-import { StyledH1 } from "../styled-components/StyledHeaders";
-import { StyledHorDiv } from "./LoginPage";
-import { MdError } from "react-icons/md";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import SignupForm from '../Auth/SignupForm';
+import ProviderSignupForm from '../Auth/ProviderSignupForm';
+import { StyledH1 } from '../styled-components/StyledHeaders';
+import { StyledHorDiv } from './LoginPage';
+import { MdError } from 'react-icons/md';
 
 export default function SignupPage() {
     const [topError, setTopError] = useState<string | undefined>(undefined);
@@ -13,13 +13,13 @@ export default function SignupPage() {
         <Signup>
             <div>
                 <StyledH1>Sign Up</StyledH1>
-                {topError ? 
+                {topError ? (
                     <TopError>
-                        <MdError />{topError}
-                    </TopError> :
-                    null
-                }
-                <ProviderSignup setTopError={setTopError}/>
+                        <MdError />
+                        {topError}
+                    </TopError>
+                ) : null}
+                <ProviderSignupForm setTopError={setTopError} />
                 <StyledHorDiv>
                     <div></div>
                     <h4>OR</h4>
@@ -39,7 +39,7 @@ const Signup = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: ${props => props.theme.dark};
+    background-color: ${(props) => props.theme.dark};
     > div {
         min-width: 300px;
         width: 60%;
@@ -49,8 +49,8 @@ const Signup = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: ${props => props.theme.white};
-        box-shadow: 0 5px 20px -4px ${props => props.theme.black};
+        background-color: ${(props) => props.theme.white};
+        box-shadow: 0 5px 20px -4px ${(props) => props.theme.black};
     }
 `;
 

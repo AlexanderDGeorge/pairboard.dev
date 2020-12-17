@@ -46,29 +46,6 @@ export async function signupWithGithub(username: string) {
     }
 }
 
-export async function signup(signUpValues: SignUpValues) {
-    const { email, password, username, name } = signUpValues;
-    try {
-        if (!(await checkForValidUsername(username))) {
-            return { type: 'username', message: 'username already in use' };
-        }
-        if (!(await checkForValidEmail(email))) {
-            return 'email already in use';
-        }
-        const { user } = await auth.createUserWithEmailAndPassword(
-            email,
-            password,
-        );
-        if (user) {
-            console.log(user);
-            createUserDocument(user, username, name);
-        }
-    } catch (error) {
-        console.error(error.message);
-        return error;
-    }
-}
-
 async function createUserDocument(
     user: firebase.User,
     username: string,
@@ -105,15 +82,6 @@ export function signOut() {
     // cloud functions to handle users that don't explicity log out?
 
     auth.signOut();
-}
-
-export async function checkForValidUsername(username: string) {
-    if (!username) return;
-    const usersRef = await firestore()
-        .collection('users')
-        .where('username', '==', username)
-        .get();
-    return usersRef.empty;
 }
 
 export async function checkForValidEmail(email: string) {

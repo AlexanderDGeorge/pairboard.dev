@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { FaGithub } from 'react-icons/fa';
 import styled from 'styled-components';
-import { StyledField } from '../../styled-components/StyledField';
-import { StyledGithubButton } from '../../styled-components/StyledButtons';
-import { validateUsername } from '../../util/validationFunctions';
-import { signupWithGithub } from '../../firebase/auth';
+import { StyledField } from '../styled-components/StyledField';
+import { StyledGithubButton } from '../styled-components/StyledButtons';
+import { validateUsername } from '../util/validationFunctions';
+import useSignup from './util/useSignup';
 
-export default function ProviderSignup(props: {setTopError: Function}) {
-    const [loading, setLoading] = useState(false);
+export default function ProviderSignup(props: { setTopError: Function }) {
+    const { setTopError } = props;
+    const { status, error, signupWithGithub } = useSignup();
+
+    useEffect(() => {
+        console.log(error);
+        setTopError(error);
+    }, [error]);
 
     async function validate(values: { username: string }) {
         const errors: { [key: string]: string } = {};
@@ -16,35 +22,29 @@ export default function ProviderSignup(props: {setTopError: Function}) {
         return errors;
     }
 
-    async function handleSubmit(values: {username: string}) {
-        setLoading(true);
-        const result = await signupWithGithub(values.username);
-        if (result) {
-            props.setTopError('there was an error creating your account')
-            setLoading(false);
-        }
-    }
-
     return (
         <Formik
             initialValues={{ username: '' }}
             validate={validate}
-            onSubmit={handleSubmit}
+            onSubmit={(values) => signupWithGithub(values.username)}
         >
             {({ isValid }) => (
                 <StyledProviderSignup>
                     <StyledField>
                         <label htmlFor="username">username</label>
                         <Field type="text" name="username" />
-                        <ErrorMessage name="username" component="p"/>
+                        <ErrorMessage name="username" component="p" />
                     </StyledField>
-                    <StyledGithubButton type='submit' disabled={!isValid || loading}>
+                    <StyledGithubButton
+                        type="submit"
+                        disabled={!isValid || status === 'loading'}
+                    >
                         <FaGithub />
                     </StyledGithubButton>
                 </StyledProviderSignup>
             )}
         </Formik>
-    )
+    );
 }
 
 const StyledProviderSignup = styled(Form)`

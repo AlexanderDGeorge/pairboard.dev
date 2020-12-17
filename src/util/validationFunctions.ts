@@ -1,5 +1,18 @@
 import { DevSchema } from '../Devs/devSchema';
-import { checkForValidEmail, checkForValidUsername } from '../firebase/auth';
+import { firestore } from '../firebase';
+import { checkForValidEmail } from '../firebase/auth';
+
+export async function isUsernameAvailable(username: string) {
+    try {
+        const devsRef = await firestore()
+            .collectionGroup('profile')
+            .where('username', '==', username)
+            .get();
+        return devsRef.empty;
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 export async function validateUsername(
     newUsername: DevSchema['username'],
@@ -10,13 +23,13 @@ export async function validateUsername(
         error.username = 'required';
     } else if (
         !newUsername.match(
-            /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/,
+            /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/,
         )
     ) {
         error.username = 'invalid username';
     } else if (
         oldUsername !== newUsername &&
-        !(await checkForValidUsername(newUsername))
+        !(await isUsernameAvailable(newUsername))
     ) {
         error.username = 'this username is already in use';
     }

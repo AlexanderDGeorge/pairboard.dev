@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { DevSchema } from './Devs/devSchema';
-import useCurrentDev from './Devs/useCurrentDev';
+import useCurrentDev from './Devs/util/useCurrentDev';
 import useModal, { ModalSchema } from './Components/Modal/useModal';
 import { GlobalStyle } from './styled-components/globalStyle';
 import Routing from './Routing';

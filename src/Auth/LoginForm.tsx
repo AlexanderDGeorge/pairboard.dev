@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { StyledField } from '../../styled-components/StyledField';
+import { StyledField } from '../styled-components/StyledField';
 import {
     StyledButton,
     StyledButtonRow,
-} from '../../styled-components/StyledButtons';
+} from '../styled-components/StyledButtons';
 // import { login } from "../../firebase/auth";
 import styled from 'styled-components';
 import { MdError } from 'react-icons/md';
-import LoadingBar from '../Animated/LoadingBar';
+import LoadingBar from '../Components/Animated/LoadingBar';
 
 interface LogInValues {
     email: string;
