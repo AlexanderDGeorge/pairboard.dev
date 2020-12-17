@@ -5,8 +5,8 @@ import { DevPublicProfile } from '../devSchema';
 import ConnectionButton from './ConnectionButton';
 import UserLinks from './UserLinks';
 
-export default function LargeUserCard(props: { user: DevPublicProfile }) {
-    const { image_url, username, bio, name, location } = props.user;
+export default function LargeUserCard(props: { dev: DevPublicProfile }) {
+    const { image_url, username, bio, name, location } = props.dev;
 
     return (
         <StyledLargeUserCard>
@@ -21,8 +21,8 @@ export default function LargeUserCard(props: { user: DevPublicProfile }) {
                     </div>
                 ) : null}
             </StyledInfoPane>
-            <ConnectionButton user={props.user} />
-            <UserLinks user={props.user} />
+            <ConnectionButton dev={props.dev} />
+            <UserLinks dev={props.dev} />
         </StyledLargeUserCard>
     );
 }

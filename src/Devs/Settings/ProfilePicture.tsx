@@ -4,7 +4,7 @@ import { MdAddAPhoto } from 'react-icons/md';
 import { CurrentDevContext } from '../../Application';
 
 export default function ProfilePicture(props: { setImageFile: Function }) {
-    const { image_url, user } = useContext(CurrentDevContext)!;
+    const { profile, user } = useContext(CurrentDevContext)!;
     const [newPhotoURI, setNewPhotoURI] = useState<any>(undefined);
     const [selected, setSelected] = useState(0);
     const providerImage = user.providerData[0]?.photoURL;
@@ -24,12 +24,12 @@ export default function ProfilePicture(props: { setImageFile: Function }) {
     return (
         <StyledProfilePicture>
             <img
-                src={image_url}
+                src={profile.image_url}
                 alt="profile"
                 className={selected === 0 ? 'selected' : ''}
                 onClick={() => setSelected(0)}
             />
-            <img src={providerImage || undefined} alt="" />
+            {providerImage ? <img src={providerImage} alt="" /> : null}
             {newPhotoURI ? (
                 <img
                     src={newPhotoURI}
@@ -37,7 +37,7 @@ export default function ProfilePicture(props: { setImageFile: Function }) {
                     className={selected === 2 ? 'selected' : ''}
                     onClick={(e) => {
                         setSelected(2);
-                        // props.setImageFile()
+                        props.setImageFile(newPhotoURI);
                     }}
                 />
             ) : null}

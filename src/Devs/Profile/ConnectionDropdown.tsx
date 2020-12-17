@@ -7,15 +7,15 @@ import UserConnectionsModal from './UserConnectionsModal';
 
 export default function ConnectionDropdown(props: { user: DevPublicProfile }) {
     const { connections } = props.user;
-    const { user } = useContext(CurrentDevContext)!;
+    const { profile } = useContext(CurrentDevContext)!;
     const { handleModal } = useContext(ModalContext)!;
 
     function AddRemoveConnection() {
         return (
             <StyledDropdownButton>
-                {/* {connections.includes(user)
+                {connections.includes(profile)
                     ? 'Remove Connection'
-                    : 'Add Connection'} */}
+                    : 'Add Connection'}
             </StyledDropdownButton>
         );
     }
@@ -29,7 +29,7 @@ export default function ConnectionDropdown(props: { user: DevPublicProfile }) {
             >
                 View Connections
             </StyledDropdownButton>
-            {user.uid !== props.user.uid ? (
+            {profile.uid !== props.user.uid ? (
                 <AddRemoveConnection />
             ) : (
                 <StyledDropdownLink to="/settings/profile">

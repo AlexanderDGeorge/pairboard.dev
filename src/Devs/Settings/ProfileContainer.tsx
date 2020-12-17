@@ -3,18 +3,20 @@ import { CurrentDevContext } from '../../Application';
 import { validateUsername } from '../../util/validationFunctions';
 import Profile from './Profile';
 import { DevPublicProfile } from '../devSchema';
+import useUpdateProfile from '../util/useUpdateProfile';
 
 export default function ProfileContainer() {
-    const dev = useContext(CurrentDevContext)!;
+    const { profile } = useContext(CurrentDevContext)!;
     const [imageFile, setImageFile] = useState<File | string | undefined>(
         undefined,
     );
     const [loading, setLoading] = useState(false);
     const [topMessage, setTopMessage] = useState('');
+    const { status, error, updateProfile } = useUpdateProfile();
 
     async function validate(values: DevPublicProfile) {
         const errors: { [key: string]: string } = {};
-        validateUsername(values.username, dev.username, errors);
+        validateUsername(values.username, profile.username, errors);
 
         if (values.bio && values.bio.length > 160) {
             errors.bio = 'bio is too long';
@@ -40,7 +42,7 @@ export default function ProfileContainer() {
         } else if (imageFile) {
             // imageURL = await uploadPhoto(imageFile, dev.user.uid);
         } else {
-            imageURL = dev.image_url;
+            imageURL = profile.image_url;
         }
 
         // await updateUserProfile({
@@ -60,7 +62,7 @@ export default function ProfileContainer() {
 
     return (
         <Profile
-            dev={dev}
+            dev={profile}
             loading={loading}
             topMessage={topMessage}
             setImageFile={setImageFile}

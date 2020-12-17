@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DevSchema, DevSettings } from '../../Devs/devSchema';
+import { DevPublicProfile, DevSchema, DevSettings } from '../../Devs/devSchema';
 import { auth, firestore, githubProvider } from '../../firebase';
 import { isUsernameAvailable } from '../../util/validationFunctions';
 
@@ -18,7 +18,7 @@ export default function useSignup() {
 
     async function createDevDocument(
         user: DevSchema['user'],
-        username: DevSchema['username'],
+        username: DevPublicProfile['username'],
     ) {
         const devRef = firestore().collection('devs').doc(user.uid);
         try {
@@ -26,12 +26,14 @@ export default function useSignup() {
                 settings: defaultSettings,
                 joined_posts: [],
                 created_posts: [],
-                username,
-                image_url:
-                    user.providerData[0]?.photoURL ||
-                    'https://firebasestorage.googleapis.com/v0/b/pairboarddev.appspot.com/o/photoURLs%2Fpairboard%20-%20B2.jpg?alt=media&token=8c860a24-bb83-47ff-a949-c071a09c9be4',
-                connections: [],
-                name: user.providerData[0]?.displayName || '',
+                profile: {
+                    username,
+                    image_url:
+                        user.providerData[0]?.photoURL ||
+                        'https://firebasestorage.googleapis.com/v0/b/pairboarddev.appspot.com/o/photoURLs%2Fpairboard%20-%20B2.jpg?alt=media&token=8c860a24-bb83-47ff-a949-c071a09c9be4',
+                    connections: [],
+                    name: user.providerData[0]?.displayName || '',
+                },
             });
             console.log('here');
         } catch (err) {
@@ -41,7 +43,7 @@ export default function useSignup() {
         }
     }
 
-    async function signupWithGithub(username: DevSchema['username']) {
+    async function signupWithGithub(username: DevPublicProfile['username']) {
         setError(undefined);
         setStatus('loading');
         if (!isUsernameAvailable(username)) {
@@ -68,7 +70,7 @@ export default function useSignup() {
     }
 
     async function signupWithEmail(
-        username: DevSchema['username'],
+        username: DevPublicProfile['username'],
         email: string,
         password: string,
     ) {

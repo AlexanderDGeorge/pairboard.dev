@@ -14,7 +14,9 @@ interface PostCreateValues {
 }
 
 export default function FormContainer(props: { type: string }) {
-    const { user, username, name, image_url } = useContext(CurrentDevContext)!;
+    const { username, name, image_url } = useContext(
+        CurrentDevContext,
+    )!.profile;
     const [loading, setLoading] = useState(false);
     const history = useHistory();
     const { handleModal } = useContext(ModalContext)!;

@@ -4,8 +4,8 @@ import { MdSend, MdLink } from 'react-icons/md';
 import styled from 'styled-components';
 import { DevPublicProfile } from '../devSchema';
 
-export default function UserLinks(props: { user: DevPublicProfile }) {
-    const { personal_url, github_url, linkedIn_url } = props.user;
+export default function UserLinks(props: { dev: DevPublicProfile }) {
+    const { personal_url, github_url, linkedIn_url } = props.dev;
 
     return (
         <StyledUserLinks>

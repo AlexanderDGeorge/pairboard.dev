@@ -30,7 +30,7 @@ export function useDevConnection(currentDev: DevSchema, dev: DevPublicProfile) {
     >('idle');
 
     const isConnected = () => {
-        currentDev.connections.forEach((connection) => {
+        currentDev.profile.connections.forEach((connection) => {
             if (connection.username === dev.username) return true;
         });
         return false;
@@ -71,7 +71,7 @@ export function useDevConnection(currentDev: DevSchema, dev: DevPublicProfile) {
             return;
         } else {
             try {
-                const connections = currentDev.connections.filter(
+                const connections = currentDev.profile.connections.filter(
                     (connection) => connection.username !== dev.username,
                 );
                 await firestore()

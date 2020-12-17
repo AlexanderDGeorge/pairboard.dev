@@ -7,22 +7,13 @@ export interface DevSchema {
     settings: DevSettings;
     joined_posts: PublicPostSchema;
     created_posts: PublicPostSchema;
-    username: string;
-    image_url: string;
-    connections: DevPublicProfile[];
-    bio?: string;
-    name?: string;
-    email?: string;
-    location?: string;
-    github_url?: string;
-    linkedIn_url?: string;
-    personal_url?: string;
+    profile: DevPublicProfile;
 }
 
 export interface DevPublicProfile {
     uid: User['uid'];
     image_url: string;
-    connections: DevSchema[];
+    connections: DevPublicProfile[];
     username: string;
     bio?: string;
     name?: string;

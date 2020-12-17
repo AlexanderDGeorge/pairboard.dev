@@ -45,7 +45,7 @@ export default function Routing() {
                                 render={() => <ProfilePage user={currentDev} />}
                             /> */}
                             <Route
-                                path="/user/:username"
+                                path="/dev/:username"
                                 component={ProfilePage}
                             />
                             <Route path="/" component={HomePage} />

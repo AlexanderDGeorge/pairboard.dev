@@ -1,53 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { useParams } from 'react-router';
 import Loading from './LoadingPage';
 import LargeUserCard from '../Devs/Profile/LargeUserCard';
 import Posts from '../Devs/Profile/Posts';
-import { DevPublicProfile, DevSchema } from '../Devs/devSchema';
+import { DevPublicProfile } from '../Devs/devSchema';
+import { CurrentDevContext } from '../Application';
+import { firestore } from '../firebase';
 
-function UserPage(props: RouteComponentProps) {
-    console.log(props);
-    const [user, setUser] = useState<DevPublicProfile | undefined | null>(
+export default function ProfilePage() {
+    const params = useParams<{ username: string }>();
+    const { profile } = useContext(CurrentDevContext)!;
+    const [dev, setDev] = useState<DevPublicProfile | undefined | null>(
         undefined,
     );
 
-    // useEffect(() => {
-    //     if (props.user || user === null) return;
-    //     (async () => {
-    //         const userDoc = await fetchUserDocFromUsername(pathname);
-    //         if (userDoc) {
-    //             setUser(convertDocToUser(userDoc));
-    //         } else {
-    //             setUser(null);
-    //         }
-    //     })();
-    //     // eslint-disable-next-line
-    // }, []);
+    useEffect(() => {
+        if (params.username === profile.username) {
+            setDev(profile);
+        } else {
+            (async () => {
+                const devsRef = await firestore()
+                    .collectionGroup('profile')
+                    .where('username', '==', params.username)
+                    .get();
+                const data = devsRef.docs[0].data();
+                if (data) {
+                    // @ts-ignore
+                    setDev(data);
+                } else {
+                    setDev(null);
+                }
+            })();
+        }
+    }, [params, profile]);
 
-    if (user) {
+    if (dev) {
         return (
-            <StyledUserPage>
-                <LargeUserCard user={user} />
-                <Posts user={user} />
-            </StyledUserPage>
+            <StyledProfilePage>
+                <LargeUserCard dev={dev} />
+                <Posts user={dev} />
+            </StyledProfilePage>
         );
-    } else if (user === null) {
+    } else if (dev === null) {
         return (
-            <StyledUserPage>
+            <StyledProfilePage>
                 <h1>User Not Found</h1>
-            </StyledUserPage>
+            </StyledProfilePage>
         );
     } else {
         return <Loading />;
     }
 }
 
-const StyledUserPage = styled.div`
+const StyledProfilePage = styled.div`
     min-height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
 `;
-
-export default withRouter(UserPage);

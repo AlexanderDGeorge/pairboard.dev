@@ -6,8 +6,10 @@ export default function useUpdateProfile() {
     const [status, setStatus] = useState<
         'idle' | 'loading' | 'success' | 'error'
     >('idle');
+    const [error, setError] = useState<string | undefined>(undefined);
 
     async function updateProfile(profile: DevPublicProfile) {
+        setError(undefined);
         setStatus('loading');
         try {
             await firestore()
@@ -18,11 +20,12 @@ export default function useUpdateProfile() {
                 });
         } catch (err) {
             console.error(err.message);
+            setError(err.message);
             setStatus('error');
             return;
         }
         setStatus('success');
     }
 
-    return { status, updateProfile };
+    return { status, error, updateProfile };
 }

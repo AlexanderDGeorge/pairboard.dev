@@ -19,7 +19,7 @@ export default function Account() {
 
     async function validate(values: any) {
         const errors: { [key: string]: string } = {};
-        validateEmail(values.email, user.email, errors);
+        validateEmail(values.email, errors);
         return errors;
     }
 

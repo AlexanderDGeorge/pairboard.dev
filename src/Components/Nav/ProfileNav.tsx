@@ -4,7 +4,7 @@ import { CurrentDevContext } from '../../Application';
 import ProfileNavDropdown from './ProfileNavDropdown';
 
 export default function ProfileNav() {
-    const { image_url } = useContext(CurrentDevContext)!;
+    const { image_url } = useContext(CurrentDevContext)!.profile;
     const [open, setOpen] = useState(false);
 
     return (

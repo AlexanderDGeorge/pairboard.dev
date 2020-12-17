@@ -1,8 +1,9 @@
-import { DevSchema } from '../Devs/devSchema';
+import { DevSchema, DevPublicProfile } from '../Devs/devSchema';
 import { firestore } from '../firebase';
-import { checkForValidEmail } from '../firebase/auth';
 
-export async function isUsernameAvailable(username: string) {
+export async function isUsernameAvailable(
+    username: DevPublicProfile['username'],
+) {
     try {
         const devsRef = await firestore()
             .collectionGroup('profile')
@@ -15,8 +16,8 @@ export async function isUsernameAvailable(username: string) {
 }
 
 export async function validateUsername(
-    newUsername: DevSchema['username'],
-    oldUsername: DevSchema['username'],
+    newUsername: DevPublicProfile['username'],
+    oldUsername: DevPublicProfile['username'],
     error: { [key: string]: string },
 ) {
     if (!newUsername) {
@@ -36,15 +37,12 @@ export async function validateUsername(
 }
 
 export async function validateEmail(
-    newEmail: DevSchema['user']['email'],
-    oldEmail: DevSchema['user']['email'],
+    email: DevSchema['user']['email'],
     errors: { [key: string]: string },
 ) {
-    if (!newEmail) {
+    if (!email) {
         errors.email = 'required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(newEmail)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
         errors.email = 'invalid email address';
-    } else if (oldEmail !== newEmail && !(await checkForValidEmail(newEmail))) {
-        errors.email = 'this email is already in use';
     }
 }

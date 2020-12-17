@@ -8,9 +8,9 @@ import UserConnectionsModal from './UserConnectionsModal';
 import ConnectionDropdown from './ConnectionDropdown';
 import { DevPublicProfile } from '../devSchema';
 
-export default function ConnectionButton(props: { user: DevPublicProfile }) {
+export default function ConnectionButton(props: { dev: DevPublicProfile }) {
     const buttonRef = useRef(null);
-    const { connections } = props.user;
+    const { connections } = props.dev;
     const { handleModal } = useContext(ModalContext)!;
     const [spring, setSpring] = useSpring(() => ({
         height: 40,
@@ -25,7 +25,7 @@ export default function ConnectionButton(props: { user: DevPublicProfile }) {
                     <ConnectionsButton
                         onClick={() =>
                             handleModal(
-                                <UserConnectionsModal user={props.user} />,
+                                <UserConnectionsModal user={props.dev} />,
                             )
                         }
                     >
@@ -37,7 +37,7 @@ export default function ConnectionButton(props: { user: DevPublicProfile }) {
                         <MdArrowDropDown />
                     </ConnectionDropdownButton>
                 </span>
-                <ConnectionDropdown user={props.user} />
+                <ConnectionDropdown user={props.dev} />
             </StyledConnectionButton>
         </Wrapper>
     );

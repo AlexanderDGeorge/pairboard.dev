@@ -26,7 +26,7 @@ export default function SignupForm(props: { setTopError: Function }) {
         const errors: { [key: string]: string } = {};
 
         validateUsername(values.username, '', errors);
-        validateEmail(values.email, '', errors);
+        validateEmail(values.email, errors);
 
         if (!values.password) {
             errors.password = 'required';
