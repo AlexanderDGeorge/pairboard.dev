@@ -24,8 +24,6 @@ export default function useSignup() {
         try {
             await devRef.set({
                 settings: defaultSettings,
-                joined_posts: [],
-                created_posts: [],
                 profile: {
                     username,
                     image_url:
@@ -35,7 +33,6 @@ export default function useSignup() {
                     name: user.providerData[0]?.displayName || '',
                 },
             });
-            console.log('here');
         } catch (err) {
             console.error(err.message);
             setError(err.message);

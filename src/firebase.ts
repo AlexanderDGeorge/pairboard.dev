@@ -4,6 +4,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
 import 'firebase/storage';
+import 'firebase/messaging';
+import 'firebase/functions';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyCbdNrcuBGDVF8-iL9UxCgsCFCbTGhoJS8',
@@ -19,10 +21,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+export const functions = firebase.functions();
+export const messaging = firebase.messaging();
 export const auth = firebase.auth();
 export const firestore = firebase.firestore;
 export const database = firebase.database;
 export const storage = firebase.storage();
 export const fieldValue = firebase.firestore.FieldValue;
 export const githubProvider = new firebase.auth.GithubAuthProvider();
+
 auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);

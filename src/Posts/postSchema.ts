@@ -1,14 +1,24 @@
-import { database, firestore } from 'firebase';
+import { firestore } from 'firebase';
 import { DevPublicProfile } from '../Devs/devSchema';
 
 export interface PostSchema {
-    id: firestore.DocumentSnapshot['id'];
+    id: firestore.DocumentReference['id'];
     created_at: Date;
-    current_occupants: DevPublicProfile[];
-    max_capacity: number;
-    subscribers: DevPublicProfile[];
-    room: database.Reference;
     created_by: DevPublicProfile;
+    current_occupants: DevPublicProfile[];
+    subscribers: DevPublicProfile[];
+    roomId: firestore.DocumentReference['id'];
+    title: string;
+    description: string;
+    difficulty: typeof DIFFICULTIES[number];
+    image_url?: string;
+    language: typeof LANGUAGES[number];
+    start_date: Date;
+    type: typeof POSTTYPES[number];
+}
+
+export interface PostUpdateSchema {
+    max_capacity: number;
     title: string;
     description: string;
     difficulty: typeof DIFFICULTIES[number];

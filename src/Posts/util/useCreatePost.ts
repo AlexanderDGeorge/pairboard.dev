@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PostSchema } from '../postSchema';
-import { fieldValue, firestore } from '../../firebase';
+import { firestore } from '../../firebase';
 
 export interface CreatePostFormData {
     created_by: PostSchema['created_by'];
@@ -24,9 +24,6 @@ export default function useCreatePost() {
         setError(undefined);
         setStatus('loading');
         const postRef = firestore().collection('posts').doc();
-        const devRef = firestore()
-            .collection('devs')
-            .doc(newPost.created_by.uid);
         try {
             await postRef.set({
                 id: postRef.id,
@@ -36,10 +33,6 @@ export default function useCreatePost() {
                 subscribers: [],
                 ...newPost,
                 start_date: newPost.start_date.toString(),
-            });
-            console.log('here');
-            await devRef.update({
-                created_posts: fieldValue.arrayUnion(postRef.id),
             });
             setStatus('success');
         } catch (err) {
