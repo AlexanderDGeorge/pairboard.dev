@@ -1,33 +1,28 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { UserContext } from '../../Application';
+import { CurrentDevContext } from '../../Application';
 import ProfileNavDropdown from './ProfileNavDropdown';
 
 export default function ProfileNav() {
-    const { photoURL } = useContext(UserContext)!;
+    const { image_url } = useContext(CurrentDevContext)!.profile;
     const [open, setOpen] = useState(false);
 
     return (
-        <>
-            <StyledProfileNav
-                src={photoURL}
-                alt=''
-                onClick={() => setOpen(true)}
-            />
-            {open ? 
-                <ProfileNavDropdown setOpen={setOpen}/> :
-                null
-            }
-        </>
-    )
+        <StyledProfileNav>
+            <img src={image_url} alt="" onClick={() => setOpen(true)} />
+            {open ? <ProfileNavDropdown setOpen={setOpen} /> : null}
+        </StyledProfileNav>
+    );
 }
 
-const StyledProfileNav = styled.img`
+const StyledProfileNav = styled.div`
     position: relative;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    margin-left: 10px;
-    background-color: ${props => props.theme.verydark};
-    cursor: pointer;
+    > img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 10px;
+        background-color: ${(props) => props.theme.verydark};
+        cursor: pointer;
+    }
 `;

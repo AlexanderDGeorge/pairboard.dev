@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import usePostContext from '../Context/usePostContext';
-import { UserContext } from '../Application';
+import { CurrentDevContext } from '../Application';
 import LoadingBar from '../Components/Animated/LoadingBar';
 import Warmup from '../Components/Room/Shell';
 
 export default function RoomPage() {
-    const { postId } = useContext(UserContext)!;
-    const post = usePostContext(postId)!;
+    const post = undefined;
 
     if (post) {
         return (

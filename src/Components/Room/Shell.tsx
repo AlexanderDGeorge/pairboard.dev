@@ -4,14 +4,14 @@ import { initiateLocalStream } from './WebRTCFunctions';
 import LocalStream from './LocalStream';
 import PeerConnection from './PeerConnection';
 import ControlsContainer from './ControlsContainer';
-import { UserContext } from '../../Application';
-import { PostSchema } from '../../firebase/schema';
+import { CurrentDevContext } from '../../Application';
 import { leaveRoom } from '../../firebase/room';
 import LoadingBar from '../Animated/LoadingBar';
+import { PostSchema } from '../../Posts/postSchema';
 
 export default function Shell(props: { post: PostSchema }) {
     const { post } = props;
-    const { uid } = useContext(UserContext)!;
+    const { user } = useContext(CurrentDevContext)!;
     const [close, setClose] = useState(false);
     const [warming, setWarming] = useState(true);
     const [localStream, setLocalStream] = useState<MediaStream | undefined>(
@@ -34,9 +34,9 @@ export default function Shell(props: { post: PostSchema }) {
     useEffect(() => {
         if (close) {
             localStream?.getTracks().forEach((track) => track.stop());
-            leaveRoom(uid, post.id);
+            leaveRoom(user.uid, post.id);
         }
-    }, [localStream, post.id, uid, close]);
+    }, [localStream, post.id, user.uid, close]);
 
     if (warming) {
         return (
@@ -54,14 +54,14 @@ export default function Shell(props: { post: PostSchema }) {
                         localStream={localStream}
                     />
                     <LocalStream localStream={localStream} />
-                    {post.participants.map((peerId, i) => {
-                        if (uid === peerId) return null;
+                    {post.occupants.map((occupant, i) => {
+                        if (user.uid === occupant.uid) return null;
                         return (
                             <PeerConnection
                                 key={i}
                                 localStream={localStream}
-                                peerId={peerId}
-                                peers={post.participants.length}
+                                peerId={occupant.uid}
+                                peers={post.occupants.length}
                                 closeConnection={close}
                             />
                         );

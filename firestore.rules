@@ -1,33 +1,30 @@
 rules_version = '2';
 service cloud.firestore {
-  function notUpdating(field) {
-      return !(field in request.resource.data) || resource.data[field] == request.resource.data[field]
+
+  function isAuthenticated() {
+  	return request.auth != null
+  }
+  
+  function isOwner (uid) {
+  	return request.auth != null && request.auth.uid == uid
   }
   
   match /databases/{database}/documents {
-	match /users/{userId} {
-      allow update: if request.auth != null && request.auth.uid == userId;
-      allow delete: if request.auth != null && request.auth.uid == userId;
-      allow read;
-      allow create;
-  }
+  
+    match /devs/{devId} {
+      allow create: if isAuthenticated();
+      allow read: if isOwner(devId);
+      allow update: if isOwner(devId);
+    }
 
-  match /posts/{postId} {
+    match /{path=**}/profile/{devId} {
       allow read;
-      allow update: if 
-      		(resource.data.host.uid == request.auth.uid) ||
-          notUpdating('createdAt') &&
-          notUpdating('description') &&
-          notUpdating('difficulty') &&
-          notUpdating('host') &&
-          notUpdating('language') &&
-          notUpdating('maxCapacity') &&
-          notUpdating('start') &&
-          notUpdating('title') &&
-          notUpdating('type');
-      // add fields as PostSchema grows
-      allow delete: if resource.data.host.uid == request.auth.uid;
+    }
+    
+    match /posts/{postId} {
       allow create: if request.auth != null;
-  }
+      allow read: if request.auth != null;
+    }
+    
   }
 }

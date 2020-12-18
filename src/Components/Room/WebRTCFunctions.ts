@@ -1,6 +1,6 @@
-import { UserSchema } from '../../firebase/schema';
 import { sendICECandidate, sendSessionDescription } from '../../firebase/room';
-import { database } from '../../firebase/firebase';
+import { database } from '../../firebase';
+import { DevPublicProfile } from '../../Devs/devSchema';
 
 const configuration: RTCConfiguration = {
     iceServers: [
@@ -49,8 +49,8 @@ export async function initiateConnection(localStream: MediaStream) {
 
 export async function listenForConnectionEvents(
     connection: RTCPeerConnection,
-    peerId: UserSchema['uid'],
-    uid: UserSchema['uid'],
+    peerId: DevPublicProfile['uid'],
+    uid: DevPublicProfile['uid'],
     remoteStreamRef: HTMLVideoElement,
 ) {
     const polite = uid > peerId;

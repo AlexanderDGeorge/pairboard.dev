@@ -1,9 +1,16 @@
 import React, { useContext } from 'react';
-import { MdChatBubble, MdGroup, MdHome, MdNotifications } from 'react-icons/md';
+import {
+    MdChatBubble,
+    MdGroup,
+    MdHome,
+    MdNotifications,
+    MdSearch,
+} from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ModalContext } from '../../Application';
-import NotificationModal from '../Notifications/NotificationModal';
+import NotificationModal from '../../Notifications/NotificationModal';
+import SearchModal from '../Search/SearchModal';
 
 export default function NavLinks() {
     const { handleModal } = useContext(ModalContext)!;
@@ -14,6 +21,14 @@ export default function NavLinks() {
                 <MdHome />
                 <p>Home</p>
             </StyledNavLink>
+            <StyledButton onClick={() => handleModal(<NotificationModal />)}>
+                <MdNotifications />
+                <p>Notifications</p>
+            </StyledButton>
+            <StyledButton onClick={() => handleModal(<SearchModal />)}>
+                <MdSearch />
+                <p>Search</p>
+            </StyledButton>
             <StyledNavLink to="/messages">
                 <MdChatBubble />
                 <p>Messages</p>
@@ -22,10 +37,6 @@ export default function NavLinks() {
                 <MdGroup />
                 <p>Teams</p>
             </StyledNavLink>
-            <StyledButton onClick={() => handleModal(<NotificationModal />)}>
-                <MdNotifications />
-                <p>Notifications</p>
-            </StyledButton>
         </StyledNavLinks>
     );
 }

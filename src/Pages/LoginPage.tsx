@@ -1,13 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import LoginForm from "../Components/Auth/LoginForm";
-import { FaGithub } from "react-icons/fa";
-import { loginWithGithub } from "../firebase/auth";
-import { Link } from "react-router-dom";
-import { StyledH1 } from '../styled-components/StyledHeaders';
+import React from 'react';
+import styled from 'styled-components';
+import LoginForm from '../Auth/LoginForm';
+import { FaGithub } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { StyledH1 } from '../styled-components/StyledHeadings';
 import { StyledGithubButton } from '../styled-components/StyledButtons';
+import useLogin from '../Auth/util/useLogin';
 
 export default function LoginPage() {
+    const { loginWithGithub } = useLogin();
+
     return (
         <Login>
             <div>
@@ -21,7 +23,7 @@ export default function LoginPage() {
                     <div></div>
                 </StyledHorDiv>
                 <LoginForm />
-                <Link style={{ marginTop: "10%" }} to="/signup">
+                <Link style={{ marginTop: '10%' }} to="/signup">
                     meant to sign up?
                 </Link>
                 <Link to="/password">forgot password?</Link>
@@ -49,8 +51,8 @@ export const StyledHorDiv = styled.div`
         width: 40px;
         padding: 5px;
         border-radius: 50%;
-        background-color: ${props => props.theme.accent};
-        color: ${props => props.theme.white};
+        background-color: ${(props) => props.theme.accent};
+        color: ${(props) => props.theme.white};
         display: flex;
         align-items: center;
         justify-content: center;
@@ -65,7 +67,7 @@ const Login = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: ${props => props.theme.dark};
+    background-color: ${(props) => props.theme.dark};
     > div {
         min-width: 300px;
         width: 60%;
@@ -75,9 +77,9 @@ const Login = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: ${props => props.theme.white};
-        box-shadow: 0 5px 20px -4px ${props => props.theme.black};
-        >form {
+        background-color: ${(props) => props.theme.white};
+        box-shadow: 0 5px 20px -4px ${(props) => props.theme.black};
+        > form {
             width: 100%;
         }
         > a {

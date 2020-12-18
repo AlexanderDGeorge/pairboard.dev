@@ -1,38 +1,9 @@
-import { firestore, fieldValue } from './firebase';
-import { LightUserSchema, PostSchema, UserSchema } from './schema';
-
-export async function createPost(
-    host: LightUserSchema,
-    title: PostSchema['title'],
-    type: PostSchema['type'],
-    description: PostSchema['description'],
-    difficulty: PostSchema['difficulty'],
-    language: PostSchema['language'],
-    maxCapacity: PostSchema['maxCapacity'],
-    start: PostSchema['start'],
-) {
-    const postRef = firestore().collection('posts').doc();
-    await postRef.set({
-        id: postRef.id,
-        createdAt: new Date().toString(),
-        description,
-        difficulty,
-        host,
-        language,
-        maxCapacity,
-        participants: [],
-        start: start.toString(),
-        title,
-        type,
-    });
-    const userRef = firestore().collection('users').doc(host.uid);
-    await userRef.update({
-        posts: fieldValue.arrayUnion(postRef.id),
-    });
-}
+import { DevPublicProfile } from '../Devs/devSchema';
+import { firestore, fieldValue } from '../firebase';
+import { PostSchema } from '../Posts/postSchema';
 
 export async function joinPost(
-    uid: UserSchema['uid'],
+    uid: DevPublicProfile['uid'],
     postId: PostSchema['id'],
 ) {
     const postRef = firestore().collection('posts').doc(postId);
@@ -51,13 +22,4 @@ export async function joinPost(
 export async function fetchPosts() {
     const postsRef = await firestore().collection('posts').get();
     return postsRef.docs.map((post) => post.data());
-}
-
-export function deletePost(postId: PostSchema['id'], uid: UserSchema['uid']) {
-    const postRef = firestore().collection('posts').doc(postId);
-    postRef.delete();
-    const userRef = firestore().collection('users').doc(uid);
-    userRef.update({
-        posts: fieldValue.arrayRemove(postId),
-    });
 }

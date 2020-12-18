@@ -1,28 +1,28 @@
-import { useReducer, useEffect } from "react";
-import useMemoCompare from "./useMemoCompare";
+import { useReducer, useEffect } from 'react';
+import useMemoCompare from './useMemoCompare';
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case "idle":
-            return { status: "idle", data: undefined, error: undefined };
-        case "loading":
-            return { status: "loading", data: undefined, error: undefined };
-        case "success":
+        case 'idle':
+            return { status: 'idle', data: undefined, error: undefined };
+        case 'loading':
+            return { status: 'loading', data: undefined, error: undefined };
+        case 'success':
             return {
-                status: "success",
+                status: 'success',
                 data: action.payload,
                 error: undefined,
             };
-        case "error":
-            return { status: "error", data: undefined, error: action.payload };
+        case 'error':
+            return { status: 'error', data: undefined, error: action.payload };
         default:
-            throw new Error("invalid action");
+            throw new Error('invalid action');
     }
 };
 
 export default function useFirebaseQuery(query) {
     const initialState = {
-        status: query ? "loading" : "idle",
+        status: query ? 'loading' : 'idle',
         data: undefined,
         error: undefined,
     };
@@ -35,11 +35,11 @@ export default function useFirebaseQuery(query) {
 
     useEffect(() => {
         if (!queryCached) {
-            dispatch({ type: "idle" });
+            dispatch({ type: 'idle' });
             return;
         }
 
-        dispatch({ type: "loading" });
+        dispatch({ type: 'loading' });
 
         return queryCached.onSnapshot(
             (response) => {
@@ -47,11 +47,11 @@ export default function useFirebaseQuery(query) {
                     ? getCollectionData(response)
                     : getDocData(response);
 
-                dispatch({ type: "success", payload: data });
+                dispatch({ type: 'success', payload: data });
             },
             (error) => {
-                dispatch({ type: "error", payload: error });
-            }
+                dispatch({ type: 'error', payload: error });
+            },
         );
     }, [queryCached]);
 

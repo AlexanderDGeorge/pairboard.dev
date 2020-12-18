@@ -1,26 +1,24 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../Application';
+import { CurrentDevContext } from '../../Application';
 import NavLinks from './NavLinks';
-import Search from '../Search/SearchBox';
 import ProfileNav from './ProfileNav';
 import logo from '../../Assets/PB.png';
 
 export default function Header() {
-    const user = useContext(UserContext);
+    const dev = useContext(CurrentDevContext);
 
     return (
         <StyledHeader>
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
                 <img src={logo} alt="" />
             </HomeLink>
-            {user ? <Search /> : null}
-            {user ? (
-                <LeftLinks>
+            {dev ? (
+                <>
                     <NavLinks />
                     <ProfileNav />
-                </LeftLinks>
+                </>
             ) : (
                 <AuthButtons>
                     <Link to="/login">Log In</Link>
@@ -43,8 +41,11 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media screen and (max-width: 1000px) {
+        padding: 0 8%;
+    }
     @media screen and (max-width: 600px) {
-        padding: 2%;
+        padding: 0 2%;
     }
 `;
 
@@ -74,13 +75,6 @@ const HomeLink = styled(Link)`
         border: 2px solid ${(props) => props.theme.white};
         box-shadow: 0 0 20px -8px;
     }
-`;
-
-const LeftLinks = styled.div`
-    position: relative;
-    height: 100%;
-    display: flex;
-    align-items: center;
 `;
 
 const AuthButtons = styled.div`

@@ -1,7 +1,6 @@
 import React from 'react';
-import { MdSend } from 'react-icons/md';
 import styled from 'styled-components';
-import { HeavyH1 } from '../../styled-components/StyledHeaders';
+import { HeavyH1 } from '../../styled-components/StyledHeadings';
 
 export default function NewMessage() {
     return (

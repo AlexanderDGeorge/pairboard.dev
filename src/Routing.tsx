@@ -1,6 +1,6 @@
 import React, { useContext, Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { UserContext } from './Application';
+import { CurrentDevContext } from './Application';
 import Header from './Components/Nav/Header';
 import Footer from './Components/Nav/Footer';
 import LandingPage from './Pages/LandingPage';
@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const SignupPage = lazy(() => import('./Pages/SignupPage'));
 const LoginPage = lazy(() => import('./Pages/LoginPage'));
-const UserPage = lazy(() => import('./Pages/UserPage'));
+const ProfilePage = lazy(() => import('./Pages/ProfilePage'));
 const HomePage = lazy(() => import('./Pages/HomePage'));
 const RoomPage = lazy(() => import('./Pages/RoomPage'));
 const MessagesPage = lazy(() => import('./Pages/MessagesPage'));
@@ -18,10 +18,11 @@ const SettingsPage = lazy(() => import('./Pages/SettingsPage'));
 const TeamPage = lazy(() => import('./Pages/TeamPage'));
 
 export default function Routing() {
-    const currentUser = useContext(UserContext);
+    const currentDev = useContext(CurrentDevContext);
+    console.log(currentDev);
 
-    if (currentUser) {
-        if (currentUser.status === 'in room') {
+    if (currentDev) {
+        if (currentDev.roomId) {
             return (
                 <Suspense fallback={<LoadingPage />}>
                     <RoomPage />
@@ -39,13 +40,8 @@ export default function Routing() {
                             <Route path="/settings" component={SettingsPage} />
                             <Route path="/messages" component={MessagesPage} />
                             <Route
-                                exact
-                                path="/user"
-                                render={() => <UserPage user={currentUser} />}
-                            />
-                            <Route
-                                path="/user/:username"
-                                component={UserPage}
+                                path="/dev/:username"
+                                component={ProfilePage}
                             />
                             <Route path="/" component={HomePage} />
                         </Switch>
@@ -54,7 +50,7 @@ export default function Routing() {
                 <Footer />
             </BrowserRouter>
         );
-    } else if (currentUser === null) {
+    } else if (currentDev === null) {
         return (
             <BrowserRouter>
                 <Header />
@@ -82,11 +78,15 @@ export default function Routing() {
 }
 
 const StyledPage = styled.div`
+    min-height: 80%;
     height: 100%;
     width: 100%;
     overflow-y: auto;
     padding: 2% 15%;
     background-color: ${(props) => props.theme.verylight};
+    @media screen and (max-width: 1000px) {
+        padding: 2% 8%;
+    }
     @media screen and (max-width: 600px) {
         padding: 2%;
     }
