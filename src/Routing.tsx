@@ -22,13 +22,13 @@ export default function Routing() {
     console.log(currentDev);
 
     if (currentDev) {
-        // if (currentDev.status === 'in room') {
-        //     return (
-        //         <Suspense fallback={<LoadingPage />}>
-        //             <RoomPage />
-        //         </Suspense>
-        //     );
-        // }
+        if (currentDev.roomId) {
+            return (
+                <Suspense fallback={<LoadingPage />}>
+                    <RoomPage />
+                </Suspense>
+            );
+        }
         return (
             <BrowserRouter>
                 <Header />
@@ -39,11 +39,6 @@ export default function Routing() {
                             <Route path="/teams" component={TeamPage} />
                             <Route path="/settings" component={SettingsPage} />
                             <Route path="/messages" component={MessagesPage} />
-                            {/* <Route
-                                exact
-                                path="/user"
-                                render={() => <ProfilePage user={currentDev} />}
-                            /> */}
                             <Route
                                 path="/dev/:username"
                                 component={ProfilePage}
@@ -83,7 +78,8 @@ export default function Routing() {
 }
 
 const StyledPage = styled.div`
-    min-height: 80vh;
+    min-height: 80%;
+    height: 100%;
     width: 100%;
     overflow-y: auto;
     padding: 2% 15%;

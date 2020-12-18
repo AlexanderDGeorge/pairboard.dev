@@ -16,7 +16,7 @@ export default function useUpdateProfile() {
                 .collection('devs')
                 .doc(profile.uid)
                 .update({
-                    ...profile,
+                    profile: { ...profile },
                 });
         } catch (err) {
             console.error(err.message);

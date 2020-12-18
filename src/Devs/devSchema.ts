@@ -4,6 +4,7 @@ export interface DevSchema {
     user: User;
     settings: DevSettings;
     profile: DevPublicProfile;
+    roomId?: string;
 }
 
 export interface DevPublicProfile {

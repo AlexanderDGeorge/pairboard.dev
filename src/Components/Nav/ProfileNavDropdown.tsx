@@ -43,7 +43,7 @@ const StyledDropdown = styled.div`
     min-width: 200px;
     /* border: 2px solid ${(props) => props.theme.accent}; */
     border-radius: 10px;
-    padding: 2%;
+    padding: 5px;
     /* color: ${(props) => props.theme.white}; */
     background-color: ${(props) => props.theme.white};
     box-shadow: 0 2px 20px -4px ${(props) => props.theme.verydark};

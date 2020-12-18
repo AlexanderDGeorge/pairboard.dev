@@ -32,7 +32,7 @@ export default function ExpandedPost(props: { post: PostSchema }) {
                 <PostTag tag={language} />
                 <PostTag tag={type} />
             </Tags>
-            <Link to={`/user/${created_by.username}`}>
+            <Link to={`/dev/${created_by.username}`}>
                 <img src={created_by.image_url} alt="" />
                 <h4>{created_by.username}</h4>
             </Link>

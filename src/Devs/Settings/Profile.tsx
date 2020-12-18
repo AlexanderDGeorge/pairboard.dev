@@ -14,11 +14,10 @@ import { DevPublicProfile } from '../devSchema';
 
 export default function Profile(props: {
     loading: boolean;
-    topMessage: string;
-    setImageFile: Function;
-    validate: any;
-    handleSubmit: any;
-    dev: any;
+    topMessage: string | undefined;
+    validate: Function;
+    handleSubmit: Function;
+    dev: DevPublicProfile;
 }) {
     const {
         username,
@@ -29,7 +28,7 @@ export default function Profile(props: {
         github_url,
         linkedIn_url,
     } = props.dev;
-    const { loading, topMessage, validate, handleSubmit, setImageFile } = props;
+    const { loading, topMessage, validate, handleSubmit } = props;
 
     return (
         <Formik
@@ -42,14 +41,14 @@ export default function Profile(props: {
                 github_url: github_url || '',
                 linkedIn_url: linkedIn_url || '',
             }}
-            onSubmit={handleSubmit}
-            validate={validate}
+            onSubmit={(values) => handleSubmit(values)}
+            validate={(values) => validate(values)}
         >
             {({ isValid }) => (
                 <ProfileSettings>
                     <HeavyH1>Profile</HeavyH1>
                     <h2>{topMessage}</h2>
-                    <ProfilePicture setImageFile={setImageFile} />
+                    <ProfilePicture />
                     <StyledField>
                         <label htmlFor="username">username</label>
                         <Field name="username" type="text" />

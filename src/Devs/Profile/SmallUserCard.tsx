@@ -6,7 +6,7 @@ import { DevPublicProfile } from '../devSchema';
 export default function SmallUserCard(props: { user: DevPublicProfile }) {
     const { image_url, username } = props.user;
     return (
-        <StyledSmallUserCard to={`/user/${username}`}>
+        <StyledSmallUserCard to={`/dev/${username}`}>
             <img src={image_url} alt="profile" />
             {username}
         </StyledSmallUserCard>

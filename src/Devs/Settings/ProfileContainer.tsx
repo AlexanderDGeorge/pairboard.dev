@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { CurrentDevContext } from '../../Application';
 import { validateUsername } from '../../util/validationFunctions';
 import Profile from './Profile';
@@ -7,12 +7,18 @@ import useUpdateProfile from '../util/useUpdateProfile';
 
 export default function ProfileContainer() {
     const { profile } = useContext(CurrentDevContext)!;
-    const [imageFile, setImageFile] = useState<File | string | undefined>(
-        undefined,
-    );
-    const [loading, setLoading] = useState(false);
-    const [topMessage, setTopMessage] = useState('');
+    const [topMessage, setTopMessage] = useState<string | undefined>(undefined);
     const { status, error, updateProfile } = useUpdateProfile();
+
+    useEffect(() => {
+        setTopMessage(error);
+    }, [error]);
+
+    useEffect(() => {
+        if (status === 'success') {
+            setTopMessage('Profile updated!');
+        }
+    }, [status]);
 
     async function validate(values: DevPublicProfile) {
         const errors: { [key: string]: string } = {};
@@ -25,47 +31,16 @@ export default function ProfileContainer() {
     }
 
     async function handleSubmit(values: DevPublicProfile) {
-        const {
-            bio,
-            github_url,
-            linkedIn_url,
-            personal_url,
-            location,
-            username,
-        } = values;
-
-        let imageURL;
-        setLoading(true);
-
-        if (typeof imageFile === 'string') {
-            imageURL = imageFile;
-        } else if (imageFile) {
-            // imageURL = await uploadPhoto(imageFile, dev.user.uid);
-        } else {
-            imageURL = profile.image_url;
-        }
-
-        // await updateUserProfile({
-        //     uid: dev.user.uid,
-        //     image_url: imageURL,
-        //     bio,
-        //     github_url,
-        //     linkedIn_url,
-        //     personal_url,
-        //     location,
-        //     username: username.toLowerCase(),
-        // });
-
-        setTopMessage('Successfully updated profile');
-        setLoading(false);
+        console.log(values);
+        const { uid, connections, image_url } = profile;
+        await updateProfile({ ...values, uid, connections, image_url });
     }
 
     return (
         <Profile
             dev={profile}
-            loading={loading}
+            loading={status === 'loading'}
             topMessage={topMessage}
-            setImageFile={setImageFile}
             validate={validate}
             handleSubmit={handleSubmit}
         />

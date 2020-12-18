@@ -41,12 +41,23 @@ export const updateDevProfile = functions.firestore
     .document('devs/{devId}')
     .onUpdate(async (snapshot) => {
         const data = snapshot.after.data();
-        await db
-            .collection('devs')
+        if (!data) return;
+        db.collection('devs')
             .doc(snapshot.after.id)
             .collection('profile')
             .doc(snapshot.after.id)
             .set({
                 ...data.profile,
             });
+        // need to update all documents that contain dev profile
+        // posts.created_by
+        const postsQuery = await db
+            .collection('posts')
+            .where('created_by.uid', '==', snapshot.after.id)
+            .get();
+        postsQuery.forEach((doc) => {
+            doc.ref.update({
+                created_by: data.profile,
+            });
+        });
     });

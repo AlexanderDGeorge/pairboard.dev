@@ -24,6 +24,7 @@ export default function ConnectionButton(props: { dev: DevPublicProfile }) {
                 <span>
                     <ConnectionsButton
                         onClick={(e) => {
+                            e.preventDefault();
                             e.stopPropagation();
                             handleModal(
                                 <DevConnectionsModal dev={props.dev} />,

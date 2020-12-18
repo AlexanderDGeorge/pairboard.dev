@@ -77,13 +77,6 @@ const HomeLink = styled(Link)`
     }
 `;
 
-const LeftLinks = styled.div`
-    position: relative;
-    height: 100%;
-    display: flex;
-    align-items: center;
-`;
-
 const AuthButtons = styled.div`
     height: fit-content;
     display: flex;

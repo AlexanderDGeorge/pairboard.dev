@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MdAddAPhoto } from 'react-icons/md';
 import { CurrentDevContext } from '../../Application';
 
-export default function ProfilePicture(props: { setImageFile: Function }) {
+export default function ProfilePicture() {
     const { profile, user } = useContext(CurrentDevContext)!;
     const [newPhotoURI, setNewPhotoURI] = useState<any>(undefined);
     const [selected, setSelected] = useState(0);
@@ -15,7 +15,7 @@ export default function ProfilePicture(props: { setImageFile: Function }) {
             reader.onload = (event) => {
                 setNewPhotoURI(event.target?.result);
             };
-            props.setImageFile(e.target.files[0]);
+            // props.setImageFile(e.target.files[0]);
             reader.readAsDataURL(e.target.files[0]);
             setSelected(2);
         }
@@ -37,7 +37,7 @@ export default function ProfilePicture(props: { setImageFile: Function }) {
                     className={selected === 2 ? 'selected' : ''}
                     onClick={(e) => {
                         setSelected(2);
-                        props.setImageFile(newPhotoURI);
+                        // props.setImageFile(newPhotoURI);
                     }}
                 />
             ) : null}

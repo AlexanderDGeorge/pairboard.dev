@@ -11,7 +11,7 @@ export default function Posts(props: { user: DevPublicProfile }) {
             name={`Posts by ${username}`}
             query={firestore()
                 .collection('posts')
-                .where('host.username', '==', username)}
+                .where('created_by.username', '==', username)}
         />
     );
 }

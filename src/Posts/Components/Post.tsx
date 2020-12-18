@@ -30,7 +30,7 @@ export default function Post(props: { post: PostSchema }) {
                 <h2>{title.slice(0, 28)}</h2>
                 <Link
                     onClick={(e) => e.stopPropagation()}
-                    to={`/user/${created_by.username}`}
+                    to={`/dev/${created_by.username}`}
                 >
                     <img src={created_by.image_url} alt="" />
                     {created_by.username}

@@ -13,9 +13,10 @@ export default function ProfileCard(props: { dev: DevPublicProfile }) {
 
     return (
         <StyledProfileCard
-            // to={`/dev/${username}`}
+            to={`/dev/${username}`}
             onClick={(e) => {
                 handleModal();
+                e.preventDefault();
                 e.stopPropagation();
             }}
         >
@@ -32,7 +33,7 @@ export default function ProfileCard(props: { dev: DevPublicProfile }) {
     );
 }
 
-const StyledProfileCard = styled.div`
+const StyledProfileCard = styled(Link)`
     position: relative;
     min-height: 100px;
     height: 16vw;
@@ -47,7 +48,9 @@ const StyledProfileCard = styled.div`
     > img {
         height: 100%;
         width: auto;
+        min-width: 100px;
         margin-right: 10px;
+        background-color: ${(props) => props.theme.verydark};
     }
     &:hover {
         box-shadow: 0 5px 20px -8px ${(props) => props.theme.white};

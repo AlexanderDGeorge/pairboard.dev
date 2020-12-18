@@ -8,23 +8,21 @@ export default function ProfileNav() {
     const [open, setOpen] = useState(false);
 
     return (
-        <>
-            <StyledProfileNav
-                src={image_url}
-                alt=""
-                onClick={() => setOpen(true)}
-            />
+        <StyledProfileNav>
+            <img src={image_url} alt="" onClick={() => setOpen(true)} />
             {open ? <ProfileNavDropdown setOpen={setOpen} /> : null}
-        </>
+        </StyledProfileNav>
     );
 }
 
-const StyledProfileNav = styled.img`
+const StyledProfileNav = styled.div`
     position: relative;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    margin-left: 10px;
-    background-color: ${(props) => props.theme.verydark};
-    cursor: pointer;
+    > img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 10px;
+        background-color: ${(props) => props.theme.verydark};
+        cursor: pointer;
+    }
 `;
