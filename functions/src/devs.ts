@@ -27,7 +27,6 @@ export const createDevProfile = functions.firestore
     .document('devs/{devId}')
     .onCreate(async (snapshot) => {
         const data = snapshot.data();
-        console.log(data);
         await db
             .collection('devs')
             .doc(snapshot.id)
