@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ModalContext, CurrentDevContext } from '../../Application';
 import { DevPublicProfile } from '../devSchema';
-import UserConnectionsModal from './UserConnectionsModal';
+import DevConnectionsModal from './DevConnectionsModal';
 
-export default function ConnectionDropdown(props: { user: DevPublicProfile }) {
-    const { connections } = props.user;
+export default function ConnectionDropdown(props: { dev: DevPublicProfile }) {
+    const { connections } = props.dev;
     const { profile } = useContext(CurrentDevContext)!;
     const { handleModal } = useContext(ModalContext)!;
 
@@ -24,12 +24,12 @@ export default function ConnectionDropdown(props: { user: DevPublicProfile }) {
         <StyledConnectionDropdown>
             <StyledDropdownButton
                 onClick={() =>
-                    handleModal(<UserConnectionsModal user={props.user} />)
+                    handleModal(<DevConnectionsModal dev={props.dev} />)
                 }
             >
                 View Connections
             </StyledDropdownButton>
-            {profile.uid !== props.user.uid ? (
+            {profile.uid !== props.dev.uid ? (
                 <AddRemoveConnection />
             ) : (
                 <StyledDropdownLink to="/settings/profile">

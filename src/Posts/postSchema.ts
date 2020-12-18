@@ -5,7 +5,7 @@ export interface PostSchema {
     id: firestore.DocumentReference['id'];
     created_at: Date;
     created_by: DevPublicProfile;
-    current_occupants: DevPublicProfile[];
+    occupants: DevPublicProfile[];
     subscribers: DevPublicProfile[];
     roomId: firestore.DocumentReference['id'];
     title: string;

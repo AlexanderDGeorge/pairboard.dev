@@ -1,31 +1,25 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ModalContext } from '../../Application';
-import { HeavyH1 } from '../../styled-components/StyledHeaders';
+import { HeavyH1 } from '../../styled-components/StyledHeadings';
+import useLockBodyScroll from '../../util/useLockBodyScroll';
 import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import { DevPublicProfile } from '../devSchema';
+import ProfileCard from './ProfileCard';
 
-export default function UserConnectionsModal(props: {
-    user: DevPublicProfile;
-}) {
+export default function DevConnectionsModal(props: { dev: DevPublicProfile }) {
     const { handleModal } = useContext(ModalContext)!;
-    const [connections, setConnections] = useState([]);
     const modalRef = useRef(null);
 
     useOnOutsideCLick(modalRef, () => handleModal());
-
-    useEffect(() => {
-        props.user.connections.forEach((connection) => {});
-    }, [props.user.connections]);
+    useLockBodyScroll();
 
     return (
         <StyledModal ref={modalRef}>
             <HeavyH1>Connections</HeavyH1>
-            {/* {connections.map((connection, i) => {
-                return (
-                    <SmallUserCard user={connection} key={i}/>
-                )
-            })} */}
+            {props.dev.connections.map((connection, i) => {
+                return <ProfileCard dev={connection} key={i} />;
+            })}
         </StyledModal>
     );
 }

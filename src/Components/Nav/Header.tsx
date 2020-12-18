@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CurrentDevContext } from '../../Application';
 import NavLinks from './NavLinks';
-import Search from '../Search/SearchBox';
 import ProfileNav from './ProfileNav';
 import logo from '../../Assets/PB.png';
 
@@ -15,12 +14,11 @@ export default function Header() {
             <HomeLink to="/" onClick={(e) => e.stopPropagation()}>
                 <img src={logo} alt="" />
             </HomeLink>
-            {dev ? <Search /> : null}
             {dev ? (
-                <LeftLinks>
+                <>
                     <NavLinks />
                     <ProfileNav />
-                </LeftLinks>
+                </>
             ) : (
                 <AuthButtons>
                     <Link to="/login">Log In</Link>
@@ -43,8 +41,11 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media screen and (max-width: 1000px) {
+        padding: 0 8%;
+    }
     @media screen and (max-width: 600px) {
-        padding: 2%;
+        padding: 0 2%;
     }
 `;
 

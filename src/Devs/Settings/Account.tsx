@@ -11,7 +11,7 @@ import {
 } from '../../styled-components/StyledButtons';
 import { validateEmail } from '../../util/validationFunctions';
 import LoadingBar from '../../Components/Animated/LoadingBar';
-import { HeavyH1 } from '../../styled-components/StyledHeaders';
+import { HeavyH1 } from '../../styled-components/StyledHeadings';
 
 export default function Account() {
     const { user } = useContext(CurrentDevContext)!;

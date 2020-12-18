@@ -4,11 +4,11 @@ import { MdSend, MdLink } from 'react-icons/md';
 import styled from 'styled-components';
 import { DevPublicProfile } from '../devSchema';
 
-export default function UserLinks(props: { dev: DevPublicProfile }) {
+export default function DevLinks(props: { dev: DevPublicProfile }) {
     const { personal_url, github_url, linkedIn_url } = props.dev;
 
     return (
-        <StyledUserLinks>
+        <StyledDevLinks>
             <StyledLink style={{ background: '#555' }} href={personal_url}>
                 <MdLink />
             </StyledLink>
@@ -21,11 +21,11 @@ export default function UserLinks(props: { dev: DevPublicProfile }) {
             <StyledLink style={{ background: '#0072b1' }} href={linkedIn_url}>
                 <FaLinkedin />
             </StyledLink>
-        </StyledUserLinks>
+        </StyledDevLinks>
     );
 }
 
-const StyledUserLinks = styled.div`
+const StyledDevLinks = styled.div`
     position: absolute;
     right: 0;
     top: 0;

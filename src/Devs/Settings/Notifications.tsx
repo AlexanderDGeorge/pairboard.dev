@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { HeavyH1 } from '../../styled-components/StyledHeaders';
+import { HeavyH1 } from '../../styled-components/StyledHeadings';
 
 export default function Notifications() {
     return (
@@ -8,7 +8,7 @@ export default function Notifications() {
             <HeavyH1>Notifications</HeavyH1>
             <p>Coming Soon</p>
         </StyledNotifications>
-    )
+    );
 }
 
 const StyledNotifications = styled.div`

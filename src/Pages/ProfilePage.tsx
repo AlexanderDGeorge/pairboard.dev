@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router';
 import Loading from './LoadingPage';
-import LargeUserCard from '../Devs/Profile/LargeUserCard';
 import Posts from '../Devs/Profile/Posts';
 import { DevPublicProfile } from '../Devs/devSchema';
 import { CurrentDevContext } from '../Application';
 import { firestore } from '../firebase';
+import ProfileCard from '../Devs/Profile/ProfileCard';
 
 export default function ProfilePage() {
     const params = useParams<{ username: string }>();
@@ -38,7 +38,7 @@ export default function ProfilePage() {
     if (dev) {
         return (
             <StyledProfilePage>
-                <LargeUserCard dev={dev} />
+                <ProfileCard dev={dev} />
                 <Posts user={dev} />
             </StyledProfilePage>
         );

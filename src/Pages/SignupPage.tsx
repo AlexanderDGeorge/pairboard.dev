@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import SignupForm from '../Auth/SignupForm';
 import ProviderSignupForm from '../Auth/ProviderSignupForm';
-import { StyledH1 } from '../styled-components/StyledHeaders';
+import { StyledH1 } from '../styled-components/StyledHeadings';
 import { StyledHorDiv } from './LoginPage';
 import { MdError } from 'react-icons/md';
 

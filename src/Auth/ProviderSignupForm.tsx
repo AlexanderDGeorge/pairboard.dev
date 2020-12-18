@@ -13,6 +13,7 @@ export default function ProviderSignup(props: { setTopError: Function }) {
 
     useEffect(() => {
         setTopError(error);
+        // eslint-disable-next-line
     }, [error]);
 
     async function validate(values: { username: string }) {

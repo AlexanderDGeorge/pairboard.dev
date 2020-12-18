@@ -9,7 +9,7 @@ import {
 } from '../../styled-components/StyledButtons';
 import LoadingBar from '../../Components/Animated/LoadingBar';
 import ProfilePicture from './ProfilePicture';
-import { HeavyH1 } from '../../styled-components/StyledHeaders';
+import { HeavyH1 } from '../../styled-components/StyledHeadings';
 import { DevPublicProfile } from '../devSchema';
 
 export default function Profile(props: {

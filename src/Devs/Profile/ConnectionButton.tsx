@@ -4,7 +4,7 @@ import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
 import { ModalContext } from '../../Application';
 import useOnOutsideCLick from '../../util/useOnOutsideClick';
-import UserConnectionsModal from './UserConnectionsModal';
+import DevConnectionsModal from './DevConnectionsModal';
 import ConnectionDropdown from './ConnectionDropdown';
 import { DevPublicProfile } from '../devSchema';
 
@@ -23,11 +23,12 @@ export default function ConnectionButton(props: { dev: DevPublicProfile }) {
             <StyledConnectionButton ref={buttonRef} style={spring}>
                 <span>
                     <ConnectionsButton
-                        onClick={() =>
+                        onClick={(e) => {
+                            e.stopPropagation();
                             handleModal(
-                                <UserConnectionsModal user={props.dev} />,
-                            )
-                        }
+                                <DevConnectionsModal dev={props.dev} />,
+                            );
+                        }}
                     >
                         {connections.length} connections
                     </ConnectionsButton>
@@ -37,7 +38,7 @@ export default function ConnectionButton(props: { dev: DevPublicProfile }) {
                         <MdArrowDropDown />
                     </ConnectionDropdownButton>
                 </span>
-                <ConnectionDropdown user={props.dev} />
+                <ConnectionDropdown dev={props.dev} />
             </StyledConnectionButton>
         </Wrapper>
     );

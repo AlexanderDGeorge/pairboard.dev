@@ -54,14 +54,14 @@ export default function Shell(props: { post: PostSchema }) {
                         localStream={localStream}
                     />
                     <LocalStream localStream={localStream} />
-                    {post.current_occupants.map((occupant, i) => {
+                    {post.occupants.map((occupant, i) => {
                         if (user.uid === occupant.uid) return null;
                         return (
                             <PeerConnection
                                 key={i}
                                 localStream={localStream}
                                 peerId={occupant.uid}
-                                peers={post.current_occupants.length}
+                                peers={post.occupants.length}
                                 closeConnection={close}
                             />
                         );

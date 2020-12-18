@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { ModalContext } from '../Application';
-import { HeavyH1 } from '../styled-components/StyledHeaders';
+import { HeavyH1 } from '../styled-components/StyledHeadings';
 import useLockBodyScroll from '../util/useLockBodyScroll';
 import useOnOutsideCLick from '../util/useOnOutsideClick';
 

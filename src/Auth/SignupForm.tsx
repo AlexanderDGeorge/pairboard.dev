@@ -14,8 +14,8 @@ export default function SignupForm(props: { setTopError: Function }) {
     const { status, error, signupWithEmail } = useSignup();
 
     useEffect(() => {
-        console.log(error);
         setTopError(error);
+        // eslint-disable-next-line
     }, [error]);
 
     async function validate(values: {

@@ -26,11 +26,8 @@ const MONTHS = [
 ];
 
 export default function PostDate(props: { start: Date; expanded?: any }) {
-    console.log(props.start);
-
     function convertDate() {
         const temp = new Date(props.start);
-        console.log(temp);
         const year = temp.getFullYear();
         const month = MONTHS[temp.getMonth()];
         const date = temp.getDate();

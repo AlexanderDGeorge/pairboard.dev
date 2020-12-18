@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import LoginForm from '../Auth/LoginForm';
 import { FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { StyledH1 } from '../styled-components/StyledHeaders';
+import { StyledH1 } from '../styled-components/StyledHeadings';
 import { StyledGithubButton } from '../styled-components/StyledButtons';
 import useLogin from '../Auth/util/useLogin';
 
