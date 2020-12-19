@@ -5,6 +5,7 @@ export interface DevSchema {
     settings: DevSettings;
     profile: DevPublicProfile;
     roomId?: string;
+    token?: string;
 }
 
 export interface DevPublicProfile {

@@ -4,8 +4,14 @@ import PostLane from './PostLane';
 import { firestore } from '../../firebase';
 
 export default function PostFeed() {
-    const postsQuery = firestore().collection('posts');
+    const date = new Date();
+    const postsQuery = firestore()
+        .collection('posts')
+        .where('start_date', '<=', date.toString());
 
+    // if we need to use > or < later
+    // we can add an active field to Posts
+    // cloud function cleanup when date passes
     return (
         <StyledPostFeed>
             <PostLane name="Create a Post" create />

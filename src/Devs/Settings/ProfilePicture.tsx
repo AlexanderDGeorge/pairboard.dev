@@ -1,46 +1,81 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdAddAPhoto } from 'react-icons/md';
 import { CurrentDevContext } from '../../Application';
+import useUpdateProfile from '../util/useUpdateProfile';
 
 export default function ProfilePicture() {
     const { profile, user } = useContext(CurrentDevContext)!;
-    const [newPhotoURI, setNewPhotoURI] = useState<any>(undefined);
+    const [imagePreviews, setImagePreviews] = useState<string[]>([
+        profile.image_url,
+    ]);
+    const [pendingImages, setPendingImages] = useState<Array<string | File>>([
+        profile.image_url,
+    ]);
     const [selected, setSelected] = useState(0);
     const providerImage = user.providerData[0]?.photoURL;
+    const { uploadImage } = useUpdateProfile();
+    const imageToUpload: React.MutableRefObject<string | File> = useRef(
+        profile.image_url,
+    );
+
+    console.log(imageToUpload.current);
+
+    useEffect(() => {
+        if (providerImage) {
+            setImagePreviews((prev) => [...prev, providerImage]);
+        }
+    }, [providerImage]);
+
+    useEffect(() => {
+        console.log(pendingImages);
+        imageToUpload.current = pendingImages[selected];
+    }, [pendingImages, selected]);
+
+    useEffect(() => {
+        return () => {
+            (async () => {
+                console.log('unmounting');
+                await uploadImage(imageToUpload.current, profile);
+                console.log('unmounted');
+            })();
+        };
+        // eslint-disable-next-line
+    }, []);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        let imageURI = event.target?.result;
+        if (typeof imageURI === 'string') {
+            setImagePreviews((prev) => [...prev, imageURI as string]);
+        }
+    };
 
     function handlePreview(e: React.ChangeEvent<HTMLInputElement>) {
-        if (e.target.files?.length) {
-            let reader = new FileReader();
-            reader.onload = (event) => {
-                setNewPhotoURI(event.target?.result);
-            };
-            // props.setImageFile(e.target.files[0]);
-            reader.readAsDataURL(e.target.files[0]);
-            setSelected(2);
+        const files = e.target.files;
+        if (files) {
+            console.log(files[0]);
+            setSelected(imagePreviews.length);
+            reader.readAsDataURL(files[0]);
+            setPendingImages((prev) => [...prev, files[0]]);
         }
     }
 
     return (
         <StyledProfilePicture>
-            <img
-                src={profile.image_url}
-                alt="profile"
-                className={selected === 0 ? 'selected' : ''}
-                onClick={() => setSelected(0)}
-            />
-            {providerImage ? <img src={providerImage} alt="" /> : null}
-            {newPhotoURI ? (
-                <img
-                    src={newPhotoURI}
-                    alt=""
-                    className={selected === 2 ? 'selected' : ''}
-                    onClick={(e) => {
-                        setSelected(2);
-                        // props.setImageFile(newPhotoURI);
-                    }}
-                />
-            ) : null}
+            {imagePreviews.map((image, i: number) => {
+                return (
+                    <img
+                        src={image}
+                        alt=""
+                        key={i}
+                        className={selected === i ? 'selected' : ''}
+                        onClick={() => {
+                            setSelected(i);
+                        }}
+                    />
+                );
+            })}
             <StyledUploadButton>
                 <MdAddAPhoto />
                 <label htmlFor="photo-upload"></label>

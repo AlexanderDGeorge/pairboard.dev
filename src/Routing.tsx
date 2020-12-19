@@ -19,7 +19,7 @@ const TeamPage = lazy(() => import('./Pages/TeamPage'));
 
 export default function Routing() {
     const currentDev = useContext(CurrentDevContext);
-    console.log(currentDev);
+    // console.log(currentDev);
 
     if (currentDev) {
         if (currentDev.roomId) {

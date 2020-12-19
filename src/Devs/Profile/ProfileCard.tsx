@@ -12,30 +12,28 @@ export default function ProfileCard(props: { dev: DevPublicProfile }) {
     const { handleModal } = useContext(ModalContext)!;
 
     return (
-        <StyledProfileCard
-            to={`/dev/${username}`}
-            onClick={(e) => {
-                handleModal();
-                e.preventDefault();
-                e.stopPropagation();
-            }}
-        >
-            <img src={image_url} alt="profile" />
-            <StyledInfoPane>
-                <StyledH1>{username}</StyledH1>
-                <h2>{name}</h2>
-                <p>{bio}</p>
-                {location ? <div>{location}</div> : null}
-            </StyledInfoPane>
+        <StyledProfileCard>
+            <StyledLinkedSide
+                to={`/dev/${username}`}
+                onClick={() => handleModal()}
+            >
+                <img src={image_url} alt="profile" />
+                <StyledInfoPane>
+                    <StyledH1>{username}</StyledH1>
+                    <h2>{name}</h2>
+                    <p>{bio}</p>
+                    <p>{location}</p>
+                </StyledInfoPane>
+            </StyledLinkedSide>
             <ConnectionButton dev={props.dev} />
             <DevLinks dev={props.dev} />
         </StyledProfileCard>
     );
 }
 
-const StyledProfileCard = styled(Link)`
+const StyledProfileCard = styled.div`
     position: relative;
-    min-height: 100px;
+    min-height: 120px;
     height: 16vw;
     width: 100%;
     margin: 10px 0;
@@ -44,16 +42,21 @@ const StyledProfileCard = styled(Link)`
     box-shadow: 0 5px 20px -8px ${(props) => props.theme.verydark};
     display: flex;
     overflow: hidden;
+    &:hover {
+        box-shadow: 0 5px 20px -8px ${(props) => props.theme.white};
+    }
+`;
+
+const StyledLinkedSide = styled(Link)`
+    width: 64%;
+    display: flex;
     text-decoration: none;
     > img {
         height: 100%;
         width: auto;
-        min-width: 100px;
+        min-width: 120px;
         margin-right: 10px;
         background-color: ${(props) => props.theme.verydark};
-    }
-    &:hover {
-        box-shadow: 0 5px 20px -8px ${(props) => props.theme.white};
     }
 `;
 

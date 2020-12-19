@@ -1,0 +1,22 @@
+{
+    "short_name": "pb.dev",
+    "name": "pairboard.dev",
+    "description": "code and connect",
+    "icons": [
+        {
+            "src": "/images/icons-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/images/icons-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/?source=pwa",
+    "background_color": "#efefef",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#009FF5"
+}

@@ -1,24 +1,22 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ModalContext, CurrentDevContext } from '../../Application';
-import useManagePost from '../util/useManagePost';
+import { ModalContext } from '../../Application';
 import {
     StyledButton,
     StyledButtonRow,
     StyledCancelButton,
 } from '../../styled-components/StyledButtons';
 import { PostSchema } from '../postSchema';
+import usePostSubscribe from '../util/usePostSubscribe';
 
 export default function PostSubscribe(props: { post: PostSchema }) {
-    const { type, id, created_by } = props.post;
-    const { user } = useContext(CurrentDevContext)!;
+    const { type } = props.post;
     const { handleModal } = useContext(ModalContext)!;
-    const { status, error, deletePost } = useManagePost();
+    const { status, error, subscribed, toggleSubscription } = usePostSubscribe(
+        props.post,
+    );
 
-    async function handleJoin() {
-        handleModal();
-        // await joinPost(user.uid, id);
-    }
+    console.log(status, error);
 
     return (
         <StyledPostSubscribe>
@@ -27,8 +25,10 @@ export default function PostSubscribe(props: { post: PostSchema }) {
                 <StyledCancelButton onClick={() => handleModal()}>
                     Cancel
                 </StyledCancelButton>
-                <StyledButton onClick={handleJoin}>
-                    Join this {type}
+                <StyledButton onClick={toggleSubscription}>
+                    {subscribed
+                        ? `Unsubscribe from this ${type}`
+                        : `Subscribe to this ${type}`}
                 </StyledButton>
             </StyledButtonRow>
         </StyledPostSubscribe>

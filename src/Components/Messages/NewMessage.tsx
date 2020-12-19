@@ -6,6 +6,7 @@ export default function NewMessage() {
     return (
         <StyledNewMessage>
             <HeavyH1>Compose a Message</HeavyH1>
+            <h1>Coming Soon</h1>
         </StyledNewMessage>
     );
 }
