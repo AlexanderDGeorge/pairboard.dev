@@ -27,12 +27,12 @@ export default function useCreatePost() {
         try {
             await postRef.set({
                 id: postRef.id,
-                created_at: new Date().toString(),
-                current_occupants: [],
+                created_at: new Date(),
+                occupants: [],
                 max_capacity: 3,
                 subscribers: [],
                 ...newPost,
-                start_date: newPost.start_date.toString(),
+                start_date: newPost.start_date,
             });
             setStatus('success');
         } catch (err) {

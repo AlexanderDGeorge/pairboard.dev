@@ -37,10 +37,12 @@ const StyledProfileCard = styled.div`
     height: 16vw;
     width: 100%;
     margin: 10px 0;
+    padding-right: 90px;
     border-radius: 2vw;
     background-color: ${(props) => props.theme.white};
     box-shadow: 0 5px 20px -8px ${(props) => props.theme.verydark};
     display: flex;
+    justify-content: space-between;
     overflow: hidden;
     &:hover {
         box-shadow: 0 5px 20px -8px ${(props) => props.theme.white};
@@ -52,9 +54,9 @@ const StyledLinkedSide = styled(Link)`
     display: flex;
     text-decoration: none;
     > img {
-        height: 100%;
-        width: auto;
-        min-width: 120px;
+        height: 16vw;
+        width: 16vw;
+        /* min-width: 120px; */
         margin-right: 10px;
         background-color: ${(props) => props.theme.verydark};
     }

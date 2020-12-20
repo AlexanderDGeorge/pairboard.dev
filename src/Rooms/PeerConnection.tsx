@@ -4,12 +4,9 @@ import {
     initiateConnection,
     listenForConnectionEvents,
 } from './WebRTCFunctions';
-import {
-    listenForCandidates,
-    resetRoomNotifications,
-} from '../../firebase/room';
-import { CurrentDevContext } from '../../Application';
-import { DevPublicProfile } from '../../Devs/devSchema';
+import { listenForCandidates, resetRoomNotifications } from '../firebase/room';
+import { CurrentDevContext } from '../Application';
+import { DevPublicProfile } from '../Devs/devSchema';
 
 interface PeerConnectionProps {
     localStream: MediaStream;

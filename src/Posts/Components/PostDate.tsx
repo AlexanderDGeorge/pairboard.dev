@@ -25,9 +25,9 @@ const MONTHS = [
     'DEC',
 ];
 
-export default function PostDate(props: { start: Date; expanded?: any }) {
+export default function PostDate(props: { start: any; expanded?: any }) {
     function convertDate() {
-        const temp = new Date(props.start);
+        const temp = props.start.toDate();
         const year = temp.getFullYear();
         const month = MONTHS[temp.getMonth()];
         const date = temp.getDate();
@@ -105,8 +105,8 @@ const StyledExpandedPostDate = styled(StyledPostDate)`
     min-height: 100%;
     min-width: 350px;
     width: 50%;
+    padding: 10px;
     flex-direction: row;
-    border: 0;
     > h4 {
         font-weight: 500;
         font-size: 1.3em;

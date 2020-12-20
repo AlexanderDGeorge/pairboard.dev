@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PostSchema } from '../../Posts/postSchema';
+import { PostSchema } from '../Posts/postSchema';
 import Controls from './Controls';
 import { initiateScreenShare } from './WebRTCFunctions';
 

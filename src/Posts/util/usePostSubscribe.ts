@@ -4,7 +4,7 @@ import { functions } from '../../firebase';
 import { PostSchema } from '../postSchema';
 
 const subscribeToPost = functions.httpsCallable('subscribeToPost');
-const unsubscribeToPost = functions.httpsCallable('unsubscribeToPost');
+const unsubscribeFromPost = functions.httpsCallable('unsubscribeFromPost');
 
 export default function usePostSubscribe(post: PostSchema) {
     const [status, setStatus] = useState<
@@ -27,7 +27,7 @@ export default function usePostSubscribe(post: PostSchema) {
             setStatus('error');
         } else {
             if (subscribed) {
-                unsubscribeToPost({ postId: post.id, token });
+                unsubscribeFromPost({ postId: post.id, token });
                 setSubscribed(false);
             } else {
                 subscribeToPost({ postId: post.id, token });

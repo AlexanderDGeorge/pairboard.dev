@@ -1,4 +1,4 @@
-import { auth, firestore, functions, messaging } from '../../firebase';
+import { auth, firestore, functions } from '../../firebase';
 import { firestore as Firestore } from 'firebase';
 import { useEffect, useState } from 'react';
 import { DevSchema } from '../devSchema';
@@ -36,21 +36,21 @@ export default function useCurrentDev() {
         };
     }, []);
 
-    useEffect(() => {
-        if (dev && !dev.token) {
-            messaging
-                .getToken({
-                    vapidKey:
-                        'BPJzud3LAYftqMJ1j9YRDC71Kk9RCcl6IQQA8DQ4LdEsnFxsD68e59nc4vctHa1y-DqBY_R7oXkYTn3wi9USBr0',
-                })
-                .then(async (token) => {
-                    if (token) {
-                        console.log('generated token', token);
-                        await addTokenToDev({ token });
-                    }
-                });
-        }
-    }, [dev]);
+    // useEffect(() => {
+    //     if (dev && !dev.token) {
+    //         messaging
+    //             .getToken({
+    //                 vapidKey:
+    //                     'BPJzud3LAYftqMJ1j9YRDC71Kk9RCcl6IQQA8DQ4LdEsnFxsD68e59nc4vctHa1y-DqBY_R7oXkYTn3wi9USBr0',
+    //             })
+    //             .then(async (token) => {
+    //                 if (token) {
+    //                     console.log('generated token', token);
+    //                     await addTokenToDev({ token });
+    //                 }
+    //             });
+    //     }
+    // }, [dev]);
 
     return dev;
 }
@@ -59,4 +59,5 @@ const convertDocToDev = (doc: Firestore.DocumentData) => ({
     settings: doc.settings,
     profile: doc.profile,
     token: doc.token,
+    roomId: doc.roomId,
 });

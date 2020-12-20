@@ -5,13 +5,12 @@ import { firestore } from '../../firebase';
 
 export default function PostFeed() {
     const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    // console.log(date);
     const postsQuery = firestore()
         .collection('posts')
-        .where('start_date', '<=', date.toString());
+        .where('start_date', '>=', date);
 
-    // if we need to use > or < later
-    // we can add an active field to Posts
-    // cloud function cleanup when date passes
     return (
         <StyledPostFeed>
             <PostLane name="Create a Post" create />

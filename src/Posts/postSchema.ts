@@ -3,10 +3,12 @@ import { DevPublicProfile } from '../Devs/devSchema';
 
 export interface PostSchema {
     id: firestore.DocumentReference['id'];
+    admins: DevPublicProfile['uid'][];
+    opened: boolean;
     created_at: Date;
     created_by: DevPublicProfile;
-    occupants: DevPublicProfile[];
     subscribers: DevPublicProfile['uid'][];
+    occupants: DevPublicProfile[];
     roomId: firestore.DocumentReference['id'];
     title: string;
     description: string;

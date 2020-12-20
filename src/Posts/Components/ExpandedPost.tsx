@@ -7,6 +7,7 @@ import useOnOutsideCLick from '../../util/useOnOutsideClick';
 import PostTag from './PostTag';
 import PostSubscribe from './PostSubscribe';
 import PostDate from './PostDate';
+import JoinPost from './JoinRoom';
 import { PostSchema } from '../postSchema';
 
 export default function ExpandedPost(props: { post: PostSchema }) {
@@ -20,6 +21,11 @@ export default function ExpandedPost(props: { post: PostSchema }) {
         language,
         start_date,
     } = props.post;
+
+    const now = new Date();
+    const hasStarted = start_date <= now;
+
+    console.log(hasStarted);
 
     useOnOutsideCLick(modalRef, () => handleModal());
     useLockBodyScroll();
@@ -38,15 +44,19 @@ export default function ExpandedPost(props: { post: PostSchema }) {
             </Link>
             <p>{description}</p>
             <StyledDivider />
-            <PostSubscribe post={props.post} />
+            {hasStarted ? (
+                <JoinPost post={props.post} />
+            ) : (
+                <PostSubscribe post={props.post} />
+            )}
         </StyledModal>
     );
 }
 
 const StyledModal = styled.div`
     position: relative;
-    width: 600px;
-    border-radius: 5px;
+    width: 100%;
+    border-radius: 10px;
     padding: 2%;
     display: flex;
     flex-direction: column;

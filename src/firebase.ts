@@ -22,7 +22,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 export const functions = firebase.functions();
-export const messaging = firebase.messaging();
+// export const messaging = firebase.messaging();
 export const auth = firebase.auth();
 export const firestore = firebase.firestore;
 export const database = firebase.database;

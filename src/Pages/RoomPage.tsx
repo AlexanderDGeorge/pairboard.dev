@@ -1,16 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { CurrentDevContext } from '../Application';
 import LoadingBar from '../Components/Animated/LoadingBar';
-import Warmup from '../Components/Room/Shell';
+import { firestore } from '../firebase';
+import Shell from '../Rooms/Shell';
+import useFirebaseQuery from '../util/useFirebaseQuery';
 
-export default function RoomPage() {
-    const post = undefined;
+export default function RoomPage(props: { roomId: string }) {
+    const { roomId } = props;
+    const { data } = useFirebaseQuery(
+        firestore().collection('posts').doc(roomId),
+    );
 
-    if (post) {
+    if (data) {
+        console.log(data);
         return (
             <StyledRoomPage>
-                <Warmup post={post} />
+                <Shell room={data} />
             </StyledRoomPage>
         );
     } else {

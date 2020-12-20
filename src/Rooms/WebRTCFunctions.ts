@@ -1,6 +1,6 @@
-import { sendICECandidate, sendSessionDescription } from '../../firebase/room';
-import { database } from '../../firebase';
-import { DevPublicProfile } from '../../Devs/devSchema';
+import { sendICECandidate, sendSessionDescription } from '../firebase/room';
+import { database } from '../firebase';
+import { DevPublicProfile } from '../Devs/devSchema';
 
 const configuration: RTCConfiguration = {
     iceServers: [

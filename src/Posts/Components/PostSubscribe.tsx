@@ -20,7 +20,6 @@ export default function PostSubscribe(props: { post: PostSchema }) {
 
     return (
         <StyledPostSubscribe>
-            <PostNotificationSettings />
             <StyledButtonRow>
                 <StyledCancelButton onClick={() => handleModal()}>
                     Cancel
@@ -36,20 +35,5 @@ export default function PostSubscribe(props: { post: PostSchema }) {
 }
 
 const StyledPostSubscribe = styled.div`
-    width: 100%;
-    > p {
-        font-weight: 100;
-    }
-`;
-
-function PostNotificationSettings() {
-    return (
-        <StyledNotificationSettings>
-            Post Notifications Settings
-        </StyledNotificationSettings>
-    );
-}
-
-const StyledNotificationSettings = styled.div`
     width: 100%;
 `;
