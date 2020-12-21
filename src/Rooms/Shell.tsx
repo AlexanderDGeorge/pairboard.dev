@@ -10,14 +10,15 @@ import LocalStream from './LocalStream';
 export default function Shell(props: { room: RoomSchema }) {
     const { room } = props;
     const { you, localStream } = useRoomConnection(room.id);
-    const { uid } = useContext(CurrentDevContext)!.profile;
+    const { username } = useContext(CurrentDevContext)!.profile;
 
     if (localStream) {
+        console.log(room);
         return (
             <StyledShell>
                 <LocalStream localStream={localStream} />
                 {room.occupants.map((peer, i: number) => {
-                    if (peer.uid === uid) return null;
+                    if (peer.username === username) return null;
                     return (
                         <PeerConnection
                             occupant={peer}
@@ -30,6 +31,7 @@ export default function Shell(props: { room: RoomSchema }) {
             </StyledShell>
         );
     } else {
+        // UI to allow camera and mic access
         return (
             <StyledShell>
                 <LoadingBar />

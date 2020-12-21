@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import LoadingBar from '../Components/Animated/LoadingBar';
 import { firestore } from '../firebase';
 import Shell from '../Rooms/Shell';
+import OldShell from '../Rooms/OldShell';
 import useFirebaseQuery from '../util/useFirebaseQuery';
 
 export default function RoomPage(props: { roomId: string }) {
@@ -12,10 +13,11 @@ export default function RoomPage(props: { roomId: string }) {
     );
 
     if (data) {
-        console.log(data);
+        // console.log(data);
         return (
             <StyledRoomPage>
-                <Shell room={data} />
+                {/* <Shell room={data} /> */}
+                <OldShell post={data} />
             </StyledRoomPage>
         );
     } else {

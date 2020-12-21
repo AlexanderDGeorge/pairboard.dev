@@ -10,13 +10,17 @@ export default function PeerConnection(props: {
     localStream: MediaStream;
 }) {
     const { occupant, you, localStream } = props;
-    const { remoteStream } = usePeerConnection(occupant, you, localStream);
+    const { remoteStream, peerConnection } = usePeerConnection(
+        occupant,
+        you,
+        localStream,
+    );
 
     const videoRef: React.MutableRefObject<HTMLVideoElement | null> = useRef(
         null,
     );
 
-    console.log(remoteStream);
+    // console.log(peerConnection);
 
     useEffect(() => {
         if (!remoteStream || !videoRef.current) return;

@@ -5,7 +5,7 @@ import { CurrentDevContext } from '../Application';
 
 export default function useRoomConnection(roomId: RoomSchema['id']) {
     const { profile } = useContext(CurrentDevContext)!;
-    const you = new Peer(profile.uid);
+    const you = new Peer(profile.username);
     const roomConnection = you.connect(roomId);
     const [localStream, setLocalStream] = useState<MediaStream | undefined>(
         undefined,
@@ -31,13 +31,16 @@ export default function useRoomConnection(roomId: RoomSchema['id']) {
         roomConnection.send(`${profile.username} has joined the room.`);
     });
 
-    you.on('connection', (connection) => {
-        connection.on('data', (data) => {
-            console.log(data);
-        });
-        connection.on('open', () => {
-            connection.send(`connected with ${profile.username}`);
-        });
+    roomConnection.on('connection', () => {
+        console.log('here');
+    });
+
+    roomConnection.on('data', (data) => {
+        console.log(data);
+    });
+
+    you.on('open', (id) => {
+        console.log(id);
     });
 
     you.on('call', (call) => {
