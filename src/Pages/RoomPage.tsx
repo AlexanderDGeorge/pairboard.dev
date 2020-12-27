@@ -16,8 +16,8 @@ export default function RoomPage(props: { roomId: string }) {
         // console.log(data);
         return (
             <StyledRoomPage>
-                {/* <Shell room={data} /> */}
-                <OldShell post={data} />
+                <Shell post={data} />
+                {/* <OldShell post={data} /> */}
             </StyledRoomPage>
         );
     } else {

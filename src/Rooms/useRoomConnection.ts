@@ -1,20 +1,25 @@
-import { RoomSchema } from './roomSchema';
 import Peer from 'peerjs';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { CurrentDevContext } from '../Application';
 
-export default function useRoomConnection(roomId: RoomSchema['id']) {
+export default function useRoomConnection(open: boolean, room?: Peer) {
     const { profile } = useContext(CurrentDevContext)!;
-    const you = new Peer(profile.username);
-    const roomConnection = you.connect(roomId);
+    const [you, setYou] = useState<Peer | undefined>(undefined);
+    const [roomConnection, setRoomConnection] = useState<
+        Peer.DataConnection | undefined
+    >(undefined);
     const [localStream, setLocalStream] = useState<MediaStream | undefined>(
         undefined,
     );
 
+    useMemo(() => {
+        setYou(new Peer(profile.username));
+    }, [profile.username]);
+
     useEffect(() => {
         navigator.mediaDevices
             .getUserMedia({
-                audio: true,
+                audio: false,
                 video: {
                     width: { min: 1024, ideal: 1280, max: 1920 },
                     height: { min: 576, ideal: 720, max: 1080 },
@@ -27,25 +32,20 @@ export default function useRoomConnection(roomId: RoomSchema['id']) {
             });
     }, []);
 
-    roomConnection.on('open', () => {
-        roomConnection.send(`${profile.username} has joined the room.`);
-    });
+    useEffect(() => {
+        if (open && room && you) {
+            setRoomConnection(you.connect(room.id));
+            console.log(room);
+        }
+    }, [room, you, open]);
 
-    roomConnection.on('connection', () => {
-        console.log('here');
-    });
-
-    roomConnection.on('data', (data) => {
-        console.log(data);
-    });
-
-    you.on('open', (id) => {
-        console.log(id);
-    });
-
-    you.on('call', (call) => {
-        call.answer(localStream);
-    });
+    useEffect(() => {
+        if (roomConnection) {
+            roomConnection.on('open', () => {
+                roomConnection.send(`${profile.username} has joined!`);
+            });
+        }
+    }, [roomConnection, profile.username]);
 
     return { you, localStream };
 }

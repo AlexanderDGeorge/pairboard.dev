@@ -4,20 +4,22 @@ import PeerConnection from './PeerConnection2';
 import { CurrentDevContext } from '../Application';
 import LoadingBar from '../Components/Animated/LoadingBar';
 import useRoomConnection from './useRoomConnection';
-import { RoomSchema } from './roomSchema';
+import useHostDuties from './useHostDuties';
 import LocalStream from './LocalStream';
+import { PostSchema } from '../Posts/postSchema';
 
-export default function Shell(props: { room: RoomSchema }) {
-    const { room } = props;
-    const { you, localStream } = useRoomConnection(room.id);
+export default function Shell(props: { post: PostSchema }) {
+    const { post } = props;
     const { username } = useContext(CurrentDevContext)!.profile;
+    const { room, open } = useHostDuties(post);
+    const { you, localStream } = useRoomConnection(open, room);
 
-    if (localStream) {
+    if (localStream && you) {
         console.log(room);
         return (
             <StyledShell>
                 <LocalStream localStream={localStream} />
-                {room.occupants.map((peer, i: number) => {
+                {post.occupants.map((peer, i: number) => {
                     if (peer.username === username) return null;
                     return (
                         <PeerConnection

@@ -39,7 +39,12 @@ export default function FormContainer(props: { type: PostSchema['type'] }) {
 
     async function handleSubmit(values: CreatePostFormData) {
         console.log(values);
-        await createPost({ ...values, created_by: profile, type: props.type });
+        await createPost({
+            ...values,
+            created_by: profile,
+            host: profile,
+            type: props.type,
+        });
         handleModal();
     }
 

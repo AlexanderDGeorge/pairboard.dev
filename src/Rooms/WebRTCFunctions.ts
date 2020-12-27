@@ -131,3 +131,7 @@ export async function initiateScreenShare() {
     });
     return stream;
 }
+
+export async function leaveRoom() {
+    
+}

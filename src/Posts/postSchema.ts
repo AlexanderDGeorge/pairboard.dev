@@ -7,6 +7,7 @@ export interface PostSchema {
     opened: boolean;
     created_at: Date;
     created_by: DevPublicProfile;
+    host: DevPublicProfile;
     subscribers: DevPublicProfile['uid'][];
     occupants: DevPublicProfile[];
     roomId: firestore.DocumentReference['id'];

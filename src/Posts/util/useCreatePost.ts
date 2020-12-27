@@ -7,6 +7,7 @@ export interface CreatePostFormData {
     title: PostSchema['title'];
     description: PostSchema['description'];
     difficulty: PostSchema['difficulty'];
+    host: PostSchema['host'];
     image_url: PostSchema['image_url'];
     language: PostSchema['language'];
     start_date: PostSchema['start_date'];
