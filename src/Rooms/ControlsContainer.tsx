@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import Peer from 'peerjs';
+import React, { useContext, useState } from 'react';
+import { CurrentDevContext } from '../Application';
+import { functions } from '../firebase';
 import { PostSchema } from '../Posts/postSchema';
 import Controls from './Controls';
-import { initiateScreenShare } from './WebRTCFunctions';
+
+const leavePostRoom = functions.httpsCallable('leavePostRoom');
 
 export default function ControlsContainer(props: {
     post: PostSchema;
     localStream: MediaStream;
-    setClose: Function;
+    you: Peer;
 }) {
-    const { setClose, localStream } = props;
+    const { post, localStream, you } = props;
+    const { profile } = useContext(CurrentDevContext)!;
     const audioTrack = localStream.getAudioTracks()[0];
     const videoTrack = localStream.getVideoTracks()[0];
 
@@ -25,11 +30,18 @@ export default function ControlsContainer(props: {
         }
     };
 
+    async function handleLeave() {
+        audioTrack.stop();
+        videoTrack.stop();
+        you.destroy();
+        await leavePostRoom({ postId: post.id, profile });
+    }
+
     async function shareScreen() {
-        const screenTrack = await initiateScreenShare().then(
-            (stream) => stream.getTracks()[0],
-        );
-        console.log(screenTrack);
+        // const screenTrack = await initiateScreenShare().then(
+        //     (stream) => stream.getTracks()[0],
+        // );
+        // console.log(screenTrack);
     }
 
     return (
@@ -38,7 +50,7 @@ export default function ControlsContainer(props: {
             audio={audio}
             video={video}
             shareScreen={shareScreen}
-            handleLeave={() => setClose(true)}
+            handleLeave={handleLeave}
         />
     );
 }

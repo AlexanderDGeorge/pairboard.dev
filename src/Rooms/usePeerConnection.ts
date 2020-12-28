@@ -10,7 +10,9 @@ export default function usePeerConnection(
 ) {
     const { profile } = useContext(CurrentDevContext)!;
     const polite = profile.uid > peer.uid;
-    const [status, setStatus] = useState('loading');
+    const [status, setStatus] = useState<
+        'open' | 'closed' | 'error' | 'loading'
+    >('loading');
     const [peerConnection, setPeerConnection] = useState<
         MediaConnection | undefined
     >(undefined);
@@ -19,33 +21,37 @@ export default function usePeerConnection(
         undefined,
     );
 
-    console.log(peerConnection);
+    console.log(status);
 
     useEffect(() => {
         if (!polite) {
-            setPeerConnection(you.call(peer.username, localStream));
+            setPeerConnection(you.call(peer.uid, localStream));
         } else {
             you.on('call', (mediaConnection) => {
                 setPeerConnection(mediaConnection);
                 mediaConnection.answer(localStream);
-                console.log(mediaConnection);
             });
         }
-    }, [peer.username, you, localStream, polite]);
+    }, [peer.uid, you, localStream, polite]);
 
     useEffect(() => {
         if (peerConnection) {
-            console.log('here');
             peerConnection.on('stream', (stream) => {
-                console.log(stream);
+                console.log('here');
                 setRemoteStream(stream);
+                setStatus('open');
+            });
+
+            peerConnection.on('error', (error) => {
+                setStatus('error');
+                console.log(error);
+            });
+
+            peerConnection.on('close', () => {
+                setStatus('closed');
             });
         }
     }, [peerConnection]);
 
-    // useEffect(() => {
-    //     setPeerConnection(you.call(peer.username, localStream));
-    // }, [peer.username, you, localStream]);
-
-    return { remoteStream };
+    return { remoteStream, status };
 }

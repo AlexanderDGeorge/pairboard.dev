@@ -44,6 +44,7 @@ const StyledControls = styled.div`
     position: absolute;
     z-index: 3;
     bottom: 0;
+    left: 0;
     height: 100px;
     width: 100%;
     padding: 10px;

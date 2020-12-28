@@ -3,7 +3,7 @@ import { firestore as Firestore } from 'firebase';
 import { useEffect, useState } from 'react';
 import { DevSchema } from '../devSchema';
 
-const addTokenToDev = functions.httpsCallable('addTokenToDev');
+// const addTokenToDev = functions.httpsCallable('addTokenToDev');
 
 export default function useCurrentDev() {
     const [dev, setDev] = useState<DevSchema | undefined | null>(undefined);

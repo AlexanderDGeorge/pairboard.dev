@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
 import 'firebase/storage';
-import 'firebase/messaging';
+// import 'firebase/messaging';
 import 'firebase/functions';
 
 const firebaseConfig = {

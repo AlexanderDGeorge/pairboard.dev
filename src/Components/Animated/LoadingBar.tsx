@@ -20,8 +20,8 @@ const load = keyframes`
 `;
 
 const StyledLoadingBar = styled.div`
-    height: 40%;
-    max-height: 40px;
+    height: 10%;
+    min-height: 20px;
     width: 80%;
     margin: 10px;
     border-radius: 50px;
