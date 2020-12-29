@@ -18,5 +18,7 @@ export default function useManagePost() {
         //     });
     }
 
+    async function openPostRoom() {}
+
     return { status, error, updatePost, deletePost };
 }

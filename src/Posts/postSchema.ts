@@ -18,6 +18,7 @@ export interface PostSchema {
     language: typeof LANGUAGES[number];
     start_date: Date;
     type: typeof POSTTYPES[number];
+    open: boolean;
 }
 
 export interface PostUpdateSchema {
@@ -29,6 +30,7 @@ export interface PostUpdateSchema {
     language: typeof LANGUAGES[number];
     start_date: Date;
     type: typeof POSTTYPES[number];
+    open: boolean;
 }
 
 export const LANGUAGES = [

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export default function TopDiv() {
     return (
@@ -30,9 +30,9 @@ export default function TopDiv() {
 
 const StyledTopDiv = styled.div`
     position: relative;
-    min-height: 35%;
+    height: 105%;
     padding: 2% 10%;
-    background-color: ${(props) => props.theme.white};
+    /* background-color: ${(props) => props.theme.white}; */
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -37,21 +37,40 @@ export default function ProfilePage() {
 
     if (dev) {
         return (
-            <StyledProfilePage>
-                <ProfileCard dev={dev} />
-                <Posts user={dev} />
-            </StyledProfilePage>
+            <StyledPage>
+                <StyledProfilePage>
+                    <ProfileCard dev={dev} />
+                    <Posts user={dev} />
+                </StyledProfilePage>
+            </StyledPage>
         );
     } else if (dev === null) {
         return (
-            <StyledProfilePage>
-                <h1>User Not Found</h1>
-            </StyledProfilePage>
+            <StyledPage>
+                <StyledProfilePage>
+                    <h1>User Not Found</h1>
+                </StyledProfilePage>
+            </StyledPage>
         );
     } else {
         return <Loading />;
     }
 }
+
+const StyledPage = styled.div`
+    min-height: 80%;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding: 2% 15%;
+    background-color: ${(props) => props.theme.verylight};
+    @media screen and (max-width: 1000px) {
+        padding: 2% 8%;
+    }
+    @media screen and (max-width: 600px) {
+        padding: 2%;
+    }
+`;
 
 const StyledProfilePage = styled.div`
     min-height: 100%;

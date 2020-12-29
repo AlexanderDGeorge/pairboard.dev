@@ -1,9 +1,10 @@
-import "styled-components";
+import 'styled-components';
 
-declare module "styled-components" {
+declare module 'styled-components' {
     export interface Theme {
         black: string;
         verydark: string;
+        darkaccent: string;
         dark: string;
         medium: string;
         accent: string;

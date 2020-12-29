@@ -28,7 +28,7 @@ const StyledModal = styled.div`
     height: 100%;
     width: 100%;
     padding: 2% 15%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
