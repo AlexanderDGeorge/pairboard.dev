@@ -1,4 +1,13 @@
-import { createGlobalStyle, Theme } from "styled-components";
+import { createGlobalStyle, Theme, keyframes } from 'styled-components';
+
+const breathing = keyframes`
+    from {
+        box-shadow: 0 0 20px -8px ;
+    }
+    to {
+        box-shadow: 0 0 20px 0px ;
+    }
+`;
 
 export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     * {
@@ -13,4 +22,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
         /* fill: ${(props) => props.theme.verydark}; */
         /* background-color: ${(props) => props.theme.white}; */
     }
+    /* button {
+        &:hover {
+            animation: ${breathing} 2s alternate-reverse infinite;
+        }
+    } */
 `;

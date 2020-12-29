@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { StyledH1 } from '../../styled-components/StyledHeadings';
 import useLockBodyScroll from '../../util/useLockBodyScroll';
 import { PostSchema } from '../postSchema';
 import FormContainer from './FormContainer';
@@ -40,8 +41,8 @@ export default function CreatePostModal(props: { type: PostSchema['type'] }) {
     }
 
     return (
-        <StyledModal ref={modalRef}>
-            <h1>
+        <>
+            <StyledH1>
                 Create a{' '}
                 <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="Pairboard">Pairboard</option>
@@ -49,9 +50,9 @@ export default function CreatePostModal(props: { type: PostSchema['type'] }) {
                     <option value="Lecture">Lecture</option>
                 </select>{' '}
                 Post
-            </h1>
+            </StyledH1>
             <ModalContent />
-        </StyledModal>
+        </>
     );
 }
 

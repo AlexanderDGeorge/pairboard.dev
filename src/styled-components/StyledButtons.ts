@@ -4,15 +4,15 @@ export const StyledButton = styled.button`
     margin: 10px 0;
     height: 60px;
     min-width: 120px;
-    width: 80%;
+    /* width: 80%; */
     max-width: 600px;
-    border-radius: 20px;
+    border-radius: 18px;
     padding: 10px;
     font-size: 1em;
     font-weight: 600;
     background: ${(props) =>
         `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`};
-    color: ${(props) => props.theme.light};
+    color: ${(props) => props.theme.white};
     outline: none;
     display: flex;
     align-items: center;
@@ -22,7 +22,7 @@ export const StyledButton = styled.button`
     &:hover {
         transition: all 0.5s ease-out;
         color: ${(props) => props.theme.white};
-        box-shadow: 0 0 20px -8px ${(props) => props.theme.dark};
+        box-shadow: 0 0 20px -4px ${(props) => props.theme.verydark};
         > svg {
             transition: all 0.5s ease-out;
             fill: ${(props) => props.theme.white};
@@ -68,8 +68,8 @@ export const StyledCancelButton = styled.button`
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     margin: 15px 0;
-    background-color: ${props => props.theme.dark};
-    color: ${props => props.theme.accent};
+    background-color: ${(props) => props.theme.dark};
+    color: ${(props) => props.theme.accent};
     text-decoration: underline;
     transition: border 0.2s linear;
     &:hover {
@@ -88,8 +88,8 @@ export const StyledDeleteButton = styled.button`
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     margin: 15px 0;
-    background-color: ${props => props.theme.dark};
-    color: ${props => props.theme.red};
+    background-color: ${(props) => props.theme.dark};
+    color: ${(props) => props.theme.red};
     text-decoration: underline;
     transition: border 0.2s linear;
     &:hover {
@@ -99,17 +99,26 @@ export const StyledDeleteButton = styled.button`
 `;
 
 export const StyledGithubButton = styled.button`
-    height: 50px;
-    width: 50px;
-    border-radius: 10px;
-    padding: 10px;
+    min-width: 120px;
+    border-radius: 18px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${props => props.theme.black};
+    background-color: ${(props) => props.theme.black};
+    color: ${(props) => props.theme.white};
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.5s ease-out;
+
+    &:hover {
+        transition: all 0.5s ease-out;
+        box-shadow: 0 0 20px -4px ${(props) => props.theme.verydark};
+    }
     > svg {
         height: 40px;
         width: auto;
-        fill: ${props => props.theme.white};
+        fill: ${(props) => props.theme.white};
+        margin-right: 20px;
     }
 `;

@@ -44,7 +44,7 @@ export default function LoginForm() {
             onSubmit={(values) => loginWithEmail(values.email, values.password)}
         >
             {({ isValid }) => (
-                <Form>
+                <Form style={{ width: '100%' }}>
                     {topError ? (
                         <TopError>
                             <MdError /> {topError}{' '}
@@ -62,11 +62,10 @@ export default function LoginForm() {
                     </StyledField>
                     <StyledButtonRow>
                         <StyledButton
-                            style={{ width: '100%' }}
                             disabled={!isValid || status === 'loading'}
                             type="submit"
                         >
-                            {status === 'loading' ? <LoadingBar /> : 'log in'}
+                            {status === 'loading' ? <LoadingBar /> : 'Sign In'}
                         </StyledButton>
                     </StyledButtonRow>
                 </Form>

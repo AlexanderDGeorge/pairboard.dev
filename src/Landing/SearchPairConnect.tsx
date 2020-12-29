@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function TopDiv() {
+export default function SearchPairConnect() {
     return (
-        <StyledTopDiv>
+        <StyledSearchPairConnect>
             <div>
                 <h1>Search</h1>
                 <p>
@@ -24,31 +24,22 @@ export default function TopDiv() {
                     social media profiles
                 </p>
             </div>
-        </StyledTopDiv>
+        </StyledSearchPairConnect>
     );
 }
 
-const StyledTopDiv = styled.div`
+const StyledSearchPairConnect = styled.div`
     position: relative;
-    height: 105%;
-    padding: 2% 10%;
-    /* background-color: ${(props) => props.theme.white}; */
+    padding: 20% 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     @media screen and (max-width: 800px) {
         flex-direction: column;
     }
-    /* ::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-        box-shadow: 3px 8px 20px 0px ${(props) => props.theme.verydark};
-    } */
+    * {
+        color: ${(props) => props.theme.white};
+    }
     > div {
         height: 100%;
         min-width: 25%;

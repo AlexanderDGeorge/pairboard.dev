@@ -40,6 +40,7 @@ export default function ProviderSignup(props: { setTopError: Function }) {
                         disabled={!isValid || status === 'loading'}
                     >
                         <FaGithub />
+                        Sign Up with Github
                     </StyledGithubButton>
                 </StyledProviderSignup>
             )}
@@ -49,9 +50,8 @@ export default function ProviderSignup(props: { setTopError: Function }) {
 
 const StyledProviderSignup = styled(Form)`
     width: 100%;
-    > span {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;

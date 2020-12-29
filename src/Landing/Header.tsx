@@ -25,21 +25,11 @@ export default function LandingHeader() {
 }
 
 const StyledHeader = styled.header`
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 100px;
     width: 100%;
-    padding: 0 15%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @media screen and (max-width: 1000px) {
-        padding: 0 8%;
-    }
-    @media screen and (max-width: 600px) {
-        padding: 0 2%;
-    }
 `;
 
 const HomeLink = styled(Link)`

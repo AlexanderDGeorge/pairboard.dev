@@ -68,7 +68,6 @@ export default function SignupForm(props: { setTopError: Function }) {
                     </StyledField>
                     <StyledButtonRow>
                         <StyledButton
-                            style={{ width: '100%' }}
                             type="submit"
                             disabled={!isValid || status === 'loading'}
                         >

@@ -2,8 +2,6 @@ import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import { FaGithub } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { StyledH1 } from '../styled-components/StyledHeadings';
 import { StyledGithubButton } from '../styled-components/StyledButtons';
 import useLogin from './util/useLogin';
 import useOnOutsideCLick from '../util/useOnOutsideClick';
@@ -16,10 +14,10 @@ export default function LoginModal() {
     useOnOutsideCLick(modalRef, () => handleModal());
 
     return (
-        <Login ref={modalRef}>
-            <StyledH1>Sign In</StyledH1>
+        <>
             <StyledGithubButton onClick={loginWithGithub}>
                 <FaGithub />
+                Sign In with Github
             </StyledGithubButton>
             <StyledHorDiv>
                 <div></div>
@@ -27,11 +25,9 @@ export default function LoginModal() {
                 <div></div>
             </StyledHorDiv>
             <LoginForm />
-            <Link style={{ marginTop: '10%' }} to="/signup">
-                meant to sign up?
-            </Link>
-            <Link to="/password">forgot password?</Link>
-        </Login>
+            <PlainLink>meant to sign up?</PlainLink>
+            <PlainLink>forgot password?</PlainLink>
+        </>
     );
 }
 
@@ -45,7 +41,7 @@ export const StyledHorDiv = styled.div`
     font-weight: 500;
     > div {
         width: 50%;
-        border-top: 1px solid ${(props) => props.theme.accent};
+        border-top: 2px solid ${(props) => props.theme.dark};
     }
     > h4 {
         min-height: 40px;
@@ -54,7 +50,7 @@ export const StyledHorDiv = styled.div`
         width: 40px;
         padding: 5px;
         border-radius: 50%;
-        background-color: ${(props) => props.theme.accent};
+        background-color: ${(props) => props.theme.dark};
         color: ${(props) => props.theme.white};
         display: flex;
         align-items: center;
@@ -62,31 +58,13 @@ export const StyledHorDiv = styled.div`
     }
 `;
 
-const Login = styled.div`
-    min-width: 300px;
-    width: 60%;
-    max-width: 500px;
-    border-radius: 18px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 5px 20px -4px ${(props) => props.theme.black};
-    background: ${(props) =>
-        `radial-gradient(${props.theme.white}, transparent)`};
-    backdrop-filter: blur(8px);
-    > form {
-        width: 100%;
-    }
-    > a {
-        height: 50px;
-        width: 100%;
-        max-width: 600px;
-        text-align: center;
-        color: ${(props) => props.theme.blue};
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
+const PlainLink = styled.button`
+    color: ${(props) => props.theme.blue};
+    text-decoration: none;
+    background: transparent;
+    font-size: 1em;
+    padding: 10px;
+    &:hover {
+        text-decoration: underline;
     }
 `;

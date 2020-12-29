@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export interface ModalSchema {
     handleModal: Function;
@@ -10,7 +10,7 @@ export interface ModalSchema {
 export default function useModal(open = false) {
     const [modalOpen, setModalOpen] = useState(open);
     const [modalContent, setModalContent] = useState<
-        ModalSchema["modalContent"]
+        ModalSchema['modalContent']
     >(undefined);
 
     let closeOnOutside = true;

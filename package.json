@@ -8,6 +8,7 @@
         "@testing-library/user-event": "^7.2.1",
         "algoliasearch": "^4.6.0",
         "firebase": "^7.24.0",
+        "firebase-functions": "^3.13.0",
         "formik": "^2.1.5",
         "peerjs": "^1.3.1",
         "react": "^16.13.1",

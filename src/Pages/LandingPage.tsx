@@ -1,6 +1,5 @@
 import React from 'react';
-import TopDiv from '../Landing/TopDiv';
-import BetterDevDiv from '../Landing/BetterDevDiv';
+import SearchPairConnect from '../Landing/SearchPairConnect';
 import CallToAction from '../Landing/CallToAction';
 import styled from 'styled-components';
 import mesh from '../Assets/landing-mesh.png';
@@ -11,8 +10,7 @@ export default function LandingPage() {
         <StyledLandingPage>
             <LandingHeader />
             <CallToAction />
-            {/* <BetterDevDiv /> */}
-            <TopDiv />
+            <SearchPairConnect />
         </StyledLandingPage>
     );
 }
