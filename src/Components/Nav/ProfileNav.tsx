@@ -18,13 +18,18 @@ export default function ProfileNav() {
 const StyledProfileNav = styled.div`
     position: relative;
     z-index: 3;
+    height: 60px;
+    box-shadow: 4px 4px 20px -4px ${(props) => props.theme.black};
+    background-color: ${(props) => props.theme.verydark};
+    cursor: pointer;
+    border-radius: 18px;
     > img {
-        z-index: 1;
+        border-radius: 18px;
         height: 60px;
         width: 60px;
-        border-radius: 18px;
-        background-color: ${(props) => props.theme.verydark};
-        box-shadow: 4px 4px 20px -4px ${(props) => props.theme.black};
-        cursor: pointer;
+        z-index: 1;
+    }
+    &:hover {
+        box-shadow: 4px 4px 20px -12px ${(props) => props.theme.black};
     }
 `;

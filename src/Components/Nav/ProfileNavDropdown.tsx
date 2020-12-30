@@ -42,10 +42,11 @@ const StyledDropdown = styled.div`
     height: 300px;
     min-width: 200px;
     border-radius: 18px;
-    padding: 5px 60px 5px 10px;
+    padding: 5px 80px 5px 5px;
     box-shadow: 4px 4px 20px -6px ${(props) => props.theme.verydark};
-    background: ${(props) =>
-        `radial-gradient(ellipse at -40% -150%, ${props.theme.white} 36%, transparent)`};
+    background: white;
+    /* background: ${(props) =>
+        `radial-gradient(ellipse at -40% -150%, ${props.theme.white} 36%, transparent)`}; */
     display: flex;
     flex-direction: column;
 

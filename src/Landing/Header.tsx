@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../Assets/PB.png';
 import { ModalContext } from '../Application';
@@ -30,21 +30,23 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 1;
+    * {
+        z-index: inherit;
+    }
 `;
 
-const HomeLink = styled(Link)`
+const sharedStyling = css`
     min-height: 60px;
     height: 60px;
     min-width: 60px;
-    width: 60px;
-    margin-right: 20px;
     border-radius: 18px;
     align-self: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.4em;
-    font-weight: 100;
+    font-weight: 500;
+    background-color: ${(props) => props.theme.verydark};
     color: ${(props) => props.theme.white};
     box-shadow: 4px 4px 20px -4px ${(props) => props.theme.black};
     transition: all 0.25s linear;
@@ -56,22 +58,14 @@ const HomeLink = styled(Link)`
     }
 `;
 
+const HomeLink = styled(Link)`
+    ${sharedStyling}
+`;
+
 const StyledSignIn = styled.button`
-    min-height: 60px;
-    height: 60px;
-    border-radius: 18px;
+    ${sharedStyling};
+
     padding: 0 30px;
-    align-self: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    background-color: ${(props) => props.theme.verydark};
-    color: ${(props) => props.theme.white};
-    box-shadow: 4px 4px 16px -4px ${(props) => props.theme.black};
-    transition: all 0.25s linear;
-    text-decoration: none;
-    outline: none;
     &:hover {
         box-shadow: 4px 4px 20px -12px ${(props) => props.theme.light};
     }

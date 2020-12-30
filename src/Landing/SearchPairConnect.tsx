@@ -37,7 +37,9 @@ const StyledSearchPairConnect = styled.div`
     @media screen and (max-width: 800px) {
         flex-direction: column;
     }
+    z-index: 1;
     * {
+        z-index: inherit;
         color: ${(props) => props.theme.white};
     }
     > div {

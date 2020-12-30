@@ -4,10 +4,14 @@ import CallToAction from '../Landing/CallToAction';
 import styled from 'styled-components';
 import mesh from '../Assets/landing-mesh.png';
 import LandingHeader from '../Landing/Header';
+import IOWall from '../Components/Animated/IOWall';
+
+// const mesh = lazy(() => import('../Assets/landing-mesh'));
 
 export default function LandingPage() {
     return (
         <StyledLandingPage>
+            <IOWall />
             <LandingHeader />
             <CallToAction />
             <SearchPairConnect />
@@ -16,6 +20,7 @@ export default function LandingPage() {
 }
 
 const StyledLandingPage = styled.div`
+    position: relative;
     min-height: 100%;
     padding: 2% 15%;
     background-image: url(${mesh});

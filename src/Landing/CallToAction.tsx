@@ -31,6 +31,10 @@ const StyledCallToAction = styled.div`
     color: white;
     display: flex;
     flex-direction: column;
+    z-index: 1;
+    * {
+        z-index: inherit;
+    }
     > h1 {
         width: 80%;
         font-size: 3.4em;
