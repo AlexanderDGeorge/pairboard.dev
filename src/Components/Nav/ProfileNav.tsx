@@ -17,12 +17,14 @@ export default function ProfileNav() {
 
 const StyledProfileNav = styled.div`
     position: relative;
+    z-index: 3;
     > img {
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        margin-left: 10px;
+        z-index: 1;
+        height: 60px;
+        width: 60px;
+        border-radius: 18px;
         background-color: ${(props) => props.theme.verydark};
+        box-shadow: 4px 4px 20px -4px ${(props) => props.theme.black};
         cursor: pointer;
     }
 `;

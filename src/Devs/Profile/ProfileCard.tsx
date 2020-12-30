@@ -5,7 +5,6 @@ import DevLinks from './DevLinks';
 import { Link } from 'react-router-dom';
 import { ModalContext } from '../../Application';
 import { StyledH1 } from '../../styled-components/StyledHeadings';
-import ConnectionButton from './ConnectionButton';
 
 export default function ProfileCard(props: { dev: DevPublicProfile }) {
     const { image_url, username, bio, name, location } = props.dev;
@@ -25,7 +24,7 @@ export default function ProfileCard(props: { dev: DevPublicProfile }) {
                     <p>{location}</p>
                 </StyledInfoPane>
             </StyledLinkedSide>
-            <ConnectionButton dev={props.dev} />
+            {/* <ConnectionButton dev={props.dev} /> */}
             <DevLinks dev={props.dev} />
         </StyledProfileCard>
     );
@@ -63,7 +62,7 @@ const StyledLinkedSide = styled(Link)`
 `;
 
 const StyledInfoPane = styled.div`
-    min-width: 200px;
+    /* min-width: 200px; */
     margin-right: 10px;
     display: flex;
     flex-direction: column;

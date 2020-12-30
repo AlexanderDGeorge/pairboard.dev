@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import { CurrentDevContext } from '../../Application';
 import { functions } from '../../firebase';
 import { StyledButton } from '../../styled-components/StyledButtons';
@@ -14,13 +13,5 @@ export default function JoinRoom(props: { post: PostSchema }) {
         await joinPostRoom({ profile, postId: props.post.id });
     }
 
-    return (
-        <StyledJoinRoom>
-            <StyledButton onClick={() => handleJoin()}>Join Room</StyledButton>
-        </StyledJoinRoom>
-    );
+    return <StyledButton onClick={() => handleJoin()}>Join Room</StyledButton>;
 }
-
-const StyledJoinRoom = styled.div`
-    width: 100%;
-`;

@@ -54,9 +54,6 @@ const HomeLink = styled(Link)`
         height: 60%;
         width: auto;
     }
-    &:hover {
-        box-shadow: 4px 4px 20px -12px ${(props) => props.theme.light};
-    }
 `;
 
 const StyledSignIn = styled.button`

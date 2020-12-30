@@ -22,17 +22,17 @@ export default function Search() {
     useOnOutsideCLick(modalRef, () => handleModal());
 
     return (
-        <StyledModal ref={modalRef}>
-            <InstantSearch searchClient={searchClient} indexName="devs">
-                <SearchInput />
-                <Index indexName="devs">
-                    <UserHits />
-                </Index>
-                <Index indexName="posts">
-                    <PostHits />
-                </Index>
-            </InstantSearch>
-        </StyledModal>
+        // <StyledModal ref={modalRef}>
+        <InstantSearch searchClient={searchClient} indexName="devs">
+            <SearchInput />
+            <Index indexName="devs">
+                <UserHits />
+            </Index>
+            <Index indexName="posts">
+                <PostHits />
+            </Index>
+        </InstantSearch>
+        // </StyledModal>
     );
 }
 

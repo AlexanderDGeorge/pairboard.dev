@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const StyledH1 = styled.h1`
     /* width: 100%; */
-    margin-bottom: 10px;
+    margin: 5px 0;
     font-weight: 500;
     font-size: 4em;
+    /* background: ${(props) => props.theme.darkblue}; */
     background: ${(props) =>
         `linear-gradient(140deg, ${props.theme.blue}, 20%, ${props.theme.green})`};
     background-clip: text;
@@ -23,7 +24,7 @@ export const StyledH1 = styled.h1`
 `;
 
 export const HeavyH1 = styled.h1`
-    margin-bottom: 10px;
+    margin: 5px 0;
     font-weight: 800;
     font-size: 3em;
     background: ${(props) =>

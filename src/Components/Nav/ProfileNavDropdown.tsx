@@ -35,18 +35,17 @@ export default function ProfileNavDropdown(props: { setOpen: Function }) {
 }
 
 const StyledDropdown = styled.div`
-    z-index: 2;
+    z-index: -1;
     position: absolute;
     right: 0;
-    bottom: -300px;
+    top: 0;
     height: 300px;
     min-width: 200px;
-    /* border: 2px solid ${(props) => props.theme.accent}; */
-    border-radius: 10px;
-    padding: 5px;
-    /* color: ${(props) => props.theme.white}; */
-    background-color: ${(props) => props.theme.white};
-    box-shadow: 0 2px 20px -4px ${(props) => props.theme.verydark};
+    border-radius: 18px;
+    padding: 5px 60px 5px 10px;
+    box-shadow: 4px 4px 20px -6px ${(props) => props.theme.verydark};
+    background: ${(props) =>
+        `radial-gradient(ellipse at -40% -150%, ${props.theme.white} 36%, transparent)`};
     display: flex;
     flex-direction: column;
 
@@ -57,7 +56,7 @@ const StyledDropdown = styled.div`
     button {
         margin: 6px 0;
         text-decoration: none;
-        color: ${(props) => props.theme.medium};
+        color: ${(props) => props.theme.blue};
         background-color: inherit;
         text-align: left;
         font-size: 1em;

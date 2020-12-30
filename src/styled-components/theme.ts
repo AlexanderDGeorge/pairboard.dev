@@ -13,7 +13,9 @@ export const lightTheme: Theme = {
     orange: '#FF890A',
     yellow: '#FCBF49',
     green: '#06D6A0',
+    darkgreen: '#049F76',
     blue: '#009FF5',
+    darkblue: '#0077B8',
     purple: '#825CFF',
     red: '#DD0000',
 };
@@ -31,7 +33,9 @@ export const darkTheme: Theme = {
     orange: '#FF890A',
     yellow: '#FCBF49',
     green: '#06D6A0',
+    darkgreen: '#049F76',
     blue: '#009FF5',
+    darkblue: '#0077B8',
     purple: '#825CFF',
     red: '#DD0000',
 };

@@ -81,10 +81,10 @@ const StyledPostDate = styled.div`
     height: 100%;
     min-height: 60px;
     width: 100px;
+    margin: 5px;
     border: 1px solid ${(props) => props.theme.dark};
     border-radius: 5px;
     padding: 5px;
-    /* background-color: ${(props) => props.theme.dark}; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,6 +107,11 @@ const StyledExpandedPostDate = styled(StyledPostDate)`
     width: 50%;
     padding: 10px;
     flex-direction: row;
+    background: ${(props) => props.theme.darkaccent};
+    > h3,
+    h2 {
+        color: ${(props) => props.theme.white};
+    }
     > h4 {
         font-weight: 500;
         font-size: 1.3em;

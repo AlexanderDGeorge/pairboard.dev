@@ -1,20 +1,17 @@
-import React, { useContext, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import { FaGithub } from 'react-icons/fa';
 import { StyledGithubButton } from '../styled-components/StyledButtons';
 import useLogin from './util/useLogin';
-import useOnOutsideCLick from '../util/useOnOutsideClick';
-import { ModalContext } from '../Application';
+import { StyledH1 } from '../styled-components/StyledHeadings';
 
 export default function LoginModal() {
-    const { handleModal } = useContext(ModalContext)!;
     const { loginWithGithub } = useLogin();
-    const modalRef = useRef(null);
-    useOnOutsideCLick(modalRef, () => handleModal());
 
     return (
         <>
+            <StyledH1>Sign In</StyledH1>
             <StyledGithubButton onClick={loginWithGithub}>
                 <FaGithub />
                 Sign In with Github
@@ -25,8 +22,6 @@ export default function LoginModal() {
                 <div></div>
             </StyledHorDiv>
             <LoginForm />
-            <PlainLink>meant to sign up?</PlainLink>
-            <PlainLink>forgot password?</PlainLink>
         </>
     );
 }
@@ -55,16 +50,5 @@ export const StyledHorDiv = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-`;
-
-const PlainLink = styled.button`
-    color: ${(props) => props.theme.blue};
-    text-decoration: none;
-    background: transparent;
-    font-size: 1em;
-    padding: 10px;
-    &:hover {
-        text-decoration: underline;
     }
 `;

@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { MdClose } from 'react-icons/md';
 import styled from 'styled-components';
 import { ModalContext } from '../../Application';
 import useLockBodyScroll from '../../util/useLockBodyScroll';
@@ -16,14 +17,19 @@ export default function Modal() {
         }
     }
 
-    useOnOutsideCLick(modalRef, () => handleModalClose());
+    useOnOutsideCLick(modalRef, handleModalClose);
 
     useLockBodyScroll();
 
     if (modalOpen && modalRoot) {
         return ReactDOM.createPortal(
             <StyledModal>
-                <ModalContent ref={modalRef}>{modalContent}</ModalContent>
+                <ModalContent ref={modalRef}>
+                    <ModalClose onClick={() => handleModal()}>
+                        <MdClose />
+                    </ModalClose>
+                    {modalContent}
+                </ModalContent>
             </StyledModal>,
             modalRoot,
         );
@@ -57,13 +63,31 @@ const ModalContent = styled.div`
     position: relative;
     min-width: 60%;
     max-width: 100%;
+    max-height: 100%;
     border-radius: 36px;
-    padding: 20px;
+    border-top-right-radius: 8px;
+    padding: 25px 5px 5px 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 4px 4px 20px -6px ${(props) => props.theme.black};
-    background: ${(props) =>
-        `radial-gradient(ellipse at -40% -150%, ${props.theme.white} 36%, transparent)`};
+    /* background: ${(props) =>
+        `radial-gradient(ellipse at -40% -150%, ${props.theme.white} 36%, transparent)`}; */
     backdrop-filter: blur(8px);
+    background: white;
+    cursor: default;
+    overflow-y: auto;
+`;
+
+const ModalClose = styled.button`
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    > svg {
+        height: 20px;
+        width: auto;
+        fill: ${(props) => props.theme.red};
+        outline: none;
+    }
 `;

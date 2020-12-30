@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ModalContext } from '../../Application';
 import { auth, githubProvider } from '../../firebase';
 
 export default function useLogin() {
@@ -6,6 +7,7 @@ export default function useLogin() {
         'idle' | 'loading' | 'success' | 'error'
     >('idle');
     const [error, setError] = useState<string | undefined>(undefined);
+    const { handleModal } = useContext(ModalContext)!;
 
     async function loginWithEmail(email: string, password: string) {
         setError(undefined);
@@ -13,6 +15,7 @@ export default function useLogin() {
         try {
             await auth.signInWithEmailAndPassword(email, password);
             setStatus('success');
+            handleModal();
         } catch (err) {
             console.error(err.message);
             setError(err.message);
@@ -26,6 +29,7 @@ export default function useLogin() {
         try {
             await auth.signInWithPopup(githubProvider);
             setStatus('success');
+            handleModal();
         } catch (err) {
             console.error(err.message);
             setError(err.message);

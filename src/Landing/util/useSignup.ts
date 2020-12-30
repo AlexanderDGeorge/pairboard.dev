@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ModalContext } from '../../Application';
 import { DevPublicProfile, DevSchema, DevSettings } from '../../Devs/devSchema';
 import { auth, firestore, githubProvider } from '../../firebase';
 import { isUsernameAvailable } from '../../util/validationFunctions';
@@ -8,6 +9,7 @@ export default function useSignup() {
         'idle' | 'loading' | 'success' | 'error'
     >('idle');
     const [error, setError] = useState<string | undefined>(undefined);
+    const { handleModal } = useContext(ModalContext)!;
 
     const defaultSettings: DevSettings = {
         dark_mode: 'auto',
@@ -33,6 +35,7 @@ export default function useSignup() {
                     name: user.providerData[0]?.displayName || '',
                 },
             });
+            handleModal();
         } catch (err) {
             console.error(err.message);
             setError(err.message);
@@ -64,6 +67,7 @@ export default function useSignup() {
             return;
         }
         setStatus('success');
+        handleModal();
     }
 
     async function signupWithEmail(

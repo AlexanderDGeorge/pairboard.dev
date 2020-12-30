@@ -91,24 +91,13 @@ export default function PostForm(props: {
                         value={values.start_date}
                         setFieldValue={setFieldValue}
                     />
-                    <StyledButtonRow>
-                        <StyledCancelButton
-                            type="reset"
-                            onClick={() => handleModal()}
-                        >
-                            Cancel
-                        </StyledCancelButton>
-                        <StyledButton
-                            disabled={!isValid || status === 'loading'}
-                            type="submit"
-                        >
-                            {status === 'loading' ? (
-                                <LoadingBar />
-                            ) : (
-                                'Create Post'
-                            )}
-                        </StyledButton>
-                    </StyledButtonRow>
+
+                    <StyledButton
+                        disabled={!isValid || status === 'loading'}
+                        type="submit"
+                    >
+                        {status === 'loading' ? <LoadingBar /> : 'Create Post'}
+                    </StyledButton>
                 </CreatePairboard>
             )}
         </Formik>

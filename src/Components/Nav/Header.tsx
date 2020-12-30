@@ -62,7 +62,6 @@ const HomeLink = styled(Link)`
     height: 60px;
     min-width: 60px;
     width: 60px;
-    margin-right: 20px;
     border-radius: 18px;
     align-self: center;
     display: flex;
@@ -71,7 +70,7 @@ const HomeLink = styled(Link)`
     font-size: 2.4em;
     font-weight: 100;
     color: ${(props) => props.theme.white};
-    box-shadow: 4px 4px 20px -4px ${(props) => props.theme.black};
+    box-shadow: 4px 4px 20px -6px ${(props) => props.theme.black};
     transition: all 0.25s linear;
     text-decoration: none;
     outline: none;
@@ -80,6 +79,9 @@ const HomeLink = styled(Link)`
         width: auto;
     }
     &:hover {
-        box-shadow: 4px 4px 20px -8px ${(props) => props.theme.darkaccent};
+        box-shadow: 4px 4px 20px -12px ${(props) => props.theme.black};
+    }
+    @media screen and (max-width: 400px) {
+        display: none;
     }
 `;

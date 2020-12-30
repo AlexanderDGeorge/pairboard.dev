@@ -4,7 +4,6 @@ export interface ModalSchema {
     handleModal: Function;
     modalOpen: boolean;
     modalContent: JSX.Element | JSX.Element[] | undefined;
-    closeOnOutside: boolean;
 }
 
 export default function useModal(open = false) {
@@ -13,7 +12,6 @@ export default function useModal(open = false) {
         ModalSchema['modalContent']
     >(undefined);
 
-    let closeOnOutside = true;
     const handleModal = (content?: JSX.Element | JSX.Element[]) => {
         if (content) {
             setModalOpen(true);
@@ -24,5 +22,5 @@ export default function useModal(open = false) {
         }
     };
 
-    return { handleModal, closeOnOutside, modalOpen, modalContent };
+    return { handleModal, modalOpen, modalContent };
 }
