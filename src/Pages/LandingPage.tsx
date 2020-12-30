@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchPairConnect from '../Landing/SearchPairConnect';
 import CallToAction from '../Landing/CallToAction';
+import WhatIsPairboarding from '../Landing/WhatIsPairboarding';
 import styled from 'styled-components';
 import mesh from '../Assets/landing-mesh.png';
 import LandingHeader from '../Landing/Header';
@@ -10,12 +11,15 @@ import IOWall from '../Components/Animated/IOWall';
 
 export default function LandingPage() {
     return (
-        <StyledLandingPage>
-            <IOWall />
-            <LandingHeader />
-            <CallToAction />
-            <SearchPairConnect />
-        </StyledLandingPage>
+        <>
+            <StyledLandingPage>
+                <IOWall />
+                <LandingHeader />
+                <CallToAction />
+                <SearchPairConnect />
+            </StyledLandingPage>
+            <WhatIsPairboarding />
+        </>
     );
 }
 

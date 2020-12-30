@@ -3,10 +3,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { CurrentDevContext } from './Application';
 import Header from './Components/Nav/Header';
 import Footer from './Components/Nav/Footer';
-import LandingPage from './Pages/LandingPage';
 import LoadingPage from './Pages/LoadingPage';
 import Modal from './Components/Modal/Modal';
 
+const LandingPage = lazy(() => import('./Pages/LandingPage'));
 const ProfilePage = lazy(() => import('./Pages/ProfilePage'));
 const HomePage = lazy(() => import('./Pages/HomePage'));
 const RoomPage = lazy(() => import('./Pages/RoomPage'));
@@ -16,7 +16,10 @@ const TeamPage = lazy(() => import('./Pages/TeamPage'));
 
 export default function Routing() {
     const currentDev = useContext(CurrentDevContext);
+    // const currentDev = undefined;
     // console.log(currentDev);
+
+    // return <LoadingPage />;
 
     if (currentDev) {
         if (currentDev.roomId) {
@@ -46,7 +49,9 @@ export default function Routing() {
         return (
             <BrowserRouter>
                 <Modal />
-                <LandingPage />
+                <Suspense fallback={<LoadingPage />}>
+                    <LandingPage />
+                </Suspense>
                 <Footer />
             </BrowserRouter>
         );

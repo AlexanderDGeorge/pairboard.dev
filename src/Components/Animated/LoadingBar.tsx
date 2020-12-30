@@ -2,11 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 export default function LoadingBar() {
-    return (
-        <StyledLoadingBar>
-            <div></div>
-        </StyledLoadingBar>
-    );
+    return <StyledLoadingBar>{/* <div></div> */}</StyledLoadingBar>;
 }
 
 const load = keyframes`
@@ -19,24 +15,44 @@ const load = keyframes`
     }
 `;
 
+const moveGradient = keyframes`
+    50% {
+        background-position: 100% 50%;
+    }
+`;
+
 const StyledLoadingBar = styled.div`
-    height: 10%;
-    min-height: 20px;
-    width: 80%;
-    margin: 10px;
-    border-radius: 50px;
+    position: relative;
+    height: 40vw;
+    width: 40vw;
+    border-radius: 50%;
     box-shadow: 0 0 10px -2px ${(props) => props.theme.verydark};
     background-color: transparent;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: ${(props) =>
-        `linear-gradient(40deg, ${props.theme.orange}, ${props.theme.yellow}, ${props.theme.green}, ${props.theme.blue})`};
-    > div {
-        height: 100%;
+    /* background-image: ${(props) =>
+        `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple})`}; */
+    &::before {
+        z-index: 1;
+        position: absolute;
+        height: 30vw;
+        width: 30vw;
+        border-radius: 50%;
+        background: white;
+        content: '';
+    }
+    &::after {
+        position: absolute;
+        content: '';
+        left: 0;
         width: 100%;
-        animation: ${load} 2s linear alternate infinite;
-        background-color: rgba(250, 250, 250, 0.5);
+        height: 100%;
+        background: ${(props) =>
+            `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue}, ${props.theme.purple})`};
+        background-size: 300% 300%;
+        background-position: 0 50%;
+        animation: ${moveGradient} 2s infinite;
     }
 `;

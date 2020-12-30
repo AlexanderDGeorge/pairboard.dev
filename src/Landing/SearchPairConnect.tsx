@@ -56,7 +56,6 @@ const StyledSearchPairConnect = styled.div`
         > p {
             text-align: center;
             font-size: 1.3em;
-            font-weight: 100;
         }
     }
 `;
