@@ -1,7 +1,6 @@
-import React from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { useSpring, animated } from 'react-spring';
-import { Keyframes } from 'react-spring/renderprops';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useSpring, animated, interpolate } from 'react-spring';
 
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
@@ -23,113 +22,64 @@ const generateStreamPos = () => {
 
 const ioStream = generateIOStream();
 const streamPos = generateStreamPos();
-const delay = Math.random();
 const calc = (x) => x - window.innerWidth / 2;
 
-const Stream = Keyframes.Spring(async (next) => {
-    while (true) {
-        await next({
-            y: '-100%',
-            from: { y: '100%' },
-            reset: true,
-            config: {
-                duration: 50000,
-            },
-        });
-    }
-});
-
 export default function IOWall() {
+    useEffect(() => {
+        function handleMouseMove(e) {
+            set({ x: calc(e.clientX) });
+        }
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
     const [props, set] = useSpring(() => ({
         x: 0,
     }));
 
     return (
         <StyledIOWall>
-            <EventWrapper
-                onMouseMove={({ clientX: x }) => set({ x: calc(x) })}
-            />
-            <Stream>
-                {({ y }) => {
-                    return [...streamPos].map((left, i) => {
-                        switch (left % 3) {
-                            case 0:
-                                return (
-                                    <SmallIOStream
-                                        key={i}
-                                        style={{
-                                            animationDelay: `${i * delay}s`,
-                                            transform: props.x.interpolate(
-                                                (x) =>
-                                                    `translate3d(${
-                                                        x / 30
-                                                    }px, ${y}, 0)`,
-                                            ),
-                                            left: `${left}%`,
-                                        }}
-                                    >
-                                        {ioStream.map((num) => num)}
-                                    </SmallIOStream>
-                                );
-                            case 1:
-                                return (
-                                    <MediumIOStream
-                                        key={i}
-                                        style={{
-                                            animationDelay: `${i * delay}s`,
-                                            transform: props.x.interpolate(
-                                                (x) =>
-                                                    `translate3d(${
-                                                        x / 40
-                                                    }px, ${y}, 0)`,
-                                            ),
-                                            left: `${left}%`,
-                                        }}
-                                    >
-                                        {ioStream.map((num) => num)}
-                                    </MediumIOStream>
-                                );
-                            case 2:
-                                return (
-                                    <LargeIOStream
-                                        key={i}
-                                        style={{
-                                            animationDelay: `${i * delay}s`,
-
-                                            transform: props.x.interpolate(
-                                                (x) =>
-                                                    `translate3d(${
-                                                        x / 50
-                                                    }px, ${y}, 0)`,
-                                            ),
-                                            left: `${left}%`,
-                                        }}
-                                    >
-                                        {ioStream.map((num) => num)}
-                                    </LargeIOStream>
-                                );
-                            default:
-                                return (
-                                    <SmallIOStream
-                                        key={i}
-                                        style={{
-                                            transform: props.x.interpolate(
-                                                (x) =>
-                                                    `translate3d(${
-                                                        x / 10
-                                                    }px, ${y}, 0)`,
-                                            ),
-                                            left: `${left}%`,
-                                        }}
-                                    >
-                                        {ioStream.map((num) => num)}
-                                    </SmallIOStream>
-                                );
-                        }
-                    });
-                }}
-            </Stream>
+            {[...streamPos].map((left, i) => (
+                <IOStream left={left} key={i} x={props.x} />
+            ))}
         </StyledIOWall>
+    );
+}
+
+function IOStream(props) {
+    const { left, x } = props;
+    const random = Math.random();
+
+    const { y } = useSpring({
+        to: {
+            y: '-100%',
+        },
+        from: {
+            y: '100%',
+        },
+        config: {
+            duration: 75000 * random,
+        },
+        reset: true,
+    });
+    return (
+        <StyledIOStream
+            style={{
+                transform: interpolate(
+                    [y, x],
+                    (y, x) =>
+                        `translate3d(${(x / 5) * (1 - random)}px, ${y}, ${
+                            250 * random
+                        }px)`,
+                ),
+                left: `${left}%`,
+                opacity: random,
+            }}
+        >
+            {ioStream.map((num) => num)}
+        </StyledIOStream>
     );
 }
 
@@ -141,33 +91,14 @@ const StyledIOWall = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 800px;
 `;
 
-const EventWrapper = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 5;
-`;
-
-const falling = keyframes`
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(-100%);
-    }
-`;
-
-const columnStyling = css`
+const StyledIOStream = styled(animated.div)`
     position: absolute;
     height: 100%;
-    /* animation-name: ${falling}; */
-    /* animation-timing-function: linear; */
     font-family: monospace;
     text-align: center;
     text-orientation: upright;
@@ -177,24 +108,4 @@ const columnStyling = css`
     justify-content: center;
     align-items: center;
     cursor: default;
-`;
-
-const SmallIOStream = styled(animated.div)`
-    ${columnStyling};
-    animation-duration: 50s;
-    opacity: 0.3;
-    font-size: 0.7em;
-`;
-
-const MediumIOStream = styled(animated.div)`
-    ${columnStyling};
-    animation-duration: 40s;
-    opacity: 0.5;
-    font-size: 1em;
-`;
-
-const LargeIOStream = styled(animated.div)`
-    ${columnStyling};
-    opacity: 0.7;
-    font-size: 1.3em;
 `;
