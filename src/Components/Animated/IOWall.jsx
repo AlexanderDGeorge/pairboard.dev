@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useSpring, animated, interpolate } from 'react-spring';
+import { useSpring, animated, interpolate, config } from 'react-spring';
 
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
@@ -53,16 +53,18 @@ function IOStream(props) {
     const random = Math.random();
 
     const { y } = useSpring({
-        to: {
-            y: '-100%',
-        },
         from: {
             y: '100%',
+        },
+        to: async (next) => {
+            while (1) {
+                await next({ y: '-100%' });
+                await next({ y: '100%' });
+            }
         },
         config: {
             duration: 75000 * random,
         },
-        reset: true,
     });
     return (
         <StyledIOStream
