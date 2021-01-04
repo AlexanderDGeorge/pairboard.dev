@@ -46,7 +46,7 @@ const StyledModal = styled.div`
     height: 100%;
     width: 100%;
     padding: 2% 15%;
-    background-color: rgba(0, 0, 0, 0.4);
+    /* background-color: rgba(0, 0, 0, 0.4); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,10 +70,10 @@ const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 4px 4px 20px -6px ${(props) => props.theme.black};
+    /* box-shadow: 4px 4px 20px -6px ${(props) => props.theme.black}; */
     /* background: ${(props) =>
         `radial-gradient(ellipse at -40% -150%, ${props.theme.white} 36%, transparent)`}; */
-    backdrop-filter: blur(8px);
+    /* backdrop-filter: blur(8px); */
     background: white;
     cursor: default;
     overflow-y: auto;

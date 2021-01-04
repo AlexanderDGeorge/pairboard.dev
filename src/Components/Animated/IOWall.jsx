@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useSpring, animated, interpolate, config } from 'react-spring';
+import { useSpring, animated, interpolate } from 'react-spring';
 
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
@@ -14,7 +14,7 @@ const generateIOStream = () => {
 
 const generateStreamPos = () => {
     const temp = new Set();
-    while (temp.size < 50) {
+    while (temp.size < 30) {
         temp.add(getRandomInt(101));
     }
     return temp;
@@ -25,6 +25,13 @@ const streamPos = generateStreamPos();
 const calc = (x) => x - window.innerWidth / 2;
 
 export default function IOWall() {
+    const [props, set] = useSpring(() => ({
+        x: 0,
+    }));
+
+    console.log(ioStream);
+    console.log(streamPos);
+
     useEffect(() => {
         function handleMouseMove(e) {
             set({ x: calc(e.clientX) });
@@ -33,51 +40,47 @@ export default function IOWall() {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };
-    }, []);
-
-    const [props, set] = useSpring(() => ({
-        x: 0,
-    }));
+    }, [set]);
 
     return (
         <StyledIOWall>
             {[...streamPos].map((left, i) => (
-                <IOStream left={left} key={i} x={props.x} />
+                <IOStream left={left} key={i} i={i - 15} x={props.x} />
             ))}
         </StyledIOWall>
     );
 }
 
-function IOStream(props) {
-    const { left, x } = props;
-    const random = Math.random();
+function IOStream({ left, i, x }) {
+    const random = useRef(Math.random());
+
+    console.log(left, i, x);
 
     const { y } = useSpring({
         from: {
             y: '100%',
         },
-        to: async (next) => {
-            while (1) {
-                await next({ y: '-100%' });
-                await next({ y: '100%' });
-            }
+        to: {
+            y: '-100%',
         },
         config: {
-            duration: 75000 * random,
+            duration: 75000 * random.current,
         },
+        reset: true,
     });
+
     return (
         <StyledIOStream
             style={{
                 transform: interpolate(
                     [y, x],
                     (y, x) =>
-                        `translate3d(${(x / 5) * (1 - random)}px, ${y}, ${
-                            250 * random
-                        }px)`,
+                        `translate3d(${
+                            (x / 5) * (1 - random.current)
+                        }px, ${y}, ${10 * random.current * Math.abs(i)}px)`,
                 ),
                 left: `${left}%`,
-                opacity: random,
+                opacity: random.current,
             }}
         >
             {ioStream.map((num) => num)}

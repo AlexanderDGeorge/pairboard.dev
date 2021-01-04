@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { StyledField } from '../styled-components/StyledField';
-import {
-    StyledButton,
-    StyledButtonRow,
-} from '../styled-components/StyledButtons';
+// import { StyledButton } from '../styled-components/StyledButtons';
 import useSignup from './util/useSignup';
 import LoadingBar from '../Components/Animated/LoadingBar';
 import { validateUsername, validateEmail } from '../util/validationFunctions';
@@ -66,14 +63,12 @@ export default function SignupForm(props: { setTopError: Function }) {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
-                    <StyledButtonRow>
-                        <StyledButton
-                            type="submit"
-                            disabled={!isValid || status === 'loading'}
-                        >
-                            {status === 'loading' ? <LoadingBar /> : 'Sign Up'}
-                        </StyledButton>
-                    </StyledButtonRow>
+                    <button
+                        type="submit"
+                        disabled={!isValid || status === 'loading'}
+                    >
+                        {status === 'loading' ? <LoadingBar /> : 'Sign Up'}
+                    </button>
                 </Form>
             )}
         </Formik>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import SignupForm from './SignupForm';
 import ProviderSignupForm from './ProviderSignupForm';
-import { StyledH1 } from '../styled-components/StyledHeadings';
+// import { StyledH1 } from '../styled-components/StyledHeadings';
 import { StyledHorDiv } from './LoginModal';
 import { MdError } from 'react-icons/md';
 
@@ -11,7 +11,7 @@ export default function SignupModal() {
 
     return (
         <>
-            <StyledH1>Sign Up</StyledH1>
+            <h1>Sign Up</h1>
             {topError ? (
                 <TopError>
                     <MdError />
