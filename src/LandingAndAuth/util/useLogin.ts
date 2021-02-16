@@ -9,6 +9,12 @@ export default function useLogin() {
     const [error, setError] = useState<string | undefined>(undefined);
     const { handleModal } = useContext(ModalContext)!;
 
+    const handleError = (err: any) => {
+        console.error(err.message);
+        setError(err.message);
+        setStatus('error');
+    };
+
     async function loginWithEmail(email: string, password: string) {
         setError(undefined);
         setStatus('loading');
@@ -17,9 +23,7 @@ export default function useLogin() {
             setStatus('success');
             handleModal();
         } catch (err) {
-            console.error(err.message);
-            setError(err.message);
-            setStatus('error');
+            handleError(err);
         }
     }
 
@@ -31,11 +35,21 @@ export default function useLogin() {
             setStatus('success');
             handleModal();
         } catch (err) {
-            console.error(err.message);
-            setError(err.message);
-            setStatus('error');
+            handleError(err);
         }
     }
 
-    return { status, error, loginWithEmail, loginWithGithub };
+    async function loginAsDemo() {
+        setError(undefined);
+        setStatus('loading');
+        try {
+            await auth.signInWithEmailAndPassword('demo@email.com', 'password');
+            setStatus('success');
+            handleModal();
+        } catch (err) {
+            handleError(err);
+        }
+    }
+
+    return { status, error, loginWithEmail, loginWithGithub, loginAsDemo };
 }

@@ -70,11 +70,12 @@ const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* box-shadow: 4px 4px 20px -6px ${(props) => props.theme.black}; */
+    box-shadow: 4px 4px 20px -6px ${(props) => props.theme.black};
+    background-color: ${(props) => props.theme.white};
     /* background: ${(props) =>
         `radial-gradient(ellipse at -40% -150%, ${props.theme.white} 36%, transparent)`}; */
     /* backdrop-filter: blur(8px); */
-    background: white;
+    /* background: white; */
     cursor: default;
     overflow-y: auto;
 `;

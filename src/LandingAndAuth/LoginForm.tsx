@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { StyledField } from '../styled-components/StyledField';
-import {
-    StyledButton,
-    StyledButtonRow,
-} from '../styled-components/StyledButtons';
+import { StyledButton } from '../styled-components/StyledButtons';
 import styled from 'styled-components';
 import { MdError } from 'react-icons/md';
 import LoadingBar from '../Components/Animated/LoadingBar';
@@ -44,7 +41,7 @@ export default function LoginForm() {
             onSubmit={(values) => loginWithEmail(values.email, values.password)}
         >
             {({ isValid }) => (
-                <Form style={{ width: '100%' }}>
+                <StyledForm>
                     {topError ? (
                         <TopError>
                             <MdError /> {topError}{' '}
@@ -60,19 +57,23 @@ export default function LoginForm() {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
-                    <StyledButtonRow>
-                        <StyledButton
-                            disabled={!isValid || status === 'loading'}
-                            type="submit"
-                        >
-                            {status === 'loading' ? <LoadingBar /> : 'Sign In'}
-                        </StyledButton>
-                    </StyledButtonRow>
-                </Form>
+                    <StyledButton
+                        disabled={!isValid || status === 'loading'}
+                        type="submit"
+                    >
+                        {status === 'loading' ? <LoadingBar /> : 'Sign In'}
+                    </StyledButton>
+                </StyledForm>
             )}
         </Formik>
     );
 }
+
+const StyledForm = styled(Form)`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`;
 
 const TopError = styled.div`
     height: 30px;

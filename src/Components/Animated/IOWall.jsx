@@ -29,9 +29,6 @@ export default function IOWall() {
         x: 0,
     }));
 
-    console.log(ioStream);
-    console.log(streamPos);
-
     useEffect(() => {
         function handleMouseMove(e) {
             set({ x: calc(e.clientX) });
@@ -51,10 +48,8 @@ export default function IOWall() {
     );
 }
 
-function IOStream({ left, i, x }) {
+const IOStream = React.memo(({ left, i, x }) => {
     const random = useRef(Math.random());
-
-    console.log(left, i, x);
 
     const { y } = useSpring({
         from: {
@@ -66,7 +61,6 @@ function IOStream({ left, i, x }) {
         config: {
             duration: 75000 * random.current,
         },
-        reset: true,
     });
 
     return (
@@ -86,7 +80,7 @@ function IOStream({ left, i, x }) {
             {ioStream.map((num) => num)}
         </StyledIOStream>
     );
-}
+});
 
 const StyledIOWall = styled.div`
     position: absolute;
@@ -113,4 +107,5 @@ const StyledIOStream = styled(animated.div)`
     justify-content: center;
     align-items: center;
     cursor: default;
+    animation-iteration-count: infinite;
 `;

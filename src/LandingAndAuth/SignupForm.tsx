@@ -5,6 +5,8 @@ import { StyledField } from '../styled-components/StyledField';
 import useSignup from './util/useSignup';
 import LoadingBar from '../Components/Animated/LoadingBar';
 import { validateUsername, validateEmail } from '../util/validationFunctions';
+import { StyledButton } from '../styled-components/StyledButtons';
+import styled from 'styled-components';
 
 export default function SignupForm(props: { setTopError: Function }) {
     const { setTopError } = props;
@@ -47,7 +49,7 @@ export default function SignupForm(props: { setTopError: Function }) {
             }
         >
             {({ isValid }) => (
-                <Form style={{ width: '100%' }}>
+                <StyledForm>
                     <StyledField>
                         <label htmlFor="username">username</label>
                         <Field type="text" name="username" />
@@ -63,14 +65,20 @@ export default function SignupForm(props: { setTopError: Function }) {
                         <Field type="password" name="password" />
                         <ErrorMessage name="password" component="p" />
                     </StyledField>
-                    <button
+                    <StyledButton
                         type="submit"
                         disabled={!isValid || status === 'loading'}
                     >
                         {status === 'loading' ? <LoadingBar /> : 'Sign Up'}
-                    </button>
-                </Form>
+                    </StyledButton>
+                </StyledForm>
             )}
         </Formik>
     );
 }
+
+const StyledForm = styled(Form)`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`;
