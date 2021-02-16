@@ -4,14 +4,13 @@ import LoginForm from './LoginForm';
 import { FaGithub } from 'react-icons/fa';
 import { StyledGithubButton } from '../styled-components/StyledButtons';
 import useLogin from './util/useLogin';
-import { StyledH1 } from '../styled-components/StyledHeadings';
 
 export default function LoginModal() {
-    const { loginWithGithub } = useLogin();
+    const { loginWithGithub, loginAsDemo } = useLogin();
 
     return (
         <>
-            <StyledH1>Sign In</StyledH1>
+            <h1 style={{ marginBottom: 10 }}>Sign In</h1>
             <StyledGithubButton onClick={loginWithGithub}>
                 <FaGithub />
                 Sign In with Github
@@ -22,6 +21,7 @@ export default function LoginModal() {
                 <div></div>
             </StyledHorDiv>
             <LoginForm />
+            <DemoButton onClick={loginAsDemo}>log in as a demo user</DemoButton>
         </>
     );
 }
@@ -50,5 +50,15 @@ export const StyledHorDiv = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+`;
+
+const DemoButton = styled.button`
+    background: transparent;
+    color: ${(props) => props.theme.blue};
+    margin: 10px 0;
+    outline: none;
+    &:hover {
+        text-decoration: underline;
     }
 `;

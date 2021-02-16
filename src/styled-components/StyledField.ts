@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledField = styled.ul`
     position: relative;
@@ -14,6 +14,8 @@ export const StyledField = styled.ul`
         font-weight: 500;
         color: ${(props) => props.theme.dark};
         background-color: ${(props) => props.theme.white};
+        border-left: 2px solid ${(props) => props.theme.verydark};
+        border-top: 2px solid ${(props) => props.theme.verydark};
     }
     input,
     select {
@@ -51,7 +53,7 @@ export const StyledField = styled.ul`
     > p {
         position: absolute;
         width: calc(100% - 4px);
-        border-bottom: 2px solid ${props => props.theme.red};
+        border-bottom: 2px solid ${(props) => props.theme.red};
         font-weight: 500;
         color: ${(props) => props.theme.red};
         background-color: ${(props) => props.theme.white};

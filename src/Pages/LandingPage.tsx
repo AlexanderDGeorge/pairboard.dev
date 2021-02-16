@@ -1,10 +1,10 @@
 import React from 'react';
-import SearchPairConnect from '../Landing/SearchPairConnect';
-import CallToAction from '../Landing/CallToAction';
-import WhatIsPairboarding from '../Landing/WhatIsPairboarding';
+import SearchPairConnect from '../LandingAndAuth/SearchPairConnect';
+import CallToAction from '../LandingAndAuth/CallToAction';
+import WhatIsPairboarding from '../LandingAndAuth/WhatIsPairboarding';
 import styled from 'styled-components';
 import mesh from '../Assets/landing-mesh.png';
-import LandingHeader from '../Landing/Header';
+import LandingHeader from '../LandingAndAuth/Header';
 import IOWall from '../Components/Animated/IOWall';
 
 // const mesh = lazy(() => import('../Assets/landing-mesh'));

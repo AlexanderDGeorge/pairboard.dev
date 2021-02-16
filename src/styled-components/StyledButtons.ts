@@ -14,6 +14,8 @@ export const StyledButton = styled.button`
         `linear-gradient(140deg, ${props.theme.green}, ${props.theme.blue})`};
     color: ${(props) => props.theme.white};
     outline: none;
+    justify-self: center;
+    align-self: center;
     display: flex;
     align-items: center;
     justify-content: center;
