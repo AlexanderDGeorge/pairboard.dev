@@ -39,12 +39,12 @@ const StyledProfileCard = styled.div`
     padding-right: 90px;
     border-radius: 2vw;
     background-color: ${(props) => props.theme.white};
-    box-shadow: 0 5px 20px -8px ${(props) => props.theme.verydark};
+    box-shadow: 0 5px 8px -8px ${(props) => props.theme.verydark};
     display: flex;
     justify-content: space-between;
     overflow: hidden;
     &:hover {
-        box-shadow: 0 5px 20px -8px ${(props) => props.theme.white};
+        box-shadow: 0 5px 12px -8px ${(props) => props.theme.verydark};
     }
 `;
 

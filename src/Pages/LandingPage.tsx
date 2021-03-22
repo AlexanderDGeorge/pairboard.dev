@@ -18,7 +18,7 @@ export default function LandingPage() {
                 <CallToAction />
                 <SearchPairConnect />
             </StyledLandingPage>
-            <WhatIsPairboarding />
+            {/* <WhatIsPairboarding /> */}
         </>
     );
 }
